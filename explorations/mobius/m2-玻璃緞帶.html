@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%233D8BFF'/><path d='M10 26.5 16.5 20l4.5 4.2 8-9.7' fill='none' stroke='%23fff' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="assets/ftl.css">
+<title data-en="NCCU FinTech Innovation Lab">Möbius 2（玻璃緞帶） ｜  NCCU FinTech Innovation Lab</title>
+<meta name="description" content="政大第一個 FinTech 學術社團。週報、產學合作、自主專案、社課與工作坊。">
+<style>
+
+/* 方案 2｜玻璃緞帶：畫出帶子的面，依深度上色。取代巨型「創新」，
+   讓兩片玻璃終於有一個真的物件可以糊。 */
+.mob{ position:absolute; z-index:0; pointer-events:none; }
+/* ⚠️ 位置是量出來的，不是憑感覺：hero 右側被兩片玻璃（686–1206 × 148–637）佔滿，
+   幾何放在那後面會被 46–74% 白 ＋ blur(30px) 洗掉。試了四個位置量「露出玻璃外的比例」，
+   這組露出 63% 且標題區保持乾淨。 */
+.mob--hero{ right:-24vw; top:-30%; width:min(1560px,122vw); aspect-ratio:1; }
+/* 幾何放大後會掃過左邊的文字欄，lead 段落掉到 2.78:1。
+   用一道水平遮罩讓它在文字區淡出——右邊完整、左邊消失。
+   （元素寬 1560px 從 x≈27 起算，文字欄結束在 x≈643，約落在 40%） */
+.mob--hero{
+  -webkit-mask-image:linear-gradient(96deg, transparent 0%, transparent 34%, #000 56%, #000 100%);
+  mask-image:linear-gradient(96deg, transparent 0%, transparent 34%, #000 56%, #000 100%);
+}
+.mob--hero svg{ width:100%; height:100%; display:block; }
+.mob--hero .mob__spin{ transform-origin:260px 260px; animation:mobspin 180s linear infinite; }
+@keyframes mobspin{ to{ transform:rotate(360deg) } }
+@media (prefers-reduced-motion:reduce){ .mob--hero .mob__spin{ animation:none } }
+@media (max-width:940px){ .mob--hero{ right:-26vw; width:120vw; opacity:.55 } }
+
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<main id="main" class="page">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero__wash" aria-hidden="true"></div>
+    <span class="hero__bloom" aria-hidden="true"></span>
+    <div class="mob mob--hero" aria-hidden="true">
+      <svg viewBox="0 0 520 520"><g class="mob__spin"><path d="M258.0 166.1 L258.7 166.7 L260.9 167.2 L261.4 165.6 Z" fill="rgb(8,42,146)" fill-opacity="0.300"/><path d="M261.4 165.6 L260.9 167.2 L263.1 167.7 L264.7 165.2 Z" fill="rgb(8,42,146)" fill-opacity="0.300"/><path d="M254.7 166.6 L256.5 166.3 L258.7 166.7 L258.0 166.1 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M264.7 165.2 L263.1 167.7 L265.3 168.3 L268.1 164.9 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M251.4 167.2 L254.2 165.9 L256.5 166.3 L254.7 166.6 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M268.1 164.9 L265.3 168.3 L267.5 168.9 L271.5 164.6 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M248.2 167.9 L251.9 165.6 L254.2 165.9 L251.4 167.2 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M271.5 164.6 L267.5 168.9 L269.6 169.5 L274.9 164.4 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M244.9 168.6 L249.7 165.3 L251.9 165.6 L248.2 167.9 Z" fill="rgb(8,42,146)" fill-opacity="0.301"/><path d="M274.9 164.4 L269.6 169.5 L271.7 170.2 L278.3 164.2 Z" fill="rgb(8,42,146)" fill-opacity="0.302"/><path d="M241.7 169.4 L247.4 165.1 L249.7 165.3 L244.9 168.6 Z" fill="rgb(8,42,146)" fill-opacity="0.302"/><path d="M278.3 164.2 L271.7 170.2 L273.8 170.9 L281.7 164.1 Z" fill="rgb(8,42,146)" fill-opacity="0.302"/><path d="M238.5 170.3 L245.0 164.9 L247.4 165.1 L241.7 169.4 Z" fill="rgb(8,42,146)" fill-opacity="0.302"/><path d="M281.7 164.1 L273.8 170.9 L275.9 171.7 L285.1 164.1 Z" fill="rgb(8,43,146)" fill-opacity="0.302"/><path d="M235.3 171.2 L242.7 164.7 L245.0 164.9 L238.5 170.3 Z" fill="rgb(8,43,146)" fill-opacity="0.302"/><path d="M285.1 164.1 L275.9 171.7 L277.9 172.5 L288.5 164.2 Z" fill="rgb(8,43,147)" fill-opacity="0.303"/><path d="M232.2 172.2 L240.4 164.6 L242.7 164.7 L235.3 171.2 Z" fill="rgb(8,43,147)" fill-opacity="0.303"/><path d="M288.5 164.2 L277.9 172.5 L279.9 173.3 L291.9 164.3 Z" fill="rgb(8,43,147)" fill-opacity="0.304"/><path d="M229.1 173.2 L238.1 164.6 L240.4 164.6 L232.2 172.2 Z" fill="rgb(8,43,147)" fill-opacity="0.304"/><path d="M291.9 164.3 L279.9 173.3 L281.9 174.2 L295.4 164.5 Z" fill="rgb(9,44,147)" fill-opacity="0.305"/><path d="M226.1 174.3 L235.7 164.6 L238.1 164.6 L229.1 173.2 Z" fill="rgb(9,44,147)" fill-opacity="0.305"/><path d="M295.4 164.5 L281.9 174.2 L283.9 175.1 L298.8 164.8 Z" fill="rgb(9,44,147)" fill-opacity="0.306"/><path d="M223.1 175.5 L233.4 164.6 L235.7 164.6 L226.1 174.3 Z" fill="rgb(9,44,147)" fill-opacity="0.306"/><path d="M298.8 164.8 L283.9 175.1 L285.8 176.0 L302.2 165.2 Z" fill="rgb(9,44,148)" fill-opacity="0.307"/><path d="M220.1 176.7 L231.0 164.7 L233.4 164.6 L223.1 175.5 Z" fill="rgb(9,44,148)" fill-opacity="0.307"/><path d="M302.2 165.2 L285.8 176.0 L287.7 177.0 L305.5 165.6 Z" fill="rgb(9,45,148)" fill-opacity="0.307"/><path d="M217.2 178.0 L228.6 164.8 L231.0 164.7 L220.1 176.7 Z" fill="rgb(9,45,148)" fill-opacity="0.307"/><path d="M305.5 165.6 L287.7 177.0 L289.6 178.0 L308.9 166.0 Z" fill="rgb(10,45,148)" fill-opacity="0.309"/><path d="M214.3 179.3 L226.3 165.0 L228.6 164.8 L217.2 178.0 Z" fill="rgb(10,45,148)" fill-opacity="0.309"/><path d="M308.9 166.0 L289.6 178.0 L291.4 179.1 L312.3 166.6 Z" fill="rgb(10,46,149)" fill-opacity="0.310"/><path d="M211.5 180.7 L223.9 165.3 L226.3 165.0 L214.3 179.3 Z" fill="rgb(10,46,149)" fill-opacity="0.310"/><path d="M312.3 166.6 L291.4 179.1 L293.2 180.1 L315.6 167.2 Z" fill="rgb(10,46,149)" fill-opacity="0.312"/><path d="M208.7 182.1 L221.6 165.6 L223.9 165.3 L211.5 180.7 Z" fill="rgb(10,46,149)" fill-opacity="0.312"/><path d="M315.6 167.2 L293.2 180.1 L295.0 181.2 L318.9 167.9 Z" fill="rgb(10,47,149)" fill-opacity="0.312"/><path d="M206.0 183.5 L219.2 165.9 L221.6 165.6 L208.7 182.1 Z" fill="rgb(11,47,150)" fill-opacity="0.313"/><path d="M318.9 167.9 L295.0 181.2 L296.8 182.4 L322.2 168.6 Z" fill="rgb(11,47,150)" fill-opacity="0.314"/><path d="M203.3 185.1 L216.8 166.3 L219.2 165.9 L206.0 183.5 Z" fill="rgb(11,48,150)" fill-opacity="0.315"/><path d="M322.2 168.6 L296.8 182.4 L298.5 183.6 L325.5 169.5 Z" fill="rgb(11,48,150)" fill-opacity="0.316"/><path d="M200.7 186.6 L214.5 166.8 L216.8 166.3 L203.3 185.1 Z" fill="rgb(11,48,150)" fill-opacity="0.316"/><path d="M325.5 169.5 L298.5 183.6 L300.2 184.8 L328.8 170.4 Z" fill="rgb(12,49,151)" fill-opacity="0.317"/><path d="M198.1 188.2 L212.2 167.3 L214.5 166.8 L200.7 186.6 Z" fill="rgb(12,49,151)" fill-opacity="0.317"/><path d="M328.8 170.4 L300.2 184.8 L301.8 186.0 L332.0 171.3 Z" fill="rgb(12,49,151)" fill-opacity="0.319"/><path d="M195.6 189.9 L209.8 167.8 L212.2 167.3 L198.1 188.2 Z" fill="rgb(12,50,152)" fill-opacity="0.320"/><path d="M332.0 171.3 L301.8 186.0 L303.4 187.3 L335.2 172.3 Z" fill="rgb(12,50,152)" fill-opacity="0.321"/><path d="M193.1 191.6 L207.5 168.4 L209.8 167.8 L195.6 189.9 Z" fill="rgb(13,50,152)" fill-opacity="0.321"/><path d="M335.2 172.3 L303.4 187.3 L305.0 188.5 L338.3 173.4 Z" fill="rgb(13,51,153)" fill-opacity="0.323"/><path d="M190.7 193.3 L205.2 169.1 L207.5 168.4 L193.1 191.6 Z" fill="rgb(13,51,153)" fill-opacity="0.323"/><path d="M338.3 173.4 L305.0 188.5 L306.5 189.9 L341.4 174.6 Z" fill="rgb(13,52,153)" fill-opacity="0.325"/><path d="M188.4 195.1 L202.9 169.8 L205.2 169.1 L190.7 193.3 Z" fill="rgb(13,52,153)" fill-opacity="0.325"/><path d="M341.4 174.6 L306.5 189.9 L308.0 191.2 L344.5 175.8 Z" fill="rgb(14,53,154)" fill-opacity="0.326"/><path d="M186.1 196.9 L200.6 170.5 L202.9 169.8 L188.4 195.1 Z" fill="rgb(14,53,154)" fill-opacity="0.327"/><path d="M344.5 175.8 L308.0 191.2 L309.5 192.6 L347.5 177.1 Z" fill="rgb(14,54,155)" fill-opacity="0.329"/><path d="M183.9 198.8 L198.3 171.3 L200.6 170.5 L186.1 196.9 Z" fill="rgb(14,54,155)" fill-opacity="0.329"/><path d="M347.5 177.1 L309.5 192.6 L310.9 193.9 L350.5 178.5 Z" fill="rgb(15,55,155)" fill-opacity="0.331"/><path d="M181.7 200.7 L196.1 172.2 L198.3 171.3 L183.9 198.8 Z" fill="rgb(15,55,155)" fill-opacity="0.331"/><path d="M350.5 178.5 L310.9 193.9 L312.3 195.4 L353.5 179.9 Z" fill="rgb(15,55,156)" fill-opacity="0.333"/><path d="M179.6 202.6 L193.9 173.1 L196.1 172.2 L181.7 200.7 Z" fill="rgb(15,56,156)" fill-opacity="0.334"/><path d="M353.5 179.9 L312.3 195.4 L313.7 196.8 L356.4 181.3 Z" fill="rgb(16,56,157)" fill-opacity="0.335"/><path d="M177.6 204.6 L191.6 174.1 L193.9 173.1 L179.6 202.6 Z" fill="rgb(16,56,157)" fill-opacity="0.335"/><path d="M356.4 181.3 L313.7 196.8 L315.0 198.2 L359.2 182.9 Z" fill="rgb(16,57,157)" fill-opacity="0.338"/><path d="M175.6 206.6 L189.4 175.1 L191.6 174.1 L177.6 204.6 Z" fill="rgb(16,57,157)" fill-opacity="0.338"/><path d="M359.2 182.9 L315.0 198.2 L316.3 199.7 L362.0 184.5 Z" fill="rgb(17,58,158)" fill-opacity="0.340"/><path d="M173.7 208.6 L187.3 176.2 L189.4 175.1 L175.6 206.6 Z" fill="rgb(17,58,158)" fill-opacity="0.340"/><path d="M362.0 184.5 L316.3 199.7 L317.5 201.2 L364.8 186.1 Z" fill="rgb(18,60,159)" fill-opacity="0.343"/><path d="M171.9 210.6 L185.1 177.3 L187.3 176.2 L173.7 208.6 Z" fill="rgb(18,60,159)" fill-opacity="0.343"/><path d="M364.8 186.1 L317.5 201.2 L318.7 202.7 L367.4 187.9 Z" fill="rgb(18,61,160)" fill-opacity="0.345"/><path d="M170.1 212.7 L183.0 178.4 L185.1 177.3 L171.9 210.6 Z" fill="rgb(18,61,160)" fill-opacity="0.345"/><path d="M367.4 187.9 L318.7 202.7 L319.9 204.3 L370.1 189.6 Z" fill="rgb(19,62,160)" fill-opacity="0.348"/><path d="M168.4 214.8 L180.9 179.7 L183.0 178.4 L170.1 212.7 Z" fill="rgb(19,62,161)" fill-opacity="0.349"/><path d="M370.1 189.6 L319.9 204.3 L321.0 205.8 L372.6 191.4 Z" fill="rgb(19,63,161)" fill-opacity="0.350"/><path d="M166.8 216.9 L178.9 180.9 L180.9 179.7 L168.4 214.8 Z" fill="rgb(20,63,162)" fill-opacity="0.351"/><path d="M372.6 191.4 L321.0 205.8 L322.1 207.4 L375.1 193.3 Z" fill="rgb(20,64,162)" fill-opacity="0.354"/><path d="M165.3 219.1 L176.9 182.2 L178.9 180.9 L166.8 216.9 Z" fill="rgb(20,64,162)" fill-opacity="0.354"/><path d="M375.1 193.3 L322.1 207.4 L323.2 209.0 L377.6 195.3 Z" fill="rgb(21,65,163)" fill-opacity="0.356"/><path d="M163.8 221.2 L174.9 183.6 L176.9 182.2 L165.3 219.1 Z" fill="rgb(21,65,163)" fill-opacity="0.357"/><path d="M377.6 195.3 L323.2 209.0 L324.2 210.6 L380.0 197.2 Z" fill="rgb(21,66,164)" fill-opacity="0.359"/><path d="M162.4 223.4 L172.9 185.0 L174.9 183.6 L163.8 221.2 Z" fill="rgb(22,66,164)" fill-opacity="0.359"/><path d="M380.0 197.2 L324.2 210.6 L325.1 212.2 L382.3 199.3 Z" fill="rgb(22,67,165)" fill-opacity="0.362"/><path d="M161.0 225.6 L171.0 186.5 L172.9 185.0 L162.4 223.4 Z" fill="rgb(22,68,165)" fill-opacity="0.363"/><path d="M382.3 199.3 L325.1 212.2 L326.1 213.8 L384.5 201.4 Z" fill="rgb(23,69,166)" fill-opacity="0.365"/><path d="M159.7 227.8 L169.1 188.0 L171.0 186.5 L161.0 225.6 Z" fill="rgb(23,69,166)" fill-opacity="0.365"/><path d="M384.5 201.4 L326.1 213.8 L327.0 215.5 L386.7 203.5 Z" fill="rgb(23,70,167)" fill-opacity="0.368"/><path d="M158.5 230.1 L167.3 189.6 L169.1 188.0 L159.7 227.8 Z" fill="rgb(24,70,167)" fill-opacity="0.368"/><path d="M386.7 203.5 L327.0 215.5 L327.8 217.2 L388.8 205.7 Z" fill="rgb(24,71,168)" fill-opacity="0.371"/><path d="M157.4 232.3 L165.5 191.2 L167.3 189.6 L158.5 230.1 Z" fill="rgb(24,72,168)" fill-opacity="0.372"/><path d="M388.8 205.7 L327.8 217.2 L328.6 218.8 L390.8 207.9 Z" fill="rgb(25,73,169)" fill-opacity="0.374"/><path d="M156.4 234.6 L163.7 192.8 L165.5 191.2 L157.4 232.3 Z" fill="rgb(25,73,169)" fill-opacity="0.374"/><path d="M390.8 207.9 L328.6 218.8 L329.4 220.5 L392.7 210.2 Z" fill="rgb(26,74,170)" fill-opacity="0.377"/><path d="M155.4 236.8 L162.0 194.5 L163.7 192.8 L156.4 234.6 Z" fill="rgb(26,74,170)" fill-opacity="0.377"/><path d="M392.7 210.2 L329.4 220.5 L330.1 222.2 L394.6 212.5 Z" fill="rgb(26,75,171)" fill-opacity="0.380"/><path d="M154.5 239.1 L160.4 196.3 L162.0 194.5 L155.4 236.8 Z" fill="rgb(27,75,171)" fill-opacity="0.381"/><path d="M394.6 212.5 L330.1 222.2 L330.8 223.9 L396.4 214.8 Z" fill="rgb(27,76,172)" fill-opacity="0.383"/><path d="M153.6 241.4 L158.8 198.0 L160.4 196.3 L154.5 239.1 Z" fill="rgb(27,77,172)" fill-opacity="0.384"/><path d="M396.4 214.8 L330.8 223.9 L331.5 225.6 L398.1 217.2 Z" fill="rgb(28,78,173)" fill-opacity="0.387"/><path d="M152.9 243.7 L157.2 199.9 L158.8 198.0 L153.6 241.4 Z" fill="rgb(28,78,173)" fill-opacity="0.387"/><path d="M398.1 217.2 L331.5 225.6 L332.1 227.3 L399.7 219.6 Z" fill="rgb(29,79,174)" fill-opacity="0.390"/><path d="M152.2 245.9 L155.7 201.7 L157.2 199.9 L152.9 243.7 Z" fill="rgb(29,80,174)" fill-opacity="0.391"/><path d="M399.7 219.6 L332.1 227.3 L332.6 229.1 L401.2 222.1 Z" fill="rgb(30,81,175)" fill-opacity="0.393"/><path d="M151.6 248.2 L154.2 203.7 L155.7 201.7 L152.2 245.9 Z" fill="rgb(30,81,175)" fill-opacity="0.394"/><path d="M401.2 222.1 L332.6 229.1 L333.2 230.8 L402.7 224.6 Z" fill="rgb(30,82,176)" fill-opacity="0.396"/><path d="M151.0 250.5 L152.8 205.6 L154.2 203.7 L151.6 248.2 Z" fill="rgb(31,82,176)" fill-opacity="0.397"/><path d="M402.7 224.6 L333.2 230.8 L333.7 232.6 L404.1 227.1 Z" fill="rgb(31,83,177)" fill-opacity="0.400"/><path d="M150.5 252.8 L151.4 207.6 L152.8 205.6 L151.0 250.5 Z" fill="rgb(31,84,177)" fill-opacity="0.401"/><path d="M404.1 227.1 L333.7 232.6 L334.1 234.3 L405.3 229.6 Z" fill="rgb(32,85,178)" fill-opacity="0.404"/><path d="M150.1 255.1 L150.1 209.6 L151.4 207.6 L150.5 252.8 Z" fill="rgb(32,85,178)" fill-opacity="0.404"/><path d="M405.3 229.6 L334.1 234.3 L334.5 236.1 L406.5 232.2 Z" fill="rgb(33,87,179)" fill-opacity="0.407"/><path d="M149.8 257.3 L148.9 211.7 L150.1 209.6 L150.1 255.1 Z" fill="rgb(33,87,179)" fill-opacity="0.407"/><path d="M406.5 232.2 L334.5 236.1 L334.9 237.8 L407.6 234.8 Z" fill="rgb(34,88,180)" fill-opacity="0.410"/><path d="M149.5 259.6 L147.7 213.8 L148.9 211.7 L149.8 257.3 Z" fill="rgb(34,88,180)" fill-opacity="0.411"/><path d="M407.6 234.8 L334.9 237.8 L335.2 239.6 L408.6 237.4 Z" fill="rgb(34,89,181)" fill-opacity="0.414"/><path d="M149.3 261.9 L146.6 215.9 L147.7 213.8 L149.5 259.6 Z" fill="rgb(35,90,181)" fill-opacity="0.415"/><path d="M408.6 237.4 L335.2 239.6 L335.5 241.4 L409.6 240.1 Z" fill="rgb(35,91,182)" fill-opacity="0.417"/><path d="M149.2 264.1 L145.5 218.1 L146.6 215.9 L149.3 261.9 Z" fill="rgb(35,91,182)" fill-opacity="0.418"/><path d="M409.6 240.1 L335.5 241.4 L335.7 243.1 L410.4 242.7 Z" fill="rgb(36,92,183)" fill-opacity="0.421"/><path d="M149.2 266.3 L144.5 220.3 L145.5 218.1 L149.2 264.1 Z" fill="rgb(36,92,183)" fill-opacity="0.421"/><path d="M410.4 242.7 L335.7 243.1 L336.0 244.9 L411.1 245.4 Z" fill="rgb(37,94,184)" fill-opacity="0.424"/><path d="M149.2 268.6 L143.6 222.5 L144.5 220.3 L149.2 266.3 Z" fill="rgb(37,94,185)" fill-opacity="0.425"/><path d="M411.1 245.4 L336.0 244.9 L336.1 246.7 L411.8 248.1 Z" fill="rgb(38,95,186)" fill-opacity="0.428"/><path d="M149.3 270.8 L142.7 224.8 L143.6 222.5 L149.2 268.6 Z" fill="rgb(38,96,186)" fill-opacity="0.429"/><path d="M411.8 248.1 L336.1 246.7 L336.3 248.5 L412.3 250.8 Z" fill="rgb(39,97,187)" fill-opacity="0.432"/><path d="M149.4 273.0 L141.9 227.1 L142.7 224.8 L149.3 270.8 Z" fill="rgb(39,97,187)" fill-opacity="0.432"/><path d="M412.3 250.8 L336.3 248.5 L336.3 250.2 L412.8 253.6 Z" fill="rgb(39,98,188)" fill-opacity="0.435"/><path d="M149.6 275.2 L141.2 229.4 L141.9 227.1 L149.4 273.0 Z" fill="rgb(40,99,188)" fill-opacity="0.436"/><path d="M412.8 253.6 L336.3 250.2 L336.4 252.0 L413.2 256.3 Z" fill="rgb(40,100,189)" fill-opacity="0.438"/><path d="M149.9 277.3 L140.5 231.8 L141.2 229.4 L149.6 275.2 Z" fill="rgb(40,100,189)" fill-opacity="0.439"/><path d="M413.2 256.3 L336.4 252.0 L336.4 253.8 L413.4 259.0 Z" fill="rgb(41,101,190)" fill-opacity="0.443"/><path d="M150.2 279.5 L139.9 234.1 L140.5 231.8 L149.9 277.3 Z" fill="rgb(41,102,190)" fill-opacity="0.443"/><path d="M413.4 259.0 L336.4 253.8 L336.4 255.6 L413.6 261.8 Z" fill="rgb(42,103,191)" fill-opacity="0.446"/><path d="M150.7 281.6 L139.4 236.5 L139.9 234.1 L150.2 279.5 Z" fill="rgb(42,103,191)" fill-opacity="0.447"/><path d="M413.6 261.8 L336.4 255.6 L336.3 257.3 L413.7 264.5 Z" fill="rgb(43,105,193)" fill-opacity="0.450"/><path d="M151.1 283.7 L138.9 239.0 L139.4 236.5 L150.7 281.6 Z" fill="rgb(43,105,193)" fill-opacity="0.450"/><path d="M413.7 264.5 L336.3 257.3 L336.2 259.1 L413.7 267.3 Z" fill="rgb(44,106,194)" fill-opacity="0.453"/><path d="M151.7 285.8 L138.5 241.4 L138.9 239.0 L151.1 283.7 Z" fill="rgb(44,106,194)" fill-opacity="0.454"/><path d="M413.7 267.3 L336.2 259.1 L336.1 260.9 L413.6 270.0 Z" fill="rgb(45,107,195)" fill-opacity="0.457"/><path d="M152.3 287.8 L138.2 243.9 L138.5 241.4 L151.7 285.8 Z" fill="rgb(45,108,195)" fill-opacity="0.457"/><path d="M413.6 270.0 L336.1 260.9 L335.9 262.6 L413.3 272.8 Z" fill="rgb(46,109,196)" fill-opacity="0.461"/><path d="M152.9 289.9 L137.9 246.3 L138.2 243.9 L152.3 287.8 Z" fill="rgb(46,109,196)" fill-opacity="0.462"/><path d="M413.3 272.8 L335.9 262.6 L335.7 264.4 L413.0 275.5 Z" fill="rgb(46,110,197)" fill-opacity="0.464"/><path d="M153.6 291.9 L137.8 248.8 L137.9 246.3 L152.9 289.9 Z" fill="rgb(47,111,197)" fill-opacity="0.465"/><path d="M413.0 275.5 L335.7 264.4 L335.4 266.2 L412.6 278.3 Z" fill="rgb(47,112,198)" fill-opacity="0.468"/><path d="M154.4 293.9 L137.7 251.3 L137.8 248.8 L153.6 291.9 Z" fill="rgb(47,112,198)" fill-opacity="0.468"/><path d="M412.6 278.3 L335.4 266.2 L335.1 267.9 L412.2 281.0 Z" fill="rgb(48,114,199)" fill-opacity="0.471"/><path d="M155.2 295.8 L137.7 253.9 L137.7 251.3 L154.4 293.9 Z" fill="rgb(48,114,199)" fill-opacity="0.472"/><path d="M412.2 281.0 L335.1 267.9 L334.8 269.6 L411.6 283.7 Z" fill="rgb(49,115,200)" fill-opacity="0.475"/><path d="M156.1 297.7 L137.7 256.4 L137.7 253.9 L155.2 295.8 Z" fill="rgb(49,115,201)" fill-opacity="0.476"/><path d="M411.6 283.7 L334.8 269.6 L334.4 271.4 L410.9 286.4 Z" fill="rgb(50,117,202)" fill-opacity="0.479"/><path d="M157.1 299.6 L137.9 258.9 L137.7 256.4 L156.1 297.7 Z" fill="rgb(50,117,202)" fill-opacity="0.479"/><path d="M410.9 286.4 L334.4 271.4 L334.0 273.1 L410.1 289.1 Z" fill="rgb(51,118,203)" fill-opacity="0.482"/><path d="M158.1 301.5 L138.1 261.5 L137.9 258.9 L157.1 299.6 Z" fill="rgb(51,118,203)" fill-opacity="0.483"/><path d="M410.1 289.1 L334.0 273.1 L333.5 274.8 L409.2 291.8 Z" fill="rgb(51,119,204)" fill-opacity="0.485"/><path d="M159.1 303.3 L138.4 264.0 L138.1 261.5 L158.1 301.5 Z" fill="rgb(52,120,204)" fill-opacity="0.486"/><path d="M409.2 291.8 L333.5 274.8 L333.0 276.6 L408.3 294.4 Z" fill="rgb(52,121,205)" fill-opacity="0.489"/><path d="M160.2 305.1 L138.7 266.6 L138.4 264.0 L159.1 303.3 Z" fill="rgb(52,121,205)" fill-opacity="0.490"/><path d="M408.3 294.4 L333.0 276.6 L332.5 278.3 L407.2 297.1 Z" fill="rgb(53,123,206)" fill-opacity="0.493"/><path d="M161.4 306.9 L139.2 269.2 L138.7 266.6 L160.2 305.1 Z" fill="rgb(53,123,206)" fill-opacity="0.493"/><path d="M332.5 278.3 L407.2 297.1 L406.1 299.7 L331.9 280.0 Z" fill="rgb(54,124,207)" fill-opacity="0.496"/><path d="M162.6 308.6 L139.7 271.7 L139.2 269.2 L161.4 306.9 Z" fill="rgb(54,124,207)" fill-opacity="0.496"/><path d="M331.9 280.0 L406.1 299.7 L404.8 302.3 L331.4 281.6 Z" fill="rgb(55,125,208)" fill-opacity="0.499"/><path d="M163.8 310.3 L140.3 274.3 L139.7 271.7 L162.6 308.6 Z" fill="rgb(55,126,208)" fill-opacity="0.500"/><path d="M331.4 281.6 L404.8 302.3 L403.5 304.8 L330.7 283.3 Z" fill="rgb(55,127,209)" fill-opacity="0.503"/><path d="M165.1 312.0 L141.0 276.9 L140.3 274.3 L163.8 310.3 Z" fill="rgb(56,127,209)" fill-opacity="0.504"/><path d="M330.7 283.3 L403.5 304.8 L402.1 307.3 L330.0 285.0 Z" fill="rgb(56,128,210)" fill-opacity="0.506"/><path d="M166.5 313.6 L141.8 279.4 L141.0 276.9 L165.1 312.0 Z" fill="rgb(56,128,210)" fill-opacity="0.507"/><path d="M330.0 285.0 L402.1 307.3 L400.6 309.8 L329.3 286.6 Z" fill="rgb(57,129,211)" fill-opacity="0.509"/><path d="M167.9 315.2 L142.6 282.0 L141.8 279.4 L166.5 313.6 Z" fill="rgb(57,130,211)" fill-opacity="0.510"/><path d="M329.3 286.6 L400.6 309.8 L399.0 312.3 L328.6 288.3 Z" fill="rgb(58,131,212)" fill-opacity="0.513"/><path d="M169.3 316.7 L143.5 284.6 L142.6 282.0 L167.9 315.2 Z" fill="rgb(58,131,212)" fill-opacity="0.513"/><path d="M328.6 288.3 L399.0 312.3 L397.3 314.7 L327.8 289.9 Z" fill="rgb(59,132,213)" fill-opacity="0.516"/><path d="M170.8 318.2 L144.5 287.1 L143.5 284.6 L169.3 316.7 Z" fill="rgb(59,133,213)" fill-opacity="0.517"/><path d="M327.8 289.9 L397.3 314.7 L395.6 317.1 L327.0 291.5 Z" fill="rgb(59,134,214)" fill-opacity="0.519"/><path d="M172.3 319.7 L145.6 289.6 L144.5 287.1 L170.8 318.2 Z" fill="rgb(60,134,214)" fill-opacity="0.520"/><path d="M327.0 291.5 L395.6 317.1 L393.7 319.5 L326.2 293.1 Z" fill="rgb(60,135,215)" fill-opacity="0.523"/><path d="M173.8 321.1 L146.8 292.1 L145.6 289.6 L172.3 319.7 Z" fill="rgb(60,135,215)" fill-opacity="0.523"/><path d="M326.2 293.1 L393.7 319.5 L391.8 321.8 L325.3 294.7 Z" fill="rgb(61,136,216)" fill-opacity="0.526"/><path d="M175.4 322.5 L148.0 294.6 L146.8 292.1 L173.8 321.1 Z" fill="rgb(61,136,216)" fill-opacity="0.526"/><path d="M325.3 294.7 L391.8 321.8 L389.8 324.1 L324.4 296.3 Z" fill="rgb(62,137,217)" fill-opacity="0.528"/><path d="M177.1 323.9 L149.3 297.1 L148.0 294.6 L175.4 322.5 Z" fill="rgb(62,138,217)" fill-opacity="0.529"/><path d="M324.4 296.3 L389.8 324.1 L387.7 326.3 L323.4 297.8 Z" fill="rgb(62,139,218)" fill-opacity="0.532"/><path d="M178.7 325.2 L150.7 299.6 L149.3 297.1 L177.1 323.9 Z" fill="rgb(63,139,218)" fill-opacity="0.532"/><path d="M323.4 297.8 L387.7 326.3 L385.5 328.5 L322.4 299.4 Z" fill="rgb(63,140,219)" fill-opacity="0.535"/><path d="M180.4 326.4 L152.2 302.1 L150.7 299.6 L178.7 325.2 Z" fill="rgb(63,140,219)" fill-opacity="0.535"/><path d="M322.4 299.4 L385.5 328.5 L383.3 330.6 L321.4 300.9 Z" fill="rgb(64,141,220)" fill-opacity="0.537"/><path d="M182.1 327.7 L153.7 304.5 L152.2 302.1 L180.4 326.4 Z" fill="rgb(64,142,220)" fill-opacity="0.538"/><path d="M321.4 300.9 L383.3 330.6 L381.0 332.7 L320.3 302.4 Z" fill="rgb(64,143,221)" fill-opacity="0.541"/><path d="M183.9 328.8 L155.3 306.9 L153.7 304.5 L182.1 327.7 Z" fill="rgb(65,143,221)" fill-opacity="0.541"/><path d="M320.3 302.4 L381.0 332.7 L378.6 334.8 L319.3 303.9 Z" fill="rgb(65,144,222)" fill-opacity="0.543"/><path d="M185.7 330.0 L157.0 309.3 L155.3 306.9 L183.9 328.8 Z" fill="rgb(65,144,222)" fill-opacity="0.544"/><path d="M319.3 303.9 L378.6 334.8 L376.2 336.8 L318.1 305.4 Z" fill="rgb(66,145,223)" fill-opacity="0.546"/><path d="M187.5 331.1 L158.8 311.6 L157.0 309.3 L185.7 330.0 Z" fill="rgb(66,145,223)" fill-opacity="0.546"/><path d="M318.1 305.4 L376.2 336.8 L373.6 338.7 L317.0 306.8 Z" fill="rgb(66,146,223)" fill-opacity="0.549"/><path d="M189.4 332.1 L160.7 314.0 L158.8 311.6 L187.5 331.1 Z" fill="rgb(67,146,224)" fill-opacity="0.550"/><path d="M317.0 306.8 L373.6 338.7 L371.0 340.6 L315.8 308.3 Z" fill="rgb(67,147,224)" fill-opacity="0.551"/><path d="M191.2 333.1 L162.6 316.3 L160.7 314.0 L189.4 332.1 Z" fill="rgb(67,147,225)" fill-opacity="0.552"/><path d="M315.8 308.3 L371.0 340.6 L368.4 342.4 L314.6 309.7 Z" fill="rgb(68,148,225)" fill-opacity="0.555"/><path d="M193.1 334.1 L164.6 318.5 L162.6 316.3 L191.2 333.1 Z" fill="rgb(68,148,225)" fill-opacity="0.555"/><path d="M314.6 309.7 L368.4 342.4 L365.7 344.2 L313.3 311.1 Z" fill="rgb(68,150,226)" fill-opacity="0.557"/><path d="M195.0 335.0 L166.6 320.8 L164.6 318.5 L193.1 334.1 Z" fill="rgb(68,150,226)" fill-opacity="0.557"/><path d="M313.3 311.1 L365.7 344.2 L362.9 345.9 L312.1 312.4 Z" fill="rgb(69,151,227)" fill-opacity="0.560"/><path d="M197.0 335.9 L168.8 323.0 L166.6 320.8 L195.0 335.0 Z" fill="rgb(69,151,227)" fill-opacity="0.560"/><path d="M312.1 312.4 L362.9 345.9 L360.0 347.6 L310.7 313.8 Z" fill="rgb(70,152,228)" fill-opacity="0.562"/><path d="M198.9 336.7 L171.0 325.1 L168.8 323.0 L197.0 335.9 Z" fill="rgb(70,152,228)" fill-opacity="0.562"/><path d="M310.7 313.8 L360.0 347.6 L357.1 349.1 L309.4 315.1 Z" fill="rgb(70,153,228)" fill-opacity="0.565"/><path d="M200.9 337.5 L173.3 327.3 L171.0 325.1 L198.9 336.7 Z" fill="rgb(70,153,228)" fill-opacity="0.565"/><path d="M309.4 315.1 L357.1 349.1 L354.2 350.7 L308.0 316.4 Z" fill="rgb(71,153,229)" fill-opacity="0.566"/><path d="M202.9 338.2 L175.6 329.4 L173.3 327.3 L200.9 337.5 Z" fill="rgb(71,154,229)" fill-opacity="0.567"/><path d="M308.0 316.4 L354.2 350.7 L351.2 352.1 L306.6 317.7 Z" fill="rgb(71,154,230)" fill-opacity="0.569"/><path d="M204.9 338.9 L178.0 331.4 L175.6 329.4 L202.9 338.2 Z" fill="rgb(71,154,230)" fill-opacity="0.569"/><path d="M306.6 317.7 L351.2 352.1 L348.1 353.5 L305.2 319.0 Z" fill="rgb(72,155,230)" fill-opacity="0.571"/><path d="M207.0 339.6 L180.5 333.4 L178.0 331.4 L204.9 338.9 Z" fill="rgb(72,155,230)" fill-opacity="0.571"/><path d="M305.2 319.0 L348.1 353.5 L345.0 354.9 L303.7 320.2 Z" fill="rgb(72,156,231)" fill-opacity="0.573"/><path d="M209.0 340.2 L183.0 335.4 L180.5 333.4 L207.0 339.6 Z" fill="rgb(72,156,231)" fill-opacity="0.574"/><path d="M303.7 320.2 L345.0 354.9 L341.9 356.2 L302.2 321.4 Z" fill="rgb(73,157,232)" fill-opacity="0.575"/><path d="M211.1 340.8 L185.6 337.3 L183.0 335.4 L209.0 340.2 Z" fill="rgb(73,157,232)" fill-opacity="0.575"/><path d="M302.2 321.4 L341.9 356.2 L338.7 357.4 L300.7 322.6 Z" fill="rgb(73,158,232)" fill-opacity="0.577"/><path d="M213.1 341.3 L188.3 339.1 L185.6 337.3 L211.1 340.8 Z" fill="rgb(73,158,232)" fill-opacity="0.577"/><path d="M300.7 322.6 L338.7 357.4 L335.4 358.5 L299.2 323.8 Z" fill="rgb(73,159,233)" fill-opacity="0.579"/><path d="M215.2 341.7 L191.0 340.9 L188.3 339.1 L213.1 341.3 Z" fill="rgb(74,159,233)" fill-opacity="0.579"/><path d="M299.2 323.8 L335.4 358.5 L332.2 359.6 L297.6 324.9 Z" fill="rgb(74,159,233)" fill-opacity="0.580"/><path d="M217.3 342.2 L193.8 342.7 L191.0 340.9 L215.2 341.7 Z" fill="rgb(74,160,234)" fill-opacity="0.581"/><path d="M297.6 324.9 L332.2 359.6 L328.8 360.6 L296.0 326.0 Z" fill="rgb(74,160,234)" fill-opacity="0.583"/><path d="M219.4 342.5 L196.6 344.4 L193.8 342.7 L217.3 342.2 Z" fill="rgb(74,160,234)" fill-opacity="0.583"/><path d="M296.0 326.0 L328.8 360.6 L325.5 361.5 L294.4 327.1 Z" fill="rgb(75,161,235)" fill-opacity="0.584"/><path d="M221.5 342.9 L199.5 346.1 L196.6 344.4 L219.4 342.5 Z" fill="rgb(75,161,235)" fill-opacity="0.584"/><path d="M294.4 327.1 L325.5 361.5 L322.1 362.4 L292.7 328.2 Z" fill="rgb(75,161,235)" fill-opacity="0.585"/><path d="M223.6 343.2 L202.4 347.7 L199.5 346.1 L221.5 342.9 Z" fill="rgb(75,162,235)" fill-opacity="0.586"/><path d="M292.7 328.2 L322.1 362.4 L318.7 363.2 L291.0 329.2 Z" fill="rgb(75,162,235)" fill-opacity="0.587"/><path d="M225.7 343.4 L205.4 349.2 L202.4 347.7 L223.6 343.2 Z" fill="rgb(76,162,236)" fill-opacity="0.588"/><path d="M291.0 329.2 L318.7 363.2 L315.3 363.9 L289.3 330.2 Z" fill="rgb(76,163,236)" fill-opacity="0.588"/><path d="M227.8 343.6 L208.5 350.7 L205.4 349.2 L225.7 343.4 Z" fill="rgb(76,163,236)" fill-opacity="0.588"/><path d="M289.3 330.2 L315.3 363.9 L311.8 364.5 L287.6 331.1 Z" fill="rgb(76,163,236)" fill-opacity="0.590"/><path d="M230.0 343.8 L211.5 352.2 L208.5 350.7 L227.8 343.6 Z" fill="rgb(76,163,236)" fill-opacity="0.590"/><path d="M287.6 331.1 L311.8 364.5 L308.3 365.1 L285.8 332.1 Z" fill="rgb(76,164,237)" fill-opacity="0.591"/><path d="M232.1 343.9 L214.7 353.5 L211.5 352.2 L230.0 343.8 Z" fill="rgb(76,164,237)" fill-opacity="0.591"/><path d="M285.8 332.1 L308.3 365.1 L304.8 365.6 L284.1 333.0 Z" fill="rgb(77,164,237)" fill-opacity="0.593"/><path d="M234.2 344.0 L217.8 354.8 L214.7 353.5 L232.1 343.9 Z" fill="rgb(77,164,237)" fill-opacity="0.593"/><path d="M284.1 333.0 L304.8 365.6 L301.3 366.1 L282.3 333.8 Z" fill="rgb(77,165,237)" fill-opacity="0.593"/><path d="M236.3 344.0 L221.1 356.1 L217.8 354.8 L234.2 344.0 Z" fill="rgb(77,165,237)" fill-opacity="0.593"/><path d="M282.3 333.8 L301.3 366.1 L297.7 366.4 L280.5 334.7 Z" fill="rgb(77,165,238)" fill-opacity="0.594"/><path d="M238.4 344.0 L224.3 357.3 L221.1 356.1 L236.3 344.0 Z" fill="rgb(77,165,238)" fill-opacity="0.594"/><path d="M280.5 334.7 L297.7 366.4 L294.2 366.7 L278.6 335.5 Z" fill="rgb(77,165,238)" fill-opacity="0.595"/><path d="M240.5 344.0 L227.6 358.4 L224.3 357.3 L238.4 344.0 Z" fill="rgb(77,165,238)" fill-opacity="0.595"/><path d="M278.6 335.5 L294.2 366.7 L290.6 366.9 L276.7 336.3 Z" fill="rgb(78,166,238)" fill-opacity="0.596"/><path d="M242.6 343.9 L230.9 359.5 L227.6 358.4 L240.5 344.0 Z" fill="rgb(78,166,238)" fill-opacity="0.596"/><path d="M276.7 336.3 L290.6 366.9 L287.1 367.1 L274.9 337.0 Z" fill="rgb(78,166,238)" fill-opacity="0.597"/><path d="M244.7 343.7 L234.3 360.5 L230.9 359.5 L242.6 343.9 Z" fill="rgb(78,166,238)" fill-opacity="0.597"/><path d="M274.9 337.0 L287.1 367.1 L283.5 367.1 L273.0 337.7 Z" fill="rgb(78,166,239)" fill-opacity="0.598"/><path d="M246.8 343.5 L237.7 361.4 L234.3 360.5 L244.7 343.7 Z" fill="rgb(78,166,239)" fill-opacity="0.598"/><path d="M273.0 337.7 L283.5 367.1 L279.9 367.1 L271.0 338.4 Z" fill="rgb(78,167,239)" fill-opacity="0.598"/><path d="M248.9 343.3 L241.1 362.3 L237.7 361.4 L246.8 343.5 Z" fill="rgb(78,167,239)" fill-opacity="0.598"/><path d="M271.0 338.4 L279.9 367.1 L276.3 367.0 L269.1 339.0 Z" fill="rgb(78,167,239)" fill-opacity="0.598"/><path d="M251.0 343.1 L244.5 363.1 L241.1 362.3 L248.9 343.3 Z" fill="rgb(78,167,239)" fill-opacity="0.598"/><path d="M269.1 339.0 L276.3 367.0 L272.8 366.9 L267.1 339.6 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M253.0 342.8 L248.0 363.8 L244.5 363.1 L251.0 343.1 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M267.1 339.6 L272.8 366.9 L269.2 366.6 L265.2 340.2 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M255.1 342.4 L251.5 364.4 L248.0 363.8 L253.0 342.8 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M265.2 340.2 L269.2 366.6 L265.6 366.3 L263.2 340.7 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M257.1 342.1 L255.0 365.0 L251.5 364.4 L255.1 342.4 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M263.2 340.7 L265.6 366.3 L262.1 366.0 L261.2 341.2 Z" fill="rgb(78,167,239)" fill-opacity="0.599"/><path d="M259.2 341.7 L258.5 365.5 L255.0 365.0 L257.1 342.1 Z" fill="rgb(79,168,240)" fill-opacity="0.600"/><path d="M261.2 341.2 L262.1 366.0 L258.5 365.5 L259.2 341.7 Z" fill="rgb(79,168,240)" fill-opacity="0.600"/></g></svg>
+    </div>
+    <div class="hero__ribbon" aria-hidden="true">
+      <svg viewBox="0 0 620 780" preserveAspectRatio="xMaxYMin slice">
+        <path d="M110 -120 C520 60, 640 400, 430 620 C270 790, 20 740, -40 590"
+              fill="none" stroke="#E4EEFB" stroke-width="196" stroke-linecap="round"/>
+        <path d="M250 -110 C620 110, 690 430, 520 650"
+              fill="none" stroke="#D5E4F8" stroke-width="96" stroke-linecap="round"/>
+        <path d="M158 -92 C512 96, 606 404, 418 588"
+              fill="none" stroke="#F2F7FE" stroke-width="12" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="reveal">
+          <span class="eyebrow">NCCU FinTech Innovation Lab</span>
+          <h1 class="display hero__title">
+            <span data-en="NCCU FinTech">政大金融科技</span><br>
+            <span class="grad-text" data-en="Innovation Lab">創新實驗室</span>
+          </h1>
+          <p class="hero__sub" data-en="NCCU’s first FinTech academic society">政大第一個 FinTech 學術社團</p>
+          <p class="lead hero__desc" data-en="Finance × Technology × Industry × Building things. We turn the FinTech you learn in class into something you can actually build, explain, and put on a résumé.">
+            金融 × 科技 × 產學 × 實作。我們把課堂上的金融科技，變成做得出來、講得清楚、寫得進履歷的東西。
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="contact.html">
+              <span data-en="Join FTL">加入 FTL</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </a>
+            <a class="btn btn--lg" href="projects.html" data-en="See what we’ve built">看看我們做了什麼</a>
+          </div>
+
+        </div>
+
+        <div class="pane pane--rows reveal">
+        <div class="ios-list" data-stagger>
+          <a class="ios-row reveal" href="about.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+            <span class="ios-row__label" data-en="Finished the FinTech program. Now what?">修完學程，然後呢？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="projects.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+            <span class="ios-row__label" data-en="Want to build something — with who?">想做專案，找誰一起？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="insights.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <span class="ios-row__label" data-en="Résumé says “took the course”. And?">履歷只有修過課，怎麼辦？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="resources.html#contests">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg></span>
+            <span class="ios-row__label" data-en="Case competitions but no teammates?">想參加商業競賽，找不到隊友？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+
+      <div class="pane pane--stats reveal">
+        <div class="stats">
+          <div class="stat"><b>64</b><span data-en="Members">成員人數</span></div>
+          <div class="stat"><b>12</b><span data-en="Events this year">今年活動場次</span></div>
+          <div class="stat"><b>8</b><span data-en="Live projects">進行中專案</span></div>
+          <div class="stat"><b>3</b><span data-en="Industry partners">產學合作</span></div>
+        </div>
+      </div>
+
+      <p class="endorse reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+        <span data-en="Founded under the guidance of the NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心 指導成立</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 週報 ===================== -->
+  <section class="section--tight section section--alt" id="weekly">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Weekly Digest">FinTech 週報</span>
+          <h2 class="h1" data-en="This week in FinTech">這禮拜的金融科技，發生了什麼</h2>
+          <p class="lead mt-4" data-en="Every Monday we pick three stories that actually matter, and say why they matter in two sentences.">
+            每週一，我們挑三則真的重要的消息，並用兩句話說清楚它為什麼重要。
+          </p>
+        </div>
+        <a class="link-arrow" href="insights.html#weekly">
+          <span data-en="All issues">看所有期數</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-3" data-stagger>
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag" data-en="Regulation">監理</span>
+          </div>
+          <h3 class="h3" data-en="Pure-play digital banks cleared for FX business — three players, three strategies">純網銀獲准承作外幣業務，三家的打法完全不同</h3>
+          <p class="card__body" data-en="The rule change turns FX spread into a real revenue line for digital-only banks. Watch who prices for volume and who prices for margin.">
+            這次鬆綁把匯差變成純網銀真正的收入項。重點在於誰選擇衝量、誰選擇守利差。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">4 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag tag--cyan" data-en="Payments">支付</span>
+          </div>
+          <h3 class="h3" data-en="Stablecoin settlement passes 5% of SEA cross-border e-commerce">穩定幣結算首度佔東南亞跨境電商 5%</h3>
+          <p class="card__body" data-en="Not speculation — merchants are using it to dodge three-day settlement. The interesting question is who takes the FX risk now.">
+            這次不是投機，是商家用它避開三天的清算等待。有趣的問題是：匯率風險現在由誰承擔。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">6 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag tag--warn" data-en="AI × Markets">AI × 資本市場</span>
+          </div>
+          <h3 class="h3" data-en="Brokerages roll out AI research assistants — what happens to junior analysts">券商導入 AI 投研助理後，初階分析師去哪了</h3>
+          <p class="card__body" data-en="Headcount didn’t drop. The job changed: less writing, more verifying. That shift is the part worth preparing for.">
+            人數沒有變少，工作內容變了：寫得少、查證得多。值得準備的是這個轉向。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">5 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===================== 社團宗旨 ===================== -->
+  <section class="section" id="mission">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Our mission">社團宗旨</span>
+          <h2 class="h1" data-en="Three things we insist on">我們堅持的三件事</h2>
+        </div>
+        <a class="link-arrow" href="about.html">
+          <span data-en="The full story">完整的成立背景</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="numlist" data-stagger>
+        <article class="nl reveal">
+          <span class="nl__n">01</span>
+          <div>
+            <h3 data-en="Ship it, don’t just discuss it">做出來，不只是討論</h3>
+            <p data-en="Every term each team ships one thing that works — a model, a dashboard, or a report someone outside the club actually reads. “We researched it” does not count as a deliverable.">
+              每學期每組都要交出一個能用的東西：一個模型、一個儀表板，或一份社團以外的人真的會讀的報告。「我們有研究」不算成果。
+            </p>
+          </div>
+        </article>
+        <article class="nl reveal">
+          <span class="nl__n">02</span>
+          <div>
+            <h3 data-en="Finance and code at the same table">金融與程式坐在同一張桌子</h3>
+            <p data-en="Teams are deliberately mixed: finance, MIS, statistics, law. The friction between them is where the good questions come from.">
+              分組刻意混編：財金、資管、統計、法律。懂法規的人和懂模型的人互相聽不懂的地方，往往就是好問題出現的地方。
+            </p>
+          </div>
+        </article>
+        <article class="nl reveal">
+          <span class="nl__n">03</span>
+          <div>
+            <h3 data-en="Keep one foot in the industry">一隻腳踩在業界</h3>
+            <p data-en="Mentors from banks, brokerages and startups review our work each term — not as a talk, but as a critique of what we built.">
+              每學期請銀行、券商與新創的業師來看我們的東西——不是演講，是針對成果的批評。被講難聽話也是成果的一部分。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 近期活動 ===================== -->
+  <section class="section section--alt" id="events">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Upcoming">近期活動</span>
+          <h2 class="h1" data-en="What’s happening next">接下來這幾場</h2>
+        </div>
+        <a class="link-arrow" href="events.html">
+          <span data-en="All events">所有活動</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-3" data-stagger>
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag" data-en="Weekly session">社課</span>
+            <span class="card__index num">09.18 THU</span>
+          </div>
+          <h3 class="h3" data-en="Scraping MOPS with Python: from crawler to a table you can use">用 Python 抓公開資訊觀測站：從爬蟲到能用的資料表</h3>
+          <p class="card__body" data-en="Bring a laptop. You leave with a working script and a cleaned dataset of TWSE filings.">
+            自備筆電。結束時你會帶走一支能跑的腳本，和一份整理好的上市櫃申報資料。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>19:00–21:00
+            </span>
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span data-en="Commerce Bldg. 260301">商學院 260301</span>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag tag--cyan" data-en="Workshop">工作坊</span>
+            <span class="card__index num">09.27 SAT</span>
+          </div>
+          <h3 class="h3" data-en="Credit risk in practice: from LendingClub data to an explainable scorecard">信用風險模型實作：從 LendingClub 資料到一張說得清楚的評分卡</h3>
+          <p class="card__body" data-en="Half a day, in teams of three. A risk manager from a mid-size bank reviews every scorecard at the end.">
+            半天，三人一組。結束前由一位中型銀行的風控主管逐組檢視每張評分卡。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>13:30–17:30
+            </span>
+            <span class="tag tag--warn" data-en="8 seats left">剩 8 位</span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag tag--ok" data-en="Reading group">讀書會</span>
+            <span class="card__index num">10.02 THU</span>
+          </div>
+          <h3 class="h3" data-en="“The Pay Off”, ch. 1–3: the invisible rails behind every payment">《The Pay Off》第 1–3 章：每一筆支付背後那條看不見的軌道</h3>
+          <p class="card__body" data-en="Read first, argue second. Online, 90 minutes, one person leads each chapter.">
+            先讀再吵。線上進行，90 分鐘，每章由一個人帶讀。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>20:00–21:30
+            </span>
+            <span data-en="Online">線上</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===================== 聯絡我們 ===================== -->
+  <section class="section slab" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="grid grid-2" style="gap:clamp(32px,5vw,64px);align-items:center">
+          <div>
+            <span class="eyebrow" data-en="Get in touch">聯絡我們</span>
+            <h2 class="h1" data-en="Easiest way in: add the LINE Bot">最快的方式：加 LINE Bot</h2>
+            <p class="lead mt-4" data-en="It answers recruitment questions, pushes the weekly digest, and reminds you before every session. A human takes over when it can’t help.">
+              它會回答招募問題、推播每週週報、在每場活動前提醒你。答不出來時會轉給真人。
+            </p>
+            <div class="hero__cta mt-6">
+              <a class="btn btn--primary" href="https://page.line.me/nccufintechlab">
+                <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
+                <span data-en="Add LINE Bot">加入 LINE Bot</span>
+              </a>
+              <a class="btn" href="mailto:nccufintechlab@gmail.com">
+                <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="pane pane--rows reveal">
+        <div class="ios-list" data-stagger>
+            <a class="ios-row reveal" href="https://www.instagram.com/nccufintechlab/">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span>
+              <span class="ios-row__label">Instagram<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="https://page.line.me/nccufintechlab">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span>
+              <span class="ios-row__label">LINE Bot<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="https://www.threads.com/@nccufintechlab">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-threads"/></svg></span>
+              <span class="ios-row__label">Threads<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="mailto:nccufintechlab@gmail.com">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <span class="ios-row__label">Email<br><span class="dim en" style="font-size:.78rem;font-weight:700">nccufintechlab@gmail.com</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 合作對象跑馬燈 ===================== -->
+  <section class="section--tight section" id="partners">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:32px">
+        <div>
+          <span class="eyebrow" data-en="Partners &amp; mentors">合作對象</span>
+          <h2 class="h2" data-en="Who works with us">和我們一起做事的人</h2>
+        </div>
+        <p class="note" style="max-width:34ch">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span data-en="Placeholder entries — swap in real logos and names.">此處為示意項目，之後換成實際的 logo 與名稱。</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="marquee reveal">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Bank 01">合作企業 01</b><span data-en="Pure-play digital bank">純網銀</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Firm 02">合作企業 02</b><span data-en="Securities / wealth tech">券商 · 財富科技</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Mentor · Payments">業師 · 支付</b><span data-en="Cross-border settlement">跨境清算</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Startup 03">合作新創 03</b><span data-en="RegTech / KYC">法遵科技 · KYC</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Mentor · Credit risk">業師 · 信用風險</b><span data-en="Mid-size commercial bank">中型商業銀行</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="NCCU FinTech Research Center">政大金融科技研究中心</b><span data-en="Founding advisor">指導單位</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Fund 04">合作機構 04</b><span data-en="Asset management">資產管理</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/ftl.js"></script>
+<div style="position:fixed;left:16px;bottom:16px;z-index:99;background:#0B1F3A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;padding:8px 14px">方案 2 — 玻璃緞帶</div>
+</body>
+</html>

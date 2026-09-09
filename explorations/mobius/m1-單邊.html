@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%233D8BFF'/><path d='M10 26.5 16.5 20l4.5 4.2 8-9.7' fill='none' stroke='%23fff' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="assets/ftl.css">
+<title data-en="NCCU FinTech Innovation Lab">Möbius 1（單邊） ｜  NCCU FinTech Innovation Lab</title>
+<meta name="description" content="政大第一個 FinTech 學術社團。週報、產學合作、自主專案、社課與工作坊。">
+<style>
+
+/* 方案 1｜單邊：只用那一條邊，髮絲線。放在原本巨型「創新」的位置與層級。 */
+.mob{ position:absolute; z-index:0; pointer-events:none; }
+/* ⚠️ 位置是量出來的，不是憑感覺：hero 右側被兩片玻璃（686–1206 × 148–637）佔滿，
+   幾何放在那後面會被 46–74% 白 ＋ blur(30px) 洗掉。試了四個位置量「露出玻璃外的比例」，
+   這組露出 63%（髮絲線更需要露在外面——1.8px 撐不過 blur(30px)） 且標題區保持乾淨。 */
+.mob--hero{ right:-24vw; top:-30%; width:min(1560px,122vw); aspect-ratio:1; }
+/* 幾何放大後會掃過左邊的文字欄，lead 段落掉到 2.78:1。
+   用一道水平遮罩讓它在文字區淡出——右邊完整、左邊消失。
+   （元素寬 1560px 從 x≈27 起算，文字欄結束在 x≈643，約落在 40%） */
+.mob--hero{
+  -webkit-mask-image:linear-gradient(96deg, transparent 0%, transparent 34%, #000 56%, #000 100%);
+  mask-image:linear-gradient(96deg, transparent 0%, transparent 34%, #000 56%, #000 100%);
+}
+.mob--hero svg{ width:100%; height:100%; display:block; }
+/* 底本來就是藍的，線要比光暈深才讀得到（.22 的 #1668E3 直接消失） */
+.mob__edge{ fill:none; stroke:#0A46B4; stroke-opacity:.40; stroke-width:2;
+  vector-effect:non-scaling-stroke; }
+.mob--hero .mob__spin{ transform-origin:260px 260px; animation:mobspin 150s linear infinite; }
+@keyframes mobspin{ to{ transform:rotate(360deg) } }
+/* 段落交界：同一條曲線的一小段，接住白↔冰藍的硬邊 */
+.mob-div{ position:relative; height:84px; margin-bottom:-84px; z-index:1; pointer-events:none;
+  display:block; overflow:hidden; }
+.mob-div svg{ width:100%; height:84px; display:block; }
+.mob-div path{ fill:none; stroke:#0A46B4; stroke-opacity:.42; stroke-width:1.8;
+  vector-effect:non-scaling-stroke; }
+@media (prefers-reduced-motion:reduce){ .mob--hero .mob__spin{ animation:none } }
+
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<main id="main" class="page">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero__wash" aria-hidden="true"></div>
+    <span class="hero__bloom" aria-hidden="true"></span>
+    <div class="mob mob--hero" aria-hidden="true">
+      <svg viewBox="0 0 520 520"><g class="mob__spin"><path class="mob__edge" d="M407.2 297.1 L406.2 299.5 L405.0 301.9 L403.8 304.3 L402.5 306.6 L401.1 309.0 L399.7 311.3 L398.2 313.5 L396.6 315.8 L394.9 318.0 L393.2 320.2 L391.4 322.3 L389.5 324.4 L387.6 326.5 L385.5 328.5 L383.5 330.5 L381.3 332.4 L379.1 334.3 L376.9 336.2 L374.5 338.0 L372.2 339.8 L369.7 341.5 L367.2 343.2 L364.7 344.8 L362.1 346.4 L359.4 347.9 L356.7 349.4 L354.0 350.8 L351.2 352.1 L348.4 353.5 L345.5 354.7 L342.6 355.9 L339.6 357.0 L336.6 358.1 L333.6 359.1 L330.5 360.1 L327.4 361.0 L324.3 361.8 L321.1 362.6 L318.0 363.3 L314.8 364.0 L311.6 364.6 L308.3 365.1 L305.1 365.6 L301.8 366.0 L298.5 366.3 L295.2 366.6 L291.9 366.8 L288.6 367.0 L285.3 367.1 L282.0 367.1 L278.6 367.1 L275.3 367.0 L272.0 366.8 L268.7 366.6 L265.4 366.3 L262.1 366.0 L258.8 365.6 L255.5 365.1 L252.3 364.6 L249.0 364.0 L245.8 363.3 L242.6 362.6 L239.4 361.8 L236.2 361.0 L233.1 360.1 L230.0 359.2 L226.9 358.2 L223.8 357.1 L220.8 356.0 L217.8 354.8 L214.9 353.6 L212.0 352.4 L209.1 351.0 L206.3 349.7 L203.5 348.2 L200.7 346.8 L198.0 345.3 L195.4 343.7 L192.8 342.1 L190.2 340.4 L187.7 338.7 L185.2 337.0 L182.8 335.2 L180.5 333.4 L178.2 331.5 L175.9 329.6 L173.8 327.7 L171.6 325.8 L169.6 323.8 L167.6 321.7 L165.6 319.7 L163.7 317.6 L161.9 315.5 L160.1 313.3 L158.4 311.1 L156.8 308.9 L155.2 306.7 L153.7 304.5 L152.3 302.2 L150.9 300.0 L149.6 297.7 L148.4 295.4 L147.2 293.0 L146.1 290.7 L145.0 288.4 L144.1 286.0 L143.2 283.6 L142.3 281.3 L141.6 278.9 L140.9 276.5 L140.3 274.1 L139.7 271.7 L139.2 269.4 L138.8 267.0 L138.4 264.6 L138.1 262.2 L137.9 259.8 L137.8 257.5 L137.7 255.1 L137.7 252.8 L137.7 250.4 L137.8 248.1 L138.0 245.8 L138.2 243.5 L138.5 241.2 L138.9 239.0 L139.3 236.7 L139.8 234.5 L140.4 232.3 L141.0 230.1 L141.6 227.9 L142.4 225.8 L143.1 223.7 L144.0 221.6 L144.9 219.5 L145.8 217.5 L146.8 215.5 L147.9 213.5 L149.0 211.5 L150.1 209.6 L151.3 207.7 L152.6 205.9 L153.9 204.1 L155.2 202.3 L156.6 200.5 L158.1 198.8 L159.6 197.1 L161.1 195.5 L162.6 193.9 L164.2 192.3 L165.9 190.8 L167.6 189.3 L169.3 187.9 L171.0 186.5 L172.8 185.1 L174.6 183.8 L176.4 182.5 L178.3 181.3 L180.2 180.1 L182.1 179.0 L184.1 177.8 L186.1 176.8 L188.1 175.8 L190.1 174.8 L192.1 173.9 L194.2 173.0 L196.2 172.1 L198.3 171.3 L200.4 170.6 L202.6 169.9 L204.7 169.2 L206.8 168.6 L209.0 168.0 L211.2 167.5 L213.3 167.0 L215.5 166.6 L217.7 166.2 L219.9 165.8 L222.1 165.5 L224.3 165.2 L226.4 165.0 L228.6 164.8 L230.8 164.7 L233.0 164.6 L235.2 164.6 L237.4 164.6 L239.6 164.6 L241.7 164.7 L243.9 164.8 L246.0 164.9 L248.2 165.1 L250.3 165.4 L252.4 165.7 L254.5 166.0 L256.6 166.3 L258.7 166.7 L260.8 167.2 L262.8 167.6 L264.8 168.1 L266.8 168.7 L268.8 169.3 L270.8 169.9 L272.8 170.5 L274.7 171.2 L276.6 171.9 L278.5 172.7 L280.4 173.5 L282.2 174.3 L284.0 175.1 L285.8 176.0 L287.6 176.9 L289.3 177.9 L291.0 178.8 L292.7 179.8 L294.4 180.8 L296.0 181.9 L297.6 183.0 L299.2 184.1 L300.8 185.2 L302.3 186.4 L303.8 187.5 L305.2 188.7 L306.6 190.0 L308.0 191.2 L309.4 192.5 L310.7 193.7 L312.0 195.1 L313.3 196.4 L314.5 197.7 L315.7 199.1 L316.9 200.5 L318.1 201.9 L319.2 203.3 L320.2 204.7 L321.3 206.2 L322.3 207.6 L323.2 209.1 L324.2 210.6 L325.1 212.1 L325.9 213.6 L326.8 215.1 L327.6 216.7 L328.3 218.2 L329.1 219.8 L329.8 221.4 L330.4 222.9 L331.1 224.5 L331.6 226.1 L332.2 227.7 L332.7 229.3 L333.2 230.9 L333.7 232.6 L334.1 234.2 L334.5 235.8 L334.8 237.4 L335.1 239.1 L335.4 240.7 L335.6 242.4 L335.9 244.0 L336.0 245.7 L336.2 247.3 L336.3 249.0 L336.4 250.6 L336.4 252.3 L336.4 253.9 L336.4 255.6 L336.3 257.2 L336.2 258.9 L336.1 260.5 L335.9 262.1 L335.7 263.8 L335.5 265.4 L335.2 267.0 L335.0 268.7 L334.6 270.3 L334.3 271.9 L333.9 273.5 L333.5 275.1 L333.0 276.7 L332.5 278.3 L332.0 279.8 L331.4 281.4 L330.9 283.0 L330.2 284.5 L329.6 286.0 L328.9 287.6 L328.2 289.1 L327.5 290.6 L326.7 292.1 L325.9 293.6 L325.1 295.0 L324.2 296.5 L323.3 297.9 L322.4 299.4 L321.5 300.8 L320.5 302.2 L319.5 303.6 L318.5 305.0 L317.4 306.3 L316.3 307.7 L315.2 309.0 L314.1 310.3 L312.9 311.6 L311.7 312.8 L310.5 314.1 L309.2 315.3 L307.9 316.5 L306.6 317.7 L305.3 318.9 L303.9 320.0 L302.6 321.2 L301.2 322.3 L299.7 323.4 L298.3 324.4 L296.8 325.5 L295.3 326.5 L293.8 327.5 L292.2 328.5 L290.7 329.4 L289.1 330.3 L287.5 331.2 L285.8 332.1 L284.2 332.9 L282.5 333.7 L280.8 334.5 L279.1 335.3 L277.4 336.0 L275.7 336.7 L273.9 337.4 L272.1 338.0 L270.4 338.6 L268.5 339.2 L266.7 339.7 L264.9 340.3 L263.0 340.7 L261.2 341.2 L259.3 341.6 L257.4 342.0 L255.5 342.4 L253.6 342.7 L251.7 343.0 L249.8 343.2 L247.9 343.4 L245.9 343.6 L244.0 343.8 L242.0 343.9 L240.1 344.0 L238.1 344.0 L236.1 344.0 L234.2 344.0 L232.2 343.9 L230.3 343.8 L228.3 343.7 L226.3 343.5 L224.4 343.3 L222.4 343.0 L220.5 342.7 L218.5 342.4 L216.6 342.0 L214.6 341.6 L212.7 341.2 L210.8 340.7 L208.9 340.1 L207.0 339.6 L205.1 339.0 L203.2 338.3 L201.4 337.7 L199.5 336.9 L197.7 336.2 L195.9 335.4 L194.1 334.6 L192.3 333.7 L190.6 332.8 L188.8 331.8 L187.1 330.8 L185.4 329.8 L183.8 328.8 L182.1 327.7 L180.5 326.5 L179.0 325.4 L177.4 324.2 L175.9 322.9 L174.4 321.6 L172.9 320.3 L171.5 319.0 L170.1 317.6 L168.8 316.2 L167.5 314.7 L166.2 313.2 L164.9 311.7 L163.7 310.2 L162.6 308.6 L161.5 307.0 L160.4 305.4 L159.4 303.7 L158.4 302.0 L157.4 300.3 L156.5 298.5 L155.7 296.8 L154.9 295.0 L154.1 293.2 L153.4 291.3 L152.8 289.4 L152.2 287.5 L151.6 285.6 L151.1 283.7 L150.7 281.7 L150.3 279.8 L150.0 277.8 L149.7 275.8 L149.5 273.8 L149.3 271.7 L149.2 269.7 L149.2 267.6 L149.2 265.5 L149.2 263.5 L149.4 261.4 L149.6 259.3 L149.8 257.2 L150.1 255.1 L150.5 252.9 L150.9 250.8 L151.4 248.7 L152.0 246.6 L152.6 244.5 L153.3 242.4 L154.1 240.2 L154.9 238.1 L155.7 236.0 L156.7 233.9 L157.7 231.8 L158.7 229.8 L159.8 227.7 L161.0 225.6 L162.3 223.6 L163.6 221.6 L164.9 219.5 L166.4 217.5 L167.8 215.6 L169.4 213.6 L171.0 211.7 L172.7 209.8 L174.4 207.9 L176.2 206.0 L178.0 204.2 L179.9 202.3 L181.8 200.6 L183.9 198.8 L185.9 197.1 L188.0 195.4 L190.2 193.7 L192.4 192.1 L194.7 190.5 L197.0 188.9 L199.4 187.4 L201.8 186.0 L204.2 184.5 L206.7 183.1 L209.3 181.8 L211.9 180.5 L214.5 179.2 L217.2 178.0 L219.9 176.8 L222.7 175.7 L225.4 174.6 L228.3 173.6 L231.1 172.6 L234.0 171.6 L236.9 170.8 L239.9 169.9 L242.8 169.2 L245.8 168.4 L248.9 167.8 L251.9 167.2 L255.0 166.6 L258.0 166.1 L261.1 165.6 L264.3 165.3 L267.4 164.9 L270.5 164.6 L273.7 164.4 L276.8 164.3 L280.0 164.2 L283.2 164.1 L286.3 164.2 L289.5 164.2 L292.7 164.4 L295.8 164.6 L299.0 164.8 L302.2 165.2 L305.3 165.5 L308.4 166.0 L311.6 166.5 L314.7 167.0 L317.8 167.6 L320.8 168.3 L323.9 169.1 L326.9 169.8 L329.9 170.7 L332.9 171.6 L335.8 172.6 L338.8 173.6 L341.6 174.7 L344.5 175.8 L347.3 177.0 L350.1 178.3 L352.8 179.6 L355.5 180.9 L358.2 182.3 L360.8 183.8 L363.4 185.3 L365.9 186.9 L368.4 188.5 L370.8 190.1 L373.2 191.8 L375.5 193.6 L377.8 195.4 L380.0 197.2 L382.1 199.1 L384.2 201.1 L386.2 203.0 L388.2 205.0 L390.1 207.1 L391.9 209.2 L393.7 211.3 L395.4 213.5 L397.0 215.7 L398.5 217.9 L400.0 220.1 L401.4 222.4 L402.8 224.7 L404.1 227.1 L405.2 229.4 L406.4 231.8 L407.4 234.2 L408.4 236.7 L409.3 239.1 L410.1 241.6 L410.8 244.1 L411.4 246.6 L412.0 249.1 L412.5 251.6 L412.9 254.1 L413.2 256.7 L413.4 259.2 L413.6 261.8 L413.7 264.3 L413.7 266.9 L413.6 269.4 L413.4 272.0 L413.2 274.6 L412.8 277.1 L412.4 279.6 L411.9 282.2 L411.3 284.7 L410.7 287.2 L409.9 289.7 L409.1 292.2 L408.2 294.6 L407.2 297.1 Z"/></g></svg>
+    </div>
+    <div class="hero__ribbon" aria-hidden="true">
+      <svg viewBox="0 0 620 780" preserveAspectRatio="xMaxYMin slice">
+        <path d="M110 -120 C520 60, 640 400, 430 620 C270 790, 20 740, -40 590"
+              fill="none" stroke="#E4EEFB" stroke-width="196" stroke-linecap="round"/>
+        <path d="M250 -110 C620 110, 690 430, 520 650"
+              fill="none" stroke="#D5E4F8" stroke-width="96" stroke-linecap="round"/>
+        <path d="M158 -92 C512 96, 606 404, 418 588"
+              fill="none" stroke="#F2F7FE" stroke-width="12" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="reveal">
+          <span class="eyebrow">NCCU FinTech Innovation Lab</span>
+          <h1 class="display hero__title">
+            <span data-en="NCCU FinTech">政大金融科技</span><br>
+            <span class="grad-text" data-en="Innovation Lab">創新實驗室</span>
+          </h1>
+          <p class="hero__sub" data-en="NCCU’s first FinTech academic society">政大第一個 FinTech 學術社團</p>
+          <p class="lead hero__desc" data-en="Finance × Technology × Industry × Building things. We turn the FinTech you learn in class into something you can actually build, explain, and put on a résumé.">
+            金融 × 科技 × 產學 × 實作。我們把課堂上的金融科技，變成做得出來、講得清楚、寫得進履歷的東西。
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="contact.html">
+              <span data-en="Join FTL">加入 FTL</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </a>
+            <a class="btn btn--lg" href="projects.html" data-en="See what we’ve built">看看我們做了什麼</a>
+          </div>
+
+        </div>
+
+        <div class="pane pane--rows reveal">
+        <div class="ios-list" data-stagger>
+          <a class="ios-row reveal" href="about.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+            <span class="ios-row__label" data-en="Finished the FinTech program. Now what?">修完學程，然後呢？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="projects.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+            <span class="ios-row__label" data-en="Want to build something — with who?">想做專案，找誰一起？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="insights.html">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <span class="ios-row__label" data-en="Résumé says “took the course”. And?">履歷只有修過課，怎麼辦？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+          <a class="ios-row reveal" href="resources.html#contests">
+            <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg></span>
+            <span class="ios-row__label" data-en="Case competitions but no teammates?">想參加商業競賽，找不到隊友？</span>
+            <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+
+      <div class="pane pane--stats reveal">
+        <div class="stats">
+          <div class="stat"><b>64</b><span data-en="Members">成員人數</span></div>
+          <div class="stat"><b>12</b><span data-en="Events this year">今年活動場次</span></div>
+          <div class="stat"><b>8</b><span data-en="Live projects">進行中專案</span></div>
+          <div class="stat"><b>3</b><span data-en="Industry partners">產學合作</span></div>
+        </div>
+      </div>
+
+      <p class="endorse reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+        <span data-en="Founded under the guidance of the NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心 指導成立</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="mob-div" aria-hidden="true">
+    <svg viewBox="0 0 1200 84" preserveAspectRatio="none"><path d="M346.8 84.0 L332.1 83.3 L317.7 82.5 L303.6 81.8 L289.7 81.0 L276.1 80.3 L262.9 79.5 L249.9 78.7 L237.3 77.9 L224.9 77.1 L212.8 76.3 L201.1 75.4 L189.7 74.6 L178.6 73.8 L167.8 72.9 L157.3 72.0 L147.2 71.2 L137.4 70.3 L127.9 69.4 L118.8 68.5 L109.9 67.6 L101.5 66.8 L93.3 65.9 L85.5 64.9 L78.0 64.0 L70.9 63.1 L64.1 62.2 L57.7 61.3 L51.6 60.4 L45.8 59.4 L40.4 58.5 L35.3 57.6 L30.5 56.6 L26.2 55.7 L22.1 54.8 L18.4 53.8 L15.0 52.9 L12.0 52.0 L9.3 51.0 L7.0 50.1 L5.0 49.2 L3.3 48.2 L2.0 47.3 L1.0 46.4 L0.3 45.5 L0.0 44.5 L0.0 43.6 L0.3 42.7 L1.0 41.8 L2.0 40.9 L3.3 40.0 L4.9 39.1 L6.8 38.2 L9.1 37.3 L11.7 36.4 L14.6 35.5 L17.7 34.7 L21.2 33.8 L25.0 33.0 L29.1 32.1 L33.5 31.3 L38.2 30.4 L43.1 29.6 L48.4 28.8 L53.9 28.0 L59.7 27.1 L65.8 26.4 L72.1 25.6 L78.8 24.8 L85.6 24.0 L92.8 23.3 L100.1 22.5 L107.8 21.8 L115.7 21.0 L123.8 20.3 L132.1 19.6 L140.7 18.9 L149.5 18.2 L158.6 17.5 L167.8 16.9 L177.3 16.2 L187.0 15.6 L196.9 14.9 L206.9 14.3 L217.2 13.7 L227.7 13.1 L238.3 12.5 L249.2 12.0 L260.2 11.4 L271.3 10.9 L282.7 10.3 L294.2 9.8 L305.8 9.3 L317.6 8.8 L329.6 8.3 L341.7 7.8 L353.9 7.4 L366.3 6.9 L378.7 6.5 L391.4 6.1 L404.1 5.7 L416.9 5.3 L429.8 4.9 L442.8 4.6 L456.0 4.2 L469.2 3.9 L482.5 3.6 L495.9 3.3 L509.3 3.0 L522.8 2.7 L536.4 2.4 L550.1 2.2 L563.8 1.9 L577.5 1.7 L591.3 1.5 L605.1 1.3 L619.0 1.1 L632.9 1.0 L646.8 0.8 L660.8 0.7 L674.7 0.5 L688.7 0.4 L702.7 0.3 L716.7 0.2 L730.7 0.2 L744.7 0.1 L758.6 0.1 L772.6 0.0 L786.5 0.0 L800.4 0.0 L814.3 0.0 L828.2 0.0 L842.0 0.1 L855.8 0.1 L869.5 0.2 L883.2 0.2 L896.8 0.3 L910.4 0.4 L924.0 0.5 L937.4 0.6 L950.8 0.8 L964.2 0.9 L977.4 1.1 L990.6 1.2 L1003.7 1.4 L1016.7 1.6 L1029.6 1.8 L1042.5 2.0 L1055.2 2.2 L1067.9 2.4 L1080.4 2.7 L1092.9 2.9 L1105.3 3.2 L1117.5 3.5 L1129.6 3.8 L1141.7 4.1 L1153.6 4.4 L1165.4 4.7 L1177.0 5.0 L1188.6 5.4 L1200.0 5.7"/></svg>
+  </div>
+  <!-- ===================== 週報 ===================== -->
+  <section class="section--tight section section--alt" id="weekly">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Weekly Digest">FinTech 週報</span>
+          <h2 class="h1" data-en="This week in FinTech">這禮拜的金融科技，發生了什麼</h2>
+          <p class="lead mt-4" data-en="Every Monday we pick three stories that actually matter, and say why they matter in two sentences.">
+            每週一，我們挑三則真的重要的消息，並用兩句話說清楚它為什麼重要。
+          </p>
+        </div>
+        <a class="link-arrow" href="insights.html#weekly">
+          <span data-en="All issues">看所有期數</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-3" data-stagger>
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag" data-en="Regulation">監理</span>
+          </div>
+          <h3 class="h3" data-en="Pure-play digital banks cleared for FX business — three players, three strategies">純網銀獲准承作外幣業務，三家的打法完全不同</h3>
+          <p class="card__body" data-en="The rule change turns FX spread into a real revenue line for digital-only banks. Watch who prices for volume and who prices for margin.">
+            這次鬆綁把匯差變成純網銀真正的收入項。重點在於誰選擇衝量、誰選擇守利差。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">4 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag tag--cyan" data-en="Payments">支付</span>
+          </div>
+          <h3 class="h3" data-en="Stablecoin settlement passes 5% of SEA cross-border e-commerce">穩定幣結算首度佔東南亞跨境電商 5%</h3>
+          <p class="card__body" data-en="Not speculation — merchants are using it to dodge three-day settlement. The interesting question is who takes the FX risk now.">
+            這次不是投機，是商家用它避開三天的清算等待。有趣的問題是：匯率風險現在由誰承擔。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">6 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+
+        <a class="card reveal" href="insights.html#weekly">
+          <div class="card__top">
+            <span class="card__index num">VOL.24 · 09.02</span>
+            <span class="tag tag--warn" data-en="AI × Markets">AI × 資本市場</span>
+          </div>
+          <h3 class="h3" data-en="Brokerages roll out AI research assistants — what happens to junior analysts">券商導入 AI 投研助理後，初階分析師去哪了</h3>
+          <p class="card__body" data-en="Headcount didn’t drop. The job changed: less writing, more verifying. That shift is the part worth preparing for.">
+            人數沒有變少，工作內容變了：寫得少、查證得多。值得準備的是這個轉向。
+          </p>
+          <div class="card__foot">
+            <span class="dim en" style="font-size:.78rem;font-weight:700">5 min read</span>
+            <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <div class="mob-div" aria-hidden="true">
+    <svg viewBox="0 0 1200 84" preserveAspectRatio="none"><path d="M346.8 84.0 L332.1 83.3 L317.7 82.5 L303.6 81.8 L289.7 81.0 L276.1 80.3 L262.9 79.5 L249.9 78.7 L237.3 77.9 L224.9 77.1 L212.8 76.3 L201.1 75.4 L189.7 74.6 L178.6 73.8 L167.8 72.9 L157.3 72.0 L147.2 71.2 L137.4 70.3 L127.9 69.4 L118.8 68.5 L109.9 67.6 L101.5 66.8 L93.3 65.9 L85.5 64.9 L78.0 64.0 L70.9 63.1 L64.1 62.2 L57.7 61.3 L51.6 60.4 L45.8 59.4 L40.4 58.5 L35.3 57.6 L30.5 56.6 L26.2 55.7 L22.1 54.8 L18.4 53.8 L15.0 52.9 L12.0 52.0 L9.3 51.0 L7.0 50.1 L5.0 49.2 L3.3 48.2 L2.0 47.3 L1.0 46.4 L0.3 45.5 L0.0 44.5 L0.0 43.6 L0.3 42.7 L1.0 41.8 L2.0 40.9 L3.3 40.0 L4.9 39.1 L6.8 38.2 L9.1 37.3 L11.7 36.4 L14.6 35.5 L17.7 34.7 L21.2 33.8 L25.0 33.0 L29.1 32.1 L33.5 31.3 L38.2 30.4 L43.1 29.6 L48.4 28.8 L53.9 28.0 L59.7 27.1 L65.8 26.4 L72.1 25.6 L78.8 24.8 L85.6 24.0 L92.8 23.3 L100.1 22.5 L107.8 21.8 L115.7 21.0 L123.8 20.3 L132.1 19.6 L140.7 18.9 L149.5 18.2 L158.6 17.5 L167.8 16.9 L177.3 16.2 L187.0 15.6 L196.9 14.9 L206.9 14.3 L217.2 13.7 L227.7 13.1 L238.3 12.5 L249.2 12.0 L260.2 11.4 L271.3 10.9 L282.7 10.3 L294.2 9.8 L305.8 9.3 L317.6 8.8 L329.6 8.3 L341.7 7.8 L353.9 7.4 L366.3 6.9 L378.7 6.5 L391.4 6.1 L404.1 5.7 L416.9 5.3 L429.8 4.9 L442.8 4.6 L456.0 4.2 L469.2 3.9 L482.5 3.6 L495.9 3.3 L509.3 3.0 L522.8 2.7 L536.4 2.4 L550.1 2.2 L563.8 1.9 L577.5 1.7 L591.3 1.5 L605.1 1.3 L619.0 1.1 L632.9 1.0 L646.8 0.8 L660.8 0.7 L674.7 0.5 L688.7 0.4 L702.7 0.3 L716.7 0.2 L730.7 0.2 L744.7 0.1 L758.6 0.1 L772.6 0.0 L786.5 0.0 L800.4 0.0 L814.3 0.0 L828.2 0.0 L842.0 0.1 L855.8 0.1 L869.5 0.2 L883.2 0.2 L896.8 0.3 L910.4 0.4 L924.0 0.5 L937.4 0.6 L950.8 0.8 L964.2 0.9 L977.4 1.1 L990.6 1.2 L1003.7 1.4 L1016.7 1.6 L1029.6 1.8 L1042.5 2.0 L1055.2 2.2 L1067.9 2.4 L1080.4 2.7 L1092.9 2.9 L1105.3 3.2 L1117.5 3.5 L1129.6 3.8 L1141.7 4.1 L1153.6 4.4 L1165.4 4.7 L1177.0 5.0 L1188.6 5.4 L1200.0 5.7"/></svg>
+  </div>
+  <!-- ===================== 社團宗旨 ===================== -->
+  <section class="section" id="mission">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Our mission">社團宗旨</span>
+          <h2 class="h1" data-en="Three things we insist on">我們堅持的三件事</h2>
+        </div>
+        <a class="link-arrow" href="about.html">
+          <span data-en="The full story">完整的成立背景</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="numlist" data-stagger>
+        <article class="nl reveal">
+          <span class="nl__n">01</span>
+          <div>
+            <h3 data-en="Ship it, don’t just discuss it">做出來，不只是討論</h3>
+            <p data-en="Every term each team ships one thing that works — a model, a dashboard, or a report someone outside the club actually reads. “We researched it” does not count as a deliverable.">
+              每學期每組都要交出一個能用的東西：一個模型、一個儀表板，或一份社團以外的人真的會讀的報告。「我們有研究」不算成果。
+            </p>
+          </div>
+        </article>
+        <article class="nl reveal">
+          <span class="nl__n">02</span>
+          <div>
+            <h3 data-en="Finance and code at the same table">金融與程式坐在同一張桌子</h3>
+            <p data-en="Teams are deliberately mixed: finance, MIS, statistics, law. The friction between them is where the good questions come from.">
+              分組刻意混編：財金、資管、統計、法律。懂法規的人和懂模型的人互相聽不懂的地方，往往就是好問題出現的地方。
+            </p>
+          </div>
+        </article>
+        <article class="nl reveal">
+          <span class="nl__n">03</span>
+          <div>
+            <h3 data-en="Keep one foot in the industry">一隻腳踩在業界</h3>
+            <p data-en="Mentors from banks, brokerages and startups review our work each term — not as a talk, but as a critique of what we built.">
+              每學期請銀行、券商與新創的業師來看我們的東西——不是演講，是針對成果的批評。被講難聽話也是成果的一部分。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="mob-div" aria-hidden="true">
+    <svg viewBox="0 0 1200 84" preserveAspectRatio="none"><path d="M346.8 84.0 L332.1 83.3 L317.7 82.5 L303.6 81.8 L289.7 81.0 L276.1 80.3 L262.9 79.5 L249.9 78.7 L237.3 77.9 L224.9 77.1 L212.8 76.3 L201.1 75.4 L189.7 74.6 L178.6 73.8 L167.8 72.9 L157.3 72.0 L147.2 71.2 L137.4 70.3 L127.9 69.4 L118.8 68.5 L109.9 67.6 L101.5 66.8 L93.3 65.9 L85.5 64.9 L78.0 64.0 L70.9 63.1 L64.1 62.2 L57.7 61.3 L51.6 60.4 L45.8 59.4 L40.4 58.5 L35.3 57.6 L30.5 56.6 L26.2 55.7 L22.1 54.8 L18.4 53.8 L15.0 52.9 L12.0 52.0 L9.3 51.0 L7.0 50.1 L5.0 49.2 L3.3 48.2 L2.0 47.3 L1.0 46.4 L0.3 45.5 L0.0 44.5 L0.0 43.6 L0.3 42.7 L1.0 41.8 L2.0 40.9 L3.3 40.0 L4.9 39.1 L6.8 38.2 L9.1 37.3 L11.7 36.4 L14.6 35.5 L17.7 34.7 L21.2 33.8 L25.0 33.0 L29.1 32.1 L33.5 31.3 L38.2 30.4 L43.1 29.6 L48.4 28.8 L53.9 28.0 L59.7 27.1 L65.8 26.4 L72.1 25.6 L78.8 24.8 L85.6 24.0 L92.8 23.3 L100.1 22.5 L107.8 21.8 L115.7 21.0 L123.8 20.3 L132.1 19.6 L140.7 18.9 L149.5 18.2 L158.6 17.5 L167.8 16.9 L177.3 16.2 L187.0 15.6 L196.9 14.9 L206.9 14.3 L217.2 13.7 L227.7 13.1 L238.3 12.5 L249.2 12.0 L260.2 11.4 L271.3 10.9 L282.7 10.3 L294.2 9.8 L305.8 9.3 L317.6 8.8 L329.6 8.3 L341.7 7.8 L353.9 7.4 L366.3 6.9 L378.7 6.5 L391.4 6.1 L404.1 5.7 L416.9 5.3 L429.8 4.9 L442.8 4.6 L456.0 4.2 L469.2 3.9 L482.5 3.6 L495.9 3.3 L509.3 3.0 L522.8 2.7 L536.4 2.4 L550.1 2.2 L563.8 1.9 L577.5 1.7 L591.3 1.5 L605.1 1.3 L619.0 1.1 L632.9 1.0 L646.8 0.8 L660.8 0.7 L674.7 0.5 L688.7 0.4 L702.7 0.3 L716.7 0.2 L730.7 0.2 L744.7 0.1 L758.6 0.1 L772.6 0.0 L786.5 0.0 L800.4 0.0 L814.3 0.0 L828.2 0.0 L842.0 0.1 L855.8 0.1 L869.5 0.2 L883.2 0.2 L896.8 0.3 L910.4 0.4 L924.0 0.5 L937.4 0.6 L950.8 0.8 L964.2 0.9 L977.4 1.1 L990.6 1.2 L1003.7 1.4 L1016.7 1.6 L1029.6 1.8 L1042.5 2.0 L1055.2 2.2 L1067.9 2.4 L1080.4 2.7 L1092.9 2.9 L1105.3 3.2 L1117.5 3.5 L1129.6 3.8 L1141.7 4.1 L1153.6 4.4 L1165.4 4.7 L1177.0 5.0 L1188.6 5.4 L1200.0 5.7"/></svg>
+  </div>
+  <!-- ===================== 近期活動 ===================== -->
+  <section class="section section--alt" id="events">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Upcoming">近期活動</span>
+          <h2 class="h1" data-en="What’s happening next">接下來這幾場</h2>
+        </div>
+        <a class="link-arrow" href="events.html">
+          <span data-en="All events">所有活動</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-3" data-stagger>
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag" data-en="Weekly session">社課</span>
+            <span class="card__index num">09.18 THU</span>
+          </div>
+          <h3 class="h3" data-en="Scraping MOPS with Python: from crawler to a table you can use">用 Python 抓公開資訊觀測站：從爬蟲到能用的資料表</h3>
+          <p class="card__body" data-en="Bring a laptop. You leave with a working script and a cleaned dataset of TWSE filings.">
+            自備筆電。結束時你會帶走一支能跑的腳本，和一份整理好的上市櫃申報資料。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>19:00–21:00
+            </span>
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span data-en="Commerce Bldg. 260301">商學院 260301</span>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag tag--cyan" data-en="Workshop">工作坊</span>
+            <span class="card__index num">09.27 SAT</span>
+          </div>
+          <h3 class="h3" data-en="Credit risk in practice: from LendingClub data to an explainable scorecard">信用風險模型實作：從 LendingClub 資料到一張說得清楚的評分卡</h3>
+          <p class="card__body" data-en="Half a day, in teams of three. A risk manager from a mid-size bank reviews every scorecard at the end.">
+            半天，三人一組。結束前由一位中型銀行的風控主管逐組檢視每張評分卡。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>13:30–17:30
+            </span>
+            <span class="tag tag--warn" data-en="8 seats left">剩 8 位</span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="events.html">
+          <div class="card__top">
+            <span class="tag tag--ok" data-en="Reading group">讀書會</span>
+            <span class="card__index num">10.02 THU</span>
+          </div>
+          <h3 class="h3" data-en="“The Pay Off”, ch. 1–3: the invisible rails behind every payment">《The Pay Off》第 1–3 章：每一筆支付背後那條看不見的軌道</h3>
+          <p class="card__body" data-en="Read first, argue second. Online, 90 minutes, one person leads each chapter.">
+            先讀再吵。線上進行，90 分鐘，每章由一個人帶讀。
+          </p>
+          <div class="card__foot dim" style="font-size:.82rem">
+            <span class="stack" style="flex-direction:row;align-items:center;gap:6px">
+              <svg class="icon" style="width:15px;height:15px" aria-hidden="true"><use href="#i-clock"/></svg>20:00–21:30
+            </span>
+            <span data-en="Online">線上</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <div class="mob-div" aria-hidden="true">
+    <svg viewBox="0 0 1200 84" preserveAspectRatio="none"><path d="M346.8 84.0 L332.1 83.3 L317.7 82.5 L303.6 81.8 L289.7 81.0 L276.1 80.3 L262.9 79.5 L249.9 78.7 L237.3 77.9 L224.9 77.1 L212.8 76.3 L201.1 75.4 L189.7 74.6 L178.6 73.8 L167.8 72.9 L157.3 72.0 L147.2 71.2 L137.4 70.3 L127.9 69.4 L118.8 68.5 L109.9 67.6 L101.5 66.8 L93.3 65.9 L85.5 64.9 L78.0 64.0 L70.9 63.1 L64.1 62.2 L57.7 61.3 L51.6 60.4 L45.8 59.4 L40.4 58.5 L35.3 57.6 L30.5 56.6 L26.2 55.7 L22.1 54.8 L18.4 53.8 L15.0 52.9 L12.0 52.0 L9.3 51.0 L7.0 50.1 L5.0 49.2 L3.3 48.2 L2.0 47.3 L1.0 46.4 L0.3 45.5 L0.0 44.5 L0.0 43.6 L0.3 42.7 L1.0 41.8 L2.0 40.9 L3.3 40.0 L4.9 39.1 L6.8 38.2 L9.1 37.3 L11.7 36.4 L14.6 35.5 L17.7 34.7 L21.2 33.8 L25.0 33.0 L29.1 32.1 L33.5 31.3 L38.2 30.4 L43.1 29.6 L48.4 28.8 L53.9 28.0 L59.7 27.1 L65.8 26.4 L72.1 25.6 L78.8 24.8 L85.6 24.0 L92.8 23.3 L100.1 22.5 L107.8 21.8 L115.7 21.0 L123.8 20.3 L132.1 19.6 L140.7 18.9 L149.5 18.2 L158.6 17.5 L167.8 16.9 L177.3 16.2 L187.0 15.6 L196.9 14.9 L206.9 14.3 L217.2 13.7 L227.7 13.1 L238.3 12.5 L249.2 12.0 L260.2 11.4 L271.3 10.9 L282.7 10.3 L294.2 9.8 L305.8 9.3 L317.6 8.8 L329.6 8.3 L341.7 7.8 L353.9 7.4 L366.3 6.9 L378.7 6.5 L391.4 6.1 L404.1 5.7 L416.9 5.3 L429.8 4.9 L442.8 4.6 L456.0 4.2 L469.2 3.9 L482.5 3.6 L495.9 3.3 L509.3 3.0 L522.8 2.7 L536.4 2.4 L550.1 2.2 L563.8 1.9 L577.5 1.7 L591.3 1.5 L605.1 1.3 L619.0 1.1 L632.9 1.0 L646.8 0.8 L660.8 0.7 L674.7 0.5 L688.7 0.4 L702.7 0.3 L716.7 0.2 L730.7 0.2 L744.7 0.1 L758.6 0.1 L772.6 0.0 L786.5 0.0 L800.4 0.0 L814.3 0.0 L828.2 0.0 L842.0 0.1 L855.8 0.1 L869.5 0.2 L883.2 0.2 L896.8 0.3 L910.4 0.4 L924.0 0.5 L937.4 0.6 L950.8 0.8 L964.2 0.9 L977.4 1.1 L990.6 1.2 L1003.7 1.4 L1016.7 1.6 L1029.6 1.8 L1042.5 2.0 L1055.2 2.2 L1067.9 2.4 L1080.4 2.7 L1092.9 2.9 L1105.3 3.2 L1117.5 3.5 L1129.6 3.8 L1141.7 4.1 L1153.6 4.4 L1165.4 4.7 L1177.0 5.0 L1188.6 5.4 L1200.0 5.7"/></svg>
+  </div>
+  <!-- ===================== 聯絡我們 ===================== -->
+  <section class="section slab" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="grid grid-2" style="gap:clamp(32px,5vw,64px);align-items:center">
+          <div>
+            <span class="eyebrow" data-en="Get in touch">聯絡我們</span>
+            <h2 class="h1" data-en="Easiest way in: add the LINE Bot">最快的方式：加 LINE Bot</h2>
+            <p class="lead mt-4" data-en="It answers recruitment questions, pushes the weekly digest, and reminds you before every session. A human takes over when it can’t help.">
+              它會回答招募問題、推播每週週報、在每場活動前提醒你。答不出來時會轉給真人。
+            </p>
+            <div class="hero__cta mt-6">
+              <a class="btn btn--primary" href="https://page.line.me/nccufintechlab">
+                <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
+                <span data-en="Add LINE Bot">加入 LINE Bot</span>
+              </a>
+              <a class="btn" href="mailto:nccufintechlab@gmail.com">
+                <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="pane pane--rows reveal">
+        <div class="ios-list" data-stagger>
+            <a class="ios-row reveal" href="https://www.instagram.com/nccufintechlab/">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span>
+              <span class="ios-row__label">Instagram<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="https://page.line.me/nccufintechlab">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span>
+              <span class="ios-row__label">LINE Bot<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="https://www.threads.com/@nccufintechlab">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-threads"/></svg></span>
+              <span class="ios-row__label">Threads<br><span class="dim en" style="font-size:.78rem;font-weight:700">@nccufintechlab</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+            <a class="ios-row reveal" href="mailto:nccufintechlab@gmail.com">
+              <span class="ios-row__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <span class="ios-row__label">Email<br><span class="dim en" style="font-size:.78rem;font-weight:700">nccufintechlab@gmail.com</span></span>
+              <svg class="icon ios-row__chev" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 合作對象跑馬燈 ===================== -->
+  <section class="section--tight section" id="partners">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:32px">
+        <div>
+          <span class="eyebrow" data-en="Partners &amp; mentors">合作對象</span>
+          <h2 class="h2" data-en="Who works with us">和我們一起做事的人</h2>
+        </div>
+        <p class="note" style="max-width:34ch">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span data-en="Placeholder entries — swap in real logos and names.">此處為示意項目，之後換成實際的 logo 與名稱。</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="marquee reveal">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Bank 01">合作企業 01</b><span data-en="Pure-play digital bank">純網銀</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Firm 02">合作企業 02</b><span data-en="Securities / wealth tech">券商 · 財富科技</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Mentor · Payments">業師 · 支付</b><span data-en="Cross-border settlement">跨境清算</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Startup 03">合作新創 03</b><span data-en="RegTech / KYC">法遵科技 · KYC</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Mentor · Credit risk">業師 · 信用風險</b><span data-en="Mid-size commercial bank">中型商業銀行</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="NCCU FinTech Research Center">政大金融科技研究中心</b><span data-en="Founding advisor">指導單位</span></span></div>
+          <div class="partner"><span class="partner__dot"></span><span><b data-en="Partner Fund 04">合作機構 04</b><span data-en="Asset management">資產管理</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/ftl.js"></script>
+<div style="position:fixed;left:16px;bottom:16px;z-index:99;background:#0B1F3A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;padding:8px 14px">方案 1 — 單邊</div>
+</body>
+</html>

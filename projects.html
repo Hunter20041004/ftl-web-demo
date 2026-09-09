@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- 開發中的展示版，先不要進搜尋結果。正式上線時把這行刪掉。 -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%233D8BFF'/><path d='M10 26.5 16.5 20l4.5 4.2 8-9.7' fill='none' stroke='%23fff' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="assets/ftl.css">
+<title data-en="Projects · NCCU FinTech Innovation Lab">專案 ｜ 政大金融科技創新實驗室</title>
+<meta name="description" content="產學合作與自主專案成果。">
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main" class="page">
+
+  <section class="pagehead">
+    <div class="wrap reveal">
+      <span class="eyebrow" data-en="Projects">專案</span>
+      <h1 class="h1" data-en="Things we actually built, and what broke along the way">我們真的做出來的東西，以及過程中壞掉的部分</h1>
+      <p class="lead" data-en="Two tracks: projects commissioned by a partner with a real deadline, and projects we started ourselves because the question annoyed us. Both ship.">
+        兩條線：一條是業界委託、有真實期限的產學合作；一條是我們自己覺得問題很煩所以動手做的自主專案。兩條都要交件。
+      </p>
+    </div>
+  </section>
+
+  <!-- 產學合作 -->
+  <section class="section--tight section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Industry collaboration">產學合作</span>
+          <h2 class="h1" data-en="Commissioned work">業界出題，我們交件</h2>
+          <p class="lead mt-4" data-en="A partner defines the problem, we deliver in 10–14 weeks, and they review it in front of everyone. Partner names below are placeholders.">
+            合作方出題，我們用 10–14 週交件，成果由對方當著所有人的面檢視。以下合作方名稱為示意。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-3" data-stagger>
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <span class="tag" data-en="Partner Bank 01">合作企業 01</span>
+            <span class="card__index num">2026 SPRING</span>
+          </div>
+          <h3 class="h3" data-en="Cutting false positives in transaction fraud alerts">把交易盜刷警示的誤報砍下來</h3>
+          <p class="card__body" data-en="Their rule engine flagged too much; analysts stopped trusting it. We rebuilt the scoring with gradient boosting plus a rule layer the compliance team could still read.">
+            他們的規則引擎警示太多，分析師乾脆不看了。我們用梯度提升重建評分，外加一層法遵團隊仍讀得懂的規則。
+          </p>
+          <div class="tag-row mt-4">
+            <span class="tag tag--ghost">Python</span><span class="tag tag--ghost">LightGBM</span><span class="tag tag--ghost">SHAP</span>
+          </div>
+          <div class="card__foot">
+            <span class="tag tag--ok" data-en="Delivered">已交付</span>
+            <span class="dim" style="font-size:.82rem" data-en="Team of 5 · 12 weeks">5 人 · 12 週</span>
+          </div>
+        </article>
+
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <span class="tag" data-en="Partner Firm 02">合作企業 02</span>
+            <span class="card__index num">2026 SPRING</span>
+          </div>
+          <h3 class="h3" data-en="A retail research dashboard that a non-analyst can read">給非分析師看的零售投研儀表板</h3>
+          <p class="card__body" data-en="The brief was “our clients don’t open the PDF”. We turned a 30-page monthly report into six views, and tested them on people who had never traded.">
+            委託內容是「客戶根本不開那份 PDF」。我們把 30 頁的月報變成六個視圖，並拿給沒交易過的人測試。
+          </p>
+          <div class="tag-row mt-4">
+            <span class="tag tag--ghost">React</span><span class="tag tag--ghost">D3</span><span class="tag tag--ghost">FastAPI</span>
+          </div>
+          <div class="card__foot">
+            <span class="tag tag--ok" data-en="Delivered">已交付</span>
+            <span class="dim" style="font-size:.82rem" data-en="Team of 4 · 14 weeks">4 人 · 14 週</span>
+          </div>
+        </article>
+
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <span class="tag" data-en="Partner Startup 03">合作新創 03</span>
+            <span class="card__index num">2026 FALL</span>
+          </div>
+          <h3 class="h3" data-en="KYC document review: where automation should stop">KYC 文件審查：自動化該在哪裡停手</h3>
+          <p class="card__body" data-en="Ongoing. We are measuring which document types an OCR pipeline handles safely and which ones must stay with a human — the answer is less flattering than the sales deck.">
+            進行中。我們在量哪幾類文件 OCR 流程可以安全處理、哪幾類必須留給人——答案沒有銷售簡報講得那麼好看。
+          </p>
+          <div class="tag-row mt-4">
+            <span class="tag tag--ghost">OCR</span><span class="tag tag--ghost">RegTech</span><span class="tag tag--ghost">Evaluation</span>
+          </div>
+          <div class="card__foot">
+            <span class="tag tag--warn" data-en="In progress">進行中</span>
+            <span class="dim" style="font-size:.82rem" data-en="Team of 6 · week 4 of 12">6 人 · 第 4／12 週</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 自主專案 -->
+  <section class="section section--alt" id="self">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow" data-en="Self-initiated">自主專案</span>
+          <h2 class="h1" data-en="Nobody asked for these">沒有人要求我們做這些</h2>
+          <p class="lead mt-4" data-en="Started because a member got annoyed by something. Some of them turned out to be useful to more people than we expected.">
+            起因都是某個成員被某件事煩到。其中幾個後來對比我們預期更多的人有用。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-2" data-stagger>
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <h3 class="h3" data-en="TWSE filings, in plain language">公開資訊觀測站，但講人話</h3>
+            <span class="tag tag--cyan" data-en="Open source">開源</span>
+          </div>
+          <p class="card__body" data-en="A scraper plus a summariser that turns material-information filings into two-sentence notes. Used internally to write the weekly digest, then opened up because classmates kept asking for access.">
+            一支爬蟲加一個摘要器，把重大訊息公告變成兩句話的筆記。原本只是拿來寫週報，後來因為同學一直要，就開源了。
+          </p>
+          <div class="tag-row mt-4"><span class="tag tag--ghost">Python</span><span class="tag tag--ghost">LLM</span><span class="tag tag--ghost">GitHub</span></div>
+        </article>
+
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <h3 class="h3" data-en="How much does that ETF actually cost you">那檔 ETF 到底扣了你多少</h3>
+            <span class="tag tag--cyan" data-en="Web tool">網頁工具</span>
+          </div>
+          <p class="card__body" data-en="A calculator that shows total holding cost over 10 years including the fees nobody puts on the front page. Built after an argument about whether 0.4% “is basically nothing”.">
+            一個試算工具，把十年持有的總成本算出來，包含沒人放在首頁的那些費用。起因是一場「0.4% 根本沒差吧」的爭論。
+          </p>
+          <div class="tag-row mt-4"><span class="tag tag--ghost">TypeScript</span><span class="tag tag--ghost">Chart.js</span></div>
+        </article>
+
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <h3 class="h3" data-en="A LINE bot that answers club questions">回答社團問題的 LINE Bot</h3>
+            <span class="tag tag--cyan" data-en="Internal tool">內部工具</span>
+          </div>
+          <p class="card__body" data-en="Built because the officers were answering the same six questions every recruitment cycle. It now handles roughly 80% of them, and hands the rest to a human.">
+            起因是每次招募，幹部都在回答同樣的六個問題。現在它處理掉大約八成，剩下的轉給真人。
+          </p>
+          <div class="tag-row mt-4"><span class="tag tag--ghost">LINE Messaging API</span><span class="tag tag--ghost">RAG</span></div>
+        </article>
+
+        <article class="card card--bar card--interactive reveal">
+          <div class="card__top">
+            <h3 class="h3" data-en="Backtesting without lying to yourself">不要騙自己的回測</h3>
+            <span class="tag tag--warn" data-en="Work in progress">開發中</span>
+          </div>
+          <p class="card__body" data-en="A teaching harness that deliberately shows how look-ahead bias and survivorship bias inflate results, by letting you toggle them on and off on the same strategy.">
+            一個教學用的回測框架，故意讓你在同一個策略上開關「前視偏誤」與「存活者偏誤」，直接看結果被灌水多少。
+          </p>
+          <div class="tag-row mt-4"><span class="tag tag--ghost">Python</span><span class="tag tag--ghost">Pandas</span><span class="tag tag--ghost">Teaching</span></div>
+        </article>
+      </div>
+
+      <div class="panel reveal mt-7" style="padding:clamp(24px,3.5vw,44px);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+        <div>
+          <h3 class="h2" data-en="Got a problem worth 12 weeks of our time?">有值得我們花 12 週的問題嗎？</h3>
+          <p class="lead mt-4" style="max-width:52ch" data-en="We take on two to three commissioned projects per term. Tell us the problem, not the solution.">
+            我們每學期接兩到三個委託專案。跟我們說問題，不用先想好解法。
+          </p>
+        </div>
+        <a class="btn btn--primary btn--lg" href="contact.html">
+          <span data-en="Talk to us">跟我們談談</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div id="site-footer"></div>
+<script src="assets/ftl.js"></script>
+</body>
+</html>

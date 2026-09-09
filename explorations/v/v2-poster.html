@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="zh-Hant-TW"><head>
+<base href="../../">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>版本 2 — 海報</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+:root{--b:#0050F0;--b2:#1668E3;--b3:#0A34C8;--ink:#0B1F3A;--g1:#46587A;--g2:#4F6084;
+  --line:#E2EAF6;--f:"Noto Sans TC",system-ui,sans-serif;--f-en:Inter,sans-serif;--f-m:"IBM Plex Mono",monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);font-weight:500;color:var(--ink);line-height:1.8;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit} img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:28px}
+.rv{opacity:0;transform:translateY(10px)}
+.rv.in{opacity:1;transform:none;transition:opacity .5s cubic-bezier(.23,1,.32,1),transform .5s cubic-bezier(.23,1,.32,1)}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+.badge-v{position:fixed;left:16px;bottom:16px;z-index:99;background:var(--ink);color:#fff;
+  font-family:var(--f-m);font-size:11px;letter-spacing:.14em;padding:8px 14px}
+
+body{background:#F4F6FA}
+.nav{position:sticky;top:0;z-index:60;background:#F4F6FA}
+.nav__in{height:78px;display:flex;align-items:center;gap:26px}
+.brand img{height:42px}
+.nav__l{margin-left:auto;display:flex;gap:22px}
+.nav__l a{font-size:13.5px;font-weight:900;color:var(--ink)}
+.nav__l a.on{color:var(--b)}
+.lang{display:flex;font-family:var(--f-m);font-size:11px;letter-spacing:.1em}
+.lang b{background:var(--ink);color:#fff;padding:4px 8px;font-weight:500}
+.lang i{font-style:normal;padding:4px 8px;border:1px solid var(--ink);border-left:0;color:var(--ink)}
+
+/* 首屏＝一張海報：藍色大色塊 ＋ 壓在上面的巨型標題 */
+.poster{position:relative;padding:40px 0 0}
+.poster .blk{position:absolute;right:0;top:0;width:34%;height:100%;background:var(--b);z-index:0}
+.poster .blk2{position:absolute;right:34%;top:0;width:9%;height:52%;background:var(--b3);z-index:0}
+.poster .in{position:relative;z-index:1;padding:64px 0 72px;display:grid;grid-template-columns:1fr 30%;gap:48px;align-items:end}
+.p-side{color:#fff}
+.p-side .k{font-family:var(--f-m);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:14px}
+.p-side p{font-size:15px;line-height:1.85;color:rgba(255,255,255,.95)}
+.p-side .big{font-family:var(--f-en);font-size:64px;font-weight:900;letter-spacing:-.05em;line-height:1;margin-bottom:10px}
+h1{font-size:clamp(42px,6.1vw,84px);font-weight:900;line-height:1.02;letter-spacing:-.06em}
+h1 .w{color:var(--b)}
+.p-sub{margin-top:34px;max-width:30ch;font-size:16px;line-height:1.9;color:var(--g1)}
+.p-cta{margin-top:34px;display:flex;gap:0}
+.btn{display:inline-flex;align-items:center;height:56px;padding:0 26px;font-size:15px;font-weight:900;
+  background:var(--ink);color:#fff;border:2px solid var(--ink)}
+.btn.o{background:transparent;color:var(--ink);border-left:0}
+/* 底部資料條：滿版黑條，白字 */
+.pbar{background:var(--ink);color:#fff}
+.pbar .wrap{display:flex;gap:0;flex-wrap:wrap}
+.pb{flex:1;min-width:150px;padding:26px 0;border-right:1px solid rgba(255,255,255,.18)}
+.pb:last-child{border-right:0}
+.pb b{display:block;font-family:var(--f-en);font-size:38px;font-weight:900;letter-spacing:-.05em;line-height:1}
+.pb span{display:block;margin-top:7px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+
+.sec{padding:84px 0}
+.sec-h{display:flex;align-items:flex-end;gap:20px;margin-bottom:38px}
+.sec-h h2{font-size:clamp(30px,4.6vw,58px);font-weight:900;letter-spacing:-.05em;line-height:1.06}
+.sec-h .no{font-family:var(--f-en);font-size:13px;font-weight:900;color:var(--b);border:2px solid var(--b);padding:3px 8px}
+.sec-h .more{margin-left:auto;font-size:14px;font-weight:900;color:var(--b)}
+/* 三則：色塊交錯，不是卡片 */
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink)}
+.nw{background:#fff;padding:30px 26px;min-height:250px;display:flex;flex-direction:column}
+.nw:nth-child(2){background:var(--b);color:#fff}
+.nw:nth-child(2) .m,.nw:nth-child(2) .r{color:rgba(255,255,255,.82)}
+.nw .m{font-family:var(--f-m);font-size:10.5px;letter-spacing:.13em;color:var(--b)}
+.nw h3{margin-top:14px;font-size:20px;font-weight:900;line-height:1.4;letter-spacing:-.03em}
+.nw p{margin-top:12px;font-size:14px;line-height:1.8;color:inherit;opacity:.82}
+.nw .r{margin-top:auto;padding-top:16px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.1em;color:var(--g2)}
+/* 宗旨：超大編號當色塊 */
+.creed{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink)}
+.cr{background:#fff;padding:0}
+.cr .n{display:block;background:var(--b);color:#fff;font-family:var(--f-en);font-size:60px;font-weight:900;
+  letter-spacing:-.06em;line-height:1;padding:22px 26px}
+.cr .bd{padding:26px}
+.cr h3{font-size:21px;font-weight:900;letter-spacing:-.03em}
+.cr p{margin-top:11px;font-size:14.5px;line-height:1.85;color:var(--g1)}
+@media (max-width:860px){.poster .in{grid-template-columns:1fr;gap:32px}
+ .p-side{color:var(--ink);border-top:2px solid var(--ink);padding-top:20px}
+ .p-side .k,.p-side p{color:var(--g1)}
+ .p-side .big{color:var(--b)}
+ .poster .blk{width:100%;height:30%;top:auto;bottom:0;opacity:.10}
+ .poster .blk2{display:none} .news,.creed{grid-template-columns:1fr}}
+
+
+@media (max-width:760px){
+  .nav__in{gap:14px}
+  .nav__l{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex:1;min-width:0}
+  .nav__l::-webkit-scrollbar{display:none}
+  .nav__l a{white-space:nowrap}
+}
+</style></head><body>
+<div class="badge-v">版本 2 — 海報</div>
+<header class="nav" data-stuck="false"><div class="wrap nav__in">
+  <a class="brand" href="#"><img src="assets/ftl-logo.png" alt="FTL"></a>
+  <nav class="nav__l"><a class="on" href="#">首頁</a><a href="#">關於我們</a><a href="#">專案</a><a href="#">洞察</a><a href="#">資源</a><a href="#">活動</a><a href="#">聯絡我們</a></nav>
+  <span class="lang"><b>中</b><i>EN</i></span>
+</div></header>
+
+<section class="poster">
+  <div class="blk" aria-hidden="true"></div><div class="blk2" aria-hidden="true"></div>
+  <div class="wrap in rv">
+    <div>
+      <h1>把課堂上的<br>金融科技，<br><span class="w">做成看得見的東西</span></h1>
+      <p class="p-sub">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團，跨系、跨年級。</p>
+      <div class="p-cta"><a class="btn" href="#">加入 FTL</a><a class="btn o" href="#">看看我們做了什麼</a></div>
+    </div>
+    <div class="p-side">
+      <div class="k">Instagram</div>
+      <div class="big">332</div>
+      <p>@nccufintechlab<br>政大商學院金融科技研究中心 指導成立</p>
+    </div>
+  </div>
+</section>
+<div class="pbar"><div class="wrap">
+  <div class="pb"><b>64</b><span>Members</span></div><div class="pb"><b>12</b><span>Events</span></div>
+  <div class="pb"><b>08</b><span>Projects</span></div><div class="pb"><b>03</b><span>Partners</span></div>
+  <div class="pb"><b>2026</b><span>Founded 05.10</span></div>
+</div></div>
+<section class="sec"><div class="wrap">
+  <div class="sec-h rv"><span class="no">01</span><h2>這禮拜的<br>金融科技</h2><span class="more">所有期數 →</span></div>
+  <div class="news rv">
+    <article class="nw"><div class="m">VOL.24 · 監理</div><h3>純網銀獲准承作外幣業務</h3><p>鬆綁把匯差變成純網銀真正的收入項。重點是誰衝量、誰守利差。</p><div class="r">4 MIN</div></article>
+    <article class="nw"><div class="m">VOL.24 · 支付</div><h3>穩定幣結算佔東南亞跨境電商 5%</h3><p>不是投機，是商家用它避開三天清算。匯率風險現在由誰承擔？</p><div class="r">6 MIN</div></article>
+    <article class="nw"><div class="m">VOL.24 · AI</div><h3>券商導入 AI 投研助理後</h3><p>人數沒少，工作變了：寫得少、查證得多。要準備的是這個轉向。</p><div class="r">5 MIN</div></article>
+  </div>
+</div></section>
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="sec-h rv"><span class="no">02</span><h2>我們堅持的三件事</h2></div>
+  <div class="creed rv">
+    <div class="cr"><span class="n">01</span><div class="bd"><h3>做出來，不只是討論</h3><p>每學期每組都要交出一個能用的東西。「我們有研究」不算成果。</p></div></div>
+    <div class="cr"><span class="n">02</span><div class="bd"><h3>金融與程式坐在同一張桌子</h3><p>分組刻意混編：財金、資管、統計、法律。互相聽不懂的地方就是好問題。</p></div></div>
+    <div class="cr"><span class="n">03</span><div class="bd"><h3>一隻腳踩在業界</h3><p>每學期請業師來看我們的東西——不是演講，是針對成果的批評。</p></div></div>
+  </div>
+</div></section>
+
+<script src="explorations/v/_shared.js"></script>
+</body></html>

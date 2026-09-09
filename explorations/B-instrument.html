@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-Hant-TW"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向 B — 儀表板</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+:root{--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+body{background:#fff}
+/* ══ 儀表板：一個金融科技實驗室該有的樣子——量測、標號、即時 ══
+   全站坐在一張看得見的網格上，資料是主角，藍色只在數字與重點 ══ */
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);
+  background-size:calc((100vw - 56px)/12) 100%;background-position:28px 0;opacity:.55}
+.page{position:relative;z-index:1}
+
+.topbar{border-bottom:1px solid var(--ink);background:#fff}
+.topbar .wrap{display:flex;align-items:center;height:70px;gap:26px}
+.topbar img{height:40px}
+.topbar nav{margin-left:auto;display:flex;gap:24px}
+.topbar a{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.topbar a[aria-current]{color:var(--ink);box-shadow:0 2px 0 var(--b)}
+.meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3)}
+
+/* 狀態列：像儀器開機的那一行 */
+.status{border-bottom:1px solid var(--line);background:var(--ice-2)}
+.status .wrap{display:flex;align-items:center;gap:26px;height:38px;font-family:var(--f-mono);font-size:11px;letter-spacing:.09em;color:var(--ink-2);overflow:hidden;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:#12B76A;display:inline-block;margin-right:7px}
+
+.hero{padding:74px 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.idx{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--b);text-transform:uppercase;margin-bottom:20px}
+h1{font-size:clamp(40px,5.4vw,72px);font-weight:900;line-height:1.08;letter-spacing:-.05em}
+h1 mark{background:none;color:var(--b)}
+.desc{margin-top:24px;font-size:15.5px;line-height:1.9;color:var(--ink-2);max-width:40ch}
+.cta{margin-top:34px;display:flex;gap:10px}
+.btn{height:46px;padding:0 22px;display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:900;
+  background:var(--ink);color:#fff;border:2px solid var(--ink)}
+.btn.o{background:#fff;color:var(--ink)}
+
+/* 讀數面板：週報、活動、成員全部排成儀器讀數 */
+.panel{border:2px solid var(--ink)}
+.panel h3{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  padding:11px 16px;background:var(--ink);color:#fff;font-weight:600}
+.rd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.rd:last-child{border-bottom:0}
+.rd .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;color:var(--ink-3);text-transform:uppercase;flex:none}
+.rd .v{font-size:14px;font-weight:900;text-align:right;line-height:1.45;letter-spacing:-.015em}
+.rd .n{font-family:var(--f-en);font-size:26px;font-weight:900;color:var(--b);letter-spacing:-.04em;line-height:1}
+.rd small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em;font-weight:400}
+
+/* 跑馬燈：週報標題像行情跑馬 */
+.ticker{margin-top:74px;border-block:1px solid var(--ink);background:#fff;overflow:hidden}
+.tk{display:flex;width:max-content;animation:tk 38s linear infinite}
+.tg{display:flex;gap:0;flex:none}
+.ti{display:flex;align-items:center;gap:12px;padding:14px 30px;border-right:1px solid var(--line);white-space:nowrap;font-size:13.5px;font-weight:700}
+.ti b{font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:.12em;color:var(--b)}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.sec{padding:88px 0}
+.h2row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:2px solid var(--ink);padding-bottom:18px}
+h2{font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.035em}
+.cards{display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.c:last-child{border-right:0}
+.cn{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;color:var(--b)}
+.ct{margin-top:12px;font-size:16.5px;font-weight:900;line-height:1.45;letter-spacing:-.02em}
+.cb{margin-top:11px;font-size:13.5px;line-height:1.8;color:var(--ink-2)}
+</style></head><body>
+<div class="tag-dir">方向 B — 儀表板</div>
+<div class="grid-bg"></div>
+<div class="page">
+
+<header class="topbar"><div class="wrap">
+  <img src="../assets/ftl-logo.png" alt="FTL">
+  <span class="meta">NCCU FINTECH INNOVATION LAB</span>
+  <nav><a aria-current="page">首頁</a><a>關於我們</a><a>專案</a><a>洞察</a><a>資源</a><a>活動</a><a>聯絡我們</a></nav>
+</div></header>
+
+<div class="status"><div class="wrap">
+  <span><span class="dot"></span>WEEKLY DIGEST · VOL.24</span>
+  <span>NEXT SESSION · 09.18 THU 19:00</span>
+  <span>MEMBERS · 64</span>
+  <span>IG @nccufintechlab · 332</span>
+</div></div>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="idx">政大商學院金融科技研究中心 指導成立</div>
+    <h1>把課堂上的<br>金融科技，<br><mark>做成看得見的東西</mark></h1>
+    <p class="desc">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團，跨系、跨年級，你只需要想動手。</p>
+    <div class="cta"><a class="btn">加入 FTL →</a><a class="btn o">看看我們做了什麼</a></div>
+  </div>
+  <div class="panel">
+    <h3>Lab readout · 2026.09</h3>
+    <div class="rd"><span class="k">Weekly</span><span class="v">純網銀獲准承作外幣業務<small>VOL.24 · 09.02</small></span></div>
+    <div class="rd"><span class="k">Next</span><span class="v">用 Python 抓公開資訊觀測站<small>09.18 THU · 商學院 260301</small></span></div>
+    <div class="rd"><span class="k">Members</span><span class="v"><span class="n">64</span><small>跨 8 個系所</small></span></div>
+    <div class="rd"><span class="k">Projects</span><span class="v"><span class="n">08</span><small>進行中</small></span></div>
+    <div class="rd"><span class="k">Partners</span><span class="v"><span class="n">03</span><small>產學合作</small></span></div>
+  </div>
+</div></section>
+
+<div class="ticker"><div class="tk">
+  <div class="tg">
+    <span class="ti"><b>VOL.24</b>純網銀獲准承作外幣業務，三家的打法完全不同</span>
+    <span class="ti"><b>VOL.24</b>穩定幣結算首度佔東南亞跨境電商 5%</span>
+    <span class="ti"><b>VOL.24</b>券商導入 AI 投研助理後，初階分析師去哪了</span>
+    <span class="ti"><b>VOL.23</b>監理沙盒滿五年，真正畢業的有哪些</span>
+  </div>
+  <div class="tg">
+    <span class="ti"><b>VOL.24</b>純網銀獲准承作外幣業務，三家的打法完全不同</span>
+    <span class="ti"><b>VOL.24</b>穩定幣結算首度佔東南亞跨境電商 5%</span>
+    <span class="ti"><b>VOL.24</b>券商導入 AI 投研助理後，初階分析師去哪了</span>
+    <span class="ti"><b>VOL.23</b>監理沙盒滿五年，真正畢業的有哪些</span>
+  </div>
+</div></div>
+
+<section class="sec"><div class="wrap">
+  <div class="h2row"><h2>我們堅持的三件事</h2><span class="meta">§ 01 / MISSION</span></div>
+  <div class="cards">
+    <div class="c"><div class="cn">01 — SHIP</div><div class="ct">做出來，不只是討論</div>
+      <div class="cb">每學期每組都要交出一個能用的東西。「我們有研究」不算成果。</div></div>
+    <div class="c"><div class="cn">02 — MIX</div><div class="ct">金融與程式坐在同一張桌子</div>
+      <div class="cb">分組刻意混編：財金、資管、統計、法律。互相聽不懂的地方就是好問題。</div></div>
+    <div class="c"><div class="cn">03 — INDUSTRY</div><div class="ct">一隻腳踩在業界</div>
+      <div class="cb">每學期請業師來看我們的東西——不是演講，是針對成果的批評。</div></div>
+  </div>
+</div></section>
+</div></body></html>
