@@ -721,52 +721,47 @@ p,.lead,.card__body{ text-wrap:pretty }
 .mob__v{ position:absolute; inset:0 }
 .mob__v svg{ width:100%; height:100%; display:block }
 
-/* 遠段：這是同一條帶子的另一半，在深處折返。
-   ⚠️ 不要加 filter:blur() —— 這一層是整頁高，實測捲動中位 frame
-   會從 16.7ms 變成 33.4ms（60fps → 30fps）。距離用透明度表達。 */
-.mob__far{ opacity:.62; filter:none }
-.mob__near{ filter:none }
-.mob .cont{ fill:none; stroke:#3E93DE; stroke-width:1; vector-effect:non-scaling-stroke }
-/* 唯一的那條邊。莫比烏斯只有一條邊界，所以它會把整頁走兩遍 */
-.mob .edge{ fill:none; stroke:#1B62C4; stroke-opacity:.52; stroke-width:1.5;
-  vector-effect:non-scaling-stroke }
-/* 柔光＝三層描邊疊出來的，不用 filter */
-.mob .glow{ fill:none; stroke:#8FE2FA; vector-effect:non-scaling-stroke; stroke-linecap:round }
-.mob .glow--3{ stroke-width:38; stroke-opacity:.07 }
-.mob .glow--2{ stroke-width:24; stroke-opacity:.10 }
-.mob .glow--1{ stroke-width:12; stroke-opacity:.13 }
+/* 顏色與濃度都由 mobius.js 依「文件位置」逐段寫成 inline 屬性 ——
+   ⚠️ 不要在這裡用 stroke/fill 覆蓋，那會把沿路的漸變一次抹平，
+   帶子就會變回一根從頭到尾同一個樣子的管子。
+   ⚠️ 也不要加 filter:blur()：這一層有整頁那麼高，實測捲動時
+   frame 中位數會從 16.7ms 掉到 33.4ms（60fps → 30fps）。
+   柔光是用「巢狀漸窄的帶」在幾何層做出來的。 */
+.mob__surf path{ stroke:none }
+.mob__cont path,.mob__edge path{ fill:none; vector-effect:non-scaling-stroke }
+.mob__cont path{ stroke-width:1 }
+.mob__edge path{ stroke-width:1.4; stroke-linecap:round }
+/* 墊在邊線底下那一筆：寬、糊、淡 → 邊緣受光，不是硬輪廓 */
+.mob__edge path.lit{ stroke-width:7 }
 
-/* 沿著那條唯一的邊跑的光點 —— 一顆，跑完整頁兩遍才回到原點 */
+/* 沿著唯一那條邊跑的光點。莫比烏斯只有一條邊界，
+   所以它要把整頁走兩遍才回到原點。 */
 .mob .pulse{
-  fill:none; stroke:#fff; stroke-opacity:.85; stroke-width:2.4; stroke-linecap:round;
+  fill:none; stroke:#fff; stroke-opacity:.5; stroke-width:2; stroke-linecap:round;
   vector-effect:non-scaling-stroke;
-  /* dasharray / dashoffset 由 mobius.js 依那條邊的實際長度寫進 style */
-  animation:mobpulse 34s linear infinite;
+  /* dasharray / dashoffset 由 mobius.js 依實際邊長寫進 style */
+  animation:mobpulse 44s linear infinite;
 }
 @keyframes mobpulse{ to{ stroke-dashoffset:0 } }
 
-/* 呼吸：兩組參數交叉淡入淡出，曲面在慢慢變形，不是在轉圈 */
-.mob__v--a{ animation:mobA 15s ease-in-out infinite }
-.mob__v--b{ animation:mobB 15s ease-in-out infinite }
+/* 呼吸：兩組略有差異的參數交叉淡入淡出。
+   是曲面在慢慢變形，不是有東西在轉。 */
+.mob__v--a{ animation:mobA 19s ease-in-out infinite }
+.mob__v--b{ animation:mobB 19s ease-in-out infinite }
 @keyframes mobA{ 0%,100%{ opacity:1 } 50%{ opacity:0 } }
 @keyframes mobB{ 0%,100%{ opacity:0 } 50%{ opacity:1 } }
 
-/* 深藍實塊裡的同一條帶子：同座標、同幾何，只換材質 */
+/* 深藍實塊裡的同一條帶子：同座標、同幾何、同一組顏色函式，
+   只有材質強度不同。顏色在進入實塊之前就已經轉成近白了，
+   所以交界處不會看到材質被換掉。 */
 .slab{ overflow:hidden }
 .mob--in{ position:absolute; left:0 }
-.mob--in .cont{ stroke:#CFEDFF }
-.mob--in .edge{ stroke:#BFE7FF; stroke-opacity:.42 }
-.mob--in .glow{ stroke:#9FE4FF }
-.mob--in .mob__far{ opacity:.5 }
-.mob--in .mob__near{ opacity:.86 }
+.mob--in .pulse{ stroke-opacity:.34 }
 
 @media (prefers-reduced-motion:reduce){
   .mob__v--a,.mob__v--b,.mob .pulse{ animation:none }
   .mob__v--b{ opacity:0 }
   .mob{ will-change:auto }
-}
-@media (max-width:760px){
-  .mob__far{ opacity:.42 }
 }
 
 /* ══ 區塊之間不要有硬切口 ═══════════════════════════════════
