@@ -1,3 +1,4 @@
+import { SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
 import { LegacyRuntime } from "@/components/legacy/LegacyRuntime";
 import { readLegacyPage, type LegacyPageName } from "@/lib/legacy-page";
 
@@ -6,13 +7,13 @@ export function LegacyPage({ name, mobius = false }: { name: LegacyPageName; mob
 
   return (
     <>
-      <div id="site-header" />
+      <SiteHeader />
       <main
         id={page.mainId}
         className={page.mainClassName}
         dangerouslySetInnerHTML={{ __html: page.html }}
       />
-      <div id="site-footer" />
+      <SiteFooter />
       <LegacyRuntime mobius={mobius} />
     </>
   );
