@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegacyPage } from "@/components/legacy/LegacyPage";
+import { HomePage as HomePageContent } from "@/components/home/HomePage";
 
 export const metadata: Metadata = {
   title: "NCCU FinTech Innovation Lab",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <LegacyPage name="index" mobius />;
+  return <HomePageContent />;
 }
