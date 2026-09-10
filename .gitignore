@@ -1,3 +1,10 @@
 .DS_Store
 *.log
 node_modules/
+.next/
+out/
+public/assets/
+playwright-report/
+test-results/
+coverage/
+.env*.local
