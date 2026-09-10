@@ -1,5 +1,5 @@
 import { SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
-import { LegacyRuntime } from "@/components/legacy/LegacyRuntime";
+import { SiteInteractions } from "@/components/runtime/SiteInteractions";
 import { MobiusVisual } from "@/components/visual/MobiusVisual";
 import { readLegacyPage, type LegacyPageName } from "@/lib/legacy-page";
 
@@ -16,7 +16,7 @@ export function LegacyPage({ name, mobius = false }: { name: LegacyPageName; mob
         dangerouslySetInnerHTML={{ __html: page.html }}
       />
       <SiteFooter />
-      <LegacyRuntime />
+      <SiteInteractions />
     </>
   );
 }
