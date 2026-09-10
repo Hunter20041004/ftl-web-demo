@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>FTL — ChatGPT Live Preview</title>
+  <style>
+    html,body{margin:0;min-height:100%;background:#fbfaff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    #preview-status{min-height:100vh;display:grid;place-items:center;padding:24px;color:#0b1f3a;font-weight:700;text-align:center}
+    #preview-status small{display:block;margin-top:10px;color:#60708b;font-weight:500}
+  </style>
+</head>
+<body>
+  <div id="preview-status">
+    <div>
+      Loading ChatGPT live preview…
+      <small>Reading the latest redesign/mobius-refinement branch.</small>
+    </div>
+  </div>
+
+  <script>
+  (async function () {
+    const OWNER = 'Hunter20041004';
+    const REPO = 'ftl-web-demo';
+    const BRANCH = 'redesign/mobius-refinement';
+    const API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
+    const cacheBust = Date.now();
+
+    function decodeBase64Utf8(value) {
+      const clean = String(value || '').replace(/\s/g, '');
+      const binary = atob(clean);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return new TextDecoder('utf-8').decode(bytes);
+    }
+
+    async function fetchBranchText(path) {
+      const url = API + path + '?ref=' + encodeURIComponent(BRANCH) + '&cb=' + cacheBust;
+      const res = await fetch(url, {
+        cache: 'no-store',
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if (!res.ok) throw new Error(path + ' returned HTTP ' + res.status);
+      const data = await res.json();
+      if (!data || data.type !== 'file' || !data.content) throw new Error('Invalid GitHub response for ' + path);
+      return decodeBase64Utf8(data.content);
+    }
+
+    try {
+      const sourcePromise = fetch('./index.html?cb=' + cacheBust, { cache: 'no-store' }).then(function (res) {
+        if (!res.ok) throw new Error('index.html returned HTTP ' + res.status);
+        return res.text();
+      });
+
+      const [htmlSource, refinementCss, mobiusJs] = await Promise.all([
+        sourcePromise,
+        fetchBranchText('assets/refinement.css'),
+        fetchBranchText('assets/mobius.js')
+      ]);
+
+      let html = htmlSource;
+
+      // Keep normal relative links/assets rooted at the real GitHub Pages site.
+      html = html.replace('<head>', '<head>\n<base href="./">');
+
+      // Remove the main-branch Mobius renderer so only the live branch version runs.
+      html = html.replace(/<script\b[^>]*\bsrc=["']assets\/mobius\.js["'][^>]*>\s*<\/script>/i, '');
+
+      // Inject the latest branch CSS directly, avoiding CDN caching and MIME issues.
+      const safeCss = refinementCss.replace(/<\/style/gi, '<\\/style');
+      html = html.replace('</head>', '<style data-chatgpt-live-refinement>\n' + safeCss + '\n</style>\n</head>');
+
+      // Inject the latest branch renderer directly. Every refresh reads the current branch head.
+      const safeJs = mobiusJs.replace(/<\/script/gi, '<\\/script');
+      html = html.replace('</body>', '<script data-chatgpt-live-mobius>\n' + safeJs + '\n</script>\n</body>');
+
+      document.open();
+      document.write(html);
+      document.close();
+    } catch (error) {
+      const status = document.getElementById('preview-status');
+      if (status) {
+        status.innerHTML = '<div>Preview failed to load.<small>' + String(error && error.message ? error.message : error) + '</small></div>';
+      }
+      console.error('[FTL live preview]', error);
+    }
+  })();
+  </script>
+</body>
+</html>
