@@ -18,7 +18,7 @@ function normalizeBasePath() {
   return (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
 }
 
-export function LegacyRuntime({ mobius = false }: { mobius?: boolean }) {
+export function LegacyRuntime() {
   const pathname = usePathname();
   const basePath = normalizeBasePath();
 
@@ -41,20 +41,11 @@ export function LegacyRuntime({ mobius = false }: { mobius?: boolean }) {
   }, [basePath, pathname]);
 
   return (
-    <>
-      <Script
-        id="legacy-ftl-runtime"
-        src={`${basePath}/assets/ftl.js`}
-        strategy="afterInteractive"
-        onLoad={repairLegacyRuntime}
-      />
-      {mobius ? (
-        <Script
-          id="legacy-mobius-runtime"
-          src={`${basePath}/assets/mobius.js`}
-          strategy="afterInteractive"
-        />
-      ) : null}
-    </>
+    <Script
+      id="legacy-ftl-runtime"
+      src={`${basePath}/assets/ftl.js`}
+      strategy="afterInteractive"
+      onLoad={repairLegacyRuntime}
+    />
   );
 }
