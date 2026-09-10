@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="pane pane--stats reveal">
+      <div class="pane pane--stats reveal reveal--stat">
         <div class="stats">
           <div class="stat"><b>64</b><span data-en="Members">成員人數</span></div>
           <div class="stat"><b>12</b><span data-en="Events this year">今年活動場次</span></div>
@@ -88,7 +88,7 @@
   <!-- ===================== 週報 ===================== -->
   <section class="section--tight section section--alt" id="weekly">
     <div class="wrap">
-      <div class="sec-head reveal">
+      <div class="sec-head reveal reveal--fade">
         <div>
           <span class="eyebrow" data-en="Weekly Digest">FinTech 週報</span>
           <h2 class="h1" data-en="This week in FinTech">這禮拜的金融科技，發生了什麼</h2>
@@ -102,8 +102,8 @@
         </a>
       </div>
 
-      <div class="grid grid-3" data-stagger>
-        <a class="card reveal" href="insights.html#weekly">
+      <div class="weekly" data-stagger>
+        <a class="card card--feature reveal reveal--rise" href="insights.html#weekly">
           <div class="card__top">
             <span class="card__index num">VOL.24 · 09.02</span>
             <span class="tag" data-en="Regulation">監理</span>
@@ -117,8 +117,8 @@
             <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
           </div>
         </a>
-
-        <a class="card reveal" href="insights.html#weekly">
+        <div class="weekly__side">
+          <a class="card card--sec reveal reveal--rise" href="insights.html#weekly">
           <div class="card__top">
             <span class="card__index num">VOL.24 · 09.02</span>
             <span class="tag tag--cyan" data-en="Payments">支付</span>
@@ -132,8 +132,7 @@
             <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
           </div>
         </a>
-
-        <a class="card reveal" href="insights.html#weekly">
+          <a class="card card--sec reveal reveal--rise" href="insights.html#weekly">
           <div class="card__top">
             <span class="card__index num">VOL.24 · 09.02</span>
             <span class="tag tag--warn" data-en="AI × Markets">AI × 資本市場</span>
@@ -147,6 +146,7 @@
             <svg class="icon" style="color:var(--brand)" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
           </div>
         </a>
+        </div>
       </div>
     </div>
   </section>
@@ -156,7 +156,7 @@
   <!-- ===================== 社團宗旨 ===================== -->
   <section class="section" id="mission">
     <div class="wrap">
-      <div class="sec-head reveal">
+      <div class="sec-head reveal reveal--fade">
         <div>
           <span class="eyebrow" data-en="Our mission">社團宗旨</span>
           <h2 class="h1" data-en="Three things we insist on">我們堅持的三件事</h2>
@@ -202,7 +202,7 @@
   <!-- ===================== 近期活動 ===================== -->
   <section class="section section--alt" id="events">
     <div class="wrap">
-      <div class="sec-head reveal">
+      <div class="sec-head reveal reveal--fade">
         <div>
           <span class="eyebrow" data-en="Upcoming">近期活動</span>
           <h2 class="h1" data-en="What’s happening next">接下來這幾場</h2>
@@ -213,8 +213,8 @@
         </a>
       </div>
 
-      <div class="grid grid-3" data-stagger>
-        <a class="card reveal" href="events.html">
+      <div class="agenda" data-stagger>
+        <a class="card card--event card--event-lead reveal reveal--rise" href="events.html">
           <div class="card__top">
             <span class="tag" data-en="Weekly session">社課</span>
             <span class="card__index num">09.18 THU</span>
@@ -234,7 +234,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="events.html">
+        <a class="card card--event reveal reveal--rise" href="events.html">
           <div class="card__top">
             <span class="tag tag--cyan" data-en="Workshop">工作坊</span>
             <span class="card__index num">09.27 SAT</span>
@@ -251,7 +251,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="events.html">
+        <a class="card card--event reveal reveal--rise" href="events.html">
           <div class="card__top">
             <span class="tag tag--ok" data-en="Reading group">讀書會</span>
             <span class="card__index num">10.02 THU</span>
@@ -327,7 +327,7 @@
   <!-- ===================== 合作對象跑馬燈 ===================== -->
   <section class="section--tight section" id="partners">
     <div class="wrap">
-      <div class="sec-head reveal" style="margin-bottom:32px">
+      <div class="sec-head reveal reveal--fade" style="margin-bottom:32px">
         <div>
           <span class="eyebrow" data-en="Partners &amp; mentors">合作對象</span>
           <h2 class="h2" data-en="Who works with us">和我們一起做事的人</h2>

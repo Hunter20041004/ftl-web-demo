@@ -81,66 +81,80 @@
     return p;
   }
 
-  /* ── 沿頁面的「表現」曲線 ───────────────────────────────
-     這一組決定「哪裡看得見、看見多少、看見的是什麼」。
+  /* ── 三個 ANCHOR：整頁的視覺敘事 ───────────────────────────
+     不再以 section 為單位打分數（「現在到了 Events 所以 opacity=.34」
+     那種寫法會讓效果跟區塊邊界對齊，看起來像每區各有一段裝飾）。
 
-     ⚠️ 控制點是依「實際量到的區塊位置」長出來的，不是寫死的 q 值。
-     之前寫死的版本因為控制點跟真正的區塊邊界對不上，
-     結果深藍區的視覺重量是首屏的 6 倍（量出來的，不是猜的）。
+     改成沿文件進度 q 的三個錨點，中間是 trace：
 
-     每個區塊給一組目標：
-       vis   整體可見度      body 曲面濃度    edge 邊線
-       cont  等高線          glow 柔光        w    半帶寬（佔頁寬）
-     首屏是最強的一刻，內容區只收到回音。 */
-  /* ⚠️ 想整體調濃／調淡，只動這一個數字就好。
-     1 = 現在這樣；1.3 大約是「明顯看得到」；0.7 是「幾乎只剩空氣感」。 */
-  var INTENSITY = 1.0;
+       ANCHOR A  首屏右側 —— 最強的一次翻面
+         trace
+       ANCHOR B  社團宗旨下半 → 近期活動上半（刻意不切在區塊交界上）
+         trace
+       ANCHOR C  深藍區上緣之前 → 深藍區中段
+         resolution
 
-  /* 窄螢幕的頁面比例接近 1:16，任何線條都會被讀成「垂直條紋」。
-     所以手機上把邊線與等高線壓下去，改成幾乎只留光。 */
+     錨點的位置在 runtime 由 DOM 算出來，不寫死。 */
+  /* ⚠️ 想整體調濃／調淡，只動這一個數字。
+     1 = 現在這樣；1.3 ≈ 明顯看得到；0.7 ≈ 幾乎只剩空氣感。 */
+  var INTENSITY = 1.05;
+  /* 窄螢幕比例接近 1:16，任何線條都會被讀成垂直條紋 → 線壓低，只留光 */
   var NARROW_LINE = 0.22;
 
-  var SCORE = [
-    /* key          vis   body  edge  cont  glow   w     */
-    ['.hero',      1.00, 1.00, 1.15, 0.95, 1.30, 0.155],
-    ['#weekly',    0.34, 0.12, 0.22, 0.08, 0.17, 0.062],
-    ['#mission',   0.44, 0.16, 0.70, 0.52, 0.09, 0.076],
-    ['#events',    0.34, 0.10, 0.32, 0.12, 0.30, 0.056],
-    ['#contact',   0.34, 0.16, 0.30, 0.12, 0.14, 0.080],
-    ['#partners',  0.72, 0.24, 0.80, 0.48, 0.30, 0.100]
-  ];
+  var TRACE = { vis:.07, body:.02, edge:.20, cont:.02, glow:.115, w:.013 };
+  var PEAK  = { vis:1.0, body:1.00, edge:1.00, cont:.85, glow:1.00, w:.205 };
 
-  var ENV = null;   /* 由 buildEnv() 依實際版面填好 */
+  var ENV = null, ANCHORS = null;
+
+  function anchorPlan(H) {
+    var pageTop = PAGE.getBoundingClientRect().top + window.scrollY;
+    function box(sel) {
+      var e = document.querySelector(sel); if (!e) return null;
+      var r = e.getBoundingClientRect();
+      return { a:(r.top+window.scrollY-pageTop)/H, b:(r.top+window.scrollY-pageTop+r.height)/H };
+    }
+    var hero = box('.hero'), pane = box('.pane--rows'), mis = box('#mission'),
+        ev = box('#events'), con = box('#contact');
+    /* ⚠️ 用 .pane--rows 的中心會落在 q≈0.05，一半在頁面上緣外被裁掉，
+       等於浪費掉最重要的那個 anchor。改成兩片玻璃的整體中心偏下。 */
+    var stats = box('.pane--stats');
+    /* ⚠️ 錨點放在玻璃片中央的話，翻面整段都被卡片遮住，看不到。
+       放在 stats 下緣到 hero 下緣之間那塊空白 —— 交叉點露在外面，
+       帶子的其他部分才從卡片後面穿過去。 */
+    var A = (stats && hero) ? (stats.b + hero.b) / 2
+          : (hero ? hero.a + (hero.b - hero.a) * 0.72 : 0.14);
+    /* B 刻意落在 mission 下半，而不是 mission/events 的交界線上 —— */
+    /* 事件對齊區塊邊界的話，又會變成「每一區自己的效果」。 */
+    var B = (mis && ev) ? mis.b - (mis.b - mis.a) * 0.18 : 0.55;
+    var C = con ? con.a + (con.b - con.a) * 0.34 : 0.80;
+    return [ { q:A, s:0.085, k:1.00 },
+             { q:B, s:0.062, k:0.66 },
+             { q:C, s:0.078, k:0.98 } ];
+  }
 
   function buildEnv(H) {
-    var pageTop = PAGE.getBoundingClientRect().top + window.scrollY;
-    var keys = ['vis','body','edge','cont','glow','w'];
-    var pts = {}; keys.forEach(function (k) { pts[k] = []; });
-
-    SCORE.forEach(function (row, i) {
-      var el = document.querySelector(row[0]);
-      /* 找不到就整組表現曲線會塌掉，而且是安靜地塌 ——
-         實測過一次：'hero' 少了一個點，首屏的視覺重量直接歸零。 */
-      if (!el) { console.warn('[mobius] 找不到區塊 ' + row[0] + '，表現曲線會不完整'); return; }
-      var r = el.getBoundingClientRect();
-      var a = (r.top + window.scrollY - pageTop) / H;
-      var b = (r.top + window.scrollY - pageTop + r.height) / H;
-      /* 每個區塊放三個控制點：進場、中心（給峰值）、離場。
-         相鄰區塊之間靠 smoothstep 連起來，所以不會有硬切換。 */
-      keys.forEach(function (k, ki) {
-        var peak = row[ki + 1];
-        pts[k].push([clamp(a + (b-a)*0.10, 0, 1), peak * 0.72]);
-        pts[k].push([clamp(a + (b-a)*0.50, 0, 1), peak]);
-        pts[k].push([clamp(a + (b-a)*0.90, 0, 1), peak * 0.72]);
-      });
-    });
-    var out = {};
-    keys.forEach(function (k) {
-      pts[k].sort(function (x, y) { return x[0] - y[0]; });
-      out[k] = ramp(pts[k]);
-    });
-    out.width = out.w;
-    return out;
+    ANCHORS = anchorPlan(H);
+    function bump(q) {
+      var m = 0;
+      for (var i = 0; i < ANCHORS.length; i++) {
+        var a = ANCHORS[i], t = (q - a.q) / a.s;
+        var v = a.k * Math.exp(-t * t);
+        if (v > m) m = v;
+      }
+      return m > 1 ? 1 : m;
+    }
+    function mix(key, curve) {
+      var lo = TRACE[key], hi = PEAK[key];
+      return function (q) {
+        var bmp = bump(q);
+        return lo + (hi - lo) * (curve ? Math.pow(bmp, curve) : bmp);
+      };
+    }
+    return {
+      vis:  mix('vis'),   body: mix('body', 1.5), edge: mix('edge', 0.8),
+      cont: mix('cont', 1.7), glow: mix('glow'),  width: mix('w', 1.2),
+      bump: bump
+    };
   }
 
   /* 顏色沿路演化。⚠️ 進入深藍實塊之前就開始轉成近白 ——
@@ -161,16 +175,18 @@
     [0.95, [168,210,242]],   // 回到淺色區，慢慢轉回藍
     [1.00, [150,200,238]]
   ]);
+  /* 背面比正面深一階。差異要細微 —— 它不是另一個面，
+     只是同一個面的另一側，用光線語言區分。 */
   var COLOR_BACK = rampRGB([
-    [0.00, [ 96,164,226]],
-    [0.42, [ 86,150,214]],
-    [0.68, [170,206,240]],
-    [0.80, [208,232,252]],
-    [1.00, [110,168,220]]
+    [0.00, [ 72,140,208]],
+    [0.42, [ 66,128,196]],
+    [0.74, [126,178,226]],
+    [0.82, [186,218,246]],
+    [1.00, [ 88,150,206]]
   ]);
 
   /* ── 幾何 ───────────────────────────────────────────────── */
-  function build(W, H, P, steps) {
+  function build(W, H, P, steps, anchorQ) {
     function spine(u) {
       return [
         P.cx*W + W*(P.a1*Math.sin(u+P.p1) + P.a2*Math.sin(2*u+P.p2) + P.a3*Math.sin(3*u+P.p3)),
@@ -179,6 +195,39 @@
       ];
     }
     var du = TAU / steps;
+
+    /* ── 扭轉相位：把「翻面」排到 anchor 上 ────────────────────
+       原本是 cos(u * tilt / 2)，扭轉平均分佈在整圈上，翻面會發生在
+       幾何算出來的位置，而不是敘事想要的位置。
+
+       改成累積相位 phi(u)：先給一條在 anchor 附近隆起的密度曲線，
+       再積分成單調遞增的相位。只要 phi(2π) - phi(0) = 3π
+       （奇數個半扭轉），它仍然是不折不扣的莫比烏斯帶。 */
+    var TOTAL = Math.PI * P.tilt;              /* tilt=3 → 3π，奇數 */
+    var PHI = (function () {
+      var uA = (anchorQ || []).map(function (q) {
+        var c = (P.cy - q) / P.ry;
+        return Math.acos(c < -1 ? -1 : c > 1 ? 1 : c);   /* 下行段對應的 u */
+      });
+      var N = 720, dens = new Float64Array(N + 1), cum = new Float64Array(N + 1), tot = 0, i;
+      for (i = 0; i <= N; i++) {
+        var uu2 = i * TAU / N, d = 0.45;       /* 基礎密度：其他地方也緩慢在轉 */
+        for (var j2 = 0; j2 < uA.length; j2++) {
+          var t2 = (uu2 - uA[j2]) / 0.30;
+          d += 2.6 * Math.exp(-t2 * t2);
+        }
+        dens[i] = d;
+      }
+      for (i = 1; i <= N; i++) { tot += (dens[i] + dens[i-1]) / 2; cum[i] = tot; }
+      return function (u) {
+        var wrap = Math.floor(u / TAU), r = u - wrap * TAU;
+        var x = r / TAU * N, i0 = Math.floor(x), f = x - i0;
+        if (i0 >= N) { i0 = N - 1; f = 1; }
+        var c = cum[i0] + (cum[i0+1] - cum[i0]) * f;
+        return wrap * TOTAL + (c / tot) * TOTAL;
+      };
+    })();
+
     function frame(u) {
       var a = spine(u-du*0.5), b = spine(u+du*0.5);
       var T = unit([b[0]-a[0], b[1]-a[1], b[2]-a[2]]);
@@ -189,7 +238,7 @@
        所以寬度變化跟頁面內容對得起來。 */
     function halfw(f) { return ENV.width(clamp(f.p[1]/H, 0, 1)) * W * 0.5; }
     function dir(u, f) {
-      var c = Math.cos(u*P.tilt/2), s = Math.sin(u*P.tilt/2);
+      var ph = PHI(u), c = Math.cos(ph), s = Math.sin(ph);
       return [f.b1[0]*c + f.b2[0]*s, f.b1[1]*c + f.b2[1]*s, f.b1[2]*c + f.b2[2]*s];
     }
     function pt(f, d, v) { return [f.p[0]+v*d[0], f.p[1]+v*d[1]]; }
@@ -205,19 +254,22 @@
       if (prevF) {
         var A0 = pt(prevF, prevD, -prevW), B0 = pt(prevF, prevD, prevW);
         var A1 = pt(f, d, -w),             B1 = pt(f, d, w);
-        var n = cross(f.T, d);
+        var n = unit(cross(f.T, d));
+        /* face = 這一小片有多正對觀者。1 = 正面朝我們，0 = 側身。
+           翻面之所以看得懂，就是靠這個值在扭轉處掃過 1 → 0 → 1。 */
+        var face = Math.abs(n[2]);
         surf.push({
           d: 'M'+A0[0].toFixed(1)+' '+A0[1].toFixed(1)+'L'+B0[0].toFixed(1)+' '+B0[1].toFixed(1)+
              'L'+B1[0].toFixed(1)+' '+B1[1].toFixed(1)+'L'+A1[0].toFixed(1)+' '+A1[1].toFixed(1)+'Z',
-          z: (f.p[2]+prevF.p[2])*0.5/zmax, back: n[2] < 0, q: q
+          z: (f.p[2]+prevF.p[2])*0.5/zmax, back: n[2] < 0, q: q, face: face
         });
         /* 邊線切成短段，每段自己的濃度 —— 這樣才能「有時一條邊、
            有時沒有邊」，而不是永遠兩條平行輪廓。 */
         if (i % 3 === 0) {
           edge.push({ d:'M'+B0[0].toFixed(1)+' '+B0[1].toFixed(1)+'L'+B1[0].toFixed(1)+' '+B1[1].toFixed(1),
-                      q:q, z:f.p[2]/zmax, side:0 });
+                      q:q, z:f.p[2]/zmax, side:0, face:face });
           edge.push({ d:'M'+A0[0].toFixed(1)+' '+A0[1].toFixed(1)+'L'+A1[0].toFixed(1)+' '+A1[1].toFixed(1),
-                      q:q, z:f.p[2]/zmax, side:1 });
+                      q:q, z:f.p[2]/zmax, side:1, face:face });
         }
       }
       if (i % 6 === 0 && prevF) {
@@ -239,7 +291,7 @@
     var pulse = '';
     for (var j = 0; j <= steps*2; j++) {
       var uu = j*du, um = uu % TAU, ff = frame(um);
-      var cc = Math.cos(uu*P.tilt/2), ss = Math.sin(uu*P.tilt/2);
+      var ph2 = PHI(uu), cc = Math.cos(ph2), ss = Math.sin(ph2);
       var dd = [ff.b1[0]*cc + ff.b2[0]*ss, ff.b1[1]*cc + ff.b2[1]*ss];
       var ww = halfw(ff);
       pulse += (j?'L':'M') + (ff.p[0]+ww*dd[0]).toFixed(1) + ' ' + (ff.p[1]+ww*dd[1]).toFixed(1);
@@ -283,8 +335,12 @@
     /* 2 — 曲面。多數位置幾乎透明 */
     g.surf.forEach(function (s) {
       var t = (s.z+1)/2;
-      var a = ENV.body(s.q) * ENV.vis(s.q) * K * (dark ? 0.055 : 0.20) * (0.45 + t*0.75);
-      if (s.back) a *= 0.7;
+      /* 正對觀者時實、側身時淡 —— 曲面「轉過去」看得出來的關鍵 */
+      var fa = 0.26 + 0.74 * (s.face === undefined ? 1 : s.face);
+      var a = ENV.body(s.q) * ENV.vis(s.q) * K * (dark ? 0.055 : 0.20) * (0.45 + t*0.75) * fa;
+      /* 背面：更深一階的藍、再稍微淡一點。差異刻意細微，
+         但在翻面處會讓人讀得出「換面了」。 */
+      if (s.back) a *= 0.86;
       if (a < 0.0012) return;
       out.surf.push('<path d="'+s.d+'" fill="'+rgb((s.back?COLOR_BACK:COLOR)(s.q))+
         '" fill-opacity="'+a.toFixed(4)+'"/>');
@@ -306,7 +362,10 @@
     g.edge.forEach(function (e) {
       /* 兩條邊給不同權重 —— 常常只有其中一條看得見 */
       var lean = e.side ? 0.45 : 1.0;
-      var a = ENV.edge(e.q) * ENV.vis(e.q) * lean * patchE(e.q) * KL * (dark?0.26:0.62) * (0.35+((e.z+1)/2)*0.9);
+      /* 側身時看到的就是邊 —— 所以 face 越低，邊越明顯。
+         這一項跟上面的 fa 是互補的，翻面處於是變成「面淡掉、邊浮出來」。 */
+      var ef = 0.45 + 1.05 * (1 - (e.face === undefined ? 1 : e.face));
+      var a = ENV.edge(e.q) * ENV.vis(e.q) * lean * patchE(e.q) * KL * ef * (dark?0.26:0.62) * (0.35+((e.z+1)/2)*0.9);
       if (a < 0.005) return;
       var col = rgb(COLOR(e.q));
       /* 寬而淡的一筆墊在細線下面 → 讀起來是「邊緣受光」，
@@ -326,7 +385,7 @@
   }
 
   /* ── 掛載 ───────────────────────────────────────────────── */
-  var layer = null, slabLayer = null, bg = null, lastKey = '';
+  var layer = null, slabLayer = null, bg = null, fg = null, lastKey = '';
 
   function field(H) {
     var pageTop = PAGE.getBoundingClientRect().top + window.scrollY;
@@ -357,8 +416,9 @@
        加大擺盪、提高扭轉次數（5 仍是奇數），讓結構靠翻面被看見。 */
     var fit = narrow ? { a1:0.52, a2:0.30, a3:0.14, tilt:5.00 } : {};
     var steps = narrow ? 420 : 600;
-    var gA = build(W, H, params(VAR_A, fit), steps);
-    var gB = REDUCED ? null : build(W, H, params(VAR_B, fit), steps);
+    var aq = ANCHORS.map(function (a) { return a.q; });
+    var gA = build(W, H, params(VAR_A, fit), steps, aq);
+    var gB = REDUCED ? null : build(W, H, params(VAR_B, fit), steps, aq);
 
     function shell(dark) {
       return '<div class="mob__v mob__v--a">' + paint(gA, dark, narrow) + '</div>' +
@@ -381,6 +441,22 @@
     }
     layer.style.height = H + 'px';
     layer.innerHTML = shell(false);
+
+    /* 前景霧：疊在帶子「上面」、內容「下面」。
+       ⚠️ 存在的理由是遮蔽 —— 如果帶子永遠在所有東西的最後面，
+       它就只是背景圖，不會有空間感。這一層讓其中一段被空氣蓋掉，
+       另一段才顯得是穿到卡片後面。 */
+    if (!fg) {
+      fg = document.createElement('div');
+      fg.className = 'mob-fg'; fg.setAttribute('aria-hidden','true');
+      PAGE.insertBefore(fg, layer.nextSibling);
+    }
+    fg.style.height = H + 'px';
+    var aY = ANCHORS[0].q * 100;
+    fg.style.backgroundImage =
+      'radial-gradient(58% 15% at 12% ' + (aY + 1.2).toFixed(2) + '%, rgba(251,250,255,.92), rgba(251,250,255,0) 70%),' +
+      'radial-gradient(34% 9% at 86% ' + (ANCHORS[1].q*100 + 2).toFixed(2) + '%, rgba(251,250,255,.72), rgba(251,250,255,0) 72%),' +
+      'radial-gradient(40% 7% at 8% '  + (ANCHORS[2].q*100 - 3).toFixed(2) + '%, rgba(251,250,255,.62), rgba(251,250,255,0) 74%)';
 
     var slab = document.querySelector('.slab');
     if (slab) {
@@ -415,17 +491,14 @@
   }
   function schedule() { if (!raf) raf = requestAnimationFrame(write); }
 
+  /* 互動刻意只留兩個：滑鼠景深（幾 px）＋ 沿邊跑的光點。
+     ⚠️ 不要再加第三個。原本還有一個捲動位移，三個疊起來
+     會變成「每個東西都在動」，那正是要避免的 AI 感。 */
   if (!REDUCED) {
-    window.addEventListener('scroll', function () {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var p = max > 0 ? window.scrollY / max : 0;
-      sx = (p - 0.5) * 26; sy = (p - 0.5) * -14;
-      schedule();
-    }, { passive: true });
     if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
       window.addEventListener('mousemove', function (e) {
-        mx = (e.clientX/window.innerWidth - 0.5) * 9;
-        my = (e.clientY/window.innerHeight - 0.5) * 9;
+        mx = (e.clientX/window.innerWidth - 0.5) * 5;
+        my = (e.clientY/window.innerHeight - 0.5) * 5;
         schedule();
       }, { passive: true });
     }

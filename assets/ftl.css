@@ -718,6 +718,11 @@ p,.lead,.card__body{ text-wrap:pretty }
   pointer-events:none; contain:paint;
   will-change:transform;
 }
+/* 前景霧：在帶子之上、內容之下。負責遮蔽，讓帶子有前後不是只有一層。 */
+.mob-fg{
+  position:absolute; left:0; top:0; width:100%; z-index:0;
+  pointer-events:none;
+}
 .mob__v{ position:absolute; inset:0 }
 .mob__v svg{ width:100%; height:100%; display:block }
 
@@ -795,3 +800,111 @@ p,.lead,.card__body{ text-wrap:pretty }
   background:var(--b-hi); box-shadow:0 0 0 3px rgba(96,208,240,.28);
 }
 @media (max-width:560px){ .devbar{ font-size:.72rem; text-align:left; justify-content:flex-start } }
+
+
+/* ══════════════════════════════════════════════════════════════
+   編排：每一區有自己的骨架，不共用同一個模板
+   ──────────────────────────────────────────────────────────────
+   ⚠️ 不要把這兩區改回 .grid.grid-3。
+   「大標 → 說明 → 三張一樣大的圓角卡」連續出現兩次，
+   是這個站最像 AI 套版的地方。
+   卡片材質（玻璃、邊、陰影）維持不變，變的只有骨架與強弱。
+   ══════════════════════════════════════════════════════════════ */
+
+/* 週報：一則主打 ＋ 兩則次要 */
+.weekly{ display:grid; gap:18px; grid-template-columns:1.55fr 1fr; align-items:start }
+.weekly__side{ display:grid; gap:18px }
+.card--feature{
+  padding:var(--s6) var(--s6) var(--s5);
+  border-radius:var(--r-lg);
+  min-height:100%;
+}
+.card--feature .h3{ font-size:1.5rem; line-height:1.32; letter-spacing:-.034em }
+.card--feature .card__body{ font-size:1.02rem; line-height:1.8; max-width:40ch }
+/* 次要卡：更小的圓角、更薄的材質 —— 靠圓角與厚度分主從，不是靠大小 */
+.card--sec{
+  padding:var(--s4) var(--s5);
+  border-radius:var(--r);
+  box-shadow:0 8px 22px -20px rgba(11,60,150,.36);
+  background:linear-gradient(158deg, rgba(255,255,255,.92), rgba(255,255,255,.76));
+}
+.card--sec .h3{ font-size:.98rem; line-height:1.46 }
+.card--sec .card__body{ font-size:.88rem; line-height:1.72 }
+
+/* 活動：橫向議程列。刻意不是卡片牆 */
+.agenda{ display:grid; gap:10px }
+.card--event{
+  display:grid; gap:0 var(--s5);
+  grid-template-columns:132px minmax(0,1fr) minmax(0,190px);
+  align-items:start;
+  padding:var(--s4) var(--s5);
+  border-radius:10px;                       /* 幾乎方角：跟週報那兩級明顯不同 */
+  box-shadow:0 6px 18px -18px rgba(11,60,150,.34);
+}
+/* 明確指定落點，不然子元素會照 DOM 順序流進欄位，
+   內文會跑到最右邊的 meta 欄去（實際踩過）。 */
+.card--event .card__top{ grid-column:1; grid-row:1/span 2;
+  flex-direction:column; align-items:flex-start; gap:7px }
+.card--event .h3{ grid-column:2; grid-row:1; font-size:1rem; line-height:1.5 }
+.card--event .card__body{ grid-column:2; grid-row:2;
+  font-size:.86rem; line-height:1.7; margin-top:6px; max-width:52ch }
+.card--event .card__foot{ grid-column:3; grid-row:1/span 2;
+  justify-content:flex-start; align-items:flex-start; gap:9px;
+  flex-direction:column; margin-top:0 }
+/* 最近的一場：唯一一則放大，其餘保持列狀 */
+.card--event-lead{
+  padding:var(--s5) var(--s5) var(--s5);
+  border-radius:var(--r);
+  box-shadow:0 14px 34px -26px rgba(11,60,150,.44);
+}
+.card--event-lead{ grid-template-columns:148px minmax(0,1fr) minmax(0,200px) }
+.card--event-lead .h3{ font-size:1.3rem; line-height:1.36; letter-spacing:-.03em }
+.card--event-lead .card__body{ font-size:.95rem; line-height:1.76 }
+.card--event-lead .card__index{ font-size:.92rem; font-weight:900; color:var(--b-ink) }
+
+@media (max-width:900px){
+  .weekly{ grid-template-columns:1fr }
+  .card--event,.card--event-lead{ grid-template-columns:1fr; gap:var(--s3) }
+  .card--event .card__top,.card--event .h3,
+  .card--event .card__body,.card--event .card__foot{ grid-column:1; grid-row:auto }
+  .card--event .card__top{ flex-direction:row; align-items:center; gap:10px }
+  .card--event .card__foot{ flex-direction:row; justify-content:flex-start; flex-wrap:wrap }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   進場：不要每個東西都一樣
+   ──────────────────────────────────────────────────────────────
+   ⚠️ 原本全站每一個元素都是 translateY(12px)+opacity 0。
+   「所有東西用同一種方式滑進來」是 AI 網站最強的訊號之一。
+   標題只淡入、卡片才位移、數字幾乎不動。
+   ══════════════════════════════════════════════════════════════ */
+.reveal--fade{ transform:none }
+.reveal--fade.in{ transition:opacity 640ms var(--ease) }
+.reveal--rise{ transform:translateY(18px) }
+.reveal--rise.in{ transition:opacity 560ms var(--ease), transform 620ms var(--ease);
+  transition-delay:calc(var(--i,0) * 68ms) }
+.reveal--stat{ transform:translateY(5px) scale(.992) }
+.reveal--stat.in{ transition:opacity 700ms var(--ease), transform 760ms var(--ease) }
+
+/* ══ 區塊分隔：不要每一區都來一條 100vw 的線 ═════════════════
+   保留層級，但每一區的處理不同 —— 這是「有人做過決定」的地方。 */
+.sec-head::after{
+  left:0; width:clamp(160px, 24%, 320px);
+  background:linear-gradient(90deg, rgba(22,104,227,.55), rgba(22,104,227,.06));
+}
+#mission .sec-head::after{ width:min(62%, 620px) }
+#events  .sec-head::after{ width:0 }        /* 這一區靠編排分層，不畫線 */
+#partners .sec-head::after{ width:clamp(120px, 16%, 200px) }
+
+/* ══ 間距節奏：不要每一區都一模一樣 ═════════════════════════ */
+#weekly{ padding-block:clamp(var(--s7),5.4vw,var(--s9)) clamp(var(--s7),5vw,var(--s8)) }
+#mission{ padding-block:clamp(var(--s8),7.6vw,var(--s10)) }
+#events{ padding-block:clamp(var(--s7),5vw,var(--s8)) clamp(var(--s8),6.6vw,var(--s9)) }
+
+/* ══ 圓角階層：不要所有元件一樣軟 ═══════════════════════════
+   .pane 26px ＞ .card--feature 20px ＞ .card--sec 14px
+   ＞ .card--event 10px ＞ 合作對象幾乎方角。tag 維持膠囊。 */
+.partner{ border-radius:0 6px 6px 0 }
+.partner__dot{ border-radius:7px }
+.mob-on .section--alt::before{ opacity:.3 }   /* 通用點陣裝飾再退一階 */
