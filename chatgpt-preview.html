@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>FTL — ChatGPT Preview</title>
+  <style>
+    html,body{margin:0;min-height:100%;background:#fbfaff;font-family:system-ui,sans-serif}
+    #preview-loading{min-height:100vh;display:grid;place-items:center;color:#0b1f3a;font-weight:700}
+  </style>
+</head>
+<body>
+  <div id="preview-loading">Loading ChatGPT refinement preview…</div>
+  <script>
+  (async function(){
+    const REV='a317ff6129e157082bc7ef28152223b2d8179335';
+    const CDN='https://cdn.jsdelivr.net/gh/Hunter20041004/ftl-web-demo@'+REV+'/';
+    try{
+      let html=await fetch('./index.html?preview-source=1',{cache:'no-store'}).then(r=>{
+        if(!r.ok) throw new Error('Could not load homepage source');
+        return r.text();
+      });
+
+      html=html.replace('<head>','<head>\n<base href="./">');
+      html=html.replace('</head>','<link rel="stylesheet" href="'+CDN+'assets/refinement.css">\n</head>');
+      html=html.replace('<body>','<body class="ftl-refined">');
+
+      html=html.replace('<div class="grid grid-3" data-stagger>','<div class="grid grid-3 weekly-editorial" data-stagger>');
+      const eventsPos=html.indexOf('id="events"');
+      if(eventsPos>=0){
+        const after=html.slice(eventsPos);
+        const replaced=after.replace('<div class="grid grid-3" data-stagger>','<div class="grid grid-3 events-stepped" data-stagger>');
+        html=html.slice(0,eventsPos)+replaced;
+      }
+
+      html=html.replace('<script src="assets/mobius.js"></script>','<script src="'+CDN+'assets/mobius.js"></script>');
+
+      document.open();
+      document.write(html);
+      document.close();
+    }catch(err){
+      document.getElementById('preview-loading').textContent='Preview failed to load: '+err.message;
+    }
+  })();
+  </script>
+</body>
+</html>
