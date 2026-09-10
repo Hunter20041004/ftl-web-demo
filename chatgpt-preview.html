@@ -34,7 +34,12 @@
         html=html.slice(0,eventsPos)+replaced;
       }
 
-      html=html.replace('<script src="assets/mobius.js"></script>','<script src="'+CDN+'assets/mobius.js"></script>');
+      // Avoid embedding a literal closing script tag in this loader's source,
+      // because the HTML parser would terminate this outer script early.
+      const closeScript='</scr'+'ipt>';
+      const oldMobius='<script src="assets/mobius.js">'+closeScript;
+      const newMobius='<script src="'+CDN+'assets/mobius.js">'+closeScript;
+      html=html.replace(oldMobius,newMobius);
 
       document.open();
       document.write(html);
