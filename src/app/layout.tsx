@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     template: "%s ｜ 政大金融科技創新實驗室",
   },
   description: "政大第一個 FinTech 學術社團。週報、產學合作、自主專案、社課與工作坊。",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
