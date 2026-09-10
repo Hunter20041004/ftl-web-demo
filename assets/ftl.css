@@ -908,3 +908,97 @@ p,.lead,.card__body{ text-wrap:pretty }
 .partner{ border-radius:0 6px 6px 0 }
 .partner__dot{ border-radius:7px }
 .mob-on .section--alt::before{ opacity:.3 }   /* 通用點陣裝飾再退一階 */
+
+/* ══════════════════════════════════════════════════════════════
+   莫比烏斯的元件語言
+   ──────────────────────────────────────────────────────────────
+   不是「在頁面上放一條環」，是把環的三個性質變成元件規則：
+
+     單面  正面繞一圈會變成背面
+           → 成對的元件用「同一個形狀、把面翻過來」表達
+     單邊  邊界只有一條，要走兩圈才回到起點
+           → 邊框不是一圈均勻的線，亮度沿著邊走，
+              走完一圈時「還沒回到原樣」（刻意的不接縫）
+     半扭轉 帶子會翻面
+           → 輪廓不是對稱圓角矩形，對角一組圓、另一組近方角
+
+   ⚠️ 不要把 .pane 改回四角同圓角。那個形狀正是使用者說的
+      「很 AI 感的大玻璃方塊」。
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 半扭轉：不對稱輪廓 ─────────────────────────────────── */
+.pane{
+  border-radius:56px 8px 56px 8px;
+  /* 面的漸層沿對角線由亮到暗 —— 這是「正面」 */
+  background:linear-gradient(152deg, rgba(255,255,255,.80) 0%, rgba(255,255,255,.62) 46%,
+                                      rgba(233,242,255,.44) 100%);
+}
+/* ── 單面：兩片是同一段帶子翻面前後的樣子 ─────────────────
+   形狀相同、圓角對調、漸層方向相反。 */
+.pane--stats{
+  border-radius:8px 56px 8px 56px;
+  background:linear-gradient(152deg, rgba(233,242,255,.46) 0%, rgba(255,255,255,.62) 54%,
+                                      rgba(255,255,255,.82) 100%);
+}
+
+/* ── 單邊：亮度沿著邊走，一圈走不完 ───────────────────────
+   1.5 個週期，所以起點與終點刻意不同 ——
+   「這條邊界不會在一圈之內閉合」。 */
+.pane::before{
+  background:conic-gradient(from 208deg,
+    rgba(255,255,255,1)   0deg,
+    rgba(255,255,255,.14) 120deg,
+    rgba(255,255,255,.98) 240deg,
+    rgba(255,255,255,.30) 300deg,
+    rgba(255,255,255,.62) 360deg);
+}
+.pane--stats::before{ background:conic-gradient(from 28deg,
+    rgba(255,255,255,1)   0deg,
+    rgba(255,255,255,.14) 120deg,
+    rgba(255,255,255,.98) 240deg,
+    rgba(255,255,255,.30) 300deg,
+    rgba(255,255,255,.62) 360deg) }
+
+/* ── 清單列：整欄是一條沿著往下翻面的帶子 ─────────────────
+   奇偶列的圓角與漸層互為鏡像，圖示章跟著翻。 */
+.ios-row{ border-radius:28px 5px 28px 5px }
+.ios-row:nth-child(even){
+  border-radius:5px 28px 5px 28px;
+  background:linear-gradient(150deg, rgba(255,255,255,.78), rgba(255,255,255,.95));
+}
+/* ⚠️ 深藍區的列是白字。上面那條「翻面」用的是白色漸層，
+   套進來會變成白字壓在白片上（實測 1.36:1）。
+   深色區要用同一個概念的深色版：形狀照翻，面用深玻璃。 */
+.slab .ios-row:nth-child(even){
+  background:linear-gradient(150deg, rgba(6,26,112,.22), rgba(6,26,112,.40));
+}
+.ios-row__icon{ border-radius:17px 4px 17px 4px }
+.ios-row:nth-child(even) .ios-row__icon{ border-radius:4px 17px 4px 17px }
+/* 圖示章的漸層也跟著翻 —— 同一枚章的兩個面 */
+.ios-row:nth-child(even) .ios-row__icon{
+  background:linear-gradient(145deg,#274888 0%,#1B4FCE 38%,#4E8BF2 100%);
+}
+
+/* ── hover 是「翻面」不是「抬起來」 ─────────────────────── */
+@media (hover:hover) and (pointer:fine){
+  .ios-row{ transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease,
+                       background-position 520ms var(--ease), border-radius 420ms var(--ease) }
+  .ios-row:hover{ border-radius:5px 28px 5px 28px }
+  .ios-row:nth-child(even):hover{ border-radius:28px 5px 28px 5px }
+}
+
+/* ── 卡片沿用同一套邊語言，強度依層級遞減 ────────────────── */
+.card--feature{ border-radius:38px 6px 38px 6px }
+.card--sec{ border-radius:5px 22px 5px 22px }
+.card--sec:nth-child(even){ border-radius:22px 5px 22px 5px }
+.card--event-lead{ border-radius:24px 4px 24px 4px }
+.card--event{ border-radius:4px 16px 4px 16px }
+.card--event:nth-child(even){ border-radius:16px 4px 16px 4px }
+
+/* ── 數據列：一條邊在四個數字之間上下穿梭 ─────────────────
+   原本是四條一模一樣的底線。改成單數在上、雙數在下 ——
+   讀過去像同一條邊界在翻面，而不是四個並排的元件。 */
+.pane--stats .stat:nth-child(even) span{
+  border-top:0; padding-top:0; margin-top:12px;
+  padding-bottom:10px; border-bottom:2px solid var(--b);
+}
