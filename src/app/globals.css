@@ -1,0 +1,5 @@
+/*
+ * Phase 3 migration intentionally keeps assets/ftl.css authoritative.
+ * Tailwind is installed but not imported here yet to avoid resetting legacy UI.
+ */
+html, body { min-height: 100%; }
