@@ -178,13 +178,13 @@ export function SiteInteractions() {
       const note = form.querySelector<HTMLElement>(".form-note");
       const submit = form.querySelector<HTMLButtonElement>("[type='submit']");
       let bad: HTMLInputElement | HTMLTextAreaElement | null = null;
-      form.querySelectorAll<HTMLElement>(".field").forEach((field) => {
+      for (const field of form.querySelectorAll<HTMLElement>(".field")) {
         const input = field.querySelector<HTMLInputElement | HTMLTextAreaElement>("input,textarea");
-        if (!input?.required) return;
+        if (!input?.required) continue;
         const invalid = !input.value.trim() || (input instanceof HTMLInputElement && input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim()));
         field.dataset.invalid = String(invalid);
         if (invalid && !bad) bad = input;
-      });
+      }
       if (bad) {
         bad.focus();
         if (note) note.dataset.show = "false";
