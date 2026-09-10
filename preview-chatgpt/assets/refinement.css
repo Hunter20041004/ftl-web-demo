@@ -1,0 +1,223 @@
+/*
+ * Homepage refinement layer.
+ * Preserve the FTL social-post visual DNA; remove template repetition and let one
+ * Mobius system act as the page's recognizable visual idea.
+ */
+
+.ftl-refined .page{
+  isolation:isolate;
+}
+
+/* ---------- Global Mobius field ---------- */
+.mobius-field{
+  position:absolute;
+  inset:0 0 auto 0;
+  width:100%;
+  pointer-events:none;
+  z-index:1;
+  overflow:hidden;
+  --mobius-scroll:0;
+}
+.mobius-field__svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.mobius-field__svg--back{ z-index:0; }
+.mobius-field__svg--front{ z-index:3; mix-blend-mode:screen; opacity:.72; }
+.mobius-field .mobius-halo{ opacity:.95; }
+.mobius-field .mobius-surface{ shape-rendering:geometricPrecision; }
+.mobius-field .mobius-contour{ opacity:.78; }
+.mobius-field .mobius-edge{ opacity:.88; }
+.mobius-data-pulse{
+  animation:ftlPulse 13s linear infinite;
+  opacity:.46;
+}
+@keyframes ftlPulse{
+  to{ stroke-dashoffset:-520; }
+}
+@media (prefers-reduced-motion:reduce){
+  .mobius-data-pulse{ animation:none; opacity:.34; }
+}
+
+/* Keep all content above the rear field while preserving existing stacking contexts. */
+.ftl-refined .hero > .wrap,
+.ftl-refined .section > .wrap,
+.ftl-refined .divider{
+  position:relative;
+  z-index:2;
+}
+.ftl-refined .hero__bloom{
+  z-index:0;
+  opacity:.9;
+}
+
+/* ---------- Section rhythm: less "one generated slide after another" ---------- */
+.ftl-refined .sec-head::after{
+  left:0;
+  width:min(190px,30vw);
+  height:1px;
+  background:linear-gradient(90deg,rgba(10,70,180,.68),rgba(22,104,227,.20),transparent);
+}
+.ftl-refined .divider{
+  width:min(1180px,calc(100% - 48px));
+  margin-inline:auto;
+  background:linear-gradient(90deg,transparent,rgba(10,70,180,.20) 14%,rgba(10,70,180,.20) 48%,transparent 82%);
+}
+
+/* The dot texture becomes a local material, not a repeated wallpaper. */
+.ftl-refined .section--alt::before{
+  opacity:.55;
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 62% at 82% 18%,#000 0%,rgba(0,0,0,.35) 46%,transparent 78%);
+  mask-image:radial-gradient(ellipse 70% 62% at 82% 18%,#000 0%,rgba(0,0,0,.35) 46%,transparent 78%);
+}
+
+/* ---------- Weekly: one feature story + two supporting stories ---------- */
+.ftl-refined #weekly .weekly-editorial{
+  grid-template-columns:minmax(0,1.48fr) minmax(280px,.82fr);
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  gap:18px 22px;
+  align-items:stretch;
+}
+.ftl-refined #weekly .weekly-editorial > .card:first-child{
+  grid-row:1 / span 2;
+  min-height:430px;
+  padding:clamp(28px,3.1vw,42px);
+  border-radius:30px 14px 30px 30px;
+  background:
+    linear-gradient(152deg,rgba(255,255,255,.92),rgba(255,255,255,.62)),
+    radial-gradient(circle at 86% 12%,rgba(96,208,240,.15),transparent 42%);
+}
+.ftl-refined #weekly .weekly-editorial > .card:first-child .h3{
+  font-size:clamp(1.45rem,2.15vw,2.05rem);
+  line-height:1.34;
+  max-width:16ch;
+  margin-top:auto;
+}
+.ftl-refined #weekly .weekly-editorial > .card:first-child .card__body{
+  max-width:46ch;
+  font-size:.98rem;
+}
+.ftl-refined #weekly .weekly-editorial > .card:not(:first-child){
+  min-height:0;
+  border-radius:16px 26px 16px 16px;
+  padding:22px 24px;
+}
+.ftl-refined #weekly .weekly-editorial > .card:nth-child(3){
+  border-radius:16px 16px 28px 16px;
+  margin-left:18px;
+}
+
+/* ---------- Mission: leave the list language intact but make it feel authored ---------- */
+.ftl-refined #mission .numlist{
+  max-width:1050px;
+}
+.ftl-refined #mission .nl:nth-child(2){
+  margin-left:clamp(18px,5vw,74px);
+}
+.ftl-refined #mission .nl:nth-child(3){
+  margin-left:clamp(0px,2vw,34px);
+}
+
+/* ---------- Events: deliberately not the same composition as Weekly ---------- */
+.ftl-refined #events .events-stepped{
+  grid-template-columns:1.08fr .92fr 1.04fr;
+  gap:20px;
+  align-items:start;
+}
+.ftl-refined #events .events-stepped > .card{
+  border-radius:18px 26px 18px 18px;
+}
+.ftl-refined #events .events-stepped > .card:nth-child(2){
+  margin-top:34px;
+  border-radius:26px 16px 26px 16px;
+}
+.ftl-refined #events .events-stepped > .card:nth-child(3){
+  margin-top:10px;
+  border-radius:16px 28px 18px 24px;
+}
+
+/* Cards still feel like FTL, but not every object gets the same hover choreography. */
+@media (hover:hover) and (pointer:fine){
+  .ftl-refined #weekly .weekly-editorial > .card:first-child:hover{
+    transform:translateY(-2px);
+    box-shadow:0 32px 76px -48px rgba(11,60,150,.42),0 3px 14px -8px rgba(113,204,249,.48);
+  }
+  .ftl-refined #weekly .weekly-editorial > .card:not(:first-child):hover{
+    transform:translateX(4px);
+  }
+  .ftl-refined #events .events-stepped > .card:nth-child(1):hover{ transform:translateY(-3px) rotate(-.18deg); }
+  .ftl-refined #events .events-stepped > .card:nth-child(2):hover{ transform:translateY(29px); }
+  .ftl-refined #events .events-stepped > .card:nth-child(3):hover{ transform:translateY(6px) rotate(.16deg); }
+}
+
+/* The deep-blue contact block becomes a material transition instead of a hard visual reset. */
+.ftl-refined #contact.slab::before{
+  content:'';
+  position:absolute;
+  inset:-80px 0 auto 0;
+  height:160px;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(10,52,200,.07) 36%,rgba(10,52,200,.40) 74%,var(--b-dk));
+  z-index:0;
+}
+.ftl-refined #contact.slab::after{
+  content:'';
+  position:absolute;
+  inset:auto 0 -70px 0;
+  height:140px;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--b-dk),rgba(10,52,200,.30) 42%,rgba(238,244,253,.10) 78%,transparent);
+  z-index:0;
+}
+
+/* Small bespoke details: never enough to become another generic decoration system. */
+.ftl-refined #weekly .sec-head,
+.ftl-refined #events .sec-head,
+.ftl-refined #mission .sec-head{
+  max-width:calc(var(--wrap) - 34px);
+}
+.ftl-refined #weekly .sec-head{ margin-left:18px; }
+.ftl-refined #events .sec-head{ margin-right:clamp(0px,3vw,42px); }
+
+@media (max-width:940px){
+  .ftl-refined #weekly .weekly-editorial{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto;
+  }
+  .ftl-refined #weekly .weekly-editorial > .card:first-child{
+    grid-column:1 / -1;
+    grid-row:auto;
+    min-height:340px;
+  }
+  .ftl-refined #weekly .weekly-editorial > .card:nth-child(3){ margin-left:0; }
+  .ftl-refined #events .events-stepped{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .ftl-refined #events .events-stepped > .card:nth-child(2),
+  .ftl-refined #events .events-stepped > .card:nth-child(3){ margin-top:0; }
+  .ftl-refined #events .events-stepped > .card:last-child{ grid-column:1 / -1; max-width:72%; margin-left:auto; }
+}
+
+@media (max-width:680px){
+  .ftl-refined #weekly .weekly-editorial,
+  .ftl-refined #events .events-stepped{
+    grid-template-columns:1fr;
+  }
+  .ftl-refined #weekly .weekly-editorial > .card:first-child,
+  .ftl-refined #events .events-stepped > .card:last-child{
+    grid-column:auto;
+    max-width:none;
+    min-height:0;
+    margin-left:0;
+  }
+  .ftl-refined #mission .nl:nth-child(2),
+  .ftl-refined #mission .nl:nth-child(3){ margin-left:0; }
+  .ftl-refined #weekly .sec-head,
+  .ftl-refined #events .sec-head{ margin-left:0; margin-right:0; }
+  .ftl-refined .sec-head::after{ width:112px; }
+  .mobius-field__svg--front{ display:none; }
+}
