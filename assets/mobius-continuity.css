@@ -1,0 +1,47 @@
+/* First-version tuning — continuous Möbius edge.
+   Keep the existing geometry/material system. This layer only changes the
+   single boundary trace so it stays readable from the top to the bottom. */
+
+.mob .pulse {
+  stroke: #1668E3 !important;
+  stroke-opacity: .42 !important;
+  stroke-width: 1.8 !important;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+  transform-box: view-box;
+  transform-origin: 0 0;
+  /* Existing geometry ranges roughly -10% → 94% of the document.
+     Remap that same edge to the complete page without changing its x-shape. */
+  transform: translateY(9.6%) scaleY(.962);
+}
+
+/* On the saturated-blue slab the same edge stays blue/cyan instead of
+   turning into a white transparent streak. */
+.mob--in .pulse {
+  stroke: #60D0F0 !important;
+  stroke-opacity: .64 !important;
+}
+
+/* The second breathing geometry remains subtler so the page reads as one
+   continuous line rather than two competing outlines. */
+.mob__v--b .pulse {
+  stroke-opacity: .20 !important;
+}
+.mob--in .mob__v--b .pulse {
+  stroke-opacity: .30 !important;
+}
+
+@media (max-width: 760px) {
+  .mob .pulse {
+    stroke-width: 1.45 !important;
+    stroke-opacity: .34 !important;
+  }
+  .mob--in .pulse {
+    stroke-opacity: .54 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mob .pulse { animation: none !important; }
+}
