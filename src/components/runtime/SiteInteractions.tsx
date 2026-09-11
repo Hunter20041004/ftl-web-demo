@@ -9,7 +9,9 @@ const ICONS: Record<string, string> = {
   mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
   message: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
   instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/>',
+  facebook: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
   threads: '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>',
+  linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
   calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
   book: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
   briefcase: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
@@ -95,13 +97,16 @@ export function SiteInteractions() {
     applyLang(readLang());
 
     const nav = document.querySelector<HTMLElement>(".nav");
+    const headerHost = document.getElementById("site-header");
     const blueField = document.querySelector<HTMLElement>(".blue-field");
     if (nav && blueField) nav.classList.add("nav--onblue");
     const onScroll = () => {
       if (!nav) return;
       const field = document.querySelector<HTMLElement>(".blue-field");
       const trigger = field ? field.getBoundingClientRect().bottom - 40 : 8;
-      nav.dataset.stuck = String(trigger < 0 || (window.scrollY > 8 && !field));
+      const stuck = String(trigger < 0 || (window.scrollY > 8 && !field));
+      nav.dataset.stuck = stuck;
+      if (headerHost) headerHost.dataset.stuck = stuck;
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
