@@ -2,61 +2,80 @@ import { expect, test } from "@playwright/test";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
-test("mobius uses layered ribbon material instead of contour-line bundle", async ({ page }) => {
+test("mobius reads as a restrained translucent material instead of an energy trail", async ({ page }) => {
   await page.goto(`${basePath}/`);
   await page.waitForLoadState("networkidle");
 
-  const halo = page.locator(".mob:not(.mob--in) .mob__v--a .mob-ribbon__halo").first();
-  const core = page.locator(".mob:not(.mob--in) .mob__v--a .mob-ribbon__core").first();
-  const dash = page.locator(".mob:not(.mob--in) .mob__v--a .mob-ribbon__dash").first();
+  const lightMobius = page.locator(".mob:not(.mob--in) .mob__v--a").first();
+  const surface = lightMobius.locator(".mob__surf");
+  const edge = lightMobius.locator(".mob__edge");
+  const specular = lightMobius.locator(".mob-ribbon__specular").first();
+  const glint = lightMobius.locator(".mob-ribbon__glint").first();
 
-  await expect(halo).toBeVisible();
-  await expect(core).toBeVisible();
-  await expect(dash).toBeVisible();
+  await expect(specular).toBeAttached();
+  await expect(glint).toBeAttached();
 
-  const haloStyle = await halo.evaluate((el) => {
+  const surfaceStyle = await surface.evaluate((el) => {
     const style = getComputedStyle(el);
     return {
-      stroke: style.stroke,
-      width: Number.parseFloat(style.strokeWidth),
-      opacity: Number.parseFloat(style.strokeOpacity),
+      display: style.display,
+      opacity: Number.parseFloat(style.opacity),
     };
   });
-  expect(haloStyle.stroke).toBe("rgb(22, 104, 227)");
-  expect(haloStyle.width).toBeGreaterThanOrEqual(54);
-  expect(haloStyle.opacity).toBeLessThanOrEqual(0.08);
+  expect(surfaceStyle.display).not.toBe("none");
+  expect(surfaceStyle.opacity).toBeGreaterThanOrEqual(0.65);
 
-  const coreStyle = await core.evaluate((el) => {
+  const edgeStyle = await edge.evaluate((el) => {
     const style = getComputedStyle(el);
     return {
-      stroke: style.stroke,
-      width: Number.parseFloat(style.strokeWidth),
-      opacity: Number.parseFloat(style.strokeOpacity),
+      display: style.display,
+      opacity: Number.parseFloat(style.opacity),
     };
   });
-  expect(coreStyle.stroke).toBe("rgb(22, 104, 227)");
-  expect(coreStyle.width).toBeGreaterThanOrEqual(24);
-  expect(coreStyle.opacity).toBeGreaterThanOrEqual(0.08);
+  expect(edgeStyle.display).not.toBe("none");
+  expect(edgeStyle.opacity).toBeGreaterThanOrEqual(0.35);
+  expect(edgeStyle.opacity).toBeLessThanOrEqual(0.7);
 
-  const dashStyle = await dash.evaluate((el) => {
+  const specularStyle = await specular.evaluate((el) => {
     const style = getComputedStyle(el);
     return {
-      stroke: style.stroke,
       width: Number.parseFloat(style.strokeWidth),
+      opacity: Number.parseFloat(style.strokeOpacity),
       dash: style.strokeDasharray,
       cap: style.strokeLinecap,
     };
   });
-  expect(dashStyle.stroke).toBe("rgb(96, 208, 240)");
-  expect(dashStyle.width).toBeGreaterThanOrEqual(5);
-  expect(dashStyle.dash).not.toBe("none");
-  expect(dashStyle.cap).toBe("round");
+  expect(specularStyle.width).toBeLessThanOrEqual(4);
+  expect(specularStyle.opacity).toBeLessThanOrEqual(0.22);
+  expect(specularStyle.dash).not.toBe("none");
+  expect(specularStyle.cap).toBe("round");
 
-  await expect(page.locator(".mob:not(.mob--in) .mob__cont").first()).toHaveCSS("display", "none");
-  await expect(page.locator(".mob:not(.mob--in) .mob__edge").first()).toHaveCSS("display", "none");
+  const glintStyle = await glint.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return {
+      width: Number.parseFloat(style.strokeWidth),
+      opacity: Number.parseFloat(style.strokeOpacity),
+      dash: style.strokeDasharray,
+      cap: style.strokeLinecap,
+    };
+  });
+  expect(glintStyle.width).toBeLessThanOrEqual(4);
+  expect(glintStyle.opacity).toBeGreaterThanOrEqual(0.2);
+  expect(glintStyle.opacity).toBeLessThanOrEqual(0.5);
+  expect(glintStyle.dash).not.toBe("none");
+  expect(glintStyle.cap).toBe("round");
 
-  const darkCore = page.locator("#contact .mob--in .mob__v--a .mob-ribbon__core").first();
-  const darkDash = page.locator("#contact .mob--in .mob__v--a .mob-ribbon__dash").first();
-  await expect(darkCore).toHaveCSS("stroke", "rgb(96, 208, 240)");
-  await expect(darkDash).toHaveCSS("stroke", "rgb(126, 220, 250)");
+  await expect(lightMobius.locator(".mob__cont")).toHaveCSS("display", "none");
+  expect(await page.locator(".mob-ribbon__halo, .mob-ribbon__core, .mob-ribbon__dash").count()).toBe(0);
+
+  const echo = page.locator(".mob:not(.mob--in) .mob__v--b").first();
+  if (await echo.count()) {
+    const echoOpacity = Number.parseFloat(await echo.evaluate((el) => getComputedStyle(el).opacity));
+    expect(echoOpacity).toBeLessThanOrEqual(0.22);
+  }
+
+  const darkSpecular = page.locator("#contact .mob--in .mob__v--a .mob-ribbon__specular").first();
+  const darkGlint = page.locator("#contact .mob--in .mob__v--a .mob-ribbon__glint").first();
+  await expect(darkSpecular).toHaveCSS("stroke", "rgb(183, 231, 247)");
+  await expect(darkGlint).toHaveCSS("stroke", "rgb(216, 248, 255)");
 });
