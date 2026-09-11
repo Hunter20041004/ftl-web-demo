@@ -1,47 +1,78 @@
-/* First-version tuning — continuous Möbius edge.
-   Keep the existing geometry/material system. This layer only changes the
-   single boundary trace so it stays readable from the top to the bottom. */
+/* First-version tuning — continuous luminous Möbius ribbon.
+   Visual target: the original saturated-blue section treatment — one broad,
+   translucent blue flow field with intermittent rounded highlights, not a
+   bundle of thin contour lines. Geometry remains unchanged. */
 
+/* Broad continuous body: this is the thing the eye should read first. */
 .mob .pulse {
-  stroke: #1668E3 !important;
-  stroke-opacity: .42 !important;
-  stroke-width: 1.8 !important;
-  stroke-dasharray: none !important;
-  stroke-dashoffset: 0 !important;
-  animation: none !important;
-  transform-box: view-box;
-  transform-origin: 0 0;
-  /* Existing geometry ranges roughly -10% → 94% of the document.
-     Remap that same edge to the complete page without changing its x-shape. */
-  transform: translateY(9.6%) scaleY(.962);
+  stroke:#1668E3 !important;
+  stroke-opacity:.12 !important;
+  stroke-width:26 !important;
+  stroke-linecap:round !important;
+  stroke-dasharray:none !important;
+  stroke-dashoffset:0 !important;
+  animation:none !important;
+  filter:drop-shadow(0 0 9px rgba(22,104,227,.18));
+  transform-box:view-box;
+  transform-origin:0 0;
+  /* Keep the same first-version geometry, only remap it to span the page. */
+  transform:translateY(9.6%) scaleY(.962);
 }
 
-/* On the saturated-blue slab the same edge stays blue/cyan instead of
-   turning into a white transparent streak. */
+/* The old hairline contour language is deliberately suppressed. */
+.mob__cont { display:none; }
+
+/* Existing short edge segments become the luminous dash highlights visible
+   inside/along the ribbon. The geometry already spaces them irregularly, so
+   they feel embedded in the flow rather than like a dashed border. */
+.mob__edge path:not(.lit) {
+  stroke:#4A9BF0 !important;
+  stroke-opacity:.34 !important;
+  stroke-width:3.6 !important;
+  stroke-linecap:round !important;
+}
+.mob__edge path.lit {
+  stroke:#60D0F0 !important;
+  stroke-opacity:.11 !important;
+  stroke-width:11 !important;
+  stroke-linecap:round !important;
+}
+
+/* On the saturated-blue slab the same material brightens instead of turning
+   white: blue body + cyan luminous highlights, matching the original mood. */
 .mob--in .pulse {
-  stroke: #60D0F0 !important;
-  stroke-opacity: .64 !important;
+  stroke:#60D0F0 !important;
+  stroke-opacity:.14 !important;
+  filter:drop-shadow(0 0 10px rgba(96,208,240,.22));
+}
+.mob--in .mob__edge path:not(.lit) {
+  stroke:#7EDCFA !important;
+  stroke-opacity:.58 !important;
+}
+.mob--in .mob__edge path.lit {
+  stroke:#60D0F0 !important;
+  stroke-opacity:.18 !important;
+  stroke-width:13 !important;
 }
 
-/* The second breathing geometry remains subtler so the page reads as one
-   continuous line rather than two competing outlines. */
-.mob__v--b .pulse {
-  stroke-opacity: .20 !important;
-}
-.mob--in .mob__v--b .pulse {
-  stroke-opacity: .30 !important;
-}
+/* The breathing B geometry is only atmosphere; A remains the readable ribbon. */
+.mob__v--b .pulse { stroke-opacity:.045 !important; }
+.mob__v--b .mob__edge path:not(.lit) { stroke-opacity:.12 !important; }
+.mob__v--b .mob__edge path.lit { stroke-opacity:.045 !important; }
+.mob--in .mob__v--b .pulse { stroke-opacity:.06 !important; }
+.mob--in .mob__v--b .mob__edge path:not(.lit) { stroke-opacity:.18 !important; }
 
-@media (max-width: 760px) {
+@media (max-width:760px) {
   .mob .pulse {
-    stroke-width: 1.45 !important;
-    stroke-opacity: .34 !important;
+    stroke-width:20 !important;
+    stroke-opacity:.11 !important;
+    filter:drop-shadow(0 0 7px rgba(22,104,227,.16));
   }
-  .mob--in .pulse {
-    stroke-opacity: .54 !important;
-  }
+  .mob__edge path:not(.lit) { stroke-width:3.1 !important; }
+  .mob__edge path.lit { stroke-width:9 !important; }
+  .mob--in .pulse { stroke-opacity:.13 !important; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mob .pulse { animation: none !important; }
+@media (prefers-reduced-motion:reduce) {
+  .mob .pulse { animation:none !important; }
 }
