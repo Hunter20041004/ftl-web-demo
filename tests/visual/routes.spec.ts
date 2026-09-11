@@ -4,6 +4,10 @@ const routes = ["/", "/about/", "/projects/", "/insights/", "/resources/", "/eve
 
 for (const route of routes) {
   test(`${route} renders without horizontal overflow`, async ({ page }, testInfo) => {
+    // V1 intentionally reveals content on scroll. For deterministic full-page QA,
+    // reduced motion makes the runtime reveal everything immediately without
+    // changing production behavior.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route);
     await page.waitForLoadState("networkidle");
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
