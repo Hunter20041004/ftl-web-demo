@@ -14,10 +14,17 @@ The original first-version public site remains on `main` at baseline commit `fa0
 - shadcn-compatible primitive foundation: available for future admin UI.
 
 ## Current task
-`rebuild/v1-on-new-architecture` ports the first-version visual experience onto the modern architecture with no intentional redesign.
+`rebuild/v1-on-new-architecture` ports the first-version visual experience onto the modern architecture while refining one explicitly approved global decorative system.
+
+## Current visual system
+- Product decision on 2026-09-11: the Möbius concept is retired.
+- Do not reintroduce `MobiusVisual`, `mobius-continuity.css`, or the legacy Möbius runtime into the Next homepage.
+- Homepage replacement: sparse Transaction Network scenes at Hero, Events, Contact and Partners.
+- Visual goal: relationship topology between people / institutions / data / transactions; restrained, financial and editorial rather than crypto or star-field.
+- `assets/mobius.js` remains only as a historical V1 reference asset and is not part of the current Next runtime.
 
 ## Visual rule
-For this task, `main` V1 is authoritative. Later V2/V3/V4/V5 redesign branches are not visual references.
+For layout, content hierarchy, section composition and brand balance, `main` V1 is authoritative. Later V2/V3/V4/V5 redesign branches are not visual references. The Transaction Network decision above is the explicit exception to the old Möbius treatment.
 
 ## Deployment
 A dedicated preview will be published before any merge decision. `main` must not be changed during parity reconstruction.
