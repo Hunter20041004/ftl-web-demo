@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - refactor/next-architecture-chatgpt
+      - rebuild/v1-on-new-architecture
   pull_request:
 
 jobs:
