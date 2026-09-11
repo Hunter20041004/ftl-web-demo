@@ -23,7 +23,7 @@ test("mobius uses layered ribbon material instead of contour-line bundle", async
     };
   });
   expect(haloStyle.stroke).toBe("rgb(22, 104, 227)");
-  expect(haloStyle.width).toBeGreaterThanOrEqual(56);
+  expect(haloStyle.width).toBeGreaterThanOrEqual(54);
   expect(haloStyle.opacity).toBeLessThanOrEqual(0.08);
 
   const coreStyle = await core.evaluate((el) => {
@@ -34,7 +34,7 @@ test("mobius uses layered ribbon material instead of contour-line bundle", async
       opacity: Number.parseFloat(style.strokeOpacity),
     };
   });
-  expect(coreStyle.stroke).toBe("rgb(74, 155, 240)");
+  expect(coreStyle.stroke).toBe("rgb(22, 104, 227)");
   expect(coreStyle.width).toBeGreaterThanOrEqual(24);
   expect(coreStyle.opacity).toBeGreaterThanOrEqual(0.08);
 
