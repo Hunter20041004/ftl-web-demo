@@ -14,22 +14,17 @@ export function MobiusVisual() {
         .querySelectorAll<SVGPathElement>(".mob .pulse:not([data-ribbon-materialized])")
         .forEach((pulse) => {
           pulse.dataset.ribbonMaterialized = "true";
-          pulse.classList.add("mob-ribbon__halo");
+          pulse.removeAttribute("style");
+          pulse.classList.remove("pulse");
+          pulse.classList.add("mob-ribbon__specular");
 
-          const core = pulse.cloneNode(false) as SVGPathElement;
-          core.removeAttribute("style");
-          core.removeAttribute("class");
-          core.removeAttribute("data-ribbon-materialized");
-          core.classList.add("mob-ribbon__core");
+          const glint = pulse.cloneNode(false) as SVGPathElement;
+          glint.removeAttribute("style");
+          glint.removeAttribute("class");
+          glint.removeAttribute("data-ribbon-materialized");
+          glint.classList.add("mob-ribbon__glint");
 
-          const dash = pulse.cloneNode(false) as SVGPathElement;
-          dash.removeAttribute("style");
-          dash.removeAttribute("class");
-          dash.removeAttribute("data-ribbon-materialized");
-          dash.classList.add("mob-ribbon__dash");
-
-          pulse.after(core);
-          core.after(dash);
+          pulse.after(glint);
         });
     };
 
