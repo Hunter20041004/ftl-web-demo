@@ -6,36 +6,47 @@
 /* Broad continuous body: this is the thing the eye should read first. */
 .mob .pulse {
   stroke:#1668E3 !important;
-  stroke-opacity:.12 !important;
-  stroke-width:26 !important;
+  stroke-opacity:.105 !important;
+  stroke-width:34 !important;
   stroke-linecap:round !important;
   stroke-dasharray:none !important;
   stroke-dashoffset:0 !important;
   animation:none !important;
-  filter:drop-shadow(0 0 9px rgba(22,104,227,.18));
+  filter:drop-shadow(0 0 11px rgba(22,104,227,.20));
   transform-box:view-box;
   transform-origin:0 0;
   /* Keep the same first-version geometry, only remap it to span the page. */
   transform:translateY(9.6%) scaleY(.962);
 }
 
-/* The old hairline contour language is deliberately suppressed. */
+/* Remove the old thin contour language completely. */
 .mob__cont { display:none; }
 
-/* Existing short edge segments become the luminous dash highlights visible
-   inside/along the ribbon. The geometry already spaces them irregularly, so
-   they feel embedded in the flow rather than like a dashed border. */
-.mob__edge path:not(.lit) {
+/* A geometry contains the readable dash highlights. Make them thicker and
+   softer so they read like light capsules embedded in the ribbon, not edges. */
+.mob__v--a .mob__edge path:not(.lit) {
   stroke:#4A9BF0 !important;
-  stroke-opacity:.34 !important;
-  stroke-width:3.6 !important;
+  stroke-opacity:.40 !important;
+  stroke-width:5.2 !important;
   stroke-linecap:round !important;
 }
-.mob__edge path.lit {
+.mob__v--a .mob__edge path.lit {
   stroke:#60D0F0 !important;
-  stroke-opacity:.11 !important;
-  stroke-width:11 !important;
+  stroke-opacity:.055 !important;
+  stroke-width:10 !important;
   stroke-linecap:round !important;
+}
+
+/* Reduce the number of visible capsules. The existing geometry alternates
+   lit/core pairs; only a subset stays fully visible to preserve the sparse
+   rhythm in the original blue-section reference. */
+.mob__v--a .mob__edge path:not(.lit):nth-child(4n+2),
+.mob__v--a .mob__edge path:not(.lit):nth-child(4n+4) {
+  stroke-opacity:.16 !important;
+}
+.mob__v--a .mob__edge path.lit:nth-child(4n+1),
+.mob__v--a .mob__edge path.lit:nth-child(4n+3) {
+  stroke-opacity:.025 !important;
 }
 
 /* On the saturated-blue slab the same material brightens instead of turning
@@ -43,33 +54,36 @@
 .mob--in .pulse {
   stroke:#60D0F0 !important;
   stroke-opacity:.14 !important;
-  filter:drop-shadow(0 0 10px rgba(96,208,240,.22));
+  filter:drop-shadow(0 0 12px rgba(96,208,240,.24));
 }
-.mob--in .mob__edge path:not(.lit) {
+.mob--in .mob__v--a .mob__edge path:not(.lit) {
   stroke:#7EDCFA !important;
-  stroke-opacity:.58 !important;
+  stroke-opacity:.62 !important;
+  stroke-width:5.8 !important;
 }
-.mob--in .mob__edge path.lit {
+.mob--in .mob__v--a .mob__edge path.lit {
   stroke:#60D0F0 !important;
-  stroke-opacity:.18 !important;
-  stroke-width:13 !important;
+  stroke-opacity:.095 !important;
+  stroke-width:12 !important;
+}
+.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(4n+2),
+.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(4n+4) {
+  stroke-opacity:.24 !important;
 }
 
-/* The breathing B geometry is only atmosphere; A remains the readable ribbon. */
-.mob__v--b .pulse { stroke-opacity:.045 !important; }
-.mob__v--b .mob__edge path:not(.lit) { stroke-opacity:.12 !important; }
-.mob__v--b .mob__edge path.lit { stroke-opacity:.045 !important; }
-.mob--in .mob__v--b .pulse { stroke-opacity:.06 !important; }
-.mob--in .mob__v--b .mob__edge path:not(.lit) { stroke-opacity:.18 !important; }
+/* B is atmosphere only. No secondary hairline bundle. */
+.mob__v--b .pulse { stroke-opacity:.035 !important; }
+.mob__v--b .mob__edge { display:none; }
+.mob--in .mob__v--b .pulse { stroke-opacity:.05 !important; }
 
 @media (max-width:760px) {
   .mob .pulse {
-    stroke-width:20 !important;
-    stroke-opacity:.11 !important;
-    filter:drop-shadow(0 0 7px rgba(22,104,227,.16));
+    stroke-width:25 !important;
+    stroke-opacity:.10 !important;
+    filter:drop-shadow(0 0 8px rgba(22,104,227,.18));
   }
-  .mob__edge path:not(.lit) { stroke-width:3.1 !important; }
-  .mob__edge path.lit { stroke-width:9 !important; }
+  .mob__v--a .mob__edge path:not(.lit) { stroke-width:4.4 !important; }
+  .mob__v--a .mob__edge path.lit { stroke-width:8 !important; }
   .mob--in .pulse { stroke-opacity:.13 !important; }
 }
 
