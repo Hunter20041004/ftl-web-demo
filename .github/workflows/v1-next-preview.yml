@@ -1,0 +1,41 @@
+name: Publish V1 Next preview
+
+on:
+  push:
+    branches:
+      - rebuild/v1-on-new-architecture
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - name: Build static preview
+        env:
+          NEXT_PUBLIC_BASE_PATH: /Hunter20041004/ftl-web-demo/preview-v1-next
+        run: npm run build
+      - name: Publish preview-v1-next branch
+        shell: bash
+        run: |
+          rm -rf /tmp/ftl-v1-next
+          mkdir -p /tmp/ftl-v1-next
+          cp -a out/. /tmp/ftl-v1-next/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan preview-v1-next
+          git rm -rf . || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a /tmp/ftl-v1-next/. .
+          touch .nojekyll
+          git add -A
+          git commit -m "deploy: v1 design on modern architecture"
+          git push --force origin preview-v1-next
