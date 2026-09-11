@@ -17,6 +17,7 @@ export function MotionEnhancements() {
         const shouldPad = raw.length > String(target).length;
         const start = performance.now();
         const duration = 900;
+        el.classList.add("count");
         const tick = (now: number) => {
           const p = Math.min(1, (now - start) / duration);
           const eased = 1 - Math.pow(1 - p, 3);
