@@ -1,55 +1,44 @@
 /* First-version tuning — restrained, semi-hidden physical Möbius ribbon.
-   The actual ribbon surface is the hero now: translucent material, front/back
-   shading and edge light. The old broad energy-trail treatment is removed.
-   Geometry stays unchanged; continuity comes from the same global Möbius. */
+   The ribbon surface itself carries the object. Front/back colour and per-face
+   opacity still come from mobius.js; CSS only shapes the optical material.
+   The previous broad energy trail and fragmented data-like edge treatment are gone. */
 
-/* Construction contours stay invisible. A restrained physical rim is useful,
-   so the generated edge segments are allowed back in. */
-.mob__cont {
+/* Construction contours and segmented edge fragments are hidden. The surface
+   plus the Möbius' single continuous boundary are enough to describe the form. */
+.mob__cont,
+.mob__edge {
   display:none !important;
 }
-.mob__edge {
-  display:block !important;
+
+/* Preserve the renderer's native front/back colours instead of flattening every
+   face to one blue. Darkening/saturation happens after compositing, which keeps
+   the twist readable while making the pale translucent film visible on white. */
+.mob:not(.mob--in) .mob__surf {
+  opacity:1;
+  filter:brightness(.74) saturate(1.34) contrast(1.03);
+}
+
+/* Atmosphere is only a trace around the material, never its main body. */
+.mob__halo {
+  opacity:.13;
+}
+
+/* Keep some occlusion so the strip can pass behind content without being washed out. */
+.mob-fg {
   opacity:.58;
 }
 
-/* Let the real surface carry the object. Per-face fill-opacity from mobius.js
-   still controls front/back and twist shading; this colour override makes the
-   material read as blue translucent film instead of pale atmospheric fog. */
-.mob__surf {
-  opacity:.96;
-}
-.mob:not(.mob--in) .mob__surf path {
-  fill:#3F79B7 !important;
-}
-.mob:not(.mob--in) .mob__edge path {
-  stroke:#6FA7D4 !important;
-}
-.mob:not(.mob--in) .mob__edge path.lit {
-  stroke:#BFD9EB !important;
-}
-
-/* Atmosphere becomes supporting light only — no more glowing tube. */
-.mob__halo {
-  opacity:.20;
-}
-
-/* Keep occlusion for depth, but do not wash the physical surface away. */
-.mob-fg {
-  opacity:.62;
-}
-
-/* The second geometry is only a faint optical echo. */
+/* One geometry is the material. The breathing alternate is barely perceptible. */
 .mob__v--b {
-  opacity:.12;
+  opacity:.07;
 }
 .mob__v--b .mob-ribbon__specular,
 .mob__v--b .mob-ribbon__glint {
   display:none !important;
 }
 
-/* The Möbius has one physical boundary. We use that boundary only as a sparse
-   satin highlight, never as the body of the ribbon. */
+/* The Möbius has one physical boundary. A long, rare satin reflection on that
+   boundary reads as light on material; many short dashes read as UI/data. */
 .mob-ribbon__specular,
 .mob-ribbon__glint {
   fill:none !important;
@@ -59,79 +48,68 @@
 }
 
 .mob-ribbon__specular {
-  stroke:#9CC9E8 !important;
-  stroke-width:2.2 !important;
-  stroke-opacity:.18 !important;
-  stroke-dasharray:150 930 58 1370 !important;
+  stroke:#A8D5ED !important;
+  stroke-width:1.7 !important;
+  stroke-opacity:.17 !important;
+  stroke-dasharray:260 5200 !important;
   stroke-dashoffset:0 !important;
   animation:none !important;
 }
 
-/* Very sparse moving reflection: this should read as light sliding across a
-   satin/acrylic edge, not as a data capsule or neon pulse. */
 .mob-ribbon__glint {
-  stroke:#EAF7FF !important;
-  stroke-width:3 !important;
-  stroke-opacity:.42 !important;
-  stroke-dasharray:18 1080 30 1580 10 1320 !important;
+  stroke:#F3FBFF !important;
+  stroke-width:2.4 !important;
+  stroke-opacity:.29 !important;
+  stroke-dasharray:34 6900 !important;
   stroke-dashoffset:0 !important;
-  animation:mobRibbonGlint 56s linear infinite;
+  animation:mobRibbonGlint 72s linear infinite;
 }
 
 @keyframes mobRibbonGlint {
-  to { stroke-dashoffset:-2640; }
+  to { stroke-dashoffset:-6934; }
 }
 
-/* On the saturated-blue contact slab it is still the same material; only the
-   reflected edge light gets cooler and brighter because of the dark surround. */
+/* On the saturated-blue Contact slab the same native front/back material is
+   retained. It simply receives a cooler, slightly brighter reflected edge. */
 .mob--in .mob__surf {
   opacity:1;
-}
-.mob--in .mob__surf path {
-  fill:#95DDF0 !important;
+  filter:brightness(1.06) saturate(1.10) contrast(1.02);
 }
 .mob--in .mob__halo {
-  opacity:.18;
-}
-.mob--in .mob__edge {
-  opacity:.64;
-}
-.mob--in .mob__edge path {
-  stroke:#9DDFF1 !important;
-}
-.mob--in .mob__edge path.lit {
-  stroke:#D2F4FB !important;
+  opacity:.14;
 }
 .mob--in .mob-ribbon__specular {
   stroke:#B7E7F7 !important;
-  stroke-opacity:.26 !important;
+  stroke-opacity:.20 !important;
 }
 .mob--in .mob-ribbon__glint {
   stroke:#D8F8FF !important;
-  stroke-opacity:.48 !important;
+  stroke-opacity:.32 !important;
 }
 
 @media (max-width:760px) {
-  /* Mobile keeps the same material language but trims secondary light so the
-     ribbon reads as a surface instead of a vertical glowing stripe. */
-  .mob__surf { opacity:.90; }
-  .mob__halo { opacity:.15; }
-  .mob__edge { opacity:.50; }
-  .mob__v--b { opacity:.08; }
-  .mob-fg { opacity:.54; }
+  /* Mobile keeps the same real-material logic but removes nearly all secondary
+     optical noise so a tall viewport never becomes a glowing vertical stripe. */
+  .mob:not(.mob--in) .mob__surf {
+    opacity:.96;
+    filter:brightness(.72) saturate(1.30) contrast(1.02);
+  }
+  .mob__halo { opacity:.09; }
+  .mob__v--b { opacity:.045; }
+  .mob-fg { opacity:.52; }
 
   .mob-ribbon__specular {
-    stroke-width:1.8 !important;
-    stroke-opacity:.14 !important;
-    stroke-dasharray:110 820 44 1220 !important;
+    stroke-width:1.4 !important;
+    stroke-opacity:.12 !important;
+    stroke-dasharray:190 4700 !important;
   }
   .mob-ribbon__glint {
-    stroke-width:2.4 !important;
-    stroke-opacity:.32 !important;
-    stroke-dasharray:14 980 22 1420 8 1180 !important;
+    stroke-width:2 !important;
+    stroke-opacity:.24 !important;
+    stroke-dasharray:24 6100 !important;
   }
-  .mob--in .mob-ribbon__specular { stroke-opacity:.22 !important; }
-  .mob--in .mob-ribbon__glint { stroke-opacity:.42 !important; }
+  .mob--in .mob-ribbon__specular { stroke-opacity:.17 !important; }
+  .mob--in .mob-ribbon__glint { stroke-opacity:.28 !important; }
 }
 
 @media (prefers-reduced-motion:reduce) {
