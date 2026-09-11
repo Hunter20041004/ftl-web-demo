@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   basePath,
   assetPrefix: basePath || undefined,
   trailingSlash: true,
+  allowedDevOrigins: ["127.0.0.1"],
   images: {
     unoptimized: true,
   },
