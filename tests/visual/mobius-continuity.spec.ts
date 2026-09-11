@@ -20,21 +20,16 @@ test("mobius reads as a restrained translucent material instead of an energy tra
     return {
       display: style.display,
       opacity: Number.parseFloat(style.opacity),
+      filter: style.filter,
     };
   });
   expect(surfaceStyle.display).not.toBe("none");
-  expect(surfaceStyle.opacity).toBeGreaterThanOrEqual(0.65);
+  expect(surfaceStyle.opacity).toBeGreaterThanOrEqual(0.9);
+  expect(surfaceStyle.filter).not.toBe("none");
 
-  const edgeStyle = await edge.evaluate((el) => {
-    const style = getComputedStyle(el);
-    return {
-      display: style.display,
-      opacity: Number.parseFloat(style.opacity),
-    };
-  });
-  expect(edgeStyle.display).not.toBe("none");
-  expect(edgeStyle.opacity).toBeGreaterThanOrEqual(0.35);
-  expect(edgeStyle.opacity).toBeLessThanOrEqual(0.7);
+  /* Fragmented construction edges read like a data stream, so the physical
+     material relies on the surface plus one continuous boundary highlight. */
+  await expect(edge).toHaveCSS("display", "none");
 
   const specularStyle = await specular.evaluate((el) => {
     const style = getComputedStyle(el);
@@ -45,8 +40,8 @@ test("mobius reads as a restrained translucent material instead of an energy tra
       cap: style.strokeLinecap,
     };
   });
-  expect(specularStyle.width).toBeLessThanOrEqual(4);
-  expect(specularStyle.opacity).toBeLessThanOrEqual(0.22);
+  expect(specularStyle.width).toBeLessThanOrEqual(2.5);
+  expect(specularStyle.opacity).toBeLessThanOrEqual(0.2);
   expect(specularStyle.dash).not.toBe("none");
   expect(specularStyle.cap).toBe("round");
 
@@ -59,9 +54,9 @@ test("mobius reads as a restrained translucent material instead of an energy tra
       cap: style.strokeLinecap,
     };
   });
-  expect(glintStyle.width).toBeLessThanOrEqual(4);
+  expect(glintStyle.width).toBeLessThanOrEqual(3);
   expect(glintStyle.opacity).toBeGreaterThanOrEqual(0.2);
-  expect(glintStyle.opacity).toBeLessThanOrEqual(0.5);
+  expect(glintStyle.opacity).toBeLessThanOrEqual(0.35);
   expect(glintStyle.dash).not.toBe("none");
   expect(glintStyle.cap).toBe("round");
 
@@ -71,7 +66,7 @@ test("mobius reads as a restrained translucent material instead of an energy tra
   const echo = page.locator(".mob:not(.mob--in) .mob__v--b").first();
   if (await echo.count()) {
     const echoOpacity = Number.parseFloat(await echo.evaluate((el) => getComputedStyle(el).opacity));
-    expect(echoOpacity).toBeLessThanOrEqual(0.22);
+    expect(echoOpacity).toBeLessThanOrEqual(0.1);
   }
 
   const darkSpecular = page.locator("#contact .mob--in .mob__v--a .mob-ribbon__specular").first();
