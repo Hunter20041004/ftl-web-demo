@@ -81,7 +81,7 @@
 .mob--in .mob__v--b .mob-ribbon__core { stroke-opacity:.035 !important; }
 
 @media (max-width:760px) {
-  .mob-ribbon__halo { stroke-width:54 !important; stroke-opacity:.04 !important; }
+  .mob-ribbon__halo { stroke-width:56 !important; stroke-opacity:.04 !important; }
   .mob-ribbon__core { stroke-width:23 !important; stroke-opacity:.10 !important; }
   .mob-ribbon__dash {
     stroke-width:5.5 !important;
