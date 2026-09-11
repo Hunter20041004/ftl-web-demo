@@ -15,15 +15,12 @@
   filter:drop-shadow(0 0 11px rgba(22,104,227,.20));
   transform-box:view-box;
   transform-origin:0 0;
-  /* Keep the same first-version geometry, only remap it to span the page. */
   transform:translateY(9.6%) scaleY(.962);
 }
 
-/* Remove the old thin contour language completely. */
 .mob__cont { display:none; }
 
-/* A geometry contains the readable dash highlights. Make them thicker and
-   softer so they read like light capsules embedded in the ribbon, not edges. */
+/* Thicker rounded capsules embedded in the ribbon. */
 .mob__v--a .mob__edge path:not(.lit) {
   stroke:#4A9BF0 !important;
   stroke-opacity:.40 !important;
@@ -37,20 +34,17 @@
   stroke-linecap:round !important;
 }
 
-/* Reduce the number of visible capsules. The existing geometry alternates
-   lit/core pairs; only a subset stays fully visible to preserve the sparse
-   rhythm in the original blue-section reference. */
-.mob__v--a .mob__edge path:not(.lit):nth-child(4n+2),
-.mob__v--a .mob__edge path:not(.lit):nth-child(4n+4) {
-  stroke-opacity:.16 !important;
+/* Soften roughly half of the capsules to create the sparse rhythm from the
+   original blue-section reference instead of an even dashed outline. */
+.mob__v--a .mob__edge path:not(.lit):nth-child(8n+4),
+.mob__v--a .mob__edge path:not(.lit):nth-child(8n+8) {
+  stroke-opacity:.14 !important;
 }
-.mob__v--a .mob__edge path.lit:nth-child(4n+1),
-.mob__v--a .mob__edge path.lit:nth-child(4n+3) {
-  stroke-opacity:.025 !important;
+.mob__v--a .mob__edge path.lit:nth-child(8n+3),
+.mob__v--a .mob__edge path.lit:nth-child(8n+7) {
+  stroke-opacity:.02 !important;
 }
 
-/* On the saturated-blue slab the same material brightens instead of turning
-   white: blue body + cyan luminous highlights, matching the original mood. */
 .mob--in .pulse {
   stroke:#60D0F0 !important;
   stroke-opacity:.14 !important;
@@ -66,9 +60,9 @@
   stroke-opacity:.095 !important;
   stroke-width:12 !important;
 }
-.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(4n+2),
-.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(4n+4) {
-  stroke-opacity:.24 !important;
+.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(8n+4),
+.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(8n+8) {
+  stroke-opacity:.22 !important;
 }
 
 /* B is atmosphere only. No secondary hairline bundle. */
