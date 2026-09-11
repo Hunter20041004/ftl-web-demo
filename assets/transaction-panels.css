@@ -1,0 +1,661 @@
+/* Transaction Panel System
+   Homepage-only structural UI for the Transaction Network visual direction.
+   The goal is to remove the old rounded-glass / iOS-card language and replace it
+   with flatter research panels, rails, ports, and timeline connections.
+   Loaded after ftl.css and transaction-network.css so this file owns homepage
+   panel material without changing the rest of the site. */
+
+main.page[data-visual-baseline="v1-main-fa033f0"] {
+  --tn-panel-border: rgba(19, 64, 116, .24);
+  --tn-panel-border-soft: rgba(19, 64, 116, .13);
+  --tn-panel-fill: rgba(255, 255, 255, .76);
+  --tn-panel-fill-strong: rgba(255, 255, 255, .93);
+  --tn-rail: rgba(19, 64, 116, .24);
+  --tn-node: #134074;
+  --tn-active: #00A896;
+  --tn-ice: #EEF4F8;
+}
+
+/* Section rule becomes a network rail instead of a generic full-width black rule. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .sec-head::after {
+  height: 1px;
+  background: linear-gradient(90deg, #134074 0 22%, rgba(19,64,116,.16) 22% 100%);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .sec-head::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 22%;
+  bottom: -3px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(19,64,116,.55);
+  border-radius: 50%;
+  background: #fff;
+  transform: translateX(-50%);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .section--alt .sec-head::before {
+  background: var(--paper-2);
+}
+
+/* Controls follow the new structural language: still obvious CTAs, no floating pills. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .btn {
+  border-radius: 8px;
+  box-shadow: none;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .btn--primary {
+  box-shadow: none;
+}
+
+/* ── Shared panel material ─────────────────────────────────── */
+main.page[data-visual-baseline="v1-main-fa033f0"] .pane,
+main.page[data-visual-baseline="v1-main-fa033f0"] .card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Kill the old Möbius-inspired conic border treatment on panes. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .pane::before {
+  content: "";
+  position: absolute;
+  inset: -1px auto auto 22px;
+  width: 74px;
+  height: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #134074;
+  -webkit-mask: none;
+  mask: none;
+  pointer-events: none;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .pane::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 18px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #134074;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(19,64,116,.07);
+  pointer-events: none;
+}
+
+/* ── Hero relationship panel ───────────────────────────────── */
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--rows {
+  overflow: visible;
+  padding: 10px 20px;
+  background: var(--tn-panel-fill) !important;
+  border: 1px solid var(--tn-panel-border) !important;
+  border-radius: 6px !important;
+}
+
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-list,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-list {
+  position: relative;
+  gap: 0;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-list::before,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-list::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 25px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: var(--tn-rail);
+}
+
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row {
+  position: relative;
+  z-index: 1;
+  min-height: 68px;
+  padding: 13px 8px;
+  gap: 15px;
+  overflow: visible;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--tn-panel-border-soft) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: transform 180ms var(--ease), background 180ms ease;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row:last-child,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row:last-child {
+  border-bottom: 0 !important;
+}
+/* Remove the old rotating hover ornament. The node itself is the interaction anchor. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row::after,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row::after {
+  content: none !important;
+}
+
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row__icon,
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row__icon {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(19,64,116,.48);
+  border-radius: 50%;
+  background: #fff !important;
+  box-shadow: 0 0 0 5px rgba(238,244,248,.95);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row__icon .icon {
+  width: 17px;
+  height: 17px;
+  color: #134074 !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row__label {
+  font-size: .94rem;
+  font-weight: 800;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row:hover {
+    transform: translateX(4px);
+    border-radius: 0 !important;
+    background: linear-gradient(90deg, rgba(19,64,116,.055), rgba(19,64,116,0) 78%) !important;
+  }
+}
+
+/* Statistics become a ledger rail rather than another floating glass card. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats {
+  margin: 18px 0 0 auto;
+  width: min(100%, 520px);
+  padding: 18px 22px;
+  background: rgba(255,255,255,.66) !important;
+  border: 1px solid var(--tn-panel-border) !important;
+  border-radius: 3px !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  gap: 0 !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat {
+  min-width: 0;
+  padding: 0 18px;
+  border-left: 1px solid var(--tn-panel-border-soft);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:last-child {
+  padding-right: 0;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat b {
+  color: #134074;
+  font-family: "IBM Plex Mono", var(--f-en);
+  font-size: 1.62rem;
+  line-height: 1.1;
+  letter-spacing: -.05em;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat span,
+main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:nth-child(even) span {
+  display: block;
+  margin-top: 7px;
+  padding: 0;
+  border: 0;
+  color: var(--ink-3);
+  font-size: .67rem;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+/* ── Weekly / research packets ─────────────────────────────── */
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .weekly {
+  gap: 14px;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .weekly__side {
+  gap: 14px;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card {
+  overflow: hidden;
+  background: rgba(255,255,255,.78) !important;
+  border: 1px solid var(--tn-panel-border-soft) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  transition: transform 180ms var(--ease), border-color 180ms ease, background 180ms ease;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card--feature {
+  border-left: 3px solid #134074 !important;
+  background: rgba(255,255,255,.90) !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card--sec {
+  border-left: 2px solid rgba(19,64,116,.40) !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card__top {
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--tn-panel-border-soft);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card__index {
+  font-family: "IBM Plex Mono", var(--f-en);
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .tag {
+  padding: 4px 8px;
+  border: 1px solid rgba(19,64,116,.20);
+  border-radius: 2px !important;
+  background: rgba(238,244,248,.88) !important;
+  color: #134074 !important;
+  box-shadow: none !important;
+  font-family: "IBM Plex Mono", var(--f-en);
+  font-size: .68rem;
+  letter-spacing: .02em;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .tag--cyan {
+  border-color: rgba(0,168,150,.30);
+  background: rgba(0,168,150,.07) !important;
+  color: #08796d !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] .tag--warn {
+  border-color: rgba(138,83,0,.24);
+  background: rgba(138,83,0,.055) !important;
+  color: #704500 !important;
+}
+@media (hover:hover) and (pointer:fine) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card:hover {
+    transform: translateY(-2px);
+    border-radius: 4px !important;
+    border-color: rgba(19,64,116,.34) !important;
+    background: rgba(255,255,255,.98) !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── Mission becomes an explicit node rail ─────────────────── */
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .numlist {
+  position: relative;
+  border-top: 1px solid #134074;
+  padding-top: 0;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl {
+  position: relative;
+  grid-template-columns: 118px 1fr;
+  gap: 28px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--tn-panel-border-soft);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl::before {
+  content: "";
+  position: absolute;
+  left: 101px;
+  top: 36px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #134074;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 5px rgba(19,64,116,.055);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl::after {
+  content: "";
+  position: absolute;
+  left: 105px;
+  top: 45px;
+  bottom: -1px;
+  width: 1px;
+  background: var(--tn-panel-border-soft);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl:last-child::after {
+  display: none;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl__n {
+  margin: 0;
+  color: #134074;
+  font-family: "IBM Plex Mono", var(--f-en);
+  font-size: 2.55rem;
+  line-height: 1;
+  letter-spacing: -.07em;
+}
+
+/* ── Events: one timeline/network rail, not three card boxes ─ */
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .agenda {
+  position: relative;
+  display: block;
+  border-top: 1px solid var(--tn-panel-border);
+  border-bottom: 1px solid var(--tn-panel-border);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .agenda::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(19,64,116,.20);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event,
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event-lead {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 178px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 34px;
+  row-gap: 8px;
+  margin: 0;
+  padding: 27px 18px 27px 50px;
+  min-height: 0;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--tn-panel-border-soft) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event:last-child {
+  border-bottom: 0 !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 13px;
+  top: 34px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #134074;
+  border-radius: 50%;
+  background: var(--paper-2);
+  box-shadow: 0 0 0 5px rgba(238,244,253,.92);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event-lead::before {
+  border-color: #00A896;
+  background: #fff;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .card__top {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 9px;
+  padding: 0;
+  border: 0;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .card__index {
+  color: #134074;
+  font-family: "IBM Plex Mono", var(--f-en);
+  font-size: .73rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .h3 {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 1.08rem;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .card__body {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 66ch;
+}
+@media (hover:hover) and (pointer:fine) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event:hover {
+    transform: none;
+    border-radius: 0 !important;
+    background: linear-gradient(90deg, rgba(255,255,255,.48), rgba(255,255,255,.10)) !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── Contact: dark relationship rail, same construction as Hero ─ */
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .pane--rows {
+  overflow: visible;
+  padding: 10px 20px;
+  background: rgba(5,24,80,.30) !important;
+  border: 1px solid rgba(126,220,250,.30) !important;
+  border-radius: 6px !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .pane--rows::before {
+  background: #7EDCFA;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .pane--rows::after {
+  border-color: #7EDCFA;
+  background: #134074;
+  box-shadow: 0 0 0 4px rgba(126,220,250,.10);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-list::before {
+  background: rgba(126,220,250,.30);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row {
+  border-bottom-color: rgba(126,220,250,.16) !important;
+  color: #fff;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row__icon {
+  border-color: rgba(126,220,250,.62);
+  background: rgba(11,37,69,.76) !important;
+  box-shadow: 0 0 0 5px rgba(11,37,69,.92);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row__icon .icon {
+  width: 17px;
+  height: 17px;
+  color: #7EDCFA !important;
+}
+@media (hover:hover) and (pointer:fine) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row:hover {
+    transform: translateX(4px);
+    border-radius: 0 !important;
+    background: linear-gradient(90deg, rgba(126,220,250,.08), rgba(126,220,250,0) 80%) !important;
+  }
+}
+
+/* ── Partners: a continuous institution rail, not logo cards ─ */
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee {
+  position: relative;
+  padding-block: 23px;
+  background: transparent;
+  border-top: 1px solid var(--tn-panel-border-soft);
+  border-bottom: 1px solid var(--tn-panel-border-soft);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 35px;
+  height: 1px;
+  background: rgba(19,64,116,.16);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee__track,
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee__group {
+  position: relative;
+  z-index: 1;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner {
+  position: relative;
+  min-width: 236px;
+  padding: 0 28px 0 34px;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 15px;
+  bottom: 4px;
+  width: 1px;
+  background: rgba(19,64,116,.14);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner__dot {
+  position: absolute;
+  z-index: 2;
+  left: 7px;
+  top: 7px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #134074;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 5px rgba(255,255,255,.92);
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner b {
+  font-size: .88rem;
+}
+main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner span span {
+  margin-top: 4px;
+  font-size: .72rem;
+}
+
+/* The alt-section dot texture is now supporting context; the topology carries the idea. */
+main.page[data-visual-baseline="v1-main-fa033f0"] .section--alt::before {
+  opacity: .42;
+}
+
+@media (max-width: 940px) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats {
+    margin-top: 18px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] .sec-head::before {
+    left: 34%;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .sec-head::after {
+    background: linear-gradient(90deg, #134074 0 34%, rgba(19,64,116,.14) 34% 100%);
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] .btn {
+    border-radius: 7px;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--rows,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .pane--rows {
+    padding: 8px 12px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-list::before,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-list::before {
+    left: 23px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row {
+    min-height: 62px;
+    gap: 13px;
+    padding: 11px 6px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row__icon,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row__icon {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats {
+    padding: 15px 16px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat {
+    padding: 12px 14px;
+    border-left: 1px solid var(--tn-panel-border-soft);
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:nth-child(-n+2) {
+    padding-top: 0;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:nth-child(n+3) {
+    border-top: 1px solid var(--tn-panel-border-soft);
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .pane--stats .stat:nth-last-child(-n+2) {
+    padding-bottom: 0;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card--feature,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card--sec {
+    border-radius: 3px !important;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl {
+    grid-template-columns: 68px 1fr;
+    gap: 19px;
+    padding: 25px 0;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl::before {
+    left: 58px;
+    top: 31px;
+    width: 8px;
+    height: 8px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl::after {
+    left: 61.5px;
+    top: 39px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #mission .nl__n {
+    font-size: 2rem;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .agenda::before {
+    left: 11px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event-lead {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: 9px;
+    padding: 22px 4px 22px 34px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event::before {
+    left: 6px;
+    top: 29px;
+    width: 10px;
+    height: 10px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .card__top {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .h3 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #events .card--event .card__body {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee {
+    padding-block: 19px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #partners .marquee::before {
+    top: 31px;
+  }
+  main.page[data-visual-baseline="v1-main-fa033f0"] #partners .partner {
+    min-width: 210px;
+    padding-right: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main.page[data-visual-baseline="v1-main-fa033f0"] .hero .ios-row,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #contact .ios-row,
+  main.page[data-visual-baseline="v1-main-fa033f0"] #weekly .card {
+    transition: none;
+  }
+}
