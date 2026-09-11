@@ -1,86 +1,97 @@
-/* First-version tuning — continuous luminous Möbius ribbon.
-   Visual target: the original saturated-blue section treatment — one broad,
-   translucent blue flow field with intermittent rounded highlights, not a
-   bundle of thin contour lines. Geometry remains unchanged. */
+/* First-version tuning — layered luminous Möbius ribbon.
+   Target: the original saturated-blue treatment the user referenced:
+   a broad translucent blue trail, a brighter inner body, and sparse rounded
+   luminous capsules. No bundle of thin contour lines. Geometry is unchanged. */
 
-/* Broad continuous body: this is the thing the eye should read first. */
-.mob .pulse {
-  stroke:#1668E3 !important;
-  stroke-opacity:.105 !important;
-  stroke-width:34 !important;
+/* Old geometry helpers are no longer allowed to read as hairline bundles. */
+.mob__cont,
+.mob__edge {
+  display:none !important;
+}
+
+/* Keep only a faint trace of the original surface so the Möbius twist still
+   has depth, while the path material below becomes the dominant visual. */
+.mob__surf { opacity:.16; }
+.mob__halo { opacity:.24; }
+
+.mob-ribbon__halo,
+.mob-ribbon__core,
+.mob-ribbon__dash {
+  fill:none !important;
+  vector-effect:non-scaling-stroke;
   stroke-linecap:round !important;
-  stroke-dasharray:none !important;
-  stroke-dashoffset:0 !important;
-  animation:none !important;
-  filter:drop-shadow(0 0 11px rgba(22,104,227,.20));
+  stroke-linejoin:round !important;
   transform-box:view-box;
   transform-origin:0 0;
   transform:translateY(9.6%) scaleY(.962);
 }
 
-.mob__cont { display:none; }
+/* 1) wide atmospheric body */
+.mob-ribbon__halo {
+  stroke:#1668E3 !important;
+  stroke-width:72 !important;
+  stroke-opacity:.045 !important;
+  stroke-dasharray:none !important;
+  stroke-dashoffset:0 !important;
+  animation:none !important;
+}
 
-/* Thicker rounded capsules embedded in the ribbon. */
-.mob__v--a .mob__edge path:not(.lit) {
+/* 2) readable translucent blue ribbon */
+.mob-ribbon__core {
   stroke:#4A9BF0 !important;
-  stroke-opacity:.40 !important;
-  stroke-width:5.2 !important;
-  stroke-linecap:round !important;
+  stroke-width:30 !important;
+  stroke-opacity:.11 !important;
+  stroke-dasharray:none !important;
 }
-.mob__v--a .mob__edge path.lit {
+
+/* 3) sparse rounded light capsules, matching the reference feeling */
+.mob-ribbon__dash {
   stroke:#60D0F0 !important;
+  stroke-width:6.5 !important;
+  stroke-opacity:.46 !important;
+  stroke-dasharray:24 118 13 86 34 142 !important;
+  stroke-dashoffset:0 !important;
+  animation:mobRibbonFlow 36s linear infinite;
+}
+
+@keyframes mobRibbonFlow {
+  to { stroke-dashoffset:-417; }
+}
+
+/* Saturated blue slab: same path, brighter cyan material. */
+.mob--in .mob-ribbon__halo {
+  stroke:#4A9BF0 !important;
   stroke-opacity:.055 !important;
-  stroke-width:10 !important;
-  stroke-linecap:round !important;
 }
-
-/* Soften roughly half of the capsules to create the sparse rhythm from the
-   original blue-section reference instead of an even dashed outline. */
-.mob__v--a .mob__edge path:not(.lit):nth-child(8n+4),
-.mob__v--a .mob__edge path:not(.lit):nth-child(8n+8) {
-  stroke-opacity:.14 !important;
-}
-.mob__v--a .mob__edge path.lit:nth-child(8n+3),
-.mob__v--a .mob__edge path.lit:nth-child(8n+7) {
-  stroke-opacity:.02 !important;
-}
-
-.mob--in .pulse {
+.mob--in .mob-ribbon__core {
   stroke:#60D0F0 !important;
-  stroke-opacity:.14 !important;
-  filter:drop-shadow(0 0 12px rgba(96,208,240,.24));
+  stroke-opacity:.145 !important;
 }
-.mob--in .mob__v--a .mob__edge path:not(.lit) {
+.mob--in .mob-ribbon__dash {
   stroke:#7EDCFA !important;
-  stroke-opacity:.62 !important;
-  stroke-width:5.8 !important;
-}
-.mob--in .mob__v--a .mob__edge path.lit {
-  stroke:#60D0F0 !important;
-  stroke-opacity:.095 !important;
-  stroke-width:12 !important;
-}
-.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(8n+4),
-.mob--in .mob__v--a .mob__edge path:not(.lit):nth-child(8n+8) {
-  stroke-opacity:.22 !important;
+  stroke-opacity:.66 !important;
 }
 
-/* B is atmosphere only. No secondary hairline bundle. */
-.mob__v--b .pulse { stroke-opacity:.035 !important; }
-.mob__v--b .mob__edge { display:none; }
-.mob--in .mob__v--b .pulse { stroke-opacity:.05 !important; }
+/* The second breathing geometry only adds a ghosted wide atmosphere.
+   It never gets its own highlight capsules, so the composition stays one trail. */
+.mob__v--b .mob-ribbon__halo { stroke-opacity:.022 !important; }
+.mob__v--b .mob-ribbon__core { stroke-opacity:.028 !important; }
+.mob__v--b .mob-ribbon__dash { display:none !important; }
+.mob--in .mob__v--b .mob-ribbon__halo { stroke-opacity:.026 !important; }
+.mob--in .mob__v--b .mob-ribbon__core { stroke-opacity:.035 !important; }
 
 @media (max-width:760px) {
-  .mob .pulse {
-    stroke-width:25 !important;
-    stroke-opacity:.10 !important;
-    filter:drop-shadow(0 0 8px rgba(22,104,227,.18));
+  .mob-ribbon__halo { stroke-width:54 !important; stroke-opacity:.04 !important; }
+  .mob-ribbon__core { stroke-width:23 !important; stroke-opacity:.10 !important; }
+  .mob-ribbon__dash {
+    stroke-width:5.5 !important;
+    stroke-opacity:.42 !important;
+    stroke-dasharray:20 104 11 74 28 128 !important;
   }
-  .mob__v--a .mob__edge path:not(.lit) { stroke-width:4.4 !important; }
-  .mob__v--a .mob__edge path.lit { stroke-width:8 !important; }
-  .mob--in .pulse { stroke-opacity:.13 !important; }
+  .mob--in .mob-ribbon__core { stroke-opacity:.13 !important; }
+  .mob--in .mob-ribbon__dash { stroke-opacity:.58 !important; }
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .mob .pulse { animation:none !important; }
+  .mob-ribbon__dash { animation:none !important; }
 }
