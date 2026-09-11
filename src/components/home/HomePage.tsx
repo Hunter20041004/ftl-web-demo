@@ -11,7 +11,7 @@ function Icon({ name, className = "icon" }: { name: string; className?: string }
 export function HomePage() {
   return (
     <SitePageShell mobius>
-      <main id="main" className="page">
+      <main id="main" className="page" data-visual-baseline="v1-main-fa033f0">
         <section className="hero">
           <span className="hero__bloom" aria-hidden="true" />
           <div className="wrap">
