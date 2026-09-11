@@ -33,7 +33,7 @@ export function SiteHeader() {
           開發中的展示版 —— 站上的人數、幹部名單、合作對象與活動皆為示意資料，非正式資訊。
         </span>
       </div>
-      <div id="site-header-react">
+      <div id="site-header">
         <a className="skip" href="#main" data-en="Skip to main content">跳到主要內容</a>
         <header className="nav" data-stuck="false">
           <div className="wrap nav__inner">
@@ -119,7 +119,7 @@ function FooterColumn({ title, en, items }: {
 export function SiteFooter() {
   const logoSrc = withBasePath("/assets/ftl-logo.png");
   return (
-    <footer className="footer">
+    <footer id="site-footer" className="footer">
       <div className="wrap">
         <div className="footer__top">
           <div className="footer__brand">
