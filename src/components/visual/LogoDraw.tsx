@@ -21,7 +21,7 @@ type Stroke = {
 };
 const STROKES: ReadonlyArray<Stroke> = [
   { id: "ribbon", pieces: ["lRibbon", "lFoot", "fStem", "top"], exclude: [{ piece: "tStem", within: [260, 108, 160, 420] }, { piece: "fArm", within: [122, 190, 200, 160] }], d: "M 55 1000 L 55 462 L 55 120 C 55 80 80 55 120 55 L 520 55 C 590 55 620 110 565 165 L 480 380 C 468 420 490 455 548 455 L 770 455", w: 240, at: 0.1, dur: 2.0 },
-  { id: "arm", pieces: ["fArm"], d: "M -760 340 L 40 315 C 90 258 160 226 238 214 L 290 208", w: 170, at: 0.9, dur: 1.25 },
+  { id: "arm", pieces: ["fArm"], d: "M -760 340 L 40 315 C 90 258 160 226 238 214 L 290 208", w: 170, at: 0.3, dur: 1.0 },
   { id: "stem", pieces: ["tStem"], d: "M 325 -520 L 325 105 L 325 440 C 325 480 350 500 390 500 L 440 500", w: 170, at: 0.5, dur: 1.4 },
   { id: "text", pieces: [], clipY: 530, d: "M -760 615 L 80 615 L 720 615", w: 150, at: 1.5, dur: 1.0 },
 ];
