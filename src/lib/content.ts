@@ -11,7 +11,7 @@ export const semester = {
   range: "2026.09 – 2026.12",
   meetingDay: "每週三",
   meetingDayEn: "Wednesdays",
-  focus: "AI × FinTech × Business",
+  focus: "金融 × 科技 × 產學 × 實作",
   concept: "專家講座 → 工作坊實作 → 英語閱讀與討論 → 校友與社員交流，四種形式輪流進行。",
   conceptEn: "Expert lectures → hands-on workshops → English reading & discussion → alumni and member networking, in rotation.",
 };
@@ -185,11 +185,10 @@ export const membership = {
     { name: "旁聽生", en: "Auditor", fee: "1,500 元／學期", how: "免書審，LINE Bot 隨時繳費入社", perks: "旁聽生資格與權益範圍另行公告；不適用出席獎勵金。" },
   ],
   timeline: [
-    { date: "09/07 – 09/13", zh: "書審填寫（同時填寫面試時間）", en: "Applications", done: true },
-    { date: "09/14 – 09/17", zh: "延長填寫時間；09/16 為報名倒數一天", en: "Extended applications", done: false },
-    { date: "09/18", zh: "書審結果公布＋填寫面試時間", en: "Screening results and interview slots", done: false },
-    { date: "09/19 – 09/20", zh: "晚上團體面試", en: "Group interviews (evening)", done: false },
-    { date: "09/21", zh: "公布專案生錄取結果", en: "Admission results", done: false },
+    { date: "09/07 – 09/17", zh: "書審填寫", en: "Applications", done: false },
+    { date: "09/18", zh: "公布書審結果並確認面試時間", en: "Screening results; confirm interview slot", done: false },
+    { date: "09/19 – 09/20", zh: "（六、日）晚上面試", en: "Interviews, Sat–Sun evening", done: false },
+    { date: "09/21", zh: "公布專案生結果", en: "Project-member results", done: false },
   ],
   reward: {
     headline: "入社 3,000，全勤領回 2,000。",
@@ -271,4 +270,96 @@ export const partners = [
   { zh: "好廣告數據", en: "Good Ads Data", sub: "第 3 週講座", subEn: "Week 3 lecture" },
   { zh: "市民永續", en: "City Sustainability", sub: "第 6 週講座", subEn: "Week 6 lecture" },
   { zh: "台灣金融研訓院", en: "Taiwan Academy of Banking and Finance", sub: "第 11 週講座", subEn: "Week 11 lecture" },
+];
+
+// ── FinTech 週報 ─────────────────────────────────────────────────────────
+// 依 nccu-fintechlab-social/docs/週報-Prompt.md 的規則產出：先做選題卡（每條事實附來源），
+// 再鋪成「封面三則短標 ＋ 三則各一段 ≤180 字摘要」。網站版多放來源連結，讓讀者可以自己點開查證。
+export type WeeklyStory = { title: string; summary: string; sources: Array<{ label: string; href: string; primary: boolean }> };
+export type WeeklyIssue = { vol: number; range: string; year: number; headlines: [string, string, string]; stories: WeeklyStory[]; note?: string };
+
+export const weekly: WeeklyIssue[] = [
+  {
+    vol: 2, range: "09/07 – 09/13", year: 2026,
+    headlines: ["Circle 4 億美元買跨境支付", "Block 申請國家信託銀行", "電支帳戶突破 4,150 萬"],
+    stories: [
+      {
+        title: "Circle 以 4 億美元收購新加坡跨境支付公司 Tazapay",
+        summary: "發行美元穩定幣 USDC 的 Circle 在 9 月 8 日宣布，以 4 億美元全股票交易收購新加坡的 Tazapay。Tazapay 做的是「企業之間的跨境收付款」，年化交易量超過 250 億美元，付款通路涵蓋 100 多個市場，其中約六成的交易量已經用穩定幣結算。交易預計 2027 年完成，還要經過新加坡金管局等監理機關核准。對台灣讀者的關係：台灣的《虛擬資產服務法》今年 6 月三讀通過，金管會主委 9 月 2 日表示穩定幣子法最快 2027 年第一季上路——穩定幣從「炒作標的」變成「付款管線」的趨勢，台灣的法規正在追上。",
+        sources: [
+          { label: "Circle 新聞稿（Business Wire，2026-09-08）", href: "https://www.businesswire.com/news/home/20260908409825/en/", primary: true },
+          { label: "Payments Dive 報導（2026-09-10）", href: "https://www.paymentsdive.com/news/circle-buys-tazapay-for-400m/829956/", primary: false },
+          { label: "Focus Taiwan：金管會主委談穩定幣子法時程（2026-09-02）", href: "https://focustaiwan.tw/business/202609020014", primary: false },
+        ],
+      },
+      {
+        title: "Block 向美國 OCC 申請設立「只保管、不收存款」的信託銀行",
+        summary: "Square 與 Cash App 的母公司 Block 在 9 月 8 日宣布，向美國聯邦金融監理機關 OCC 申請設立 Builders Bank & Trust，這是一家「國家信託銀行」：不收存款、不放款，專門提供保管與信託服務，包括保管比特幣和穩定幣。Block 目前已經有一家 2021 年成立的猶他州工業銀行。今年 5 月美國總統簽署行政命令要求加速金融科技公司的銀行執照申請後，Stripe、Circle、Revolut、PayPal 都走了同一條路。對台灣讀者的關係：金管會今年也在推動「虛擬資產保管業務試辦」，讓銀行替客戶保管虛擬資產——美國的做法是台灣可以對照的樣本。核准時程查不到。",
+        sources: [
+          { label: "Payments Dive 報導（2026-09-09，引 Block 新聞稿）", href: "https://www.paymentsdive.com/news/block-seeks-occ-bank-charter/829903/", primary: false },
+          { label: "時報資訊：金管會 2026 金融科技雙主軸與保管業務試辦（2026-08-19）", href: "https://www.chinatimes.com/realtimenews/20260819001292-260410", primary: false },
+        ],
+      },
+      {
+        title: "金管會：7 月底電子支付帳戶使用者約 4,151 萬人",
+        summary: "金管會 9 月 10 日公布 7 月份統計：電子支付帳戶總使用者約 4,151 萬人，比上個月多約 38 萬人。當月代理收付實質交易款項約 330.1 億元（上月 296.5 億元），收受儲值款項約 335 億元，國內外小額匯兌約 180.1 億元，支付款項餘額約 200.9 億元。「電子支付」指的是 LINE Pay Money、街口、悠遊付這類可以儲值、轉帳的帳戶。對台灣讀者的關係：4,151 萬個帳戶已經超過台灣人口，代表多數人不只一個電支帳戶；這些數字每月公布一次，是觀察行動支付有沒有繼續成長最直接的來源。",
+        sources: [
+          { label: "金管會新聞稿：115 年 7 月份信用卡、現金卡及電子支付機構業務資訊（2026-09-10）", href: "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202609100002&dtable=News", primary: true },
+        ],
+      },
+    ],
+    note: "三則皆於 2026-09-12 查證；發布前請再點開來源確認。",
+  },
+  {
+    vol: 1, range: "08/27 – 09/01", year: 2026,
+    headlines: ["烏國跨境支付", "ECB 重評 TARGET", "澳洲 A2A 支付"],
+    stories: [
+      { title: "烏國央行與螞蟻談跨境支付", summary: "烏茲別克央行在絲路金融科技論壇與螞蟻集團討論跨境支付合作。焦點包括讓國際旅客付款更便利，也改善烏國公民在海外使用支付服務的可近性。雙方同時談到金融科技人才培育，但目前只有合作討論，尚未公布產品或上線時程。", sources: [{ label: "烏茲別克央行新聞稿", href: "https://cbu.uz/en/press_center/releases/4444882/", primary: true }] },
+      { title: "ECB 重評 TARGET 更新時程", summary: "Swift 延後 2026 年標準更新後，歐元體系決定重新評估 11 月 TARGET Services 發布時程。ECB 仍在評估如期更新系統、但延後停用非結構化地址的方案。最終時程尚未公布，參與機構需留意後續決定。", sources: [{ label: "ECB 公告", href: "https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews260828.en.html", primary: true }] },
+      { title: "澳洲推進 A2A 支付現代化", summary: "澳洲央行支付系統委員會檢視帳戶對帳戶支付的未來，歡迎業界提出願景並推動路線圖。仍待解決批次清算系統去向、韌性、拉式付款與標準化等問題。若業界無法協調推進，委員會鼓勵央行考慮進一步行動。", sources: [{ label: "澳洲央行新聞稿", href: "https://www.rba.gov.au/media-releases/2026/mr-26-23.html", primary: true }] },
+    ],
+    note: "取自社群專案 2026-09-01 的實跑輸出；三則均來自事件主責央行或主管機關。",
+  },
+];
+
+// ── 專案：簡報式呈現 ────────────────────────────────────────────────────
+// 先用社員在 GitHub 上公開的專案當第一版；每個專案是一疊「投影片」，每張一個重點。
+export type Slide = { kicker?: string; title: string; body?: string; bullets?: string[]; stat?: [string, string] };
+export type ProjectDeck = { id: string; name: string; nameEn: string; tagline: string; tags: string[]; repo: string; demo?: string; owner: string; slides: Slide[] };
+
+export const projectDecks: ProjectDeck[] = [
+  {
+    id: "course-scheduler", name: "政大排課", nameEn: "NCCU Course Scheduler",
+    tagline: "實習友善的排課工具：AI 提方案，本地規則做最後把關。",
+    tags: ["AI", "產品", "開源"], repo: "https://github.com/Hunter20041004/nccu-course-scheduler", demo: "https://hunter20041004.github.io/nccu-course-scheduler/", owner: "社員專案",
+    slides: [
+      { kicker: "問題", title: "選課要同時顧衝堂、資格、學分、實習空檔", body: "政大 115-1 有 2,800 多門課。學生真正的痛點不是找課，是把「能不能修」「跟實習撞不撞」「學分夠不夠」一起算清楚。" },
+      { kicker: "做法", title: "AI 提案，規則裁決", body: "模型產生候選課表；一個確定性的驗證器擋掉任何衝堂、不符資格、學分不足、動到鎖定課或實習日的方案。沒通過的方案永遠不會出現在使用者面前，幻覺出來的課進不了課表。" },
+      { kicker: "功能", title: "從候選清單到手機桌布", bullets: ["政大節次方格（A/B/1/2…/H）", "官方課程庫搜尋，不需 API Key", "截圖匯入、AI 推薦最多三個方案", "實習時段規劃：已確認／待確認分開算", "匯出手機桌布課表"] },
+      { kicker: "隱私", title: "自帶金鑰，伺服器什麼都不留", body: "AI 功能用使用者自己的 Gemini API Key，只存在當前分頁；截圖與提示不落地。" },
+      { kicker: "品質", title: "測試與 CI", bullets: ["Unit tests、rendered HTML tests", "對政大課程系統的 live contract test", "GitHub Actions CI"], stat: ["2,829", "門課程可查"] },
+    ],
+  },
+  {
+    id: "design-thinking-ai", name: "Design Thinking × AI 作品集", nameEn: "Design Thinking × AI Portfolio",
+    tagline: "從 Python 視覺化到神經網路、遷移學習與多模型協作的課程作業整理版。",
+    tags: ["AI", "課程作業", "Notebook"], repo: "https://github.com/Hunter20041004/design-thinking-ai-portfolio", owner: "社員專案",
+    slides: [
+      { kicker: "這是什麼", title: "六本可在 Colab 打開的 Notebook", body: "政大「設計思考 × AI」課程與一門 MOOCs 深度學習課的作業，每本都有 Problem、Method、Results、Limitations 四節。" },
+      { kicker: "內容", title: "由淺到深", bullets: ["01 函數與數學視覺化", "02 MNIST 神經網路（Gradio 介面）", "03 BTS 遷移學習分類器（ResNet50V2）", "04 多 LLM 辯論場", "05 Reflection Agent：Writer → Reviewer → Writer", "06 CNN 手寫數字分類"] },
+      { kicker: "方法", title: "把評估方法與安全邊界寫清楚", body: "驗證只用訓練資料切分、測試集只評一次；固定隨機種子；金鑰只從環境變數讀，不寫進 Notebook；公開版不含執行輸出與身分資訊。" },
+      { kicker: "誠實", title: "不編數字", body: "只保留公開檔案撐得住的證據。Notebook 03 的曲線是課堂診斷，不是獨立測試結果；04、05 的範例輸出是作者手寫、明確標示的示範，不是模型輸出。" },
+    ],
+  },
+  {
+    id: "smart-album", name: "AI 表情相簿管家", nameEn: "Smart Album Cleaner",
+    tagline: "本機執行的照片整理工具：用表情品質分類，配可還原的垃圾桶流程。",
+    tags: ["電腦視覺", "隱私", "FastAPI + Vue"], repo: "https://github.com/Hunter20041004/smart-album-cleaner", owner: "社員專案",
+    slides: [
+      { kicker: "問題", title: "幾千張照片，哪些該刪？", body: "手機相簿裡大量閉眼、模糊、表情尷尬的照片。想清理，又怕誤刪。" },
+      { kicker: "做法", title: "MobileNetV3 判斷表情品質，全程在本機", body: "FastAPI 提供 API 與前端，Vue 3 顯示掃描進度與結果；照片不離開電腦。刪除走 Trash 清單：軟刪除、可還原、最後才移到系統垃圾桶。" },
+      { kicker: "證據", title: "75.1% 準確率，193 張標記測試集", body: "主觀的 Good／Bad 二分類：Bad 召回率 82.8%、Good 召回率 67.0%。Model Card 明寫這不代表真實世界、子群體或身分辨識表現。", stat: ["75.1%", "測試集準確率"] },
+      { kicker: "安全", title: "限制主機、來源與可存取的照片根目錄", body: "以 weights_only=True 載入模型權重；目前完整掃描流程僅支援 macOS。" },
+    ],
+  },
 ];

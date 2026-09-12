@@ -146,7 +146,8 @@ export function EventsPage() {
                 <div className="info"><dt data-en="Dates">日期</dt><dd data-en="Chinese sessions to be announced; the English session is on 10/21.">中文場日期另行公告；英文場 10/21 社課時段。</dd></div>
               </dl>
             </div>
-            <div className="stack" style={{ gap: 14 }} data-stagger>
+            <details className="stack" style={{ gap: 14 }} data-stagger>
+              <summary className="chip" style={{ alignSelf: "flex-start", cursor: "pointer", listStyle: "none" }} data-en="Show the five sessions">展開五堂課程內容</summary>
               {chainSeries.courses.map((course) => (
                 <article className="card card--row reveal reveal--rise" key={course.n}>
                   <span className="principle__n">{course.n}</span>
@@ -159,7 +160,7 @@ export function EventsPage() {
                   </div>
                 </article>
               ))}
-            </div>
+            </details>
             <p className="note mt-6"><Icon name="alert" /><span data-en="Session dates and venue will be announced via the LINE Bot.">中文場日期與地點確定後由 LINE Bot 公告。</span></p>
           </div>
         </section>

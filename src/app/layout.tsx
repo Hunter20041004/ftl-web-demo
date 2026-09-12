@@ -10,8 +10,17 @@ export const metadata: Metadata = {
     default: "政大金融科技創新實驗室",
     template: "%s ｜ 政大金融科技創新實驗室",
   },
-  description: "政大第一個 FinTech 學術社團。週報、產學合作、自主專案、社課與工作坊。",
+  description: "政大第一個 FinTech 學術社團。金融 × 科技 × 產學 × 實作：業界講座、實務工作坊、英語讀書會、FinTech 週報。",
   robots: { index: false, follow: false },
+  openGraph: {
+    type: "website",
+    locale: "zh_TW",
+    siteName: "政大金融科技創新實驗室",
+    title: "政大金融科技創新實驗室 NCCU FinTech Innovation Lab",
+    description: "政大第一個 FinTech 學術社團。金融 × 科技 × 產學 × 實作。",
+    images: [{ url: "/assets/og.png", width: 1200, height: 630, alt: "NCCU FinTech Innovation Lab" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

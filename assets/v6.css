@@ -234,8 +234,9 @@ a{ color:inherit }
 .sheet__foot{ padding:var(--s4) var(--s5) }
 
 /* ══ 首屏：左標題、右 logo 動畫 ═════════════════════════════ */
-.hero{ position:relative; overflow:hidden; padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s6),5vw,var(--s8)) }
+.hero{ position:relative; overflow:hidden; padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s5),3vw,var(--s6)) }
 .hero__grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(var(--s6),5vw,var(--s9)); align-items:center }
+.hero .logo-draw{ margin-block:-4% }
 .hero__title{ margin-bottom:var(--s5) }
 .hero__sub{ font-size:1.15rem; font-weight:700; color:var(--ink); margin-bottom:var(--s4) }
 .hero__desc{ max-width:34em; margin-bottom:var(--s6) }
@@ -359,8 +360,8 @@ a{ color:inherit }
 .week__items li{ display:flex; flex-direction:column; gap:4px; font-size:.95rem; line-height:1.45 }
 .week__items .tag{ align-self:flex-start; font-size:.76rem; padding:3px 9px }
 .week__next{ margin-top:var(--s4); font-size:1rem; color:var(--ink-2) }
-@media (max-width:900px){ .week__grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } .week__day{ min-height:0 } .week__day--empty{ display:none } }
-@media (max-width:480px){ .week__grid{ grid-template-columns:1fr } }
+@media (max-width:900px){ .week__grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } .week__day{ min-height:0 } }
+@media (max-width:560px){ .week__grid{ grid-template-columns:1fr; gap:6px } .week__day{ display:grid; grid-template-columns:5.2em 1fr; gap:var(--s3); align-items:start; padding:10px var(--s4) } .week__head{ flex-direction:column; align-items:flex-start; gap:0; margin:0 } .week__day--empty .week__items::before{ content:'—'; color:var(--ink-3) } }
 
 /* ══ 時程：一排玻璃步驟 ════════════════════════════════════ */
 .timeline-glass{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:12px }
@@ -401,8 +402,8 @@ a{ color:inherit }
 .flow__n{ width:48px; height:48px; border-radius:50%; display:grid; place-items:center; background:var(--g-brand); color:#fff; font-family:var(--f-en); font-size:1.25rem; font-weight:600; box-shadow:var(--shadow-cta) }
 .flow__body{ min-width:0 }
 @media (max-width:640px){ .flow__step{ grid-template-columns:1fr } .flow__n{ width:40px; height:40px; font-size:1.05rem } }
-.member .member__ava{ margin-bottom:var(--s3); color:var(--b-lt) }
-.member .member__ava .icon{ width:44px; height:44px; stroke-width:1.4 }
+.member .member__ava{ margin-bottom:var(--s3); background:var(--g-brand); color:#fff }
+.member__initial{ font-size:3rem; font-weight:700; letter-spacing:-.02em; text-shadow:0 6px 24px rgba(10,52,200,.35) }
 
 /* ══ 入社頁 ═════════════════════════════════════════════════ */
 .tiers{ width:100%; border-collapse:collapse; font-size:1rem }
@@ -511,3 +512,52 @@ a{ color:inherit }
   .reveal{ opacity:1; transform:none } .reveal.in{ transition:none }
   .marquee__track,.devbar__dot{ animation:none }
 }
+
+/* ══ 專案：簡報式投影片 ══════════════════════════════════════ */
+.deck{ outline:none; border-radius:var(--r-lg) }
+.deck:focus-visible{ box-shadow:0 0 0 3px rgba(22,104,227,.35) }
+.deck__stage{ position:relative; aspect-ratio:16/9; min-height:320px; border-radius:var(--r-lg); overflow:hidden;
+  background:linear-gradient(150deg, rgba(255,255,255,.92), rgba(238,244,253,.85)); box-shadow:var(--glass-hi), var(--shadow-lift);
+  animation:deck-in .35s var(--ease) both }
+@keyframes deck-in{ from{ opacity:0; transform:translateX(12px) } }
+.deck__slide{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:var(--s3); padding:clamp(24px,5vw,64px) }
+.deck__slide--cover{ background:radial-gradient(600px 400px at 80% 20%, rgba(96,208,240,.35), transparent 70%) }
+.deck__kicker{ font-family:var(--f-en); font-size:.85rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--b-ink) }
+.deck__title{ max-width:22ch }
+.deck__slide--cover .deck__title{ background:var(--g-brand); -webkit-background-clip:text; background-clip:text; color:transparent }
+.deck__sub{ font-size:1.15rem; color:var(--ink-3) }
+.deck__body{ font-size:clamp(1rem,1.5vw,1.2rem); line-height:1.75; color:var(--ink-2); max-width:60ch }
+.deck__bullets{ font-size:clamp(1rem,1.4vw,1.12rem); max-width:60ch }
+.deck__stat{ display:flex; align-items:baseline; gap:12px; margin-top:var(--s2) }
+.deck__stat b{ font-family:var(--f-en); font-size:clamp(2rem,4vw,3.2rem); font-weight:500; letter-spacing:-.02em }
+.deck__stat span{ color:var(--ink-2) }
+.deck__bar{ display:flex; align-items:center; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; padding:var(--s4) var(--s2) 0 }
+.deck__links{ display:flex; gap:var(--s5) }
+.deck__nav{ display:flex; align-items:center; gap:10px }
+.deck__dots{ list-style:none; margin:0; padding:0; display:flex; gap:6px }
+.deck__dot{ width:10px; height:10px; border-radius:50%; border:0; padding:0; background:rgba(11,31,58,.15); cursor:pointer; transition:transform 150ms var(--ease), background var(--dur) ease }
+.deck__dot--on{ background:var(--g-brand); transform:scale(1.25) }
+.deck__count{ font-size:.9rem; color:var(--ink-3); min-width:3.5em; text-align:center }
+@media (max-width:640px){ .deck__stage{ aspect-ratio:auto; min-height:380px } }
+
+/* ══ 洞察：週報 ═════════════════════════════════════════════ */
+.issue__cover{ padding:clamp(var(--s5),4vw,var(--s7)); border-radius:var(--r-lg); background:linear-gradient(150deg, rgba(255,255,255,.92), rgba(238,244,253,.85)); box-shadow:var(--glass-hi), var(--shadow-soft); margin-bottom:18px }
+.issue__eyebrow{ font-size:.85rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--b-ink) }
+.issue__range{ font-size:1.1rem; color:var(--ink-3); margin:6px 0 var(--s4) }
+.issue__headlines{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; font-size:clamp(1.5rem,3.4vw,2.6rem); font-weight:700; line-height:1.3; letter-spacing:-.02em }
+.issue__stories{ display:grid; gap:18px }
+.issue__story{ position:relative; padding:clamp(var(--s5),3vw,var(--s6)) }
+.issue__story .h2{ max-width:28ch }
+.issue__story .card__body{ max-width:72ch; font-size:1.05rem }
+.issue__n{ font-family:var(--f-en); font-size:.9rem; font-weight:600; letter-spacing:.1em; color:var(--ink-3) }
+.issue__sources summary{ cursor:pointer; font-size:.9rem; font-weight:700; color:var(--b-ink); list-style:none }
+.issue__sources summary::-webkit-details-marker{ display:none }
+.issue__sources ul{ list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; font-size:.92rem }
+.issue__sources li{ display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+.issue__sources a{ color:var(--ink-2) }
+.row--issue{ display:block; padding:0 }
+.row--issue summary{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:var(--s4); padding:var(--s4) var(--s5); cursor:pointer; list-style:none }
+.row--issue summary::-webkit-details-marker{ display:none }
+.row--issue summary .icon{ color:#9BAFD0; transition:transform var(--dur) var(--ease) }
+.row--issue[open] summary .icon{ transform:rotate(90deg); color:var(--b) }
+.row__expand{ display:flex; flex-direction:column; gap:var(--s4); padding:0 var(--s5) var(--s5) }

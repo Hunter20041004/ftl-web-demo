@@ -13,10 +13,10 @@ export type SocialItem = {
 export const navItems: NavItem[] = [
   { href: "/", zh: "首頁", en: "Home" },
   { href: "/about/", zh: "關於我們", en: "About" },
+  { href: "/events/", zh: "活動", en: "Events" },
   { href: "/projects/", zh: "專案", en: "Projects" },
   { href: "/insights/", zh: "洞察", en: "Insights" },
   { href: "/resources/", zh: "資源", en: "Resources" },
-  { href: "/events/", zh: "活動", en: "Events" },
   { href: "/contact/", zh: "聯絡我們", en: "Contact" },
 ];
 

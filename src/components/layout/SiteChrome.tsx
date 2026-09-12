@@ -25,14 +25,6 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="devbar">
-        <span className="devbar__dot" aria-hidden="true" />
-        <span
-          data-en="Preview site — course, fee and calendar data are from the 115-1 plan; officer names are partially masked."
-        >
-          預覽版 —— 課程、社費與行事曆依 115-1 計畫文件；幹部姓名部分遮罩。
-        </span>
-      </div>
       <div id="site-header">
         <a className="skip" href="#main" data-en="Skip to main content">跳到主要內容</a>
         <header className="nav" data-stuck="false">
@@ -124,7 +116,7 @@ export function SiteFooter() {
         <div className="footer__top">
           <div className="footer__brand">
             <img className="flogo" src={logoSrc} alt="FTL · FinTech Lab · NCCU" />
-            <p data-en="AI × FinTech × Business. NCCU’s first FinTech student society.">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團。</p>
+            <p data-en="Finance × Technology × Industry × Practice. NCCU’s first FinTech student society.">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團。</p>
             <div className="social">
               {socialItems.map((item) => (
                 <a key={item.href} href={item.href} aria-label={item.label} title={item.label}>
@@ -135,9 +127,10 @@ export function SiteFooter() {
           </div>
           <FooterColumn title="探索" en="Explore" items={[
             { href: "/about/", zh: "關於我們", en: "About" },
+            { href: "/about/#membership", zh: "社員相關資訊", en: "Membership" },
+            { href: "/events/", zh: "活動", en: "Events" },
             { href: "/projects/", zh: "專案", en: "Projects" },
             { href: "/insights/", zh: "洞察", en: "Insights" },
-            { href: "/events/", zh: "活動", en: "Events" },
           ]} />
           <FooterColumn title="資源" en="Resources" items={[
             { href: "/resources/#jobs", zh: "職缺與獎學金", en: "Jobs & scholarships" },
@@ -155,7 +148,7 @@ export function SiteFooter() {
       </div>
       <div className="footer__bar">
         <div className="wrap footer__bottom">
-          <span data-en="© 2026 NCCU FinTech Innovation Lab · Demo site">© 2026 政大金融科技創新實驗室 · 展示用網站</span>
+          <span data-en="© 2026 NCCU FinTech Innovation Lab">© 2026 政大金融科技創新實驗室</span>
           <span data-en="Guided by the NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心 指導成立</span>
         </div>
       </div>

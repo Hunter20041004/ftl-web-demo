@@ -45,7 +45,7 @@ function buildItems(): Array<{ date: Date; item: DayItem }> {
       continue;
     }
     const to = parseMonthDay(end);
-    const short = step.zh.split("；")[0].split("（")[0];
+    const short = step.zh.split("；")[0].split("（")[0].replace(/^（.*?）/, "");
     const shortEn = step.en;
     out.push({ date: from, item: { label: `${short} 開始`, labelEn: `${shortEn} open`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
     out.push({ date: to, item: { label: `${short} 截止`, labelEn: `${shortEn} close`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });

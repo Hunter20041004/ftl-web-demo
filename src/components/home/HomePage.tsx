@@ -36,6 +36,7 @@ export function HomePage() {
                 <p className="lead hero__desc" data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</p>
                 <div className="hero__cta">
                   <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
+                  <a className="btn btn--lg" href="/about/#membership" data-en="Membership info">社員相關資訊</a>
                 </div>
               </div>
               <LogoDraw />

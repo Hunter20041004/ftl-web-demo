@@ -25,7 +25,7 @@ export function AboutPage() {
           <div className="wrap reveal">
             <span className="eyebrow" data-en="About">關於我們</span>
             <h1 className="h1" data-en="NCCU’s first FinTech student society">政大第一個 FinTech 學術社團</h1>
-            <p className="lead" data-en="Founded under the guidance of the NCCU College of Commerce FinTech Research Center. Each semester we run industry lectures, hands-on workshops, English reading sessions and alumni networking, organised around one theme.">由政大商學院金融科技研究中心指導成立。每學期以一個主題串起業界講座、實務工作坊、英語讀書會與校友交流，本學期主題是 {semester.focus}。</p>
+            <p className="lead" data-en="Founded under the guidance of the NCCU College of Commerce FinTech Research Center. Each semester rotates industry lectures, hands-on workshops, English reading sessions and alumni networking.">由政大商學院金融科技研究中心指導成立。每學期以業界講座、實務工作坊、英語讀書會與校友交流四種形式輪流進行。</p>
           </div>
         </section>
 
@@ -42,23 +42,6 @@ export function AboutPage() {
                   <div className="info"><dt data-en="Tagline">標語</dt><dd data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</dd></div>
                 </dl>
               </div>
-              <div className="reveal">
-                <h2 className="h2" data-en="How a semester works">一個學期怎麼運作</h2>
-                <ul className="bullets-plain mt-4">
-                  <li><b data-en="Lectures｜">講座｜</b><span data-en="Three industry speakers per semester, one each from a different sector.">每學期三位業界講者，各來自不同領域。</span></li>
-                  <li><b data-en="Workshops｜">工作坊｜</b><span data-en="Three hands-on sessions led by officers and guest instructors, each producing something concrete (a prototype, a proposal, a pitch deck).">三場由幹部群與客座講師帶領的實作，每場都有產出：原型、提案、簡報。</span></li>
-                  <li><b data-en="English reading club｜">英語讀書會｜</b><span data-en="Three books, discussed entirely in English.">三本書，全程英文討論。</span></li>
-                  <li><b data-en="Networking｜">交流｜</b><span data-en="Alumni networking, a cocktail party and semester dinners.">校友 networking 會、雞尾酒會、期中與期末聚餐。</span></li>
-                </ul>
-                <a className="link-arrow mt-5" href="/events/#lectures"><span data-en="See this semester’s courses">看這學期的課程</span><Icon name="arrow-right" /></a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section--tight section" id="advisor" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <div style={{ maxWidth: 720 }}>
               <div className="panel reveal" id="center" style={{ padding: "clamp(24px,3.5vw,44px)" }}>
                 <h2 className="h2" data-en="Advisor">指導單位</h2>
                 <p className="h3 mt-4" data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</p>
@@ -75,6 +58,21 @@ export function AboutPage() {
           </div>
         </section>
 
+        <section className="section--tight section" id="how" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="panel reveal" style={{ maxWidth: 860 }}>
+                <h2 className="h2" data-en="How a semester works">一個學期怎麼運作</h2>
+                <ul className="bullets-plain mt-4">
+                  <li><b data-en="Lectures｜">講座｜</b><span data-en="Three industry speakers per semester, one each from a different sector.">每學期三位業界講者，各來自不同領域。</span></li>
+                  <li><b data-en="Workshops｜">工作坊｜</b><span data-en="Three hands-on sessions led by officers and guest instructors, each producing something concrete (a prototype, a proposal, a pitch deck).">三場由幹部群與客座講師帶領的實作，每場都有產出：原型、提案、簡報。</span></li>
+                  <li><b data-en="English reading club｜">英語讀書會｜</b><span data-en="Three books, discussed entirely in English.">三本書，全程英文討論。</span></li>
+                  <li><b data-en="Networking｜">交流｜</b><span data-en="Alumni networking, a cocktail party and semester dinners.">校友 networking 會、雞尾酒會、期中與期末聚餐。</span></li>
+                </ul>
+                <a className="link-arrow mt-5" href="/events/#lectures"><span data-en="See this semester’s courses">看這學期的課程</span><Icon name="arrow-right" /></a>
+            </div>
+          </div>
+        </section>
+
         <section className="section section--alt" id="members">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
@@ -84,7 +82,7 @@ export function AboutPage() {
             <div className="grid grid-4" data-stagger>
               {officers.map((officer) => (
                 <article className="card member reveal reveal--rise" key={`${officer.role}-${officer.name}`}>
-                  <div className="member__ava" aria-hidden="true"><Icon name="users" /></div>
+                  <div className="member__ava" aria-hidden="true"><span className="member__initial">{officer.name.slice(0, 1)}</span></div>
                   <span className="member__role" data-en={officer.roleEn}>{officer.role}</span>
                   <h3 className="h3">{officer.name}</h3>
                   <p className="card__body">{officer.dept}</p>

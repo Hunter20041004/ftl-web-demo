@@ -22,7 +22,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(week.locator(".week__day")).toHaveCount(7);
     await expect(week.locator(".week__day--today .week__head .num")).toHaveText("9/24");
     // 9/21 錄取公布、9/23 講座 都落在這一週
-    await expect(week.locator(".week__items li")).toContainText(["公布專案生錄取結果", "AI 時代商業模式創新"]);
+    await expect(week.locator(".week__items li")).toContainText(["公布專案生結果", "AI 時代商業模式創新"]);
 
     // 往後最多 6 週、往前最多 3 週；到邊界時按鈕失效
     const next = week.locator("[data-week-nav=next]");
@@ -37,6 +37,31 @@ test.describe("glass-v6 homepage", () => {
     for (let i = 0; i < 3; i++) await prev.click();
     await expect(week).toHaveAttribute("data-week-start", "8/31");
     await expect(prev).toBeDisabled();
+  });
+
+  test("projects are slide decks that page with buttons and arrow keys", async ({ page }) => {
+    await page.goto(`${basePath}/projects/`);
+    await page.waitForLoadState("networkidle");
+    const deck = page.locator('[data-deck="course-scheduler"]');
+    await expect(deck).toHaveAttribute("data-slide", "0");
+    await deck.locator("[data-deck-nav=next]").click();
+    await expect(deck).toHaveAttribute("data-slide", "1");
+    await expect(deck.locator(".deck__title")).toContainText("選課要同時顧");
+    await deck.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(deck).toHaveAttribute("data-slide", "2");
+    await deck.locator(".deck__dot").first().click();
+    await expect(deck).toHaveAttribute("data-slide", "0");
+  });
+
+  test("insights shows the latest weekly issue with sourced stories", async ({ page }) => {
+    await page.goto(`${basePath}/insights/`);
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".issue__headlines li")).toHaveCount(3);
+    await expect(page.locator(".issue__story")).toHaveCount(3);
+    const links = page.locator(".issue__sources a");
+    expect(await links.count()).toBeGreaterThanOrEqual(3);
+    for (const href of await links.evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href))) expect(href).toMatch(/^https:\/\//);
   });
 
   test("logo draws in, then settles on the original image", async ({ page }) => {
@@ -54,7 +79,7 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/`);
     await page.waitForLoadState("networkidle");
     const hardLines = await page.evaluate(() => {
-      const selectors = ".card, .ios-row, .row, .partner, .principle, .tstep, .week__day, .btn, .sec-head, .tag";
+      const selectors = ".card, .ios-row, .row, .partner, .principle, .tstep, .week__day, .deck__stage, .btn, .sec-head, .tag";
       return Array.from(document.querySelectorAll<HTMLElement>(selectors)).filter((el) => {
         const cs = getComputedStyle(el);
         const solidBorder = ["Top", "Right", "Bottom", "Left"].some((side) =>
