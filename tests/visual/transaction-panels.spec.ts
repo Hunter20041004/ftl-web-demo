@@ -6,7 +6,7 @@ function px(value: string) {
   return Number.parseFloat(value || "0");
 }
 
-test("homepage panels use the transaction-network structural language instead of rounded glass cards", async ({ page }) => {
+test("homepage panels use open transaction rails instead of rounded glass cards", async ({ page }) => {
   await page.goto(`${basePath}/`);
   await page.waitForLoadState("networkidle");
 
@@ -17,12 +17,20 @@ test("homepage panels use the transaction-network structural language instead of
     return {
       topLeft: style.borderTopLeftRadius,
       topRight: style.borderTopRightRadius,
+      borderLeft: style.borderLeftWidth,
+      borderRight: style.borderRightWidth,
+      borderTop: style.borderTopWidth,
+      borderBottom: style.borderBottomWidth,
       backdrop: style.backdropFilter,
       shadow: style.boxShadow,
     };
   });
-  expect(px(heroPaneStyle.topLeft)).toBeLessThanOrEqual(8);
-  expect(px(heroPaneStyle.topRight)).toBeLessThanOrEqual(8);
+  expect(px(heroPaneStyle.topLeft)).toBeLessThanOrEqual(4);
+  expect(px(heroPaneStyle.topRight)).toBeLessThanOrEqual(4);
+  expect(px(heroPaneStyle.borderLeft)).toBe(0);
+  expect(px(heroPaneStyle.borderRight)).toBe(0);
+  expect(px(heroPaneStyle.borderTop)).toBeGreaterThanOrEqual(1);
+  expect(px(heroPaneStyle.borderBottom)).toBeGreaterThanOrEqual(1);
   expect(heroPaneStyle.backdrop).toBe("none");
   expect(heroPaneStyle.shadow).toBe("none");
 
@@ -38,7 +46,7 @@ test("homepage panels use the transaction-network structural language instead of
       shadow: style.boxShadow,
     };
   });
-  expect(px(heroRowStyle.radius)).toBeLessThanOrEqual(4);
+  expect(px(heroRowStyle.radius)).toBeLessThanOrEqual(2);
   expect(heroRowStyle.shadow).toBe("none");
 
   const statsPane = page.locator(".hero .pane--stats");
@@ -46,12 +54,16 @@ test("homepage panels use the transaction-network structural language instead of
     const style = getComputedStyle(el);
     return {
       radius: style.borderTopLeftRadius,
+      left: style.borderLeftWidth,
+      right: style.borderRightWidth,
       top: style.borderTopWidth,
       bottom: style.borderBottomWidth,
       shadow: style.boxShadow,
     };
   });
-  expect(px(statsStyle.radius)).toBeLessThanOrEqual(4);
+  expect(px(statsStyle.radius)).toBeLessThanOrEqual(2);
+  expect(px(statsStyle.left)).toBe(0);
+  expect(px(statsStyle.right)).toBe(0);
   expect(px(statsStyle.top)).toBeGreaterThanOrEqual(1);
   expect(px(statsStyle.bottom)).toBeGreaterThanOrEqual(1);
   expect(statsStyle.shadow).toBe("none");
@@ -65,9 +77,26 @@ test("homepage panels use the transaction-network structural language instead of
       leftBorder: style.borderLeftWidth,
     };
   });
-  expect(px(featureStyle.radius)).toBeLessThanOrEqual(8);
+  expect(px(featureStyle.radius)).toBeLessThanOrEqual(4);
   expect(featureStyle.shadow).toBe("none");
   expect(px(featureStyle.leftBorder)).toBeGreaterThanOrEqual(2);
+
+  const secondary = page.locator("#weekly .card--sec").first();
+  const secondaryStyle = await secondary.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return {
+      left: style.borderLeftWidth,
+      right: style.borderRightWidth,
+      top: style.borderTopWidth,
+      bottom: style.borderBottomWidth,
+      background: style.backgroundColor,
+    };
+  });
+  expect(px(secondaryStyle.left)).toBe(0);
+  expect(px(secondaryStyle.right)).toBe(0);
+  expect(px(secondaryStyle.top)).toBeGreaterThanOrEqual(1);
+  expect(px(secondaryStyle.bottom)).toBeGreaterThanOrEqual(1);
+  expect(secondaryStyle.background).toBe("rgba(0, 0, 0, 0)");
 
   const eventCard = page.locator("#events .card--event").first();
   const eventStyle = await eventCard.evaluate((el) => {
@@ -79,7 +108,7 @@ test("homepage panels use the transaction-network structural language instead of
     };
   });
   expect(eventStyle.display).toBe("grid");
-  expect(px(eventStyle.radius)).toBeLessThanOrEqual(4);
+  expect(px(eventStyle.radius)).toBeLessThanOrEqual(2);
   expect(eventStyle.shadow).toBe("none");
 
   const contactPane = page.locator("#contact .pane--rows");
@@ -87,11 +116,19 @@ test("homepage panels use the transaction-network structural language instead of
     const style = getComputedStyle(el);
     return {
       radius: style.borderTopLeftRadius,
+      left: style.borderLeftWidth,
+      right: style.borderRightWidth,
+      top: style.borderTopWidth,
+      bottom: style.borderBottomWidth,
       backdrop: style.backdropFilter,
       shadow: style.boxShadow,
     };
   });
-  expect(px(contactPaneStyle.radius)).toBeLessThanOrEqual(8);
+  expect(px(contactPaneStyle.radius)).toBeLessThanOrEqual(4);
+  expect(px(contactPaneStyle.left)).toBe(0);
+  expect(px(contactPaneStyle.right)).toBe(0);
+  expect(px(contactPaneStyle.top)).toBeGreaterThanOrEqual(1);
+  expect(px(contactPaneStyle.bottom)).toBeGreaterThanOrEqual(1);
   expect(contactPaneStyle.backdrop).toBe("none");
   expect(contactPaneStyle.shadow).toBe("none");
 
