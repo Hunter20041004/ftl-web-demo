@@ -160,6 +160,10 @@ test.describe("glass-v6 homepage", () => {
     for (let i = 0; i < 3; i += 1) expect(await page.locator(".issue__story").nth(i).locator(".story__facts li").count()).toBeGreaterThanOrEqual(2);
     await expect(page.locator(".issue__story .story__why")).toHaveCount(3);
     await expect(page.locator(".issue__story .story__taiwan")).toHaveCount(3);
+    // 加深：背景、接下來看什麼（每則都有）、說法（有一手引述的才有）
+    await expect(page.locator(".issue__story .story__context")).toHaveCount(3);
+    await expect(page.locator(".issue__story .story__watch")).toHaveCount(3);
+    expect(await page.locator(".issue__story .story__quote").count()).toBeGreaterThanOrEqual(1);
     await expect(page.locator(".row--issue")).toHaveCount(2);
     await expect(page.locator("#research .paper")).toHaveCount(6);
     // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開

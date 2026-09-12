@@ -10,7 +10,7 @@ function Icon({ name }: { name: string }) {
 }
 
 // 洞察頁＝FinTech 週報。最新一期完整展開（封面三則短標 ＋ 三則摘要 ＋ 來源），往期收成清單。
-// 每則新聞的固定結構：一句話 → 重點 → 為什麼重要 → 台灣視角 →（名詞）
+// 每則新聞的固定結構：一句話 → 重點 → 背景 → 說法 → 為什麼重要 → 台灣視角 → 接下來 →（名詞）
 function StoryBody({ story }: { story: WeeklyStory }) {
   return (
     <div className="story">
@@ -18,8 +18,19 @@ function StoryBody({ story }: { story: WeeklyStory }) {
       <ul className="story__facts">
         {story.facts.map((f, i) => <li key={f} data-en={story.factsEn[i]}>{f}</li>)}
       </ul>
+      <p className="story__context"><b data-en="Background｜">背景｜</b><span data-en={story.contextEn}>{story.context}</span></p>
+      {story.quote ? (
+        <blockquote className="story__quote">
+          <p data-en={story.quoteEn}>「{story.quote}」</p>
+          <cite data-en={story.quoteByEn}>{story.quoteBy}</cite>
+        </blockquote>
+      ) : null}
       <p className="story__why"><b data-en="Why it matters｜">為什麼重要｜</b><span data-en={story.whyEn}>{story.why}</span></p>
       <p className="story__taiwan"><b data-en="Taiwan｜">台灣視角｜</b><span data-en={story.taiwanEn}>{story.taiwan}</span></p>
+      <div className="story__watch">
+        <b data-en="What to watch">接下來看什麼</b>
+        <ul>{story.watch.map((w, i) => <li key={w} data-en={story.watchEn[i]}>{w}</li>)}</ul>
+      </div>
       {story.term ? <p className="story__term"><b data-en="Term｜">名詞｜</b><span data-en={story.termEn}>{story.term}</span></p> : null}
     </div>
   );

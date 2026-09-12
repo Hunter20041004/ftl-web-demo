@@ -572,8 +572,14 @@ a{ color:inherit }
 .story__facts{ margin:0; padding:0; list-style:none; display:grid; gap:8px }
 .story__facts li{ position:relative; padding-left:18px; font-size:.98rem; line-height:1.7; color:var(--ink-2) }
 .story__facts li::before{ content:""; position:absolute; left:2px; top:.72em; width:7px; height:7px; border-radius:50%; background:var(--g-brand) }
-.story__why,.story__taiwan,.story__term{ font-size:.98rem; line-height:1.75; color:var(--ink-2) }
-.story__why b,.story__taiwan b,.story__term b{ color:var(--ink) }
+.story__context,.story__why,.story__taiwan,.story__term{ font-size:.98rem; line-height:1.75; color:var(--ink-2) }
+.story__context b,.story__why b,.story__taiwan b,.story__term b,.story__watch b{ color:var(--ink) }
+.story__quote{ margin:4px 0; padding:14px 18px; border-radius:14px; background:rgba(22,104,227,.06) }
+.story__quote p{ font-size:1.02rem; line-height:1.75; color:var(--ink) }
+.story__quote cite{ display:block; margin-top:6px; font-style:normal; font-size:.88rem; color:var(--ink-3) }
+.story__watch{ font-size:.98rem; line-height:1.75; color:var(--ink-2) }
+.story__watch ul{ margin:4px 0 0; padding-left:1.2em }
+.story__watch li{ padding-left:2px }
 .story__term{ color:var(--ink-3); font-size:.92rem }
 .issue__n{ font-family:var(--f-en); font-size:.9rem; font-weight:600; letter-spacing:.1em; color:var(--ink-3) }
 .issue__sources summary{ cursor:pointer; font-size:.9rem; font-weight:700; color:var(--b-ink); list-style:none }
