@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
 import { BasePathLinks } from "@/components/runtime/BasePathLinks";
-import { HomeReferenceExperience } from "@/components/runtime/HomeReferenceExperience";
 import { MotionEnhancements } from "@/components/runtime/MotionEnhancements";
 import { SiteInteractions } from "@/components/runtime/SiteInteractions";
 
@@ -18,7 +17,6 @@ export function SitePageShell({ children }: SitePageShellProps) {
       <BasePathLinks />
       <SiteInteractions />
       <MotionEnhancements />
-      <HomeReferenceExperience />
     </>
   );
 }

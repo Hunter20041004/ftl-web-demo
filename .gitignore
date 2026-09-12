@@ -8,3 +8,7 @@ playwright-report/
 test-results/
 coverage/
 .env*.local
+
+# Next.js 16 auto-generated agent rule files (project rules live in HANDOFF.md / docs)
+/AGENTS.md
+/CLAUDE.md
