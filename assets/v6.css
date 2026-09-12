@@ -350,7 +350,7 @@ a{ color:inherit }
 @keyframes week-in{ from{ opacity:0; transform:translateY(8px) } }
 .week__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px }
 .week__day{ min-height:160px; padding:var(--s3) var(--s3) var(--s4); border-radius:var(--r-sm); background:var(--glass); box-shadow:var(--glass-hi), var(--shadow-soft) }
-.week__day--empty{ background:rgba(255,255,255,.38); box-shadow:var(--glass-hi) }
+.week__day--empty{ background:none; box-shadow:none }
 .week__day--today{ background:linear-gradient(160deg, rgba(255,255,255,.95), rgba(214,232,255,.85)); box-shadow:var(--glass-hi), var(--shadow-lift), 0 0 0 2px rgba(22,104,227,.35) }
 .week__head{ display:flex; align-items:baseline; justify-content:space-between; gap:6px; margin-bottom:10px }
 .week__head b{ font-size:1rem }
@@ -408,8 +408,11 @@ a{ color:inherit }
 .flow__n{ width:48px; height:48px; border-radius:50%; display:grid; place-items:center; background:var(--g-brand); color:#fff; font-family:var(--f-en); font-size:1.25rem; font-weight:600; box-shadow:var(--shadow-cta) }
 .flow__body{ min-width:0 }
 @media (max-width:640px){ .flow__step{ grid-template-columns:1fr } .flow__n{ width:40px; height:40px; font-size:1.05rem } }
-.member .member__ava{ margin-bottom:var(--s3); background:var(--g-brand); color:#fff }
-.member__initial{ font-size:3rem; font-weight:700; letter-spacing:-.02em; text-shadow:0 6px 24px rgba(10,52,200,.35) }
+.member{ flex-direction:row; align-items:center; gap:var(--s4) }
+.member .member__ava{ flex:none; width:64px; height:64px; aspect-ratio:1; border-radius:50%; margin:0; background:var(--g-brand); color:#fff }
+.member .member__role{ margin-bottom:4px }
+.member .h3{ font-size:1.15rem }
+.member__initial{ font-size:1.6rem; font-weight:700 }
 
 /* ══ 入社頁 ═════════════════════════════════════════════════ */
 .tiers{ width:100%; border-collapse:collapse; font-size:1rem }
@@ -527,7 +530,10 @@ a{ color:inherit }
   animation:deck-in .35s var(--ease) both }
 @keyframes deck-in{ from{ opacity:0; transform:translateX(12px) } }
 .deck__slide{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:var(--s3); padding:clamp(24px,5vw,64px) }
-.deck__slide--cover{ background:radial-gradient(600px 400px at 80% 20%, rgba(96,208,240,.35), transparent 70%) }
+.deck__slide--cover{ display:grid; grid-template-columns:1.05fr .95fr; gap:var(--s5); align-items:center; background:radial-gradient(600px 400px at 80% 20%, rgba(96,208,240,.35), transparent 70%) }
+.deck__coverText{ display:flex; flex-direction:column; gap:var(--s3); min-width:0 }
+.deck__cover{ width:100%; border-radius:16px; box-shadow:var(--glass-hi), var(--shadow-lift); object-fit:cover; aspect-ratio:2/1 }
+@media (max-width:760px){ .deck__slide--cover{ grid-template-columns:1fr } .deck__cover{ display:none } }
 .deck__kicker{ font-family:var(--f-en); font-size:.85rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--b-ink) }
 .deck__title{ max-width:22ch }
 .deck__slide--cover .deck__title{ background:var(--g-brand); -webkit-background-clip:text; background-clip:text; color:transparent }
@@ -567,3 +573,27 @@ a{ color:inherit }
 .row--issue summary .icon{ color:#9BAFD0; transition:transform var(--dur) var(--ease) }
 .row--issue[open] summary .icon{ transform:rotate(90deg); color:var(--b) }
 .row__expand{ display:flex; flex-direction:column; gap:var(--s4); padding:0 var(--s5) var(--s5) }
+
+/* ══ 首頁：我們是誰 ═════════════════════════════════════════ */
+.formats{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px }
+.format{ gap:10px }
+.format .ios-row__icon{ margin-bottom:4px }
+.format .h3{ font-size:1.1rem }
+.format .card__body{ font-size:.95rem }
+@media (max-width:1020px){ .formats{ grid-template-columns:repeat(3,minmax(0,1fr)) } }
+@media (max-width:640px){ .formats{ grid-template-columns:1fr 1fr } }
+.issue__cover--link{ display:block; text-decoration:none; color:inherit; margin:0; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
+@media (hover:hover) and (pointer:fine){ .issue__cover--link:hover{ transform:translateY(-4px); box-shadow:var(--glass-hi), var(--shadow-lift) } }
+.project-teaser__img{ width:100%; aspect-ratio:2/1; object-fit:cover; border-radius:14px; margin-bottom:4px }
+
+/* ══ 資源頁 ═════════════════════════════════════════════════ */
+.res-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px }
+.res-item--wide{ grid-column:1 / -1 }
+.res-item[hidden]{ display:none }
+@media (max-width:960px){ .res-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+@media (max-width:600px){ .res-grid{ grid-template-columns:1fr } }
+.book{ flex-direction:row; gap:var(--s4); align-items:flex-start }
+.book__cover{ flex:none; width:96px; aspect-ratio:2/3; object-fit:cover; border-radius:10px; box-shadow:0 10px 24px rgba(11,31,58,.18) }
+.book__body{ display:flex; flex-direction:column; gap:8px; min-width:0 }
+.book .h3{ font-size:1.05rem }
+.book .tag{ align-self:flex-start }

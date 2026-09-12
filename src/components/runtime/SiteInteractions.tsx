@@ -59,12 +59,18 @@ function readLang() {
   }
 }
 
+let applyingLang = false;
+
+function translateElement(el: HTMLElement, lang: "zh" | "en") {
+  if (el.dataset.zh === undefined) el.dataset.zh = el.innerHTML;
+  const next = lang === "en" ? el.dataset.en ?? el.innerHTML : el.dataset.zh;
+  if (el.innerHTML !== next) el.innerHTML = next;
+}
+
 function applyLang(lang: "zh" | "en") {
+  applyingLang = true;
   document.documentElement.lang = lang === "en" ? "en" : "zh-Hant-TW";
-  document.querySelectorAll<HTMLElement>("[data-en]").forEach((el) => {
-    if (el.dataset.zh === undefined) el.dataset.zh = el.innerHTML;
-    el.innerHTML = lang === "en" ? el.dataset.en ?? el.innerHTML : el.dataset.zh;
-  });
+  document.querySelectorAll<HTMLElement>("[data-en]").forEach((el) => translateElement(el, lang));
   document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[data-en-ph]").forEach((el) => {
     if (el.dataset.zhPh === undefined) el.dataset.zhPh = el.placeholder;
     el.placeholder = lang === "en" ? el.dataset.enPh ?? el.placeholder : el.dataset.zhPh;
@@ -73,6 +79,7 @@ function applyLang(lang: "zh" | "en") {
   document.querySelectorAll<HTMLButtonElement>("[data-set-lang]").forEach((el) =>
     el.setAttribute("aria-pressed", String(el.dataset.setLang === lang)),
   );
+  applyingLang = false;
 }
 
 export function SiteInteractions() {
@@ -95,6 +102,22 @@ export function SiteInteractions() {
     });
 
     applyLang(readLang());
+    // 切換身份、翻週、翻投影片會產生新的 DOM；英文模式下要把新節點也翻過去。
+    // 只翻「新加進來、還沒翻過」的節點，且翻譯本身造成的變動要略過，否則會互相觸發無限循環。
+    const langObserver = new MutationObserver((records) => {
+      if (applyingLang || readLang() !== "en") return;
+      const fresh: HTMLElement[] = [];
+      records.forEach((r) => r.addedNodes.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        if (node.dataset.en !== undefined && node.dataset.zh === undefined) fresh.push(node);
+        node.querySelectorAll<HTMLElement>("[data-en]").forEach((el) => { if (el.dataset.zh === undefined) fresh.push(el); });
+      }));
+      if (!fresh.length) return;
+      applyingLang = true;
+      fresh.forEach((el) => translateElement(el, "en"));
+      applyingLang = false;
+    });
+    langObserver.observe(document.body, { childList: true, subtree: true });
 
     const nav = document.querySelector<HTMLElement>(".nav");
     const headerHost = document.getElementById("site-header");
@@ -219,6 +242,7 @@ export function SiteInteractions() {
       document.removeEventListener("click", onClick);
       document.removeEventListener("keydown", onKeyDown);
       revealObserver?.disconnect();
+      langObserver.disconnect();
       form?.removeEventListener("submit", onSubmit);
       form?.removeEventListener("input", onInput);
       document.body.style.overflow = "";

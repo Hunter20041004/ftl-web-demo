@@ -1,6 +1,6 @@
 import { SitePageShell } from "@/components/layout/SitePageShell";
 import { MembershipTabs } from "@/components/about/MembershipTabs";
-import { leadership, membership, semester } from "@/lib/content";
+import { leadership, membership } from "@/lib/content";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -37,9 +37,7 @@ export function AboutPage() {
                 <h2 className="h2" data-en="Facts">成立資訊</h2>
                 <dl className="info-list">
                   <div className="info"><dt data-en="Founded">成立</dt><dd><b className="num">2026.05.10</b></dd></div>
-                  <div className="info"><dt data-en="Advisor">指導單位</dt><dd data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</dd></div>
                   <div className="info"><dt data-en="Open to">招收對象</dt><dd data-en="All departments and years, including graduate students">跨系、跨年級、含研究所</dd></div>
-                  <div className="info"><dt data-en="Meets">社課時間</dt><dd>{semester.meetingDay}（{semester.range}）</dd></div>
                   <div className="info"><dt data-en="Tagline">標語</dt><dd data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</dd></div>
                 </dl>
               </div>
@@ -81,9 +79,11 @@ export function AboutPage() {
               {officers.map((officer) => (
                 <article className="card member reveal reveal--rise" key={`${officer.role}-${officer.name}`}>
                   <div className="member__ava" aria-hidden="true"><span className="member__initial">{officer.name.slice(0, 1)}</span></div>
-                  <span className="member__role" data-en={officer.roleEn}>{officer.role}</span>
-                  <h3 className="h3">{officer.name}</h3>
-                  <p className="card__body">{officer.dept}</p>
+                  <div>
+                    <span className="member__role" data-en={officer.roleEn}>{officer.role}</span>
+                    <h3 className="h3">{officer.name}</h3>
+                    <p className="card__body" data-en={officer.deptEn}>{officer.dept}</p>
+                  </div>
                 </article>
               ))}
             </div>
@@ -108,10 +108,10 @@ export function AboutPage() {
               <h2 className="h1" data-en="FAQ">常見問題</h2>
             </div>
             <div className="faq" data-stagger>
-              {membership.faq.map(([q, a]) => (
+              {membership.faq.map(([q, a, qEn, aEn]) => (
                 <details className="faq__item card reveal" key={q}>
-                  <summary className="faq__q"><span>{q}</span><Icon name="chevron-right" /></summary>
-                  <p className="card__body">{a}</p>
+                  <summary className="faq__q"><span data-en={qEn}>{q}</span><Icon name="chevron-right" /></summary>
+                  <p className="card__body" data-en={aEn}>{a}</p>
                 </details>
               ))}
             </div>

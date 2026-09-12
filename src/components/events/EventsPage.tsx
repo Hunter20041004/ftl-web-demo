@@ -25,7 +25,7 @@ export function EventsPage() {
         <section className="pagehead">
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Events">活動</span>
-            <h1 className="h1" data-en={`115-1 calendar and courses · ${semester.meetingDayEn}`}>115-1 行事曆與課程 · {semester.meetingDay}</h1>
+            <h1 className="h1" data-en={`115-1 events · ${semester.meetingDayEn}`}>115-1 活動 · {semester.meetingDay}</h1>
             <p className="lead" data-en="09/09 – 12/23. Sessions marked ✓ count toward the attendance reward.">9/09 – 12/23。標示「計入」的場次計入出席獎勵金。</p>
             <div className="chips mt-5">
               <a className="chip" href="#calendar" data-en="Calendar">行事曆</a>
@@ -72,11 +72,11 @@ export function EventsPage() {
                     <span className="card__index num">Week {String(lecture.week).padStart(2, "0")} · {lecture.date}</span>
                     <span className="tag" data-en="Lecture">講座</span>
                   </div>
-                  <h3 className="h2">{lecture.title}</h3>
-                  <p className="lecture__speaker"><b className="grad-text">{lecture.speaker}</b>　{lecture.role}，{lecture.org}</p>
-                  <p className="card__body">{lecture.abstract}</p>
+                  <h3 className="h2" data-en={lecture.titleEn}>{lecture.title}</h3>
+                  <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn}>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`}>{lecture.role}，{lecture.org}</span></p>
+                  <p className="card__body" data-en={lecture.abstractEn}>{lecture.abstract}</p>
                   <ul className="bio">
-                    {lecture.bio.map((line) => <li key={line}>{line}</li>)}
+                    {lecture.bio.map((line, i) => <li key={line} data-en={lecture.bioEn[i]}>{line}</li>)}
                   </ul>
                 </article>
               ))}
@@ -97,9 +97,9 @@ export function EventsPage() {
                     <span className="tag tag--cyan" data-en="Workshop">工作坊</span>
                   </div>
                   <h3 className="h3" data-en={workshop.titleEn}>{workshop.title}</h3>
-                  <p className="card__body"><b>核心目標｜</b>{workshop.goal}</p>
+                  <p className="card__body"><b data-en="Goal｜">核心目標｜</b><span data-en={workshop.goalEn}>{workshop.goal}</span></p>
                   <ul className="bullets-plain">
-                    {workshop.modules.map(([name, body]) => <li key={name}><b>{name}</b>　{body}</li>)}
+                    {workshop.modules.map(([name, body], i) => <li key={name}><b data-en={workshop.modulesEn[i][0]}>{name}</b>　<span data-en={workshop.modulesEn[i][1]}>{body}</span></li>)}
                   </ul>
                 </article>
               ))}
@@ -121,7 +121,7 @@ export function EventsPage() {
                   </div>
                   <h3 className="h3 en">{book.title}</h3>
                   <p className="dim en" style={{ fontSize: ".95rem" }}>{book.author}</p>
-                  <p className="card__body">{book.synopsis}</p>
+                  <p className="card__body" data-en={book.synopsisEn}>{book.synopsis}</p>
                   <ul className="bullets-plain en">
                     {book.topics.map((topic) => <li key={topic}>{topic}</li>)}
                   </ul>
@@ -136,13 +136,13 @@ export function EventsPage() {
             <div className="sec-head reveal reveal--fade">
               <div>
                 <h2 className="h1" data-en="Blockchain Foundations Series">區塊鏈基礎系列課程</h2>
-                <p className="lead mt-4">社團主辦，{chainSeries.coHost}共同主辦，納入協會「{chainSeries.program}」。{chainSeries.format}</p>
+                <p className="lead mt-4" data-en={`Hosted by the society, co-hosted by ${chainSeries.coHostEn}, part of the ${chainSeries.programEn}. ${chainSeries.formatEn}`}>社團主辦，{chainSeries.coHost}共同主辦，納入協會「{chainSeries.program}」。{chainSeries.format}</p>
               </div>
             </div>
             <div className="panel reveal" style={{ marginBottom: 24 }}>
               <dl className="info-list info-list--inline">
-                <div className="info"><dt data-en="Instructor">講師</dt><dd>{chainSeries.instructor}</dd></div>
-                <div className="info"><dt data-en="Audience">對象</dt><dd>{chainSeries.audience}</dd></div>
+                <div className="info"><dt data-en="Instructor">講師</dt><dd data-en={chainSeries.instructorEn}>{chainSeries.instructor}</dd></div>
+                <div className="info"><dt data-en="Audience">對象</dt><dd data-en={chainSeries.audienceEn}>{chainSeries.audience}</dd></div>
                 <div className="info"><dt data-en="Dates">日期</dt><dd data-en="Chinese sessions to be announced; the English session is on 10/21.">中文場日期另行公告；英文場 10/21 社課時段。</dd></div>
               </dl>
             </div>
@@ -152,11 +152,11 @@ export function EventsPage() {
                 <article className="card card--row reveal reveal--rise" key={course.n}>
                   <span className="principle__n">{course.n}</span>
                   <div>
-                    <h3 className="h3">{course.title}</h3>
+                    <h3 className="h3" data-en={course.titleEn}>{course.title}</h3>
                     <p className="keywords en">{course.keywords}</p>
-                    <p className="card__body">{course.hook}</p>
-                    <p className="card__body">{course.body}</p>
-                    <p className="card__body"><b>體驗｜</b>{course.practice}</p>
+                    <p className="card__body" data-en={course.hookEn}>{course.hook}</p>
+                    <p className="card__body" data-en={course.bodyEn}>{course.body}</p>
+                    <p className="card__body"><b data-en="Hands-on｜">體驗｜</b><span data-en={course.practiceEn}>{course.practice}</span></p>
                   </div>
                 </article>
               ))}

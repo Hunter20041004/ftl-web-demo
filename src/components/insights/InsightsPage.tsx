@@ -26,18 +26,18 @@ export function InsightsPage() {
           <div className="wrap">
             <article className="issue reveal">
               <div className="issue__cover">
-                <span className="issue__eyebrow en">Vol.{String(latest.vol).padStart(2, "0")} · 本週精選</span>
+                <span className="issue__eyebrow en" data-en={`Vol.${String(latest.vol).padStart(2, "0")} · Highlights`}>Vol.{String(latest.vol).padStart(2, "0")} · 本期精選</span>
                 <p className="issue__range num">{latest.range}</p>
                 <ol className="issue__headlines">
-                  {latest.headlines.map((h) => <li key={h}><span className="grad-text">{h}</span></li>)}
+                  {latest.headlines.map((h, i) => <li key={h}><span className="grad-text" data-en={latest.headlinesEn[i]}>{h}</span></li>)}
                 </ol>
               </div>
               <div className="issue__stories" data-stagger>
                 {latest.stories.map((story, i) => (
                   <div className="card issue__story reveal reveal--rise" key={story.title}>
                     <span className="issue__n num">{String(i + 1).padStart(2, "0")}</span>
-                    <h2 className="h2">{story.title}</h2>
-                    <p className="card__body">{story.summary}</p>
+                    <h2 className="h2" data-en={story.titleEn}>{story.title}</h2>
+                    <p className="card__body" data-en={story.summaryEn}>{story.summary}</p>
                     <details className="issue__sources">
                       <summary data-en="Sources">來源</summary>
                       <ul>
@@ -63,14 +63,14 @@ export function InsightsPage() {
                 <details className="row row--issue reveal" key={issue.vol}>
                   <summary className="row__summary">
                     <span className="row__date num"><b>Vol.{String(issue.vol).padStart(2, "0")}</b><span>{issue.range}</span></span>
-                    <span className="row__main"><span className="row__title">{issue.headlines.join("／")}</span></span>
+                    <span className="row__main"><span className="row__title" data-en={issue.headlinesEn.join(" / ")}>{issue.headlines.join("／")}</span></span>
                     <Icon name="chevron-right" />
                   </summary>
                   <div className="row__expand">
                     {issue.stories.map((story) => (
                       <div key={story.title}>
-                        <h3 className="h3">{story.title}</h3>
-                        <p className="card__body">{story.summary}</p>
+                        <h3 className="h3" data-en={story.titleEn}>{story.title}</h3>
+                        <p className="card__body" data-en={story.summaryEn}>{story.summary}</p>
                         <p className="dim" style={{ fontSize: ".9rem" }}>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : "來源："}<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></span>)}</p>
                       </div>
                     ))}

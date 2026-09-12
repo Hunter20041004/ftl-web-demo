@@ -43,9 +43,9 @@ export function MembershipTabs() {
           <span className="flow__n">1</span>
           <div className="flow__body">
             <div className="card">
-              <div className="card__top"><h3 className="h2" data-en={type.en}>{type.name}</h3><span className="tag num">{type.fee}</span></div>
-              <p className="card__body"><b data-en="How｜">入社方式｜</b>{type.how}</p>
-              <p className="card__body"><b data-en="Includes｜">包含｜</b>{type.perks}</p>
+              <div className="card__top"><h3 className="h2" data-en={type.en}>{type.name}</h3><span className="tag num" data-en={type.feeEn}>{type.fee}</span></div>
+              <p className="card__body"><b data-en="How｜">入社方式｜</b><span data-en={type.howEn}>{type.how}</span></p>
+              <p className="card__body"><b data-en="Includes｜">包含｜</b><span data-en={type.perksEn}>{type.perks}</span></p>
             </div>
           </div>
         </article>
@@ -78,10 +78,10 @@ export function MembershipTabs() {
         <article className="flow__step reveal in" id="payment">
           <span className="flow__n">3</span>
           <div className="flow__body">
-            <h3 className="h2"><span data-en="Pay">繳費</span>　<span className="grad-text num">{type.fee}</span></h3>
+            <h3 className="h2"><span data-en="Pay">繳費</span>　<span className="grad-text num" data-en={type.feeEn}>{type.fee}</span></h3>
             <ol className="steps mt-4">
               {membership.payment.map((step, index) => (
-                <li className="card" key={step}><span className="numchip">{index + 1}</span><p className="card__body">{kind === "auditor" && index === 0 ? "加入官方 LINE Bot，完成基本資料填寫。" : step}</p></li>
+                <li className="card" key={step}><span className="numchip">{index + 1}</span><p className="card__body" data-en={kind === "auditor" && index === 0 ? "Add the official LINE Bot and fill in your basic details." : membership.paymentEn[index]}>{kind === "auditor" && index === 0 ? "加入官方 LINE Bot，完成基本資料填寫。" : step}</p></li>
               ))}
             </ol>
           </div>
@@ -98,17 +98,17 @@ export function MembershipTabs() {
                     <table className="tiers">
                       <thead><tr><th data-en="Sessions attended (of 11)">出席堂數（計 11 堂）</th><th data-en="Reward">獎勵金</th></tr></thead>
                       <tbody>
-                        {membership.reward.tiers.map(([sessions, amount]) => (
-                          <tr key={sessions}><td>{sessions}</td><td className="num"><b className="grad-text">{amount}</b></td></tr>
+                        {membership.reward.tiers.map(([sessions, amount, sessionsEn, amountEn]) => (
+                          <tr key={sessions}><td data-en={sessionsEn}>{sessions}</td><td className="num"><b className="grad-text" data-en={amountEn}>{amount}</b></td></tr>
                         ))}
                       </tbody>
                     </table>
-                    <p className="card__body mt-4">{membership.reward.countedSessions}</p>
+                    <p className="card__body mt-4" data-en={membership.reward.countedSessionsEn}>{membership.reward.countedSessions}</p>
                   </div>
                   <div className="stack" style={{ gap: 14 }}>
-                    <div className="card"><h4 className="h3" data-en="How attendance is counted">出席怎麼算</h4><p className="card__body">{membership.reward.attendance}</p></div>
-                    <div className="card"><h4 className="h3" data-en="When it is paid">什麼時候發</h4><p className="card__body">{membership.reward.payout}</p></div>
-                    <div className="card"><h4 className="h3" data-en="Points prize (separate)">積分獎金（另計）</h4><p className="card__body">{membership.reward.points}</p></div>
+                    <div className="card"><h4 className="h3" data-en="How attendance is counted">出席怎麼算</h4><p className="card__body" data-en={membership.reward.attendanceEn}>{membership.reward.attendance}</p></div>
+                    <div className="card"><h4 className="h3" data-en="When it is paid">什麼時候發</h4><p className="card__body" data-en={membership.reward.payoutEn}>{membership.reward.payout}</p></div>
+                    <div className="card"><h4 className="h3" data-en="Points prize (separate)">積分獎金（另計）</h4><p className="card__body" data-en={membership.reward.pointsEn}>{membership.reward.points}</p></div>
                   </div>
                 </div>
               </>

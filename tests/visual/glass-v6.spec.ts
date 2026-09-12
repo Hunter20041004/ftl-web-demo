@@ -10,7 +10,8 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForLoadState("networkidle");
     await expect(page.locator("main#main")).toHaveAttribute("data-visual-baseline", "glass-v6");
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
-    await expect(page.locator("#schedule, #contact, #partners")).toHaveCount(3);
+    await expect(page.locator("#who, #schedule, #weekly, #projects, #partners, #contact")).toHaveCount(6);
+    await expect(page.locator(".format")).toHaveCount(5);
   });
 
   test("week calendar shows the current Monday-to-Sunday week with today marked", async ({ page }) => {
@@ -51,6 +52,30 @@ test.describe("glass-v6 homepage", () => {
     await expect(tabs.locator(".tstep")).toHaveCount(0);
     await expect(tabs.locator(".tiers")).toHaveCount(0);
     await expect(tabs.locator("#payment h3")).toContainText("1,500");
+  });
+
+  test("resources filter by type and books show covers", async ({ page }) => {
+    await page.goto(`${basePath}/resources/`);
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".book__cover")).toHaveCount(4);
+    await page.locator('.filter[data-filter="book"]').click();
+    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(4);
+    await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(0);
+    await page.locator('.filter[data-filter="job"]').click();
+    await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(1);
+  });
+
+  test("english mode translates long-form content, including re-rendered parts", async ({ page }) => {
+    await page.goto(`${basePath}/about/`);
+    await page.waitForLoadState("networkidle");
+    await page.locator('[data-set-lang="en"]').first().click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.locator(".mtabs #types .card__body").first()).toContainText("Written screening");
+    await page.locator("[data-membership-tab=auditor]").click();
+    await expect(page.locator(".mtabs #timeline h3")).toHaveText("No screening");
+    await page.goto(`${basePath}/events/`);
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".card--lecture .card__body").first()).toContainText("generative AI");
   });
 
   test("projects are slide decks that page with buttons and arrow keys", async ({ page }) => {
@@ -110,7 +135,7 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/`);
     await page.waitForLoadState("networkidle");
     await expect(page.locator("h1")).toHaveCSS("font-family", /Huninn/);
-    await expect(page.locator(".eyebrow").first()).toHaveCSS("font-family", /Outfit/);
+    await expect(page.locator(".hero__sub")).toHaveCSS("font-family", /Outfit/);
     const fontsReady = await page.evaluate(async () => {
       await document.fonts.ready;
       return document.fonts.check('16px "Outfit"') && document.fonts.check('16px "Huninn"');

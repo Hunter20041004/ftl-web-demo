@@ -36,19 +36,23 @@ export function SlideDeck({ deck }: { deck: ProjectDeck }) {
       <div className="deck__stage" key={index}>
         {slide === null ? (
           <div className="deck__slide deck__slide--cover">
-            <span className="deck__kicker">{deck.owner}</span>
-            <h3 className="deck__title display">{deck.name}</h3>
-            <p className="deck__sub en">{deck.nameEn}</p>
-            <p className="deck__body">{deck.tagline}</p>
-            <div className="tag-row">{deck.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+            <div className="deck__coverText">
+              <span className="deck__kicker" data-en={deck.ownerEn}>{deck.owner}</span>
+              <h3 className="deck__title display">{deck.name}</h3>
+              <p className="deck__sub en">{deck.nameEn}</p>
+              <p className="deck__body" data-en={deck.taglineEn}>{deck.tagline}</p>
+              <div className="tag-row">{deck.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 產生的社群圖，外站來源 */}
+            <img className="deck__cover" src={deck.cover} alt="" loading="lazy" />
           </div>
         ) : (
           <div className="deck__slide">
-            {slide.kicker ? <span className="deck__kicker">{slide.kicker}</span> : null}
-            <h3 className="deck__title h1">{slide.title}</h3>
-            {slide.body ? <p className="deck__body">{slide.body}</p> : null}
-            {slide.bullets ? <ul className="bullets-plain deck__bullets">{slide.bullets.map((b) => <li key={b}>{b}</li>)}</ul> : null}
-            {slide.stat ? <p className="deck__stat"><b className="grad-text num">{slide.stat[0]}</b><span>{slide.stat[1]}</span></p> : null}
+            {slide.kicker ? <span className="deck__kicker" data-en={slide.kickerEn}>{slide.kicker}</span> : null}
+            <h3 className="deck__title h1" data-en={slide.titleEn}>{slide.title}</h3>
+            {slide.body ? <p className="deck__body" data-en={slide.bodyEn}>{slide.body}</p> : null}
+            {slide.bullets ? <ul className="bullets-plain deck__bullets">{slide.bullets.map((b, i) => <li key={b} data-en={slide.bulletsEn?.[i]}>{b}</li>)}</ul> : null}
+            {slide.stat ? <p className="deck__stat"><b className="grad-text num">{slide.stat[0]}</b><span data-en={slide.statEn}>{slide.stat[1]}</span></p> : null}
           </div>
         )}
       </div>
