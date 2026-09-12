@@ -9,7 +9,14 @@ function Icon({ name }: { name: string }) {
   );
 }
 
-// 關於我們：社團是什麼、成立資訊、幹部組織。姓名依社團提供的名單（遮罩形式）。
+// 關於我們：社團是什麼、成立資訊、指導單位、幹部、社員相關資訊、常見問題。
+// 幹部一人一格（預留照片位）；姓名依社團提供的名單（遮罩形式）。
+const officers = [
+  { role: "社長", roleEn: "President", ...leadership.president },
+  { role: "副社長", roleEn: "Vice President", ...leadership.vicePresident },
+  ...leadership.departments.flatMap((dept) => dept.members.map((m) => ({ role: dept.name, roleEn: dept.en, ...m }))),
+];
+
 export function AboutPage() {
   return (
     <SitePageShell>
@@ -72,114 +79,105 @@ export function AboutPage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="Officers">幹部</h2>
-              <p className="note"><Icon name="alert" /><span data-en="Names are partially masked as provided by the society.">姓名依社團提供的名單，部分遮罩。</span></p>
-            </div>
-            <div className="grid grid-2" style={{ marginBottom: 18 }} data-stagger>
-              <article className="card reveal reveal--rise">
-                <span className="member__role" data-en="President">社長</span>
-                <h3 className="h2">{leadership.president.name}</h3>
-                <p className="card__body">{leadership.president.dept}</p>
-              </article>
-              <article className="card reveal reveal--rise">
-                <span className="member__role" data-en="Vice President">副社長</span>
-                <h3 className="h2">{leadership.vicePresident.name}</h3>
-                <p className="card__body">{leadership.vicePresident.dept}</p>
-              </article>
+              <p className="note"><Icon name="alert" /><span data-en="Names are partially masked as provided by the society; photos to be added.">姓名依社團提供的名單，部分遮罩；照片待補。</span></p>
             </div>
             <div className="grid grid-4" data-stagger>
-              {leadership.departments.map((dept) => (
-                <article className="card reveal reveal--rise" key={dept.name}>
-                  <span className="member__role" data-en={dept.en}>{dept.name}</span>
-                  <ul className="roster">
-                    {dept.members.map((member) => (
-                      <li key={member.name}><b>{member.name}</b><span className="dim">{member.dept}</span></li>
-                    ))}
-                  </ul>
+              {officers.map((officer) => (
+                <article className="card member reveal reveal--rise" key={`${officer.role}-${officer.name}`}>
+                  <div className="member__ava" aria-hidden="true"><Icon name="users" /></div>
+                  <span className="member__role" data-en={officer.roleEn}>{officer.role}</span>
+                  <h3 className="h3">{officer.name}</h3>
+                  <p className="card__body">{officer.dept}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
-        <section className="section" id="join">
+
+        {/* 社員相關資訊：照「加入 → 報名 → 繳費 → 出席領回」的順序講一次，重複的數字不再各段重講 */}
+        <section className="section" id="membership">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><h2 className="h1" data-en="Join">入社</h2><p className="lead mt-4" data-en="Two membership types. No deposit: attendance is rewarded at the end of term."><b className="grad-text">{membership.reward.headline}</b>　三位業界講者、三場工作坊、三場英語讀書會、一場校友會、一場雞尾酒會，共 11 堂。不收保證金，出席獎勵金期末發放。</p></div>
+              <div><h2 className="h1" data-en="Membership">社員相關資訊</h2><p className="lead mt-4" data-en="115-1 semester. Two membership types; project members go through screening and interviews, and get part of the fee back based on attendance.">115-1 學期。社員分兩種身份；專案生經書審與面試錄取，並依出席堂數在期末領回部分社費。</p></div>
               <a className="btn btn--primary" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Apply via LINE Bot">透過 LINE Bot 報名</span></a>
             </div>
-          </div>
-        </section>
 
-        <section className="section--tight section" id="types" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <div className="grid grid-2" data-stagger>
-              {membership.types.map((type) => (
-                <article className="card reveal reveal--rise" key={type.name}>
-                  <div className="card__top"><h2 className="h2" data-en={type.en}>{type.name}</h2><span className="tag num">{type.fee}</span></div>
-                  <p className="card__body"><b data-en="How to join｜">入社方式｜</b>{type.how}</p>
-                  <p className="card__body"><b data-en="Includes｜">包含｜</b>{type.perks}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section section--alt" id="timeline">
-          <div className="wrap">
-            <div className="sec-head reveal reveal--fade">
-              <div><h2 className="h1" data-en="Recruitment schedule">招募時程</h2><p className="lead mt-4" data-en="Screening: fill in the Google form and submit a résumé. Interviews are held in groups.">書審：填寫 Google 表單並繳交履歷。面試採團體面試。</p></div>
-            </div>
-            <ol className="timeline-glass" data-stagger>
-              {membership.timeline.map((step) => (
-                <li className={`tstep reveal${step.done ? " tstep--done" : ""}`} key={step.date}>
-                  <span className="tstep__date num">{step.date}</span>
-                  <span className="tstep__label" data-en={step.en}>{step.zh}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="section" id="reward">
-          <div className="wrap">
-            <div className="sec-head reveal reveal--fade">
-              <h2 className="h1" data-en="Attendance reward">出席獎勵金</h2>
-            </div>
-            <div className="grid grid-2" style={{ alignItems: "start" }}>
-              <div className="panel reveal">
-                <table className="tiers">
-                  <thead><tr><th data-en="Sessions attended (of 11)">出席堂數（計 11 堂）</th><th data-en="Reward">獎勵金</th></tr></thead>
-                  <tbody>
-                    {membership.reward.tiers.map(([sessions, amount]) => (
-                      <tr key={sessions}><td>{sessions}</td><td className="num"><b className="grad-text">{amount}</b></td></tr>
+            <div className="flow" data-stagger>
+              <article className="flow__step reveal reveal--rise" id="types">
+                <span className="flow__n">1</span>
+                <div className="flow__body">
+                  <h3 className="h2" data-en="Choose a membership type">選擇身份</h3>
+                  <div className="grid grid-2 mt-4">
+                    {membership.types.map((type) => (
+                      <div className="card" key={type.name}>
+                        <div className="card__top"><h4 className="h3" data-en={type.en}>{type.name}</h4><span className="tag num">{type.fee}</span></div>
+                        <p className="card__body"><b data-en="How｜">入社方式｜</b>{type.how}</p>
+                        <p className="card__body"><b data-en="Includes｜">包含｜</b>{type.perks}</p>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
-                <p className="card__body mt-4">{membership.reward.countedSessions}</p>
-              </div>
-              <div className="stack" style={{ gap: 14 }}>
-                <div className="card reveal"><h3 className="h3" data-en="How attendance is counted">出席怎麼算</h3><p className="card__body">{membership.reward.attendance}</p></div>
-                <div className="card reveal"><h3 className="h3" data-en="When it is paid">什麼時候發</h3><p className="card__body">{membership.reward.payout}</p></div>
-                <div className="card reveal"><h3 className="h3" data-en="Points prize (separate)">積分獎金（另計）</h3><p className="card__body">{membership.reward.points}</p></div>
-              </div>
+                  </div>
+                </div>
+              </article>
+
+              <article className="flow__step reveal reveal--rise" id="timeline">
+                <span className="flow__n">2</span>
+                <div className="flow__body">
+                  <h3 className="h2" data-en="Apply (project members)">報名（專案生）</h3>
+                  <p className="card__body mt-3" data-en="Fill in the Google form and submit a résumé; interviews are held in groups. Auditors skip this step and pay directly through the LINE Bot.">填寫 Google 表單並繳交履歷，面試採團體面試。旁聽生免書審，直接到步驟 3 透過 LINE Bot 繳費。</p>
+                  <ol className="timeline-glass mt-5">
+                    {membership.timeline.map((step) => (
+                      <li className={`tstep${step.done ? " tstep--done" : ""}`} key={step.date}>
+                        <span className="tstep__date num">{step.date}</span>
+                        <span className="tstep__label" data-en={step.en}>{step.zh}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </article>
+
+              <article className="flow__step reveal reveal--rise" id="payment">
+                <span className="flow__n">3</span>
+                <div className="flow__body">
+                  <h3 className="h2" data-en="Pay through the LINE Bot">繳費</h3>
+                  <ol className="steps mt-4">
+                    {membership.payment.map((step, index) => (
+                      <li className="card" key={step}><span className="numchip">{index + 1}</span><p className="card__body">{step}</p></li>
+                    ))}
+                  </ol>
+                  <p className="dim mt-4" style={{ fontSize: ".95rem" }} data-en="Cash is not accepted, except at the counter on welcome night.">不接受現金；迎新當日設現金收費櫃台並開立收據。</p>
+                </div>
+              </article>
+
+              <article className="flow__step reveal reveal--rise" id="reward">
+                <span className="flow__n">4</span>
+                <div className="flow__body">
+                  <h3 className="h2" data-en="Attend, then get part of the fee back">出席，期末領回</h3>
+                  <p className="card__body mt-3" data-en="Project members only. Eleven sessions count; the reward is paid at the end of term based on how many you attended.">僅專案生適用。計 11 堂，期末依出席堂數發放。</p>
+                  <div className="grid grid-2 mt-4" style={{ alignItems: "start" }}>
+                    <div className="panel">
+                      <table className="tiers">
+                        <thead><tr><th data-en="Sessions attended (of 11)">出席堂數（計 11 堂）</th><th data-en="Reward">獎勵金</th></tr></thead>
+                        <tbody>
+                          {membership.reward.tiers.map(([sessions, amount]) => (
+                            <tr key={sessions}><td>{sessions}</td><td className="num"><b className="grad-text">{amount}</b></td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <p className="card__body mt-4">{membership.reward.countedSessions}</p>
+                    </div>
+                    <div className="stack" style={{ gap: 14 }}>
+                      <div className="card"><h4 className="h3" data-en="How attendance is counted">出席怎麼算</h4><p className="card__body">{membership.reward.attendance}</p></div>
+                      <div className="card"><h4 className="h3" data-en="When it is paid">什麼時候發</h4><p className="card__body">{membership.reward.payout}</p></div>
+                      <div className="card"><h4 className="h3" data-en="Points prize (separate)">積分獎金（另計）</h4><p className="card__body">{membership.reward.points}</p></div>
+                    </div>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>
 
-        <section className="section--tight section section--alt" id="payment">
-          <div className="wrap">
-            <div className="sec-head reveal reveal--fade">
-              <h2 className="h1" data-en="Payment">繳費步驟</h2>
-            </div>
-            <ol className="steps" data-stagger>
-              {membership.payment.map((step, index) => (
-                <li className="card reveal" key={step}><span className="numchip">{index + 1}</span><p className="card__body">{step}</p></li>
-              ))}
-            </ol>
-            <p className="note mt-6"><Icon name="alert" /><span data-en="Cash is not accepted, except at the counter on welcome night.">不接受現金；迎新當日設現金收費櫃台並開立收據。</span></p>
-          </div>
-        </section>
-
-        <section className="section" id="faq">
+        <section className="section--tight section section--alt" id="faq">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="FAQ">常見問題</h2>

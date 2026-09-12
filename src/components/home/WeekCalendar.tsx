@@ -7,7 +7,7 @@ import { calendar, calendarKinds, membership } from "@/lib/content";
 // 所以每週自動換頁。資料來自 content.ts 的行事曆與招募時程（都是 2026 年）。
 // 靜態匯出沒有伺服器，所以「今天」在瀏覽器端算；SSR 先畫出開學那一週，載入後再換成本週。
 
-type DayItem = { label: string; labelEn?: string; kind: string; tagClass: string };
+type DayItem = { label: string; labelEn?: string; kind: string; kindEn: string; tagClass: string };
 
 const YEAR = 2026;
 const DAY_NAMES = ["一", "二", "三", "四", "五", "六", "日"];
@@ -34,21 +34,21 @@ function buildItems(): Array<{ date: Date; item: DayItem }> {
   const out: Array<{ date: Date; item: DayItem }> = [];
   for (const entry of calendar) {
     if (entry.kind === "school") continue;
-    out.push({ date: parseMonthDay(entry.date), item: { label: entry.zh, labelEn: entry.en, kind: calendarKinds[entry.kind].zh, tagClass: calendarKinds[entry.kind].tag } });
+    out.push({ date: parseMonthDay(entry.date), item: { label: entry.zh, labelEn: entry.en, kind: calendarKinds[entry.kind].zh, kindEn: calendarKinds[entry.kind].en, tagClass: calendarKinds[entry.kind].tag } });
   }
   // 招募的日期區間（09/14 – 09/17）只標開始與截止兩天，不然一整排都是同一句
   for (const step of membership.timeline) {
     const [start, end] = step.date.split("–").map((s) => s.trim());
     const from = parseMonthDay(start);
     if (!end) {
-      out.push({ date: from, item: { label: step.zh, labelEn: step.en, kind: "招募", tagClass: "tag tag--ok" } });
+      out.push({ date: from, item: { label: step.zh, labelEn: step.en, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
       continue;
     }
     const to = parseMonthDay(end);
     const short = step.zh.split("；")[0].split("（")[0];
     const shortEn = step.en;
-    out.push({ date: from, item: { label: `${short} 開始`, labelEn: `${shortEn} opens`, kind: "招募", tagClass: "tag tag--ok" } });
-    out.push({ date: to, item: { label: `${short} 截止`, labelEn: `${shortEn} closes`, kind: "招募", tagClass: "tag tag--ok" } });
+    out.push({ date: from, item: { label: `${short} 開始`, labelEn: `${shortEn} open`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
+    out.push({ date: to, item: { label: `${short} 截止`, labelEn: `${shortEn} close`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
   }
   return out;
 }
@@ -101,7 +101,7 @@ export function WeekCalendar() {
             <span className="week__head"><b data-en={DAY_NAMES_EN[i]}>週{DAY_NAMES[i]}</b><span className="num">{fmt(day.date)}</span></span>
             <ul className="week__items">
               {day.items.map((item) => (
-                <li key={item.label}><span className={item.tagClass}>{item.kind}</span><span data-en={item.labelEn}>{item.label}</span></li>
+                <li key={item.label}><span className={item.tagClass} data-en={item.kindEn}>{item.kind}</span><span data-en={item.labelEn}>{item.label}</span></li>
               ))}
             </ul>
           </li>

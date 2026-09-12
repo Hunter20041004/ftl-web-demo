@@ -181,12 +181,12 @@ export const chainSeries = {
 // 入社：兩種身份、招募時程、社費與出席獎勵金（取自辦法第九節「對外文案」與第二節時程）
 export const membership = {
   types: [
-    { name: "專案生", en: "Project member", fee: "3,000 元／學期", how: "書面審查＋團體面試", perks: "3 場業界講座、3 場實務工作坊、3 場英語讀書會、校友 networking 會、雞尾酒會、社課資源（簡報、錄影、閱讀材料）、LINE Bot 與 Discord 社群。適用出席獎勵金。" },
+    { name: "專案生", en: "Project member", fee: "3,000 元／學期", how: "書面審查＋團體面試", perks: "全部社課與交流活動、社課資源（簡報、錄影、閱讀材料）、LINE Bot 與 Discord 社群。適用出席獎勵金。" },
     { name: "旁聽生", en: "Auditor", fee: "1,500 元／學期", how: "免書審，LINE Bot 隨時繳費入社", perks: "旁聽生資格與權益範圍另行公告；不適用出席獎勵金。" },
   ],
   timeline: [
-    { date: "09/07 – 09/13", zh: "書審填寫（同時填寫面試時間）", en: "Application form open", done: true },
-    { date: "09/14 – 09/17", zh: "延長填寫時間；09/16 為報名倒數一天", en: "Extended deadline", done: false },
+    { date: "09/07 – 09/13", zh: "書審填寫（同時填寫面試時間）", en: "Applications", done: true },
+    { date: "09/14 – 09/17", zh: "延長填寫時間；09/16 為報名倒數一天", en: "Extended applications", done: false },
     { date: "09/18", zh: "書審結果公布＋填寫面試時間", en: "Screening results and interview slots", done: false },
     { date: "09/19 – 09/20", zh: "晚上團體面試", en: "Group interviews (evening)", done: false },
     { date: "09/21", zh: "公布專案生錄取結果", en: "Admission results", done: false },

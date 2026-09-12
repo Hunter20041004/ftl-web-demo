@@ -134,10 +134,11 @@ a{ color:inherit }
 /* 標籤：淡藍玻璃膠囊，不用實心也不用邊框 */
 .tag{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:var(--r-pill);
   background:rgba(22,104,227,.1); color:var(--b-ink); font-size:.82rem; font-weight:700; letter-spacing:.02em; white-space:nowrap }
-.tag--cyan{ background:rgba(96,208,240,.18); color:#0A5A8A }
-.tag--ok{ background:rgba(11,110,79,.1); color:var(--ok) }
-.tag--warn{ background:rgba(138,83,0,.1); color:var(--warn) }
-.tag--ghost{ background:rgba(11,31,58,.05); color:var(--ink-3) }
+/* 標籤一律藍色系，用深淺分類別 */
+.tag--cyan{ background:rgba(96,208,240,.22); color:#0A5A8A }
+.tag--ok{ background:var(--g-brand); color:#fff }
+.tag--warn{ background:rgba(10,52,200,.12); color:var(--b-dk) }
+.tag--ghost{ background:rgba(11,31,58,.06); color:var(--ink-3) }
 .tag-row{ display:flex; flex-wrap:wrap; gap:7px }
 .note{ display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border-radius:var(--r-pill);
   background:rgba(255,255,255,.7); box-shadow:var(--glass-hi), var(--shadow-soft); font-size:.84rem; color:var(--ink-2) }
@@ -393,6 +394,15 @@ a{ color:inherit }
 @media (max-width:640px){ .card--row{ flex-direction:column; gap:var(--s3) } }
 .info-list--inline{ flex-direction:row; flex-wrap:wrap; gap:var(--s3) }
 .info-list--inline .info{ flex:1 1 260px; background:rgba(255,255,255,.5); box-shadow:none }
+
+/* ══ 社員相關資訊：四個步驟 ══════════════════════════════════ */
+.flow{ display:flex; flex-direction:column; gap:clamp(var(--s6),4vw,var(--s7)) }
+.flow__step{ display:grid; grid-template-columns:64px minmax(0,1fr); gap:var(--s4) }
+.flow__n{ width:48px; height:48px; border-radius:50%; display:grid; place-items:center; background:var(--g-brand); color:#fff; font-family:var(--f-en); font-size:1.25rem; font-weight:600; box-shadow:var(--shadow-cta) }
+.flow__body{ min-width:0 }
+@media (max-width:640px){ .flow__step{ grid-template-columns:1fr } .flow__n{ width:40px; height:40px; font-size:1.05rem } }
+.member .member__ava{ margin-bottom:var(--s3); color:var(--b-lt) }
+.member .member__ava .icon{ width:44px; height:44px; stroke-width:1.4 }
 
 /* ══ 入社頁 ═════════════════════════════════════════════════ */
 .tiers{ width:100%; border-collapse:collapse; font-size:1rem }
