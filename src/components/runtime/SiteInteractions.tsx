@@ -82,6 +82,27 @@ function applyLang(lang: "zh" | "en") {
   applyingLang = false;
 }
 
+// 篩選：按下哪顆按鈕，就只顯示 data-cat 含該類別的卡片；點「全部」則全部顯示
+function applyFilter(filterButton: HTMLButtonElement) {
+  const group = filterButton.closest<HTMLElement>("[data-filter-group]");
+  if (!group) return;
+  const targetSelector = group.dataset.filterTarget;
+  const list = targetSelector ? document.querySelector<HTMLElement>(targetSelector) : null;
+  if (!list) return;
+  group.querySelectorAll<HTMLButtonElement>(".filter").forEach((button) =>
+    button.setAttribute("aria-pressed", String(button === filterButton)),
+  );
+  const wanted = filterButton.dataset.filter ?? "all";
+  let shown = 0;
+  list.querySelectorAll<HTMLElement>("[data-cat]").forEach((card) => {
+    const matches = wanted === "all" || (card.dataset.cat ?? "").split(" ").includes(wanted);
+    card.hidden = !matches;
+    if (matches) shown += 1;
+  });
+  const emptySelector = group.dataset.filterEmpty;
+  if (emptySelector) document.querySelector<HTMLElement>(emptySelector)?.setAttribute("data-show", String(shown === 0));
+}
+
 export function SiteInteractions() {
   useEffect(() => {
     mountSprite();
@@ -166,26 +187,19 @@ export function SiteInteractions() {
       }
 
       const filterButton = target.closest<HTMLButtonElement>(".filter");
-      const group = filterButton?.closest<HTMLElement>("[data-filter-group]");
-      if (filterButton && group) {
-        const targetSelector = group.dataset.filterTarget;
-        const list = targetSelector ? document.querySelector<HTMLElement>(targetSelector) : null;
-        if (!list) return;
-        group.querySelectorAll<HTMLButtonElement>(".filter").forEach((button) =>
-          button.setAttribute("aria-pressed", String(button === filterButton)),
-        );
-        const wanted = filterButton.dataset.filter ?? "all";
-        let shown = 0;
-        list.querySelectorAll<HTMLElement>("[data-cat]").forEach((card) => {
-          const matches = wanted === "all" || (card.dataset.cat ?? "").split(" ").includes(wanted);
-          card.hidden = !matches;
-          if (matches) shown += 1;
-        });
-        const emptySelector = group.dataset.filterEmpty;
-        if (emptySelector) document.querySelector<HTMLElement>(emptySelector)?.setAttribute("data-show", String(shown === 0));
-      }
+      if (filterButton) applyFilter(filterButton);
     };
     document.addEventListener("click", onClick);
+
+    // 網址帶 #filter-book、#filter-job 這類篩選鍵時（例如從頁尾「書單」進來），直接套用那個篩選
+    const filterFromHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id.startsWith("filter-")) return;
+      const button = document.querySelector<HTMLButtonElement>(`[data-filter-group] .filter[data-filter="${CSS.escape(id.slice(7))}"]`);
+      if (button) applyFilter(button);
+    };
+    filterFromHash();
+    window.addEventListener("hashchange", filterFromHash);
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && sheet?.dataset.open === "true") setSheet(false);
@@ -253,6 +267,7 @@ export function SiteInteractions() {
       revealObserver?.disconnect();
       langObserver.disconnect();
       window.removeEventListener("hashchange", openHashDetails);
+      window.removeEventListener("hashchange", filterFromHash);
       form?.removeEventListener("submit", onSubmit);
       form?.removeEventListener("input", onInput);
       document.body.style.overflow = "";

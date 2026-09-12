@@ -25,7 +25,7 @@ export function AboutPage() {
         <section className="pagehead">
           <div className="wrap reveal">
             <span className="eyebrow" data-en="About">關於我們</span>
-            <h1 className="h1" data-en="NCCU’s first FinTech student society">政大第一個 FinTech 學術社團</h1>
+            <h1 className="h1" data-en="NCCU FinTech Innovation Lab">政大金融科技創新實驗室</h1>
             <p className="lead" data-en="Founded under the guidance of the NCCU College of Commerce FinTech Research Center.">由政大商學院金融科技研究中心指導成立。</p>
           </div>
         </section>

@@ -72,6 +72,8 @@ html.lang-pending body{ visibility:hidden }
 .page{ counter-reset:sec }
 img{ max-width:100% }
 h1,h2,h3,h4,p{ margin:0 }
+h1,h2,h3{ text-wrap:balance }
+p,li,dd{ text-wrap:pretty }
 a{ color:inherit }
 
 /* ══ 字級：大而輕 ═══════════════════════════════════════════ */
@@ -102,7 +104,7 @@ a{ color:inherit }
 .section--alt{ background:linear-gradient(180deg, transparent, rgba(238,244,253,.9) 14%, rgba(238,244,253,.9) 86%, transparent) }
 .section > .wrap{ position:relative; z-index:1 }
 .sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--s5); flex-wrap:wrap; margin-bottom:clamp(var(--s6),4vw,var(--s7)) }
-.sec-head p{ max-width:48ch }
+.sec-head p{ max-width:58ch }
 .grid{ display:grid; gap:20px }
 .grid-2{ grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)) }
 .grid-3{ grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)) }
@@ -134,13 +136,14 @@ a{ color:inherit }
 .card__index{ font-family:var(--f-en); font-size:.8rem; font-weight:500; letter-spacing:.08em; color:var(--ink-3); text-transform:uppercase }
 
 /* 標籤：淡藍玻璃膠囊，不用實心也不用邊框 */
-.tag{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:var(--r-pill);
-  background:rgba(22,104,227,.1); color:var(--b-ink); font-size:.82rem; font-weight:700; letter-spacing:.02em; white-space:nowrap }
-/* 標籤一律藍色系，用深淺分類別 */
-.tag--cyan{ background:rgba(96,208,240,.22); color:#0A5A8A }
-.tag--ok{ background:var(--g-brand); color:#fff }
-.tag--warn{ background:rgba(10,52,200,.12); color:var(--b-dk) }
-.tag--ghost{ background:rgba(11,31,58,.06); color:var(--ink-3) }
+/* 標籤：每一類都是漸層膠囊＋白字＋淡陰影（跟「招募」同一個等級），用漸層的色相與明度分類別 */
+.tag{ display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:var(--r-pill); color:#fff;
+  background:linear-gradient(118deg,#1B6FE0,#0A46B4); box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 6px 16px -8px rgba(10,52,200,.55);
+  font-size:.82rem; font-weight:700; letter-spacing:.02em; white-space:nowrap }
+.tag--cyan{ background:linear-gradient(118deg,#3FBDE8,#1668E3) }
+.tag--ok{ background:var(--g-brand) }
+.tag--warn{ background:linear-gradient(118deg,#2F3FC9,#0A1F8C); box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 6px 16px -8px rgba(10,31,140,.55) }
+.tag--ghost{ background:linear-gradient(118deg,#8FA6CF,#5F76A3); box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 6px 16px -8px rgba(11,31,58,.35) }
 .tag-row{ display:flex; flex-wrap:wrap; gap:7px }
 .note{ display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border-radius:var(--r-pill);
   background:rgba(255,255,255,.7); box-shadow:var(--glass-hi), var(--shadow-soft); font-size:.84rem; color:var(--ink-2) }
@@ -561,8 +564,9 @@ a{ color:inherit }
 .issue__headlines{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; font-size:clamp(1.5rem,3.4vw,2.6rem); font-weight:700; line-height:1.3; letter-spacing:-.02em }
 .issue__stories{ display:grid; gap:18px }
 .issue__story{ position:relative; padding:clamp(var(--s5),3vw,var(--s6)) }
-.issue__story .h2{ max-width:28ch }
+.issue__story .h2{ max-width:72ch }
 .issue__story .card__body{ max-width:72ch; font-size:1.05rem }
+.issue__story .card__body + .card__body{ margin-top:.9em }
 .issue__n{ font-family:var(--f-en); font-size:.9rem; font-weight:600; letter-spacing:.1em; color:var(--ink-3) }
 .issue__sources summary{ cursor:pointer; font-size:.9rem; font-weight:700; color:var(--b-ink); list-style:none }
 .issue__sources summary::-webkit-details-marker{ display:none }
@@ -583,7 +587,13 @@ a{ color:inherit }
 .format .h3{ font-size:1.1rem }
 .format .card__body{ font-size:.95rem }
 @media (max-width:1020px){ .formats{ grid-template-columns:repeat(3,minmax(0,1fr)) } }
-@media (max-width:640px){ .formats{ grid-template-columns:1fr 1fr } }
+/* 手機：一列一張，圖示靠左、文字靠右，避免五張窄卡每行只塞得下五個字 */
+@media (max-width:640px){
+  .formats{ grid-template-columns:1fr }
+  .format{ display:grid; grid-template-columns:auto 1fr; column-gap:14px; row-gap:4px; align-items:start }
+  .format .ios-row__icon{ grid-row:1 / span 3; margin:0 }
+  .format .h3, .format .format__get, .format .card__body{ grid-column:2 }
+}
 .issue__cover--link{ display:block; text-decoration:none; color:inherit; margin:0; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
 @media (hover:hover) and (pointer:fine){ .issue__cover--link:hover{ transform:translateY(-4px); box-shadow:var(--glass-hi), var(--shadow-lift) } }
 .project-teaser__img{ width:100%; aspect-ratio:2/1; object-fit:cover; border-radius:14px; margin-bottom:4px }
@@ -643,3 +653,12 @@ button.row--button{ width:100%; text-align:left; font:inherit; cursor:pointer; b
 .project-dialog__inner .card__top{ padding-right:56px }
 .res-grid{ align-items:stretch }
 .res-item{ height:100% }
+
+/* ══ 首頁五張卡：你會得到什麼 ═══════════════════════════════ */
+.format__get{ font-size:1rem; font-weight:700; line-height:1.4 }
+/* ══ 聯絡區：LINE QR ════════════════════════════════════════ */
+.qr{ display:flex; align-items:center; gap:var(--s4) }
+.qr__img{ width:112px; height:112px; border-radius:16px; background:#fff; padding:8px; box-shadow:0 12px 30px -12px rgba(0,0,0,.4) }
+.qr__text{ display:flex; flex-direction:column; gap:4px; font-size:.95rem }
+.qr__text .en{ opacity:.85 }
+.t-head{ display:block }

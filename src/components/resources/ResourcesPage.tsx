@@ -63,7 +63,7 @@ export function ResourcesPage() {
           <div className="wrap">
             <div className="filters reveal" data-filter-group="" data-filter-target="#resource-list" data-filter-empty="#resource-empty" role="group" aria-label="資源類型篩選">
               {filters.map(([cat, en, zh], index) => (
-                <button className="filter" type="button" data-filter={cat} aria-pressed={index === 0} data-en={en} key={cat}>{zh}</button>
+                <button className="filter" type="button" id={`filter-${cat}`} data-filter={cat} aria-pressed={index === 0} data-en={en} key={cat}>{zh}</button>
               ))}
             </div>
             <div className="res-grid" id="resource-list" data-stagger="">

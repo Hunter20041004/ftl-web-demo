@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/ui/SplitTitle";
 import { SitePageShell } from "@/components/layout/SitePageShell";
 import { EventList } from "@/components/events/EventList";
 import { books, chainSeries, lectures, semester, workshops, type CalendarKind } from "@/lib/content";
@@ -61,7 +62,7 @@ export function EventsPage() {
                     <span className="card__index num">Week {String(lecture.week).padStart(2, "0")} · {lecture.date}</span>
                     <span className="tag" data-en="Lecture">講座</span>
                   </div>
-                  <h3 className="h2" data-en={lecture.titleEn}>{lecture.title}</h3>
+                  <h3 className="h2" data-en={lecture.titleEn}><SplitTitle text={lecture.title} /></h3>
                   <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn}>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`}>{lecture.role}，{lecture.org}</span></p>
                   <p className="card__body" data-en={lecture.abstractEn}>{lecture.abstract}</p>
                   <ul className="bio">
@@ -85,7 +86,7 @@ export function EventsPage() {
                     <span className="card__index num">Week {String(workshop.week).padStart(2, "0")} · {workshop.date}</span>
                     <span className="tag tag--cyan" data-en="Workshop">工作坊</span>
                   </div>
-                  <h3 className="h3" data-en={workshop.titleEn}>{workshop.title}</h3>
+                  <h3 className="h3" data-en={workshop.titleEn}><SplitTitle text={workshop.title} /></h3>
                   <p className="card__body"><b data-en="Goal｜">核心目標｜</b><span data-en={workshop.goalEn}>{workshop.goal}</span></p>
                   <ul className="bullets-plain">
                     {workshop.modules.map(([name, body], i) => <li key={name}><b data-en={workshop.modulesEn[i][0]}>{name}</b>　<span data-en={workshop.modulesEn[i][1]}>{body}</span></li>)}
@@ -141,7 +142,7 @@ export function EventsPage() {
                 <article className="card card--row reveal reveal--rise" key={course.n}>
                   <span className="principle__n">{course.n}</span>
                   <div>
-                    <h3 className="h3" data-en={course.titleEn}>{course.title}</h3>
+                    <h3 className="h3" data-en={course.titleEn}><SplitTitle text={course.title} /></h3>
                     <p className="keywords en" data-en={course.keywordsEn}>{course.keywords}</p>
                     <p className="card__body" data-en={course.hookEn}>{course.hook}</p>
                     <p className="card__body" data-en={course.bodyEn}>{course.body}</p>

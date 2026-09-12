@@ -37,7 +37,9 @@ export function InsightsPage() {
                   <div className="card issue__story reveal reveal--rise" key={story.title}>
                     <span className="issue__n num">{String(i + 1).padStart(2, "0")}</span>
                     <h2 className="h2" data-en={story.titleEn}>{story.title}</h2>
-                    <p className="card__body" data-en={story.summaryEn}>{story.summary}</p>
+                    {story.summary.split("\n\n").map((para, j) => (
+                      <p className="card__body" data-en={story.summaryEn.split("\n\n")[j] ?? story.summaryEn} key={j}>{para}</p>
+                    ))}
                     <details className="issue__sources">
                       <summary data-en="Sources">來源</summary>
                       <ul>
@@ -70,7 +72,9 @@ export function InsightsPage() {
                     {issue.stories.map((story) => (
                       <div key={story.title}>
                         <h3 className="h3" data-en={story.titleEn}>{story.title}</h3>
-                        <p className="card__body" data-en={story.summaryEn}>{story.summary}</p>
+                        {story.summary.split("\n\n").map((para, j) => (
+                      <p className="card__body" data-en={story.summaryEn.split("\n\n")[j] ?? story.summaryEn} key={j}>{para}</p>
+                    ))}
                         <p className="dim" style={{ fontSize: ".9rem" }}><span data-en="Sources: ">來源：</span>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : ""}<a href={s.href} target="_blank" rel="noopener noreferrer" data-en={s.labelEn}>{s.label}</a></span>)}</p>
                       </div>
                     ))}

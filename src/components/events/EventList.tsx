@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { books, calendar, calendarKinds, lectures, workshops, type CalendarItem } from "@/lib/content";
+import { SplitTitle } from "@/components/ui/SplitTitle";
 import { withBasePath } from "@/lib/site-data";
 
 function Icon({ name }: { name: string }) {
@@ -23,7 +24,7 @@ function Detail({ item }: { item: CalendarItem }) {
         <span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en}>{calendarKinds[item.kind].zh}</span>
         <span className="card__index num">Week {String(item.week).padStart(2, "0")} · {item.date} · <span data-en="Wednesday">週三</span></span>
       </div>
-      <h3 className="h2" data-en={item.en}>{item.zh}</h3>
+      <h3 className="h2" data-en={item.en}><SplitTitle text={item.zh} /></h3>
       {lecture ? (
         <>
           <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn}>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`}>{lecture.role}，{lecture.org}</span></p>

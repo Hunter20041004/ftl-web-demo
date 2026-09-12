@@ -21,12 +21,14 @@ const channels = [
 
 // 我們做的五件事：每張連到對應的內頁段落
 // 寫給「對社團有興趣的人」：每張卡講你加入後會得到什麼
+// 五張卡用同一個句型：「你會得到什麼」（粗體一句）＋「怎麼得到」（一句）。
+// 順序照一個學期的學習路徑：先聽（講座）→ 動手（工作坊）→ 讀與說（讀書會）→ 做出成果（專案）→ 認識人（交流）。
 const formats = [
-  { icon: "users", zh: "講座", en: "Lectures", bodyZh: "直接聽業界的人講他們正在做的事：一學期三位講者，來自三個不同領域。", bodyEn: "Hear people from the industry talk about what they are actually doing: three speakers a semester, from three different sectors.", href: "/events/#lectures" },
-  { icon: "layers", zh: "工作坊", en: "Workshops", bodyZh: "動手做，不只聽。三場實作，離開時你手上會有原型、提案或簡報。", bodyEn: "Build, not just listen. Three hands-on sessions; you leave with a prototype, a proposal or a pitch deck.", href: "/events/#workshops" },
-  { icon: "book", zh: "英語讀書會", en: "English reading club", bodyZh: "用英文討論三本金融科技的書，把專業英文練到能開口。", bodyEn: "Discuss three FinTech books entirely in English and get comfortable speaking the professional vocabulary.", href: "/events/#reading" },
-  { icon: "rocket", zh: "專案", en: "Projects", bodyZh: "跟不同科系的人組隊，做出一個能放進履歷、能公開展示的成果。", bodyEn: "Team up across departments and build something you can put on a résumé and show in public.", href: "/projects/" },
-  { icon: "sparkle", zh: "交流", en: "Networking", bodyZh: "認識校友、業師和其他社員：networking 會、雞尾酒會、期中與期末聚餐。", bodyEn: "Meet alumni, mentors and other members: networking night, cocktail party, mid-term and end-of-term dinners.", href: "/events/#calendar" },
+  { icon: "users", zh: "講座", en: "Lectures", getZh: "對產業的第一手理解", getEn: "First-hand understanding of the industry", bodyZh: "每學期三位來自不同領域的業界講者，講他們正在解決的問題與判斷的依據。", bodyEn: "Three industry speakers a semester, each from a different sector, on the problems they are solving and how they decide.", href: "/events/#lectures" },
+  { icon: "layers", zh: "工作坊", en: "Workshops", getZh: "把想法做成東西的能力", getEn: "The ability to turn an idea into something real", bodyZh: "三場實作，從痛點拆解到原型、提案與簡報；每一場結束時，手上都有一個做出來的成品。", bodyEn: "Three hands-on sessions, from pain points to prototype, proposal and pitch; you leave each one with something built.", href: "/events/#workshops" },
+  { icon: "book", zh: "英語讀書會", en: "English reading club", getZh: "能開口談專業的英文", getEn: "English you can use to talk shop", bodyZh: "三本金融科技的書，全程英文導讀與討論，把課堂上學到的東西用英文講出來。", bodyEn: "Three FinTech books, presented and discussed entirely in English, so what you learn in class becomes something you can say.", href: "/events/#reading" },
+  { icon: "rocket", zh: "專案", en: "Projects", getZh: "一個可以展示的成果", getEn: "Something you can show", bodyZh: "把講座聽到的與工作坊做過的組合起來，與不同科系的社員組隊，完成一個能放進履歷、公開展示的專案。", bodyEn: "Combine what you heard in lectures and built in workshops: team up across departments and finish a project you can put on a résumé and show in public.", href: "/projects/" },
+  { icon: "sparkle", zh: "交流", en: "Networking", getZh: "會在之後幫到你的人", getEn: "People who will help you later", bodyZh: "校友 networking 會、雞尾酒會與學期聚餐，認識已經在業界的校友、業師，和跟你一起做專案的人。", bodyEn: "Alumni networking, a cocktail party and semester dinners: meet alumni already in the industry, mentors, and the people you build with.", href: "/events/#calendar" },
 ];
 
 // 首頁順序：這是誰 → 做什麼 → 本週 → 最新週報 → 專案 → 合作對象 → 聯絡。每段都是摘要，細節在內頁。
@@ -59,7 +61,7 @@ export function HomePage() {
             <div className="sec-head reveal reveal--fade">
               <div>
                 <h2 className="h1" data-en="Who we are">我們是誰</h2>
-                <p className="lead mt-4" data-en="If you are curious about FinTech but don’t know where to start, this is the place: NCCU’s first FinTech student society, open to every department and year including graduate students, guided by the NCCU College of Commerce FinTech Research Center. One session every Wednesday — here is what you get.">如果你對金融科技有興趣、但不知道從哪裡開始，這裡就是起點：政大第一個 FinTech 學術社團，不分科系與年級、含研究所，由政大商學院金融科技研究中心指導成立。每週三一堂社課，你會得到這五件事。</p>
+                <p className="lead mt-4" data-en="If you are curious about FinTech but don’t know where to start, this is the place: open to every department and year including graduate students, guided by the NCCU College of Commerce FinTech Research Center.">如果你對金融科技有興趣、但不知道從哪裡開始，這裡就是起點：不分科系與年級、含研究所，由政大商學院金融科技研究中心指導成立。</p>
               </div>
               <a className="link-arrow" href="/about/"><span data-en="About us">關於我們</span><Icon name="arrow-right" /></a>
             </div>
@@ -68,6 +70,7 @@ export function HomePage() {
                 <a className="card format reveal reveal--rise" href={f.href} key={f.zh}>
                   <span className="ios-row__icon"><Icon name={f.icon} /></span>
                   <h3 className="h3" data-en={f.en}>{f.zh}</h3>
+                  <p className="format__get grad-text" data-en={f.getEn}>{f.getZh}</p>
                   <p className="card__body" data-en={f.bodyEn}>{f.bodyZh}</p>
                 </a>
               ))}
@@ -152,6 +155,11 @@ export function HomePage() {
                 <div>
                   <h2 className="h1" data-en="Contact">聯絡我們</h2>
                   <p className="lead mt-4" data-en="Recruitment and session questions: LINE Bot. Collaboration and press: email.">招募與社課問題找 LINE Bot；合作與採訪請寄 Email。</p>
+                  <div className="qr mt-6">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- QR code，靜態檔 */}
+                    <img className="qr__img" src={withBasePath("/assets/line-qr.png")} alt="LINE Bot QR code" width={480} height={480} loading="lazy" />
+                    <div className="qr__text"><b data-en="Scan to add the LINE Bot">掃描加入 LINE Bot</b><span className="en">@nccufintechlab</span></div>
+                  </div>
                 </div>
                 <div className="ios-list" data-stagger>
                   {channels.map(([href, icon, label, meta]) => (

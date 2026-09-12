@@ -87,6 +87,14 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator("h1")).toContainText("events");
   });
 
+  test("resources page opened with #filter-book pre-selects the book filter", async ({ page }) => {
+    await page.goto(`${basePath}/resources/#filter-book`);
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator('.filter[data-filter="book"]')).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(0);
+    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(4);
+  });
+
   test("resources filter by type and books show covers", async ({ page }) => {
     await page.goto(`${basePath}/resources/`);
     await page.waitForLoadState("networkidle");
