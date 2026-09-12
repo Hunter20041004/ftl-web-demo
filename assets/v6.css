@@ -154,7 +154,7 @@ a{ color:inherit }
   transition:transform 160ms var(--ease), box-shadow var(--dur) ease, background-color var(--dur) ease;
 }
 .btn:active{ transform:scale(.98) }
-.btn--primary{ background:var(--g-cta); color:#fff; box-shadow:var(--shadow-cta) }
+.btn--primary{ background:var(--g-brand); color:#fff; box-shadow:var(--shadow-cta) }
 @media (hover:hover) and (pointer:fine){
   .btn:hover{ transform:translateY(-2px); box-shadow:var(--glass-hi), var(--shadow-lift) }
   .btn--primary:hover{ box-shadow:0 18px 40px -14px rgba(66,112,199,.8), 0 8px 24px -10px rgba(126,220,250,.6) }

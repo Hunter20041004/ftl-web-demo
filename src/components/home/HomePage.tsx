@@ -32,11 +32,10 @@ export function HomePage() {
                   <span data-en="NCCU FinTech">政大金融科技</span><br />
                   <span className="grad-text" data-en="Innovation Lab">創新實驗室</span>
                 </h1>
-                <p className="hero__sub" data-en="NCCU’s first FinTech student society · AI × FinTech × Business">政大第一個 FinTech 學術社團 · AI × FinTech × Business</p>
-                <p className="lead hero__desc" data-en="Every Wednesday this semester: 3 industry lectures, 3 hands-on workshops, 3 English reading sessions, plus alumni networking. Project-member applications are open until 09/17.">這學期每週三：3 場業界講座、3 場實務工作坊、3 場英語讀書會，加上校友交流。專案生報名至 9/17。</p>
+                <p className="hero__sub en">NCCU FinTech Innovation Lab</p>
+                <p className="lead hero__desc" data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</p>
                 <div className="hero__cta">
-                  <a className="btn btn--primary btn--lg" href="/about/#join"><span data-en="Apply as a project member">報名專案生</span><Icon name="arrow-right" /></a>
-                  <a className="btn btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
+                  <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
                 </div>
               </div>
               <LogoDraw />
