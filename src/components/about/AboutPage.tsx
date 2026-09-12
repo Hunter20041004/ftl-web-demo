@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/site-data";
 import { SitePageShell } from "@/components/layout/SitePageShell";
 import { MembershipTabs } from "@/components/about/MembershipTabs";
 import { leadership, membership } from "@/lib/content";
@@ -65,7 +66,7 @@ export function AboutPage() {
                   <li><b data-en="English reading club｜">英語讀書會｜</b><span data-en="Three books, discussed entirely in English.">三本書，全程英文討論。</span></li>
                   <li><b data-en="Networking｜">交流｜</b><span data-en="Alumni networking, a cocktail party and semester dinners.">校友 networking 會、雞尾酒會、期中與期末聚餐。</span></li>
                 </ul>
-                <a className="link-arrow mt-5" href="/events/#lectures"><span data-en="See this semester’s courses">看這學期的課程</span><Icon name="arrow-right" /></a>
+                <a className="link-arrow mt-5" href={withBasePath("/events/#lectures")}><span data-en="See this semester’s courses">看這學期的課程</span><Icon name="arrow-right" /></a>
             </div>
           </div>
         </section>

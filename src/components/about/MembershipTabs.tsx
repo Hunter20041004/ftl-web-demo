@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { membership } from "@/lib/content";
+import { withBasePath } from "@/lib/site-data";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -116,7 +117,7 @@ export function MembershipTabs() {
               <>
                 <h3 className="h2" data-en="Attend sessions">上社課</h3>
                 <p className="card__body mt-3" data-en="Auditors are not eligible for the attendance reward.">旁聽生不適用出席獎勵金。</p>
-                <a className="link-arrow mt-4" href="/events/"><span data-en="Semester calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
+                <a className="link-arrow mt-4" href={withBasePath("/events/")}><span data-en="Semester calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
               </>
             )}
           </div>

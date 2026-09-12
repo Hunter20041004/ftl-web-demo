@@ -48,7 +48,7 @@ export function HomePage() {
                 <p className="lead hero__desc" data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</p>
                 <div className="hero__cta">
                   <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
-                  <a className="btn btn--lg" href="/about/#membership" data-en="Membership info">社員相關資訊</a>
+                  <a className="btn btn--lg" href={withBasePath("/about/#membership")} data-en="Membership info">社員相關資訊</a>
                 </div>
               </div>
               <LogoDraw />
@@ -63,11 +63,11 @@ export function HomePage() {
                 <h2 className="h1" data-en="Who we are">我們是誰</h2>
                 <p className="lead mt-4" data-en="If you are curious about FinTech but don’t know where to start, this is the place: open to every department and year including graduate students, guided by the NCCU College of Commerce FinTech Research Center.">如果你對金融科技有興趣、但不知道從哪裡開始，這裡就是起點：不分科系與年級、含研究所，由政大商學院金融科技研究中心指導成立。</p>
               </div>
-              <a className="link-arrow" href="/about/"><span data-en="About us">關於我們</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href={withBasePath("/about/")}><span data-en="About us">關於我們</span><Icon name="arrow-right" /></a>
             </div>
             <div className="formats" data-stagger>
               {formats.map((f) => (
-                <a className="card format reveal reveal--rise" href={f.href} key={f.zh}>
+                <a className="card format reveal reveal--rise" href={withBasePath(f.href)} key={f.zh}>
                   <span className="ios-row__icon"><Icon name={f.icon} /></span>
                   <h3 className="h3" data-en={f.en}>{f.zh}</h3>
                   <p className="format__get grad-text" data-en={f.getEn}>{f.getZh}</p>
@@ -82,7 +82,7 @@ export function HomePage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="This week">重要時程</h2>
-              <a className="link-arrow" href="/events/"><span data-en="Full calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href={withBasePath("/events/")}><span data-en="Full calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
             </div>
             <div className="reveal"><WeekCalendar /></div>
           </div>
@@ -92,11 +92,11 @@ export function HomePage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="FinTech Weekly">FinTech 週報</h2>
-              <a className="link-arrow" href="/insights/"><span data-en="All issues">所有期數</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href={withBasePath("/insights/")}><span data-en="All issues">所有期數</span><Icon name="arrow-right" /></a>
             </div>
             <div className="grid grid-3" data-stagger>
               {weekly.slice(0, 3).map((issue, n) => (
-                <a className={`issue__cover issue__cover--link reveal reveal--rise${n === 0 ? " issue__cover--latest" : ""}`} href={`/insights/#vol-${issue.vol}`} key={issue.vol}>
+                <a className={`issue__cover issue__cover--link reveal reveal--rise${n === 0 ? " issue__cover--latest" : ""}`} href={withBasePath(`/insights/#vol-${issue.vol}`)} key={issue.vol}>
                   <span className="issue__eyebrow en" data-en={`Vol.${String(issue.vol).padStart(2, "0")}${n === 0 ? " · Latest" : ""}`}>Vol.{String(issue.vol).padStart(2, "0")}{n === 0 ? " · 最新" : ""}</span>
                   <p className="issue__range num">{issue.range}</p>
                   <ol className="issue__headlines issue__headlines--small">
@@ -112,11 +112,11 @@ export function HomePage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="Projects">專案</h2>
-              <a className="link-arrow" href="/projects/"><span data-en="All projects">所有專案</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href={withBasePath("/projects/")}><span data-en="All projects">所有專案</span><Icon name="arrow-right" /></a>
             </div>
             <div className="grid grid-3" data-stagger>
               {projectDecks.map((deck) => (
-                <a className="card project-teaser reveal reveal--rise" href={`/projects/#${deck.id}`} key={deck.id}>
+                <a className="card project-teaser reveal reveal--rise" href={withBasePath(`/projects/#${deck.id}`)} key={deck.id}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
                   <img className="project-teaser__img" src={withBasePath(deck.cover)} alt="" loading="lazy" />
                   <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress">進行中</span> : <span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span>}</div>

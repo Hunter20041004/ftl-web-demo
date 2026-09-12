@@ -12,7 +12,7 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src scripts tests *.ts *.mjs",
-    "test": "npm run typecheck && npm run lint",
+    "test": "npm run typecheck && npm run lint && node scripts/check-internal-links.mjs",
     "test:visual": "playwright test tests/visual"
   },
   "dependencies": {
