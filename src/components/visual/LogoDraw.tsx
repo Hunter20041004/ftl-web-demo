@@ -2,20 +2,52 @@
 
 import { useEffect, useRef } from "react";
 import { withBasePath } from "@/lib/site-data";
+import { PIECE_DILATE, PIECE_TRANSFORM, PIECES, type PieceKey } from "@/components/visual/logo-pieces";
 
-// 首屏主視覺：三條線各自飛入、沿手描的緞帶骨架描邊，畫完後淡出換成 logo 原圖。
-// 骨架只求形似——它在 1.65s 後就被 PNG 蓋掉。座標系＝ftl-logo.png 的 733×692。
-// 動畫時序全在 assets/v6.css 的 .logo-draw 區塊；這裡只負責標記「完成」狀態給測試與樣式用。
-// 每一筆：d＝骨架路徑（733×692 座標）、w＝筆寬、at＝起筆秒數、dur＝畫完秒數。
-// 筆寬與位置是用 scratchpad/cover.mjs 量過的：五筆合起來把原圖 99.99% 的像素都刷到，
-// 所以最後整張淡入不會再「冒出」沒刷到的角落。
-const STROKES = [
-  { id: "ribbon", d: "M 55 462 L 55 120 C 55 80 80 55 120 55 L 520 55 C 590 55 620 110 565 165 L 480 380 C 468 420 490 455 548 455 L 705 455", w: 140, at: 0.25, dur: 1.5 },
-  { id: "fold", d: "M 480 95 L 455 280", w: 70, at: 1.05, dur: 0.45 },
-  { id: "arm", d: "M 40 315 C 90 258 160 226 238 214", w: 135, at: 0.45, dur: 1.1 },
-  { id: "stem", d: "M 325 105 L 325 440 C 325 480 350 500 390 500", w: 120, at: 0.65, dur: 1.2 },
-  { id: "text", d: "M 80 615 L 660 615", w: 150, at: 1.35, dur: 0.8 },
-] as const;
+// 首屏主視覺：四顆光點各自從畫面外遠處飛進來，沿著緞帶骨架走；光點走過的地方，
+// 原圖 PNG 就被「刷」出來。每支刷子只能露出自己那幾片緞帶（用分件輪廓當遮罩），
+// 所以刷子可以很寬——緞帶一出現就是完整的，不會有沒刷到的角落留到最後才補。
+// 全部刷完後一道高光斜掃過 logo 作收；之後只剩極慢的浮動。時序在 assets/v6.css。
+//
+// d＝光點／刷子的路徑（733×692 座標，起點在畫面外）、w＝刷寬、at＝起飛秒數、dur＝走完秒數。
+// 覆蓋率用 scratchpad/cover4.mjs 逐像素量過：未覆蓋 22 px（0.01%）。
+// exclude＝這支刷子「不准露出」的別人緞帶：主緞帶那支很寬（輪廓又膨脹過），經過 T 的頂端與
+// F 中臂的接縫時會提早露出對方幾個像素。用「對方的輪廓 ∩ 一個矩形」擋掉——只擋接縫以外的部分，
+// 接縫本身仍由主緞帶露出，否則會在自己的緞帶邊上留一條白縫。矩形是 PNG 座標 [x, y, w, h]。
+type Stroke = {
+  id: string; pieces: readonly PieceKey[]; clipY?: number;
+  exclude?: ReadonlyArray<{ piece: PieceKey; within: [number, number, number, number] }>;
+  d: string; w: number; at: number; dur: number;
+};
+const STROKES: ReadonlyArray<Stroke> = [
+  { id: "ribbon", pieces: ["lRibbon", "lFoot", "fStem", "top"], exclude: [{ piece: "tStem", within: [260, 108, 160, 420] }, { piece: "fArm", within: [122, 190, 200, 160] }], d: "M 55 1000 L 55 462 L 55 120 C 55 80 80 55 120 55 L 520 55 C 590 55 620 110 565 165 L 480 380 C 468 420 490 455 548 455 L 770 455", w: 240, at: 0.1, dur: 2.0 },
+  { id: "arm", pieces: ["fArm"], d: "M -760 340 L 40 315 C 90 258 160 226 238 214 L 290 208", w: 170, at: 0.9, dur: 1.25 },
+  { id: "stem", pieces: ["tStem"], d: "M 325 -520 L 325 105 L 325 440 C 325 480 350 500 390 500 L 440 500", w: 170, at: 0.5, dur: 1.4 },
+  { id: "text", pieces: [], clipY: 530, d: "M -760 615 L 80 615 L 720 615", w: 150, at: 1.5, dur: 1.0 },
+];
+
+// 光點的緩動要跟刷子的 CSS 緩動一模一樣，兩者才會走在同一個點上（assets/v6.css 的 logo-draw）
+const EASE = "0.45 0.05 0.25 1";
+
+// 刷子是圓頭的，刷出來的前緣比刷子中心點超前「半個筆寬」。要讓前緣剛好停在光點上：
+// 刷子的路徑往起點方向多退半個筆寬、光點的路徑在終點方向多走半個筆寬——兩條一樣長，
+// 用同一組緩動走，任何時刻「刷子中心＋半寬」就等於光點位置。
+const NUM = /-?\d+(?:\.\d+)?/g;
+function extendStart(d: string, by: number) {
+  const [x1, y1, x2, y2] = (d.match(NUM) ?? []).slice(0, 4).map(Number);
+  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+  const sx = x1 - ((x2 - x1) / len) * by;
+  const sy = y1 - ((y2 - y1) / len) * by;
+  return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${x1} ${y1} ${d.slice(d.indexOf("L"))}`;
+}
+function extendEnd(d: string, by: number) {
+  const nums = (d.match(NUM) ?? []).map(Number);
+  const [x1, y1, x2, y2] = nums.slice(-4);
+  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+  const ex = x2 + ((x2 - x1) / len) * by;
+  const ey = y2 + ((y2 - y1) / len) * by;
+  return `${d} L ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+}
 
 export function LogoDraw() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -47,24 +79,66 @@ export function LogoDraw() {
     <div ref={rootRef} className="logo-draw" data-logo-state="drawing" aria-hidden="true">
       <svg className="logo-draw__svg" viewBox="0 0 733 692">
         <defs>
-          {/* 遮罩：粗筆沿骨架描邊，筆到哪裡原圖就露出到哪裡 */}
+          <radialGradient id="logo-comet">
+            <stop offset="0" stopColor="#fff" />
+            <stop offset=".35" stopColor="#BFF0FF" stopOpacity=".95" />
+            <stop offset="1" stopColor="#1668E3" stopOpacity="0" />
+          </radialGradient>
+          <filter id="logo-comet-blur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          {/* 擋別人緞帶用的矩形（見 Stroke.exclude） */}
+          {STROKES.flatMap((stroke) => (stroke.exclude ?? []).map(({ piece, within: [x, y, w, h] }) => (
+            <clipPath key={`${stroke.id}-${piece}`} id={`logo-exclude-${stroke.id}-${piece}`}><rect x={x} y={y} width={w} height={h} /></clipPath>
+          )))}
+          {/* 每支刷子的「可露出範圍」：自己那幾片緞帶的輪廓（膨脹一點，接縫才不會留白），再挖掉別人的 */}
+          {STROKES.map((stroke) => (
+            <mask key={stroke.id} id={`logo-piece-${stroke.id}`} maskUnits="userSpaceOnUse" x="-1000" y="-1000" width="3000" height="3000">
+              {stroke.pieces.length ? (
+                <g transform={PIECE_TRANSFORM}>
+                  {stroke.pieces.map((key) => (
+                    <path key={key} d={PIECES[key]} fill="#fff" stroke="#fff" strokeWidth={PIECE_DILATE} strokeLinejoin="round" />
+                  ))}
+                </g>
+              ) : (
+                <rect x="0" y={stroke.clipY} width="733" height={692 - (stroke.clipY ?? 0)} fill="#fff" />
+              )}
+              {stroke.exclude?.map(({ piece }) => (
+                <g key={piece} clipPath={`url(#logo-exclude-${stroke.id}-${piece})`}>
+                  <g transform={PIECE_TRANSFORM}><path d={PIECES[piece]} fill="#000" /></g>
+                </g>
+              ))}
+            </mask>
+          ))}
+          {/* 總遮罩：四支刷子各在自己的範圍內描邊 */}
           <mask id="logo-draw-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="733" height="692">
             {STROKES.map((stroke) => (
-              <path
-                key={stroke.id}
-                className="logo-draw__brush"
-                d={stroke.d}
-                pathLength={1}
-                strokeWidth={stroke.w}
-                style={{ animationDelay: `${stroke.at}s`, animationDuration: `${stroke.dur}s` }}
-              />
+              <g key={stroke.id} mask={`url(#logo-piece-${stroke.id})`}>
+                <path
+                  className="logo-draw__brush"
+                  d={extendStart(stroke.d, stroke.w / 2)}
+                  pathLength={1}
+                  strokeWidth={stroke.w}
+                  style={{ animationDelay: `${stroke.at}s`, animationDuration: `${stroke.dur}s` }}
+                />
+              </g>
             ))}
           </mask>
         </defs>
         <image className="logo-draw__paint" href={logoSrc} width="733" height="692" mask="url(#logo-draw-mask)" />
+        {/* 光點：SMIL animateMotion 走同一條路徑、同一組緩動，所以永遠在刷子的前緣 */}
+        {STROKES.map((stroke) => (
+          <g key={stroke.id} className="logo-draw__comet" style={{ animationDelay: `${stroke.at}s`, animationDuration: `${stroke.dur}s` }}>
+            <circle r="30" fill="url(#logo-comet)" filter="url(#logo-comet-blur)" opacity=".8" />
+            <circle r="9" fill="#fff" />
+            <animateMotion path={extendEnd(stroke.d, stroke.w / 2)} begin={`${stroke.at}s`} dur={`${stroke.dur}s`} fill="freeze" calcMode="spline" keyTimes="0;1" keySplines={EASE} />
+          </g>
+        ))}
       </svg>
       {/* eslint-disable-next-line @next/next/no-img-element -- 靜態匯出、PNG 原圖，不走 next/image */}
       <img className="logo-draw__img" src={logoSrc} alt="" width={733} height={692} />
+      {/* 高光：一道斜的亮帶用 logo 本身當遮罩掃過去，掃完消失，logo 本體不變 */}
+      <div className="logo-draw__shine" style={{ WebkitMaskImage: `url(${logoSrc})`, maskImage: `url(${logoSrc})` }} />
     </div>
   );
 }
