@@ -53,9 +53,9 @@ export function ProjectsWall() {
           <button type="button" className="card project-teaser reveal reveal--rise" data-project={deck.id} id={deck.id} key={deck.id} onClick={() => { history.replaceState(null, "", `#${deck.id}`); setOpen(deck); }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
             <img className="project-teaser__img" src={withBasePath(deck.cover)} alt="" loading="lazy" />
-            <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress">進行中</span> : <span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span>}</div>
-            <p className="card__body" data-en={deck.taglineEn}>{deck.tagline}</p>
-            <div className="tag-row">{deck.tags.map((tag, i) => <span className="tag" key={tag} data-en={deck.tagsEn[i]}>{tag}</span>)}</div>
+            <div className="card__top"><h3 className="h3" data-en={deck.nameEn} suppressHydrationWarning>{deck.name}</h3>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress" suppressHydrationWarning>進行中</span> : <span className="tag tag--ghost" data-en={deck.ownerEn} suppressHydrationWarning>{deck.owner}</span>}</div>
+            <p className="card__body" data-en={deck.taglineEn} suppressHydrationWarning>{deck.tagline}</p>
+            <div className="tag-row">{deck.tags.map((tag, i) => <span className="tag" key={tag} data-en={deck.tagsEn[i]} suppressHydrationWarning>{tag}</span>)}</div>
           </button>
         ))}
       </div>

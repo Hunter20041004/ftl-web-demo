@@ -26,7 +26,7 @@ export function SiteHeader() {
   return (
     <>
       <div id="site-header">
-        <a className="skip" href="#main" data-en="Skip to main content">跳到主要內容</a>
+        <a className="skip" href="#main" data-en="Skip to main content" suppressHydrationWarning>跳到主要內容</a>
         <header className="nav" data-stuck="false">
           <div className="wrap nav__inner">
             <a className="brand" href={withBasePath("/")} aria-label="NCCU FinTech Innovation Lab">
@@ -39,7 +39,7 @@ export function SiteHeader() {
                   key={item.href}
                   className="nav__link"
                   href={withBasePath(item.href)}
-                  data-en={item.en}
+                  data-en={item.en} suppressHydrationWarning
                   aria-current={current === item.href ? "page" : undefined}
                 >
                   {item.zh}
@@ -47,10 +47,10 @@ export function SiteHeader() {
               ))}
             </nav>
             <div className="nav__side">
-              <div className="lang" data-lang="zh" role="group" aria-label="Language / 語言">
+              <div className="lang" data-lang="zh" role="group" aria-label="Language / 語言" suppressHydrationWarning>
                 <span className="lang__slider" aria-hidden="true" />
-                <button className="lang__btn" type="button" data-set-lang="zh" aria-pressed="true">中文</button>
-                <button className="lang__btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+                <button className="lang__btn" type="button" data-set-lang="zh" aria-pressed="true" suppressHydrationWarning>中文</button>
+                <button className="lang__btn" type="button" data-set-lang="en" aria-pressed="false" suppressHydrationWarning>EN</button>
               </div>
               <button className="nav__burger" type="button" data-menu-open aria-label="開啟選單" aria-expanded="false">
                 <Icon name="menu" />
@@ -76,13 +76,13 @@ export function SiteHeader() {
                   href={withBasePath(item.href)}
                   aria-current={current === item.href ? "page" : undefined}
                 >
-                  <span data-en={item.en}>{item.zh}</span>
+                  <span data-en={item.en} suppressHydrationWarning>{item.zh}</span>
                   <Icon name="chevron-right" />
                 </a>
               ))}
             </nav>
             <div className="sheet__foot">
-              <a className="btn btn--primary btn--block btn--lg" href={withBasePath("/contact/")} data-en="Join FTL">加入 FTL</a>
+              <a className="btn btn--primary btn--block btn--lg" href={withBasePath("/contact/")} data-en="Join FTL" suppressHydrationWarning>加入 FTL</a>
             </div>
           </div>
         </div>
@@ -98,10 +98,10 @@ function FooterColumn({ title, en, items }: {
 }) {
   return (
     <div>
-      <h4 data-en={en}>{title}</h4>
+      <h4 data-en={en} suppressHydrationWarning>{title}</h4>
       <div className="footer__list">
         {items.map((item) => (
-          <a key={item.zh} href={item.href.startsWith("/") ? withBasePath(item.href) : item.href} data-en={item.en}>{item.zh}</a>
+          <a key={item.zh} href={item.href.startsWith("/") ? withBasePath(item.href) : item.href} data-en={item.en} suppressHydrationWarning>{item.zh}</a>
         ))}
       </div>
     </div>
@@ -116,7 +116,7 @@ export function SiteFooter() {
         <div className="footer__top">
           <div className="footer__brand">
             <img className="flogo" src={logoSrc} alt="FTL · FinTech Lab · NCCU" />
-            <p data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</p>
+            <p data-en="Finance × Technology × Industry × Practice" suppressHydrationWarning>金融 × 科技 × 產學 × 實作</p>
             <div className="social">
               {socialItems.map((item) => (
                 <a key={item.href} href={item.href} aria-label={item.label} title={item.label}>
@@ -148,8 +148,8 @@ export function SiteFooter() {
       </div>
       <div className="footer__bar">
         <div className="wrap footer__bottom">
-          <span data-en="© 2026 NCCU FinTech Innovation Lab">© 2026 政大金融科技創新實驗室</span>
-          <span data-en="Guided by the NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心 指導成立</span>
+          <span data-en="© 2026 NCCU FinTech Innovation Lab" suppressHydrationWarning>© 2026 政大金融科技創新實驗室</span>
+          <span data-en="Guided by the NCCU College of Commerce FinTech Research Center" suppressHydrationWarning>政大商學院金融科技研究中心 指導成立</span>
         </div>
       </div>
     </footer>

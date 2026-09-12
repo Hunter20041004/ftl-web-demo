@@ -21,22 +21,22 @@ function Detail({ item }: { item: CalendarItem }) {
   return (
     <div className="event-detail">
       <div className="card__top">
-        <span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en}>{calendarKinds[item.kind].zh}</span>
-        <span className="card__index num">Week {String(item.week).padStart(2, "0")} · {item.date} · <span data-en="Wednesday">週三</span></span>
+        <span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en} suppressHydrationWarning>{calendarKinds[item.kind].zh}</span>
+        <span className="card__index num">Week {String(item.week).padStart(2, "0")} · {item.date} · <span data-en="Wednesday" suppressHydrationWarning>週三</span></span>
       </div>
-      <h3 className="h2" data-en={item.en}><SplitTitle text={item.zh} /></h3>
+      <h3 className="h2"><SplitTitle text={item.zh} en={item.en} /></h3>
       {lecture ? (
         <>
-          <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn}>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`}>{lecture.role}，{lecture.org}</span></p>
-          <p className="card__body" data-en={lecture.abstractEn}>{lecture.abstract}</p>
-          <ul className="bio">{lecture.bio.map((line, i) => <li key={line} data-en={lecture.bioEn[i]}>{line}</li>)}</ul>
+          <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn} suppressHydrationWarning>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`} suppressHydrationWarning>{`${lecture.role}，${lecture.org}`}</span></p>
+          <p className="card__body" data-en={lecture.abstractEn} suppressHydrationWarning>{lecture.abstract}</p>
+          <ul className="bio">{lecture.bio.map((line, i) => <li key={line} data-en={lecture.bioEn[i]} suppressHydrationWarning>{line}</li>)}</ul>
         </>
       ) : null}
       {workshop ? (
         <>
-          <p className="card__body"><b data-en="Goal｜">核心目標｜</b><span data-en={workshop.goalEn}>{workshop.goal}</span></p>
-          <ul className="bullets-plain">{workshop.modules.map(([name, body], i) => <li key={name}><b data-en={workshop.modulesEn[i][0]}>{name}</b>　<span data-en={workshop.modulesEn[i][1]}>{body}</span></li>)}</ul>
-          <p className="card__body" data-en={item.noteEn}>{item.note}</p>
+          <p className="card__body"><b data-en="Goal｜" suppressHydrationWarning>核心目標｜</b><span data-en={workshop.goalEn} suppressHydrationWarning>{workshop.goal}</span></p>
+          <ul className="bullets-plain">{workshop.modules.map(([name, body], i) => <li key={name}><b data-en={workshop.modulesEn[i][0]} suppressHydrationWarning>{name}</b>　<span data-en={workshop.modulesEn[i][1]} suppressHydrationWarning>{body}</span></li>)}</ul>
+          <p className="card__body" data-en={item.noteEn} suppressHydrationWarning>{item.note}</p>
         </>
       ) : null}
       {book ? (
@@ -45,14 +45,14 @@ function Detail({ item }: { item: CalendarItem }) {
           <img className="book__cover" src={withBasePath(book.cover)} alt="" />
           <div>
             <p className="dim en">{book.author}</p>
-            <p className="card__body" data-en={book.synopsisEn}>{book.synopsis}</p>
+            <p className="card__body" data-en={book.synopsisEn} suppressHydrationWarning>{book.synopsis}</p>
             <ul className="bullets-plain en">{book.topics.map((t) => <li key={t}>{t}</li>)}</ul>
-            <p className="card__body" data-en={item.noteEn}>{item.note}</p>
+            <p className="card__body" data-en={item.noteEn} suppressHydrationWarning>{item.note}</p>
           </div>
         </div>
       ) : null}
-      {!lecture && !workshop && !book ? <p className="card__body" data-en={item.noteEn}>{item.note}</p> : null}
-      {item.counts ? <p className="counts"><Icon name="check" /><span data-en="Counts toward the attendance reward">計入出席獎勵金</span></p> : null}
+      {!lecture && !workshop && !book ? <p className="card__body" data-en={item.noteEn} suppressHydrationWarning>{item.note}</p> : null}
+      {item.counts ? <p className="counts"><Icon name="check" /><span data-en="Counts toward the attendance reward" suppressHydrationWarning>計入出席獎勵金</span></p> : null}
     </div>
   );
 }
@@ -86,18 +86,18 @@ export function EventList() {
             >
               <span className="row__date num"><b>{item.date}</b><span>W{String(item.week).padStart(2, "0")}</span></span>
               <div className="row__main">
-                <div className="row__title" data-en={item.en}>{item.zh}</div>
-                <div className="row__meta"><span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en}>{calendarKinds[item.kind].zh}</span><span data-en={item.noteEn}>{item.note}</span></div>
+                <div className="row__title" data-en={item.en} suppressHydrationWarning>{item.zh}</div>
+                <div className="row__meta"><span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en} suppressHydrationWarning>{calendarKinds[item.kind].zh}</span><span data-en={item.noteEn} suppressHydrationWarning>{item.note}</span></div>
               </div>
               <span className="row__side">
-                {item.counts ? <span className="counts" title="計入出席獎勵金"><Icon name="check" /><span data-en="Counts">計入</span></span> : null}
+                {item.counts ? <span className="counts" title="計入出席獎勵金"><Icon name="check" /><span data-en="Counts" suppressHydrationWarning>計入</span></span> : null}
                 {!muted ? <Icon name="chevron-right" /> : null}
               </span>
             </Tag>
           );
         })}
       </div>
-      <div className="empty" id="event-empty" data-show="false"><Icon name="calendar" /><p data-en="Nothing in this category.">這個類型沒有場次。</p></div>
+      <div className="empty" id="event-empty" data-show="false"><Icon name="calendar" /><p data-en="Nothing in this category." suppressHydrationWarning>這個類型沒有場次。</p></div>
       <dialog ref={dialogRef} className="project-dialog" onClose={onNativeClose} onClick={(e) => { if (e.target === e.currentTarget) setOpen(null); }}>
         {open ? (
           <div className="project-dialog__inner">

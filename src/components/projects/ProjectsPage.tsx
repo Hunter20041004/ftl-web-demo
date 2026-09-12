@@ -8,8 +8,8 @@ export function ProjectsPage() {
       <main id="main" className="page">
         <section className="pagehead">
           <div className="wrap reveal">
-            <span className="eyebrow" data-en="Projects">專案</span>
-            <h1 className="h1" data-en="What members have built">社員做過的專案</h1>
+            <span className="eyebrow" data-en="Projects" suppressHydrationWarning>專案</span>
+            <h1 className="h1" data-en="What members have built" suppressHydrationWarning>社員做過的專案</h1>
           </div>
         </section>
         <section className="section--tight section">

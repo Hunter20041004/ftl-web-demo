@@ -31,7 +31,7 @@ export function MembershipTabs() {
             className={`mtabs__tab${kind === k ? " mtabs__tab--on" : ""}`}
             aria-selected={kind === k}
             data-membership-tab={k}
-            data-en={membership.types[i].en}
+            data-en={membership.types[i].en} suppressHydrationWarning
             onClick={() => setKind(k)}
           >
             {membership.types[i].name}
@@ -44,9 +44,9 @@ export function MembershipTabs() {
           <span className="flow__n">1</span>
           <div className="flow__body">
             <div className="card">
-              <div className="card__top"><h3 className="h2" data-en={type.en}>{type.name}</h3><span className="tag num" data-en={type.feeEn}>{type.fee}</span></div>
-              <p className="card__body"><b data-en="How｜">入社方式｜</b><span data-en={type.howEn}>{type.how}</span></p>
-              <p className="card__body"><b data-en="Includes｜">包含｜</b><span data-en={type.perksEn}>{type.perks}</span></p>
+              <div className="card__top"><h3 className="h2" data-en={type.en} suppressHydrationWarning>{type.name}</h3><span className="tag num" data-en={type.feeEn} suppressHydrationWarning>{type.fee}</span></div>
+              <p className="card__body"><b data-en="How｜" suppressHydrationWarning>入社方式｜</b><span data-en={type.howEn} suppressHydrationWarning>{type.how}</span></p>
+              <p className="card__body"><b data-en="Includes｜" suppressHydrationWarning>包含｜</b><span data-en={type.perksEn} suppressHydrationWarning>{type.perks}</span></p>
             </div>
           </div>
         </article>
@@ -56,21 +56,21 @@ export function MembershipTabs() {
           <div className="flow__body">
             {kind === "project" ? (
               <>
-                <h3 className="h2" data-en="Screening and interview">書審與面試</h3>
-                <p className="card__body mt-3" data-en="Fill in the Google form and submit a résumé; interviews are held in groups.">填寫 Google 表單並繳交履歷，面試採團體面試。</p>
+                <h3 className="h2" data-en="Screening and interview" suppressHydrationWarning>書審與面試</h3>
+                <p className="card__body mt-3" data-en="Fill in the Google form and submit a résumé; interviews are held in groups." suppressHydrationWarning>填寫 Google 表單並繳交履歷，面試採團體面試。</p>
                 <ol className="timeline-glass mt-5">
                   {membership.timeline.map((step) => (
                     <li className="tstep" key={step.date}>
                       <span className="tstep__date num">{step.date}</span>
-                      <span className="tstep__label" data-en={step.en}>{step.zh}</span>
+                      <span className="tstep__label" data-en={step.en} suppressHydrationWarning>{step.zh}</span>
                     </li>
                   ))}
                 </ol>
               </>
             ) : (
               <>
-                <h3 className="h2" data-en="No screening">免書審</h3>
-                <p className="card__body mt-3" data-en="Auditors join at any time of the year through the LINE Bot.">全年隨時透過 LINE Bot 繳費入社。</p>
+                <h3 className="h2" data-en="No screening" suppressHydrationWarning>免書審</h3>
+                <p className="card__body mt-3" data-en="Auditors join at any time of the year through the LINE Bot." suppressHydrationWarning>全年隨時透過 LINE Bot 繳費入社。</p>
               </>
             )}
           </div>
@@ -79,10 +79,10 @@ export function MembershipTabs() {
         <article className="flow__step reveal in" id="payment">
           <span className="flow__n">3</span>
           <div className="flow__body">
-            <h3 className="h2"><span data-en="Pay">繳費</span>　<span className="grad-text num" data-en={type.feeEn}>{type.fee}</span></h3>
+            <h3 className="h2"><span data-en="Pay" suppressHydrationWarning>繳費</span>　<span className="grad-text num" data-en={type.feeEn} suppressHydrationWarning>{type.fee}</span></h3>
             <ol className="steps mt-4">
               {membership.payment.map((step, index) => (
-                <li className="card" key={step}><span className="numchip">{index + 1}</span><p className="card__body" data-en={kind === "auditor" && index === 0 ? "Add the official LINE Bot and fill in your basic details." : membership.paymentEn[index]}>{kind === "auditor" && index === 0 ? "加入官方 LINE Bot，完成基本資料填寫。" : step}</p></li>
+                <li className="card" key={step}><span className="numchip">{index + 1}</span><p className="card__body" data-en={kind === "auditor" && index === 0 ? "Add the official LINE Bot and fill in your basic details." : membership.paymentEn[index]} suppressHydrationWarning>{kind === "auditor" && index === 0 ? "加入官方 LINE Bot，完成基本資料填寫。" : step}</p></li>
               ))}
             </ol>
           </div>
@@ -93,31 +93,31 @@ export function MembershipTabs() {
           <div className="flow__body">
             {kind === "project" ? (
               <>
-                <h3 className="h2" data-en="Attendance reward">出席獎勵金</h3>
+                <h3 className="h2" data-en="Attendance reward" suppressHydrationWarning>出席獎勵金</h3>
                 <div className="grid grid-2 mt-4" style={{ alignItems: "start" }}>
                   <div className="panel">
                     <table className="tiers">
-                      <thead><tr><th data-en="Sessions attended (of 11)">出席堂數（計 11 堂）</th><th data-en="Reward">獎勵金</th></tr></thead>
+                      <thead><tr><th data-en="Sessions attended (of 11)" suppressHydrationWarning>出席堂數（計 11 堂）</th><th data-en="Reward" suppressHydrationWarning>獎勵金</th></tr></thead>
                       <tbody>
                         {membership.reward.tiers.map(([sessions, amount, sessionsEn, amountEn]) => (
-                          <tr key={sessions}><td data-en={sessionsEn}>{sessions}</td><td className="num"><b className="grad-text" data-en={amountEn}>{amount}</b></td></tr>
+                          <tr key={sessions}><td data-en={sessionsEn} suppressHydrationWarning>{sessions}</td><td className="num"><b className="grad-text" data-en={amountEn} suppressHydrationWarning>{amount}</b></td></tr>
                         ))}
                       </tbody>
                     </table>
-                    <p className="card__body mt-4" data-en={membership.reward.countedSessionsEn}>{membership.reward.countedSessions}</p>
+                    <p className="card__body mt-4" data-en={membership.reward.countedSessionsEn} suppressHydrationWarning>{membership.reward.countedSessions}</p>
                   </div>
                   <div className="stack" style={{ gap: 14 }}>
-                    <div className="card"><h4 className="h3" data-en="How attendance is counted">出席怎麼算</h4><p className="card__body" data-en={membership.reward.attendanceEn}>{membership.reward.attendance}</p></div>
-                    <div className="card"><h4 className="h3" data-en="When it is paid">什麼時候發</h4><p className="card__body" data-en={membership.reward.payoutEn}>{membership.reward.payout}</p></div>
-                    <div className="card"><h4 className="h3" data-en="Points prize (separate)">積分獎金（另計）</h4><p className="card__body" data-en={membership.reward.pointsEn}>{membership.reward.points}</p></div>
+                    <div className="card"><h4 className="h3" data-en="How attendance is counted" suppressHydrationWarning>出席怎麼算</h4><p className="card__body" data-en={membership.reward.attendanceEn} suppressHydrationWarning>{membership.reward.attendance}</p></div>
+                    <div className="card"><h4 className="h3" data-en="When it is paid" suppressHydrationWarning>什麼時候發</h4><p className="card__body" data-en={membership.reward.payoutEn} suppressHydrationWarning>{membership.reward.payout}</p></div>
+                    <div className="card"><h4 className="h3" data-en="Points prize (separate)" suppressHydrationWarning>積分獎金（另計）</h4><p className="card__body" data-en={membership.reward.pointsEn} suppressHydrationWarning>{membership.reward.points}</p></div>
                   </div>
                 </div>
               </>
             ) : (
               <>
-                <h3 className="h2" data-en="Attend sessions">上社課</h3>
-                <p className="card__body mt-3" data-en="Auditors are not eligible for the attendance reward.">旁聽生不適用出席獎勵金。</p>
-                <a className="link-arrow mt-4" href={withBasePath("/events/")}><span data-en="Semester calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
+                <h3 className="h2" data-en="Attend sessions" suppressHydrationWarning>上社課</h3>
+                <p className="card__body mt-3" data-en="Auditors are not eligible for the attendance reward." suppressHydrationWarning>旁聽生不適用出席獎勵金。</p>
+                <a className="link-arrow mt-4" href={withBasePath("/events/")}><span data-en="Semester calendar" suppressHydrationWarning>整學期行事曆</span><Icon name="arrow-right" /></a>
               </>
             )}
           </div>

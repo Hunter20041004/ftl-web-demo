@@ -96,27 +96,27 @@ export function WeekCalendar() {
   return (
     <div className="week" data-week-start={fmt(monday)} data-week-offset={offset}>
       <div className="week__bar">
-        <p className="week__range num">{fmt(monday)} – {fmt(sunday)}{offset === 0 ? <span className="week__now" data-en="This week">本週</span> : null}</p>
+        <p className="week__range num">{fmt(monday)} – {fmt(sunday)}{offset === 0 ? <span className="week__now" data-en="This week" suppressHydrationWarning>本週</span> : null}</p>
         <div className="week__nav">
           <button type="button" className="week__btn" data-week-nav="prev" aria-label="上一週" disabled={offset <= MIN_OFFSET} onClick={() => setOffset((o) => Math.max(MIN_OFFSET, o - 1))}>‹</button>
-          <button type="button" className="week__btn week__btn--text" data-week-nav="today" disabled={offset === 0} onClick={() => setOffset(0)} data-en="Today">回到本週</button>
+          <button type="button" className="week__btn week__btn--text" data-week-nav="today" disabled={offset === 0} onClick={() => setOffset(0)} data-en="Today" suppressHydrationWarning>回到本週</button>
           <button type="button" className="week__btn" data-week-nav="next" aria-label="下一週" disabled={offset >= MAX_OFFSET} onClick={() => setOffset((o) => Math.min(MAX_OFFSET, o + 1))}>›</button>
         </div>
       </div>
       <ol className="week__grid" key={fmt(monday)}>
         {days.map((day, i) => (
           <li className={`week__day${sameDay(day.date, today) ? " week__day--today" : ""}${day.items.length ? "" : " week__day--empty"}`} key={i}>
-            <span className="week__head"><b data-en={DAY_NAMES_EN[i]}>週{DAY_NAMES[i]}</b><span className="num">{fmt(day.date)}</span></span>
+            <span className="week__head"><b data-en={DAY_NAMES_EN[i]} suppressHydrationWarning>{`週${DAY_NAMES[i]}`}</b><span className="num">{fmt(day.date)}</span></span>
             <ul className="week__items">
               {day.items.map((item) => (
-                <li key={item.label}><span className={item.tagClass} data-en={item.kindEn}>{item.kind}</span><span data-en={item.labelEn}>{item.label}</span></li>
+                <li key={item.label}><span className={item.tagClass} data-en={item.kindEn} suppressHydrationWarning>{item.kind}</span><span data-en={item.labelEn} suppressHydrationWarning>{item.label}</span></li>
               ))}
             </ul>
           </li>
         ))}
       </ol>
       {isEmptyWeek && next ? (
-        <p className="week__next" data-en={`Nothing this week. Next: ${fmt(next.date)} ${next.item.labelEn ?? next.item.label}`}>本週沒有排程。下一項：{fmt(next.date)} {next.item.label}</p>
+        <p className="week__next" data-en={`Nothing this week. Next: ${fmt(next.date)} ${next.item.labelEn ?? next.item.label}`} suppressHydrationWarning>{`本週沒有排程。下一項：${fmt(next.date)} ${next.item.label}`}</p>
       ) : null}
     </div>
   );

@@ -17,9 +17,9 @@ export function ContactPage() {
       <main id="main" className="page">
         <section className="pagehead">
           <div className="wrap reveal">
-            <span className="eyebrow" data-en="Contact">聯絡我們</span>
-            <h1 className="h1" data-en="Contact">聯絡方式</h1>
-            <p className="lead" data-en="Membership and session questions: LINE Bot. Collaboration proposals: email.">入社與社課問題透過 LINE Bot；合作提案請寄 Email。</p>
+            <span className="eyebrow" data-en="Contact" suppressHydrationWarning>聯絡我們</span>
+            <h1 className="h1" data-en="Contact" suppressHydrationWarning>聯絡方式</h1>
+            <p className="lead" data-en="Membership and session questions: LINE Bot. Collaboration proposals: email." suppressHydrationWarning>入社與社課問題透過 LINE Bot；合作提案請寄 Email。</p>
           </div>
         </section>
 
@@ -29,10 +29,10 @@ export function ContactPage() {
               <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "center" }}>
                 <div>
                   <span className="ios-row__icon contact-channel__mark"><Icon name="message" /></span>
-                  <h2 className="h1 mt-5" data-en="FTL LINE Bot">FTL LINE Bot</h2>
-                  <p className="lead mt-4" data-en="Recruitment questions, payment, session reminders and check-in all run through the LINE Bot. When it can’t help, an officer takes over.">招募問題、繳費、社課提醒與簽到都在 LINE Bot 上。答不出來時由幹部接手。</p>
+                  <h2 className="h1 mt-5" data-en="FTL LINE Bot" suppressHydrationWarning>FTL LINE Bot</h2>
+                  <p className="lead mt-4" data-en="Recruitment questions, payment, session reminders and check-in all run through the LINE Bot. When it can’t help, an officer takes over." suppressHydrationWarning>招募問題、繳費、社課提醒與簽到都在 LINE Bot 上。答不出來時由幹部接手。</p>
                   <div className="hero__cta mt-6">
-                    <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add on LINE">加入好友</span></a>
+                    <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add on LINE" suppressHydrationWarning>加入好友</span></a>
                     <a className="btn btn--lg" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>Email</span></a>
                   </div>
                 </div>
@@ -58,8 +58,8 @@ export function ContactPage() {
                 <h2 className="h2">Email</h2>
                 <a className="btn btn--primary btn--lg mt-6" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>nccufintechlab@gmail.com</span></a>
                 <dl className="info-list mt-6">
-                  <div className="info"><dt data-en="Instagram">Instagram</dt><dd><a href="https://www.instagram.com/nccufintechlab/" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
-                  <div className="info"><dt data-en="Threads">Threads</dt><dd><a href="https://www.threads.com/@nccufintechlab" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
+                  <div className="info"><dt data-en="Instagram" suppressHydrationWarning>Instagram</dt><dd><a href="https://www.instagram.com/nccufintechlab/" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
+                  <div className="info"><dt data-en="Threads" suppressHydrationWarning>Threads</dt><dd><a href="https://www.threads.com/@nccufintechlab" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
                 </dl>
               </div>
 

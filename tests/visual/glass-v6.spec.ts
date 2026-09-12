@@ -85,6 +85,18 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForFunction(() => !!document.body && !document.documentElement.classList.contains("lang-pending"));
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await expect(page.locator("h1")).toContainText("events");
+    // 翻譯不能等 React 掛載：DOM 一解析完就要是英文，而且 React 掛載後不能因為對不上而重畫回中文
+    const errors: string[] = [];
+    page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
+    page.on("pageerror", (e) => errors.push(String(e)));
+    await page.goto(`${basePath}/about/`, { waitUntil: "domcontentloaded" });
+    const atDcl = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", pending: document.documentElement.classList.contains("lang-pending"), hydrated: !!document.querySelector("[data-hydrated]") }));
+    expect(atDcl.h1).toContain("NCCU FinTech Innovation Lab");
+    expect(atDcl.pending).toBe(false);
+    await page.waitForLoadState("networkidle");
+    await page.waitForFunction(() => !!document.querySelector("[data-hydrated]"));
+    await expect(page.locator("h1")).toContainText("NCCU FinTech Innovation Lab");
+    expect(errors.filter((e) => /hydrat/i.test(e))).toEqual([]);
   });
 
   test("resources page opened with #filter-book pre-selects the book filter", async ({ page }) => {
@@ -135,6 +147,10 @@ test.describe("glass-v6 homepage", () => {
     await expect(dialog).toHaveAttribute("open", "");
     const deck = dialog.locator('[data-deck="course-scheduler"]');
     await expect(deck).toHaveAttribute("data-slide", "0");
+    // 投影片本身要看得到：手機上曾經只剩下面的按鈕列，舞台高度是 0
+    const slide = deck.locator(".deck__slide").first();
+    await expect(slide.locator(".deck__title")).toBeVisible();
+    expect((await slide.boundingBox())?.height ?? 0).toBeGreaterThan(160);
     await deck.locator("[data-deck-nav=next]").click();
     await expect(deck).toHaveAttribute("data-slide", "1");
     await expect(deck.locator(".deck__title")).toContainText("選課要同時顧");

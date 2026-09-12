@@ -26,19 +26,19 @@ function ResourceCard({ item }: { item: Resource }) {
   const isJob = item.kind === "job";
   const inner = (
     <>
-      <div className="card__top"><span className="ios-row__icon"><Icon name={kindIcon[item.kind]} /></span><span className={kindTag[item.kind]} data-en={item.kindEn}>{item.kindZh}</span></div>
-      <h3 className="h3" data-en={item.titleEn}>{item.title}</h3>
-      <p className="dim" style={{ fontSize: ".95rem" }} data-en={item.orgEn}>{item.org}</p>
-      <p className="card__body" data-en={item.summaryEn}>{item.summary}</p>
+      <div className="card__top"><span className="ios-row__icon"><Icon name={kindIcon[item.kind]} /></span><span className={kindTag[item.kind]} data-en={item.kindEn} suppressHydrationWarning>{item.kindZh}</span></div>
+      <h3 className="h3" data-en={item.titleEn} suppressHydrationWarning>{item.title}</h3>
+      <p className="dim" style={{ fontSize: ".95rem" }} data-en={item.orgEn} suppressHydrationWarning>{item.org}</p>
+      <p className="card__body" data-en={item.summaryEn} suppressHydrationWarning>{item.summary}</p>
       {item.details ? (
         <details className="issue__sources">
-          <summary data-en="Details">工作內容與條件</summary>
-          <ul className="bullets-plain">{item.details.map((line, i) => <li key={line} data-en={item.detailsEn?.[i]}>{line}</li>)}</ul>
-          {item.contact ? <p className="card__body mt-4"><b data-en="Contact｜">聯絡｜</b><span data-en="Aaron Chao｜Human Resources｜aaron.chao@chubb.com｜02-8161-1988 #8719">{item.contact}</span></p> : null}
+          <summary data-en="Details" suppressHydrationWarning>工作內容與條件</summary>
+          <ul className="bullets-plain">{item.details.map((line, i) => <li key={line} data-en={item.detailsEn?.[i]} suppressHydrationWarning>{line}</li>)}</ul>
+          {item.contact ? <p className="card__body mt-4"><b data-en="Contact｜" suppressHydrationWarning>聯絡｜</b><span data-en="Aaron Chao｜Human Resources｜aaron.chao@chubb.com｜02-8161-1988 #8719" suppressHydrationWarning>{item.contact}</span></p> : null}
         </details>
       ) : null}
       <div className="card__foot">
-        {isJob ? <a className="link-arrow" href="mailto:aaron.chao@chubb.com"><span data-en="Apply now">立即投遞</span><Icon name="arrow-up-right" /></a> : <><span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source">開啟來源</span><Icon name="arrow-up-right" /></>}
+        {isJob ? <a className="link-arrow" href="mailto:aaron.chao@chubb.com"><span data-en="Apply now" suppressHydrationWarning>立即投遞</span><Icon name="arrow-up-right" /></a> : <><span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source" suppressHydrationWarning>開啟來源</span><Icon name="arrow-up-right" /></>}
       </div>
     </>
   );
@@ -54,8 +54,8 @@ export function ResourcesPage() {
       <main id="main" className="page">
         <section className="pagehead">
           <div className="wrap reveal">
-            <span className="eyebrow" data-en="Resources">資源</span>
-            <h1 className="h1" data-en="Jobs, scholarships, programs and books">職缺、獎學金、計畫與書單</h1>
+            <span className="eyebrow" data-en="Resources" suppressHydrationWarning>資源</span>
+            <h1 className="h1" data-en="Jobs, scholarships, programs and books" suppressHydrationWarning>職缺、獎學金、計畫與書單</h1>
           </div>
         </section>
 
@@ -63,7 +63,7 @@ export function ResourcesPage() {
           <div className="wrap">
             <div className="filters reveal" data-filter-group="" data-filter-target="#resource-list" data-filter-empty="#resource-empty" role="group" aria-label="資源類型篩選">
               {filters.map(([cat, en, zh], index) => (
-                <button className="filter" type="button" id={`filter-${cat}`} data-filter={cat} aria-pressed={index === 0} data-en={en} key={cat}>{zh}</button>
+                <button className="filter" type="button" id={`filter-${cat}`} data-filter={cat} aria-pressed={index === 0} data-en={en} suppressHydrationWarning key={cat}>{zh}</button>
               ))}
             </div>
             <div className="res-grid" id="resource-list" data-stagger="">
@@ -73,15 +73,15 @@ export function ResourcesPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element -- 靜態封面圖 */}
                   <img className="book__cover" src={withBasePath(book.cover)} alt="" loading="lazy" />
                   <div className="book__body">
-                    <span className="tag tag--warn" data-en="Book">書單</span>
+                    <span className="tag tag--warn" data-en="Book" suppressHydrationWarning>書單</span>
                     <h3 className="h3 en">{book.title}</h3>
                     <p className="dim en" style={{ fontSize: ".95rem" }}>{book.author}</p>
-                    <p className="card__body" data-en={book.synopsisEn}>{book.synopsis}</p>
+                    <p className="card__body" data-en={book.synopsisEn} suppressHydrationWarning>{book.synopsis}</p>
                   </div>
                 </article>
               ))}
             </div>
-            <div className="empty" id="resource-empty" data-show="false"><Icon name="inbox" /><p data-en="Nothing in this category.">這個類型目前沒有項目。</p></div>
+            <div className="empty" id="resource-empty" data-show="false"><Icon name="inbox" /><p data-en="Nothing in this category." suppressHydrationWarning>這個類型目前沒有項目。</p></div>
           </div>
         </section>
       </main>
