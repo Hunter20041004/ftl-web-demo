@@ -1,0 +1,101 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
+import { calendar, calendarKinds, membership } from "@/lib/content";
+
+// 首頁「重要時程」：一週七天（週一到週日）的日曆，每次載入依今天的日期算出本週，
+// 所以每週自動換頁。資料來自 content.ts 的行事曆與招募時程（都是 2026 年）。
+// 靜態匯出沒有伺服器，所以「今天」在瀏覽器端算；SSR 先畫出開學那一週，載入後再換成本週。
+
+type DayItem = { label: string; labelEn?: string; kind: string; tagClass: string };
+
+const YEAR = 2026;
+const DAY_NAMES = ["一", "二", "三", "四", "五", "六", "日"];
+const DAY_NAMES_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+function parseMonthDay(mmdd: string) {
+  const [m, d] = mmdd.split("/").map(Number);
+  return new Date(YEAR, m - 1, d);
+}
+
+function sameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function mondayOf(date: Date) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const offset = (d.getDay() + 6) % 7; // 週一＝0
+  d.setDate(d.getDate() - offset);
+  return d;
+}
+
+// 把兩份資料攤平成「某一天有什麼」。招募時程的日期區間（09/14 – 09/17）逐日展開。
+function buildItems(): Array<{ date: Date; item: DayItem }> {
+  const out: Array<{ date: Date; item: DayItem }> = [];
+  for (const entry of calendar) {
+    if (entry.kind === "school") continue;
+    out.push({ date: parseMonthDay(entry.date), item: { label: entry.zh, labelEn: entry.en, kind: calendarKinds[entry.kind].zh, tagClass: calendarKinds[entry.kind].tag } });
+  }
+  // 招募的日期區間（09/14 – 09/17）只標開始與截止兩天，不然一整排都是同一句
+  for (const step of membership.timeline) {
+    const [start, end] = step.date.split("–").map((s) => s.trim());
+    const from = parseMonthDay(start);
+    if (!end) {
+      out.push({ date: from, item: { label: step.zh, labelEn: step.en, kind: "招募", tagClass: "tag tag--ok" } });
+      continue;
+    }
+    const to = parseMonthDay(end);
+    const short = step.zh.split("；")[0].split("（")[0];
+    const shortEn = step.en;
+    out.push({ date: from, item: { label: `${short} 開始`, labelEn: `${shortEn} opens`, kind: "招募", tagClass: "tag tag--ok" } });
+    out.push({ date: to, item: { label: `${short} 截止`, labelEn: `${shortEn} closes`, kind: "招募", tagClass: "tag tag--ok" } });
+  }
+  return out;
+}
+
+const ITEMS = buildItems();
+const SEMESTER_START = parseMonthDay("09/09");
+
+// 「今天」用 useSyncExternalStore 拿：伺服器端（靜態匯出）回傳開學日，瀏覽器端回傳真正的今天，
+// 不會有 hydration 不一致，也不用在 effect 裡 setState。
+const noop = () => () => {};
+function useToday() {
+  const key = useSyncExternalStore(noop, () => new Date().toDateString(), () => SEMESTER_START.toDateString());
+  return new Date(key);
+}
+
+export function WeekCalendar() {
+  const today = useToday();
+
+  const monday = mondayOf(today);
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
+    return { date, items: ITEMS.filter((entry) => sameDay(entry.date, date)).map((entry) => entry.item) };
+  });
+  const sunday = days[6].date;
+  const fmt = (d: Date) => `${d.getMonth() + 1}/${String(d.getDate()).padStart(2, "0")}`;
+  const isEmptyWeek = days.every((day) => day.items.length === 0);
+  const next = ITEMS.filter((entry) => entry.date > sunday).sort((a, b) => a.date.getTime() - b.date.getTime())[0];
+
+  return (
+    <div className="week" data-week-start={fmt(monday)}>
+      <p className="week__range num">{fmt(monday)} – {fmt(sunday)}</p>
+      <ol className="week__grid">
+        {days.map((day, i) => (
+          <li className={`week__day${sameDay(day.date, today) ? " week__day--today" : ""}${day.items.length ? "" : " week__day--empty"}`} key={i}>
+            <span className="week__head"><b data-en={DAY_NAMES_EN[i]}>週{DAY_NAMES[i]}</b><span className="num">{fmt(day.date)}</span></span>
+            <ul className="week__items">
+              {day.items.map((item) => (
+                <li key={item.label}><span className={item.tagClass}>{item.kind}</span><span data-en={item.labelEn}>{item.label}</span></li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+      {isEmptyWeek && next ? (
+        <p className="week__next" data-en={`Nothing this week. Next: ${fmt(next.date)} ${next.item.labelEn ?? next.item.label}`}>本週沒有排程。下一項：{fmt(next.date)} {next.item.label}</p>
+      ) : null}
+    </div>
+  );
+}

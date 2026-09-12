@@ -1,6 +1,7 @@
 import { SitePageShell } from "@/components/layout/SitePageShell";
 import { LogoDraw } from "@/components/visual/LogoDraw";
-import { calendar, calendarKinds, lectures, membership, partners, semester } from "@/lib/content";
+import { WeekCalendar } from "@/components/home/WeekCalendar";
+import { partners } from "@/lib/content";
 
 function Icon({ name, className = "icon" }: { name: string; className?: string }) {
   return (
@@ -17,9 +18,8 @@ const channels = [
   ["mailto:nccufintechlab@gmail.com", "mail", "Email", "nccufintechlab@gmail.com"],
 ];
 
-// 首頁只放三件事：現在正在招募、這學期上什麼、怎麼找到我們。細節都在內頁。
+// 首頁只放三件事：本週重要時程、怎麼找到我們、合作對象。細節都在內頁。
 export function HomePage() {
-  const upcoming = calendar.filter((item) => item.kind !== "school").slice(1, 5);
   return (
     <SitePageShell>
       <main id="main" className="page" data-visual-baseline="glass-v6">
@@ -44,60 +44,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="section--tight section" id="recruit">
+        <section className="section" id="schedule">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Recruitment">招募時程</span><h2 className="h1" data-en="Project-member admissions, 115-1">115-1 專案生招募</h2></div>
-              <a className="link-arrow" href="/about/#join"><span data-en="Fees, rewards and how to apply">社費、獎勵金與報名方式</span><Icon name="arrow-right" /></a>
+              <h2 className="h1" data-en="This week">重要時程</h2>
+              <a className="link-arrow" href="/events/"><span data-en="Full calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
             </div>
-            <ol className="timeline-glass" data-stagger>
-              {membership.timeline.map((step) => (
-                <li className={`tstep reveal${step.done ? " tstep--done" : ""}`} key={step.date}>
-                  <span className="tstep__date num">{step.date}</span>
-                  <span className="tstep__label" data-en={step.en}>{step.zh}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="section section--alt" id="semester">
-          <div className="wrap">
-            <div className="sec-head reveal reveal--fade">
-              <div>
-                <span className="eyebrow" data-en="This semester">本學期</span>
-                <h2 className="h1" data-en={`${semester.range} · ${semester.meetingDayEn}`}>{semester.range} · {semester.meetingDay}</h2>
-                <p className="lead mt-4" data-en={semester.conceptEn}>{semester.concept}</p>
-              </div>
-              <a className="link-arrow" href="/events/#lectures"><span data-en="Full course plan">完整課程規劃</span><Icon name="arrow-right" /></a>
-            </div>
-            <div className="principles" data-stagger>
-              {lectures.map((lecture) => (
-                <a className="principle glass reveal reveal--rise" href="/events/#lectures" key={lecture.week}>
-                  <span className="principle__n">{lecture.date}</span>
-                  <h3>{lecture.title}</h3>
-                  <p>{lecture.speaker}｜{lecture.role}，{lecture.org}</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="events">
-          <div className="wrap">
-            <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Upcoming">近期社課</span><h2 className="h1" data-en="Next four sessions">接下來四堂</h2></div>
-              <a className="link-arrow" href="/events/"><span data-en="Semester calendar">整學期行事曆</span><Icon name="arrow-right" /></a>
-            </div>
-            <div className="agenda" data-stagger>
-              {upcoming.map((item, index) => (
-                <a className={`card card--event ${index === 0 ? "card--event-lead " : ""}reveal reveal--rise`} href="/events/" key={item.week}>
-                  <div className="card__top"><span className={calendarKinds[item.kind].tag} data-en={calendarKinds[item.kind].en}>{calendarKinds[item.kind].zh}</span><span className="card__index num">{item.date} · W{item.week}</span></div>
-                  <h3 className="h3" data-en={item.en}>{item.zh}</h3>
-                  <p className="card__body" data-en={item.noteEn}>{item.note}</p>
-                </a>
-              ))}
-            </div>
+            <div className="reveal"><WeekCalendar /></div>
           </div>
         </section>
 
@@ -106,9 +59,8 @@ export function HomePage() {
             <div className="wrap" style={{ paddingBlock: "clamp(40px,5vw,72px)" }}>
               <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "center" }}>
                 <div>
-                  <span className="eyebrow" data-en="Get in touch">聯絡我們</span>
-                  <h2 className="h1" data-en="Questions? Ask the LINE Bot">有問題，先問 LINE Bot</h2>
-                  <p className="lead mt-4" data-en="Recruitment questions, session reminders and check-in all run through the LINE Bot. A person takes over when it can’t answer.">招募問題、社課提醒、簽到都在 LINE Bot 上。答不出來的會轉給幹部。</p>
+                  <h2 className="h1" data-en="Contact">聯絡我們</h2>
+                  <p className="lead mt-4" data-en="Recruitment and session questions: LINE Bot. Collaboration and press: email.">招募與社課問題找 LINE Bot；合作與採訪請寄 Email。</p>
                   <div className="hero__cta mt-6">
                     <a className="btn" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
                     <a className="btn btn--primary" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>Email</span></a>
@@ -131,14 +83,14 @@ export function HomePage() {
         <section className="section--tight section" id="partners">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade" style={{ marginBottom: 24 }}>
-              <div><span className="eyebrow" data-en="Partners & speakers">合作單位與講者</span><h2 className="h2" data-en="Who we work with this semester">這學期一起合作的單位</h2></div>
+              <h2 className="h1" data-en="Partners">合作對象</h2>
             </div>
           </div>
           <div className="marquee reveal">
             <div className="marquee__track">
               <div className="marquee__group">
                 {partners.map((partner) => (
-                  <div className="partner" key={partner.en}><span className="partner__dot" /><span><b data-en={partner.en}>{partner.zh}</b><span data-en={partner.subEn}>{partner.sub}</span></span></div>
+                  <div className="partner" key={partner.en}><span className="partner__dot" /><b data-en={partner.en}>{partner.zh}</b></div>
                 ))}
               </div>
             </div>

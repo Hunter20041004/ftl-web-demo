@@ -26,7 +26,7 @@ export function AboutPage() {
           <div className="wrap">
             <div className="grid grid-2" style={{ gap: "clamp(24px,4vw,48px)", alignItems: "start" }}>
               <div className="panel reveal">
-                <span className="eyebrow" data-en="Facts">成立資訊</span>
+                <h2 className="h2" data-en="Facts">成立資訊</h2>
                 <dl className="info-list">
                   <div className="info"><dt data-en="Founded">成立</dt><dd><b className="num">2026.05.10</b><br /><span className="dim" style={{ fontSize: ".9rem" }} data-en="Date of the first Instagram post">以 Instagram 第一篇貼文的日期為準</span></dd></div>
                   <div className="info"><dt data-en="Advisor">指導單位</dt><dd data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</dd></div>
@@ -36,8 +36,7 @@ export function AboutPage() {
                 </dl>
               </div>
               <div className="reveal">
-                <span className="eyebrow" data-en="How a semester works">一個學期怎麼運作</span>
-                <h2 className="h2" data-en="Four formats, in rotation">四種形式，輪流進行</h2>
+                <h2 className="h2" data-en="How a semester works">一個學期怎麼運作</h2>
                 <ul className="bullets-plain mt-4">
                   <li><b data-en="Lectures｜">講座｜</b><span data-en="Three industry speakers per semester, one each from a different sector.">每學期三位業界講者，各來自不同領域。</span></li>
                   <li><b data-en="Workshops｜">工作坊｜</b><span data-en="Three hands-on sessions led by officers and guest instructors, each producing something concrete (a prototype, a proposal, a pitch deck).">三場由幹部群與客座講師帶領的實作，每場都有產出：原型、提案、簡報。</span></li>
@@ -50,10 +49,29 @@ export function AboutPage() {
           </div>
         </section>
 
+        <section className="section--tight section" id="advisor" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div style={{ maxWidth: 720 }}>
+              <div className="panel reveal" id="center" style={{ padding: "clamp(24px,3.5vw,44px)" }}>
+                <h2 className="h2" data-en="Advisor">指導單位</h2>
+                <p className="h3 mt-4" data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</p>
+                <p className="lead mt-4" style={{ fontSize: "1rem" }} data-en="FTL was founded under the Center’s guidance. For academic collaboration or matters concerning the FinTech program, contact the Center directly.">FTL 在研究中心指導下成立。學術合作、研究夥伴，或與金融科技學程本身有關的事，請直接聯絡研究中心。</p>
+                <dl className="info-list mt-6">
+                  <div className="info"><dt data-en="Website">網站</dt><dd><a href="https://www.ftrc.nccu.edu.tw/" target="_blank" rel="noopener noreferrer">ftrc.nccu.edu.tw</a></dd></div>
+                  <div className="info"><dt data-en="Address">地址</dt><dd data-en="Room 302, 3F, Yi-Xian Building, No. 64, Sec. 2, Zhinan Rd., Wenshan Dist., Taipei 116">116 臺北市文山區指南路二段 64 號<br />逸仙樓 3 樓 302 室</dd></div>
+                  <div className="info"><dt data-en="Phone">電話</dt><dd><a href="tel:+886229393091,65306">02-2939-3091 <span data-en="ext.">分機</span> 65306</a></dd></div>
+                  <div className="info"><dt>Email</dt><dd><a href="mailto:ftrc@nccu.edu.tw">ftrc@nccu.edu.tw</a></dd></div>
+                </dl>
+                <p className="note mt-6"><Icon name="alert" /><span data-en="Sourced from the Center’s official site on 2026-09-09. Confirm with the Center before publishing.">2026-09-09 取自研究中心官網，上線前仍請向中心確認。</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section section--alt" id="members">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Officers">幹部</span><h2 className="h1" data-en="President, vice president and four departments">社長、副社長與四個部門</h2></div>
+              <h2 className="h1" data-en="Officers">幹部</h2>
               <p className="note"><Icon name="alert" /><span data-en="Names are partially masked as provided by the society.">姓名依社團提供的名單，部分遮罩。</span></p>
             </div>
             <div className="grid grid-2" style={{ marginBottom: 18 }} data-stagger>
@@ -85,7 +103,7 @@ export function AboutPage() {
         <section className="section" id="join">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Join">入社</span><h2 className="h1" data-en="How to join">入社方式</h2><p className="lead mt-4" data-en="Two membership types. No deposit: attendance is rewarded at the end of term."><b className="grad-text">{membership.reward.headline}</b>　三位業界講者、三場工作坊、三場英語讀書會、一場校友會、一場雞尾酒會，共 11 堂。不收保證金，出席獎勵金期末發放。</p></div>
+              <div><h2 className="h1" data-en="Join">入社</h2><p className="lead mt-4" data-en="Two membership types. No deposit: attendance is rewarded at the end of term."><b className="grad-text">{membership.reward.headline}</b>　三位業界講者、三場工作坊、三場英語讀書會、一場校友會、一場雞尾酒會，共 11 堂。不收保證金，出席獎勵金期末發放。</p></div>
               <a className="btn btn--primary" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Apply via LINE Bot">透過 LINE Bot 報名</span></a>
             </div>
           </div>
@@ -108,7 +126,7 @@ export function AboutPage() {
         <section className="section section--alt" id="timeline">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Project-member schedule">專案生招募時程</span><h2 className="h1" data-en="Screening → interview → results">書審 → 面試 → 公布</h2><p className="lead mt-4" data-en="Screening: fill in the Google form and submit a résumé. Interviews are held in groups.">書審：填寫 Google 表單並繳交履歷。面試採團體面試。</p></div>
+              <div><h2 className="h1" data-en="Recruitment schedule">招募時程</h2><p className="lead mt-4" data-en="Screening: fill in the Google form and submit a résumé. Interviews are held in groups.">書審：填寫 Google 表單並繳交履歷。面試採團體面試。</p></div>
             </div>
             <ol className="timeline-glass" data-stagger>
               {membership.timeline.map((step) => (
@@ -124,7 +142,7 @@ export function AboutPage() {
         <section className="section" id="reward">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Attendance reward">出席獎勵金</span><h2 className="h1" data-en="Attend more, get more back">出席越多，領回越多</h2></div>
+              <h2 className="h1" data-en="Attendance reward">出席獎勵金</h2>
             </div>
             <div className="grid grid-2" style={{ alignItems: "start" }}>
               <div className="panel reveal">
@@ -150,7 +168,7 @@ export function AboutPage() {
         <section className="section--tight section section--alt" id="payment">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Payment">繳費步驟</span><h2 className="h1" data-en="Everything runs through the LINE Bot">全部在 LINE Bot 上完成</h2></div>
+              <h2 className="h1" data-en="Payment">繳費步驟</h2>
             </div>
             <ol className="steps" data-stagger>
               {membership.payment.map((step, index) => (
@@ -164,7 +182,7 @@ export function AboutPage() {
         <section className="section" id="faq">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="FAQ">常見問題</span><h2 className="h1" data-en="FAQ">常見問題</h2></div>
+              <h2 className="h1" data-en="FAQ">常見問題</h2>
             </div>
             <div className="faq" data-stagger>
               {membership.faq.map(([q, a]) => (

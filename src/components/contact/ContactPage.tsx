@@ -56,8 +56,7 @@ export function ContactPage() {
           <div className="wrap">
             <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "start" }}>
               <div className="reveal">
-                <span className="eyebrow" data-en="Email">Email</span>
-                <h2 className="h2" data-en="Collaboration, press, sponsorship">合作、採訪、贊助</h2>
+                <h2 className="h2">Email</h2>
                 <p className="lead mt-4" data-en="Write to the society mailbox. Officers check it on weekdays.">寫信到社團信箱，幹部平日會看信。</p>
                 <a className="btn btn--primary btn--lg mt-6" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>nccufintechlab@gmail.com</span></a>
                 <dl className="info-list mt-6">
@@ -66,18 +65,6 @@ export function ContactPage() {
                 </dl>
               </div>
 
-              <div className="panel reveal" id="center" style={{ padding: "clamp(24px,3.5vw,44px)" }}>
-                <span className="eyebrow" data-en="Our advisor">指導單位</span>
-                <h2 className="h2" data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</h2>
-                <p className="lead mt-4" style={{ fontSize: "1rem" }} data-en="FTL was founded under the Center’s guidance. For academic collaboration or matters concerning the FinTech program, contact the Center directly.">FTL 在研究中心指導下成立。學術合作、研究夥伴，或與金融科技學程本身有關的事，請直接聯絡研究中心。</p>
-                <dl className="info-list mt-6">
-                  <div className="info"><dt data-en="Website">網站</dt><dd><a href="https://www.ftrc.nccu.edu.tw/" target="_blank" rel="noopener noreferrer">ftrc.nccu.edu.tw</a></dd></div>
-                  <div className="info"><dt data-en="Address">地址</dt><dd data-en="Room 302, 3F, Yi-Xian Building, No. 64, Sec. 2, Zhinan Rd., Wenshan Dist., Taipei 116">116 臺北市文山區指南路二段 64 號<br />逸仙樓 3 樓 302 室</dd></div>
-                  <div className="info"><dt data-en="Phone">電話</dt><dd><a href="tel:+886229393091,65306">02-2939-3091 <span data-en="ext.">分機</span> 65306</a></dd></div>
-                  <div className="info"><dt>Email</dt><dd><a href="mailto:ftrc@nccu.edu.tw">ftrc@nccu.edu.tw</a></dd></div>
-                </dl>
-                <p className="note mt-6"><Icon name="alert" /><span data-en="Sourced from the Center’s official site on 2026-09-09. Confirm with the Center before publishing.">2026-09-09 取自研究中心官網，上線前仍請向中心確認。</span></p>
-              </div>
             </div>
           </div>
         </section>

@@ -63,7 +63,7 @@ export function EventsPage() {
         <section className="section--tight section" id="lectures">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Expert lectures">專家講座</span><h2 className="h1" data-en="Three lectures">三場講座</h2></div>
+              <h2 className="h1" data-en="Lectures">講座</h2>
             </div>
             <div className="stack" style={{ gap: 18 }} data-stagger>
               {lectures.map((lecture) => (
@@ -87,7 +87,7 @@ export function EventsPage() {
         <section className="section section--alt" id="workshops">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Hands-on workshops">實務工作坊</span><h2 className="h1" data-en="Three workshops">三場工作坊</h2></div>
+              <h2 className="h1" data-en="Workshops">工作坊</h2>
             </div>
             <div className="grid grid-3" data-stagger>
               {workshops.map((workshop) => (
@@ -110,7 +110,7 @@ export function EventsPage() {
         <section className="section" id="reading">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Professional English reading club">專業英語讀書會</span><h2 className="h1" data-en="Three books">三本書</h2><p className="lead mt-4" data-en="Presentations, group discussion and closing remarks are all in English.">導讀簡報、小組討論與總結發言全程使用英文。</p></div>
+              <div><h2 className="h1" data-en="English reading club">英語讀書會</h2><p className="lead mt-4" data-en="Presentations, group discussion and closing remarks are all in English.">導讀簡報、小組討論與總結發言全程使用英文。</p></div>
             </div>
             <div className="grid grid-3" data-stagger>
               {books.map((book) => (
@@ -135,8 +135,7 @@ export function EventsPage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <div>
-                <span className="eyebrow" data-en="Blockchain Foundations Series">區塊鏈基礎系列課程</span>
-                <h2 className="h1" data-en="Four sessions in Chinese, one in English. No coding required.">四堂中文、一場英文。零基礎、不需程式。</h2>
+                <h2 className="h1" data-en="Blockchain Foundations Series">區塊鏈基礎系列課程</h2>
                 <p className="lead mt-4">社團主辦，{chainSeries.coHost}共同主辦，納入協會「{chainSeries.program}」。{chainSeries.format}</p>
               </div>
             </div>

@@ -30,7 +30,7 @@ export function ResourcesPage() {
         <section className="section--tight section" id="jobs">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Job openings">職缺</span><h2 className="h1" data-en="Openings sent to the society">企業提供給社團的職缺</h2></div>
+              <h2 className="h1" data-en="Jobs">職缺</h2>
             </div>
             {job ? (
               <article className="card card--feature reveal">
@@ -50,7 +50,7 @@ export function ResourcesPage() {
         <section className="section section--alt" id="opportunities">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Scholarships, programs, news">獎學金、計畫與產學動態</span><h2 className="h1" data-en="Scholarships, programs and industry news">獎學金、計畫與產學動態</h2></div>
+              <h2 className="h1" data-en="Scholarships, programs, news">獎學金、計畫與產學動態</h2>
             </div>
             <div className="grid grid-3" data-stagger>
               {others.map((item) => (
@@ -69,7 +69,7 @@ export function ResourcesPage() {
         <section className="section" id="library">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><span className="eyebrow" data-en="Reading list">書單</span><h2 className="h1" data-en="This semester’s reading list">本學期書單</h2></div>
+              <h2 className="h1" data-en="Reading list">書單</h2>
               <a className="link-arrow" href="/events/#reading"><span data-en="Discussion topics">討論題目</span><Icon name="arrow-right" /></a>
             </div>
             <div className="rows" data-stagger>

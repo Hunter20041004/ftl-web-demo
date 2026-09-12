@@ -10,7 +10,19 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForLoadState("networkidle");
     await expect(page.locator("main#main")).toHaveAttribute("data-visual-baseline", "glass-v6");
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
-    await expect(page.locator("#recruit, #semester, #events, #contact, #partners")).toHaveCount(5);
+    await expect(page.locator("#schedule, #contact, #partners")).toHaveCount(3);
+  });
+
+  test("week calendar shows the current Monday-to-Sunday week with today marked", async ({ page }) => {
+    await page.clock.setFixedTime(new Date("2026-09-24T10:00:00+08:00")); // 週四
+    await page.goto(`${basePath}/`);
+    await page.waitForLoadState("networkidle");
+    const week = page.locator("#schedule .week");
+    await expect(week).toHaveAttribute("data-week-start", "9/21");
+    await expect(week.locator(".week__day")).toHaveCount(7);
+    await expect(week.locator(".week__day--today .week__head .num")).toHaveText("9/24");
+    // 9/21 錄取公布、9/23 講座 都落在這一週
+    await expect(week.locator(".week__items li")).toContainText(["公布專案生錄取結果", "AI 時代商業模式創新"]);
   });
 
   test("logo draws in, then settles on the original image", async ({ page }) => {
@@ -28,7 +40,7 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/`);
     await page.waitForLoadState("networkidle");
     const hardLines = await page.evaluate(() => {
-      const selectors = ".card, .ios-row, .row, .partner, .principle, .tstep, .btn, .sec-head, .tag";
+      const selectors = ".card, .ios-row, .row, .partner, .principle, .tstep, .week__day, .btn, .sec-head, .tag";
       return Array.from(document.querySelectorAll<HTMLElement>(selectors)).filter((el) => {
         const cs = getComputedStyle(el);
         const solidBorder = ["Top", "Right", "Bottom", "Left"].some((side) =>
