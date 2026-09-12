@@ -24,6 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="stylesheet" href={`${basePath}/assets/ftl.css`} />
         <link rel="stylesheet" href={`${basePath}/assets/transaction-network.css`} />
         <link rel="stylesheet" href={`${basePath}/assets/transaction-panels.css`} />
+        <link rel="stylesheet" href={`${basePath}/assets/transaction-polish.css`} />
       </head>
       <body>{children}</body>
     </html>
