@@ -135,14 +135,14 @@ export function SiteFooter() {
           </div>
           <FooterColumn title="探索" en="Explore" items={[
             { href: "/about/", zh: "關於我們", en: "About" },
-            { href: "/courses/", zh: "課程", en: "Courses" },
-            { href: "/join/", zh: "入社", en: "Join" },
+            { href: "/projects/", zh: "專案", en: "Projects" },
+            { href: "/insights/", zh: "洞察", en: "Insights" },
             { href: "/events/", zh: "活動", en: "Events" },
           ]} />
           <FooterColumn title="資源" en="Resources" items={[
             { href: "/resources/#jobs", zh: "職缺與獎學金", en: "Jobs & scholarships" },
-            { href: "/courses/#blockchain", zh: "區塊鏈基礎系列課程", en: "Blockchain series" },
-            { href: "/join/#reward", zh: "出席獎勵金", en: "Attendance reward" },
+            { href: "/events/#blockchain", zh: "區塊鏈基礎系列課程", en: "Blockchain series" },
+            { href: "/about/#reward", zh: "出席獎勵金", en: "Attendance reward" },
             { href: "/events/", zh: "學期行事曆", en: "Semester calendar" },
           ]} />
           <FooterColumn title="聯絡" en="Contact" items={[

@@ -70,7 +70,7 @@ export function ResourcesPage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <div><span className="eyebrow" data-en="Reading list">書單</span><h2 className="h1" data-en="This semester’s reading list">本學期書單</h2></div>
-              <a className="link-arrow" href="/courses/#reading"><span data-en="Discussion topics">討論題目</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href="/events/#reading"><span data-en="Discussion topics">討論題目</span><Icon name="arrow-right" /></a>
             </div>
             <div className="rows" data-stagger>
               {books.map((book) => (

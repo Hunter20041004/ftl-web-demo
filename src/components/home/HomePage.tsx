@@ -35,7 +35,7 @@ export function HomePage() {
                 <p className="hero__sub" data-en="NCCU’s first FinTech student society · AI × FinTech × Business">政大第一個 FinTech 學術社團 · AI × FinTech × Business</p>
                 <p className="lead hero__desc" data-en="Every Wednesday this semester: 3 industry lectures, 3 hands-on workshops, 3 English reading sessions, plus alumni networking. Project-member applications are open until 09/17.">這學期每週三：3 場業界講座、3 場實務工作坊、3 場英語讀書會，加上校友交流。專案生報名至 9/17。</p>
                 <div className="hero__cta">
-                  <a className="btn btn--primary btn--lg" href="/join/"><span data-en="Apply as a project member">報名專案生</span><Icon name="arrow-right" /></a>
+                  <a className="btn btn--primary btn--lg" href="/about/#join"><span data-en="Apply as a project member">報名專案生</span><Icon name="arrow-right" /></a>
                   <a className="btn btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
                 </div>
               </div>
@@ -48,7 +48,7 @@ export function HomePage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <div><span className="eyebrow" data-en="Recruitment">招募時程</span><h2 className="h1" data-en="Project-member admissions, 115-1">115-1 專案生招募</h2></div>
-              <a className="link-arrow" href="/join/"><span data-en="Fees, rewards and how to apply">社費、獎勵金與報名方式</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href="/about/#join"><span data-en="Fees, rewards and how to apply">社費、獎勵金與報名方式</span><Icon name="arrow-right" /></a>
             </div>
             <ol className="timeline-glass" data-stagger>
               {membership.timeline.map((step) => (
@@ -69,11 +69,11 @@ export function HomePage() {
                 <h2 className="h1" data-en={`${semester.range} · ${semester.meetingDayEn}`}>{semester.range} · {semester.meetingDay}</h2>
                 <p className="lead mt-4" data-en={semester.conceptEn}>{semester.concept}</p>
               </div>
-              <a className="link-arrow" href="/courses/"><span data-en="Full course plan">完整課程規劃</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href="/events/#lectures"><span data-en="Full course plan">完整課程規劃</span><Icon name="arrow-right" /></a>
             </div>
             <div className="principles" data-stagger>
               {lectures.map((lecture) => (
-                <a className="principle glass reveal reveal--rise" href="/courses/#lectures" key={lecture.week}>
+                <a className="principle glass reveal reveal--rise" href="/events/#lectures" key={lecture.week}>
                   <span className="principle__n">{lecture.date}</span>
                   <h3>{lecture.title}</h3>
                   <p>{lecture.speaker}｜{lecture.role}，{lecture.org}</p>
