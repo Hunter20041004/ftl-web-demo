@@ -96,6 +96,13 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(0);
     await page.locator('.filter[data-filter="job"]').click();
     await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(1);
+    await expect(page.locator('.filter[data-filter="news"]')).toHaveCount(0);
+    // 職缺卡與旁邊的卡一樣高
+    await page.locator('.filter[data-filter="all"]').click();
+    if ((page.viewportSize()?.width ?? 0) >= 960) {
+      const heights = await page.locator(".res-grid > .res-item").evaluateAll((els) => els.slice(0, 3).map((e) => Math.round(e.getBoundingClientRect().height)));
+      expect(new Set(heights).size).toBe(1);
+    }
   });
 
   test("english mode translates long-form content, including re-rendered parts", async ({ page }) => {
@@ -140,6 +147,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator(".issue .issue__headlines li")).toHaveCount(3);
     await expect(page.locator(".issue__story")).toHaveCount(3);
     await expect(page.locator(".row--issue")).toHaveCount(2);
+    await expect(page.locator("#research .paper")).toHaveCount(6);
     // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開
     await page.goto(`${basePath}/insights/#vol-1`);
     await expect(page.locator("#vol-1")).toHaveAttribute("open", "");

@@ -641,4 +641,5 @@ button.row--button{ width:100%; text-align:left; font:inherit; cursor:pointer; b
 .event-detail__book .book__cover{ width:120px }
 @media (max-width:640px){ .event-detail__book{ grid-template-columns:1fr } }
 .project-dialog__inner .card__top{ padding-right:56px }
-.res-grid{ align-items:start }
+.res-grid{ align-items:stretch }
+.res-item{ height:100% }

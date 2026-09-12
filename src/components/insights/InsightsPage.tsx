@@ -1,5 +1,5 @@
 import { SitePageShell } from "@/components/layout/SitePageShell";
-import { weekly } from "@/lib/content";
+import { papers, weekly } from "@/lib/content";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -76,6 +76,24 @@ export function InsightsPage() {
                     ))}
                   </div>
                 </details>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section" id="research">
+          <div className="wrap">
+            <div className="sec-head reveal reveal--fade">
+              <h2 className="h1" data-en="Research">研究文章</h2>
+            </div>
+            <div className="grid grid-2" data-stagger>
+              {papers.map((paper) => (
+                <a className="card paper reveal reveal--rise" href={paper.href} target="_blank" rel="noopener noreferrer" key={paper.href}>
+                  <div className="card__top"><span className={paper.region === "tw" ? "tag tag--cyan" : "tag"} data-en={paper.region === "tw" ? "Taiwan" : "International"}>{paper.region === "tw" ? "國內" : "國外"}</span><span className="card__index num">{paper.year}</span></div>
+                  <h3 className="h3" data-en={paper.titleEn}>{paper.title}</h3>
+                  <p className="dim" style={{ fontSize: ".95rem" }} data-en={paper.authorsEn || paper.venueEn ? `${paper.authorsEn ?? paper.authors} · ${paper.venueEn ?? paper.venue}` : undefined}>{paper.authors} · {paper.venue}</p>
+                  <p className="card__body" data-en={paper.summaryEn}>{paper.summary}</p>
+                  <div className="card__foot"><span className="dim" style={{ fontSize: ".9rem" }} data-en="Read the paper">閱讀原文</span><Icon name="arrow-up-right" /></div>
+                </a>
               ))}
             </div>
           </div>

@@ -287,7 +287,7 @@ export const leadership = {
   ],
 };
 
-export type Resource = { kind: "job" | "scholarship" | "program" | "news"; kindZh: string; kindEn: string; title: string; titleEn: string; org: string; orgEn: string; summary: string; summaryEn: string; details?: string[]; detailsEn?: string[]; href?: string; contact?: string; deadline?: string };
+export type Resource = { kind: "job" | "scholarship" | "program"; kindZh: string; kindEn: string; title: string; titleEn: string; org: string; orgEn: string; summary: string; summaryEn: string; details?: string[]; detailsEn?: string[]; href?: string; contact?: string; deadline?: string };
 
 export const resources: Resource[] = [
   {
@@ -319,12 +319,6 @@ export const resources: Resource[] = [
     summary: "Anthropic 重啟校園大使計畫，分三條線：本科生 Claude Builder Club（校內 AI workshop、Hackathon、Demo Night）、研究生 Claude Campus Conversations、博士 Claude Science。",
     summaryEn: "Anthropic has relaunched its campus ambassador program in three tracks: Claude Builder Club for undergraduates (AI workshops, hackathons, demo nights), Claude Campus Conversations for graduate students, and Claude Science for PhDs.",
     href: "https://x.com/MaxForAI/status/2095196465773822266",
-  },
-  {
-    kind: "news", kindZh: "產學", kindEn: "Industry", title: "八校聯盟攜手中信金控，打造金融科技創新實戰平台", titleEn: "Eight-university alliance and CTBC build a FinTech innovation platform", org: "今周刊", orgEn: "Business Today",
-    summary: "政大金融科技研究中心主任王儷玲教授召集八校聯盟，與中國信託金控合作開設「金融科技趨勢與創新課程」並舉辦「金融科技創新提案競賽」。",
-    summaryEn: "Professor Wang Li-Ling, director of the NCCU FinTech Research Center, convened an eight-university alliance with CTBC Financial Holding to run a FinTech Trends and Innovation course and a FinTech innovation proposal competition.",
-    href: "https://www.businesstoday.com.tw/article/category/183017/post/202603170043/",
   },
 ];
 
@@ -484,4 +478,15 @@ export const projectDecks: ProjectDeck[] = [
       { kicker: K.impact[0], kickerEn: K.impact[1], title: "75.1% 準確率，並老實寫出它不代表什麼", titleEn: "75.1% accuracy — and an honest note on what it does not mean", body: "193 張標記測試集：Bad 召回率 82.8%、Good 召回率 67.0%。Model Card 明寫這不代表真實世界、子群體或身分辨識表現。", bodyEn: "193 labelled test images: Bad recall 82.8%, Good recall 67.0%. The model card states this does not establish real-world, subgroup or identity-recognition performance.", visual: { kind: "stats", items: [["75.1%", "測試集準確率", "test-set accuracy"], ["82.8%", "Bad 召回率", "Bad recall"], ["67.0%", "Good 召回率", "Good recall"]] } },
     ],
   },
+];
+
+// ── 研究文章：國內外較深度的研究，每篇附一句「在講什麼」與原文連結 ─────────────────
+export type Paper = { title: string; titleEn?: string; authors: string; authorsEn?: string; venue: string; venueEn?: string; year: number; region: "intl" | "tw"; summary: string; summaryEn: string; href: string };
+export const papers: Paper[] = [
+  { title: "On the Rise of FinTech: Credit Scoring Using Digital Footprints", authors: "Tobias Berg, Valentin Burg, Ana Gombović, Manju Puri", venue: "The Review of Financial Studies", year: 2020, region: "intl", summary: "用你在網站上留下的「數位足跡」（裝置、作業系統、下單時間、email 網域）預測違約，準確度可以比得上傳統信用評分。這是「另類信用資料」最常被引用的一篇。", summaryEn: "Digital footprints left on a website — device, OS, time of order, email domain — predict default about as well as traditional credit scores. The most-cited paper on alternative credit data.", href: "https://www.nber.org/papers/w24551" },
+  { title: "The FinTech Opportunity", authors: "Thomas Philippon", venue: "NBER Working Paper 22476", year: 2016, region: "intl", summary: "金融中介的成本一百多年來幾乎沒有下降。作者主張 FinTech 真正的機會不是把舊流程數位化，而是讓監理制度允許新進者用不同的方式提供服務。", summaryEn: "The cost of financial intermediation has barely fallen in a century. The real FinTech opportunity is not digitising old processes but a regulatory regime that lets new entrants serve differently.", href: "https://www.nber.org/papers/w22476" },
+  { title: "BigTech and the changing structure of financial intermediation", authors: "Jon Frost, Leonardo Gambacorta, Yi Huang, Hyun Song Shin, Pablo Zbinden", venue: "BIS Working Papers No. 779", year: 2019, region: "intl", summary: "大型科技平台（阿里、騰訊、Mercado Libre）靠交易資料放款，在銀行分行少、法規執行弱的地方成長最快；它們的信用模型用的是平台資料而不是抵押品。", summaryEn: "Big tech platforms (Alibaba, Tencent, Mercado Libre) lend on transaction data and grow fastest where bank branches are scarce and enforcement weak; their credit models use platform data, not collateral.", href: "https://www.bis.org/publ/work779.htm" },
+  { title: "The technology of retail central bank digital currency", authors: "Raphael Auer, Rainer Böhme", venue: "BIS Quarterly Review", year: 2020, region: "intl", summary: "把設計零售型 CBDC 的選擇整理成一棵決策樹：帳戶制或代幣制、直接或間接、集中或分散帳本。之後幾乎所有央行的 CBDC 報告都用這個框架。", summaryEn: "Organises the design choices for retail CBDC into a decision tree — account- or token-based, direct or indirect, centralised or distributed ledger — a framework almost every central bank report has since used.", href: "https://www.bis.org/publ/qtrpdf/r_qt2003j.htm" },
+  { title: "中央銀行數位貨幣（CBDC）整備狀況、以及如何因應加密貨幣跨入金融市場", titleEn: "Taiwan’s CBDC readiness and the response to crypto entering financial markets", authors: "中央銀行", authorsEn: "Central Bank of the Republic of China (Taiwan)", venue: "立法院財政委員會專題報告", venueEn: "Report to the Legislative Yuan Finance Committee", year: 2022, region: "tw", summary: "央行向立法院說明台灣 CBDC 的兩階段概念驗證（批發型、通用型）、採「雙層式」架構的理由，以及對加密貨幣進入金融市場的立場。", summaryEn: "The central bank’s report to the Legislative Yuan on Taiwan’s two-phase CBDC proof of concept (wholesale, general-purpose), why a two-tier architecture was chosen, and its stance on crypto entering financial markets.", href: "https://www.cbc.gov.tw/tw/dl-178284-f4f6c762503e41a2a1a2fd6ba7184cd3.html" },
+  { title: "國際間央行數位貨幣之最新發展趨勢", titleEn: "Recent international developments in central bank digital currency", authors: "中央銀行", authorsEn: "Central Bank of the Republic of China (Taiwan)", venue: "央行理監事會後記者會參考資料", venueEn: "Board meeting press briefing material", year: 2020, region: "tw", summary: "整理各國 CBDC 的動機、設計與進度，並說明台灣為什麼先做批發型再做通用型。適合當中文入門讀本。", summaryEn: "Surveys the motives, designs and progress of CBDC projects worldwide and explains why Taiwan started with wholesale before general-purpose CBDC. A good Chinese-language primer.", href: "https://www.cbc.gov.tw/dl-150533-c0f398c10ec44986add6b674677fc773.html" },
 ];

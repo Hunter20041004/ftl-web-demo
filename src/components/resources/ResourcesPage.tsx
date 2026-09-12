@@ -10,15 +10,14 @@ function Icon({ name }: { name: string }) {
   );
 }
 
-const kindIcon: Record<string, string> = { job: "briefcase", scholarship: "sparkle", program: "rocket", news: "news" };
-const kindTag: Record<string, string> = { job: "tag", scholarship: "tag tag--ok", program: "tag tag--cyan", news: "tag tag--ghost" };
+const kindIcon: Record<string, string> = { job: "briefcase", scholarship: "sparkle", program: "rocket" };
+const kindTag: Record<string, string> = { job: "tag", scholarship: "tag tag--ok", program: "tag tag--cyan" };
 
 const filters: Array<[string, string, string]> = [
   ["all", "All", "全部"],
   ["job", "Jobs", "職缺"],
   ["scholarship", "Scholarships", "獎學金"],
   ["program", "Programs", "計畫"],
-  ["news", "Industry", "產學"],
   ["book", "Books", "書單"],
 ];
 
@@ -39,8 +38,7 @@ function ResourceCard({ item }: { item: Resource }) {
         </details>
       ) : null}
       <div className="card__foot">
-        {isJob ? <a className="btn" href="mailto:aaron.chao@chubb.com"><Icon name="mail" /><span data-en="Email the recruiter">寫信給招募窗口</span></a> : <span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source">開啟來源</span>}
-        {isJob ? null : <Icon name="arrow-up-right" />}
+        {isJob ? <a className="link-arrow" href="mailto:aaron.chao@chubb.com"><span data-en="Apply now">立即投遞</span><Icon name="arrow-up-right" /></a> : <><span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source">開啟來源</span><Icon name="arrow-up-right" /></>}
       </div>
     </>
   );
