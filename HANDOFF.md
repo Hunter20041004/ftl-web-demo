@@ -5,10 +5,9 @@
 設計決策全部在 `docs/specs/2026-09-12-glass-v6-redesign-design.md`，本檔只寫交接與驗收。
 
 ## 分支
-- 工作分支：`redesign/glass-v6`（自 `rebuild/v1-on-new-architecture` 開出）
-- 預覽：push 後由 `.github/workflows/glass-v6-preview.yml` 建到 `preview-glass-v6` 分支，
-  網址 https://raw.githack.com/Hunter20041004/ftl-web-demo/preview-glass-v6/index.html
-- `main` 仍是舊的靜態 V1，正式站（GitHub Pages）沒動，等使用者拍板才合併。
+- 只有 `main`。2026-09-13 使用者拍板後把 `redesign/glass-v6` 合併進來，其餘分支全部刪除。
+- 正式站：push `main` → `.github/workflows/pages.yml` → https://hunter20041004.github.io/ftl-web-demo/
+- 之後的修改開功能分支，測試通過後合併回 `main`（全域規則）。
 
 ## 視覺規則（取代舊的「V1 為準」）
 - **零硬線**：不准用 1px 實線分層。卡片＝玻璃（`--glass`）＋內側高光（`--glass-hi`）＋柔陰影（`--shadow-soft`）。
