@@ -102,6 +102,14 @@ export function SiteInteractions() {
     });
 
     applyLang(readLang());
+    // 網址帶 #id 指到一個摺疊區塊（details）時，直接展開它
+    const openHashDetails = () => {
+      const id = window.location.hash.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (target instanceof HTMLDetailsElement) target.open = true;
+    };
+    openHashDetails();
+    window.addEventListener("hashchange", openHashDetails);
     // 切換身份、翻週、翻投影片會產生新的 DOM；英文模式下要把新節點也翻過去。
     // 只翻「新加進來、還沒翻過」的節點，且翻譯本身造成的變動要略過，否則會互相觸發無限循環。
     const langObserver = new MutationObserver((records) => {
@@ -243,6 +251,7 @@ export function SiteInteractions() {
       document.removeEventListener("keydown", onKeyDown);
       revealObserver?.disconnect();
       langObserver.disconnect();
+      window.removeEventListener("hashchange", openHashDetails);
       form?.removeEventListener("submit", onSubmit);
       form?.removeEventListener("input", onInput);
       document.body.style.overflow = "";

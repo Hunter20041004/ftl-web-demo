@@ -41,7 +41,7 @@ export function SlideDeck({ deck }: { deck: ProjectDeck }) {
               <h3 className="deck__title display">{deck.name}</h3>
               <p className="deck__sub en">{deck.nameEn}</p>
               <p className="deck__body" data-en={deck.taglineEn}>{deck.tagline}</p>
-              <div className="tag-row">{deck.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+              <div className="tag-row">{deck.tags.map((tag, i) => <span className="tag" key={tag} data-en={deck.tagsEn[i]}>{tag}</span>)}</div>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 產生的社群圖，外站來源 */}
             <img className="deck__cover" src={deck.cover} alt="" loading="lazy" />

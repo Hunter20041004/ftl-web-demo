@@ -11,6 +11,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator("main#main")).toHaveAttribute("data-visual-baseline", "glass-v6");
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
     await expect(page.locator("#who, #schedule, #weekly, #projects, #partners, #contact")).toHaveCount(6);
+    await expect(page.locator("#weekly .issue__cover")).toHaveCount(3);
     await expect(page.locator(".format")).toHaveCount(5);
   });
 
@@ -24,6 +25,11 @@ test.describe("glass-v6 homepage", () => {
     await expect(week.locator(".week__day--today .week__head .num")).toHaveText("9/24");
     // 9/21 錄取公布、9/23 講座 都落在這一週
     await expect(week.locator(".week__items li")).toContainText(["公布專案生結果", "AI 時代商業模式創新"]);
+    // 上一週：書審截止與週末面試的標籤要講清楚是什麼
+    await week.locator("[data-week-nav=prev]").click();
+    await expect(week).toHaveAttribute("data-week-start", "9/14");
+    await expect(week.locator(".week__items li")).toContainText(["書審填寫截止", "公布書審結果並確認面試時間", "晚上面試", "晚上面試"]);
+    await week.locator("[data-week-nav=next]").click();
 
     // 往後最多 6 週、往前最多 3 週；到邊界時按鈕失效
     const next = week.locator("[data-week-nav=next]");
@@ -78,10 +84,14 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator(".card--lecture .card__body").first()).toContainText("generative AI");
   });
 
-  test("projects are slide decks that page with buttons and arrow keys", async ({ page }) => {
+  test("projects wall opens a deck in a dialog and pages with buttons and arrow keys", async ({ page }) => {
     await page.goto(`${basePath}/projects/`);
     await page.waitForLoadState("networkidle");
-    const deck = page.locator('[data-deck="course-scheduler"]');
+    await expect(page.locator(".project-teaser")).toHaveCount(3);
+    await page.locator('[data-project="course-scheduler"]').click();
+    const dialog = page.locator("dialog.project-dialog");
+    await expect(dialog).toHaveAttribute("open", "");
+    const deck = dialog.locator('[data-deck="course-scheduler"]');
     await expect(deck).toHaveAttribute("data-slide", "0");
     await deck.locator("[data-deck-nav=next]").click();
     await expect(deck).toHaveAttribute("data-slide", "1");
@@ -89,15 +99,22 @@ test.describe("glass-v6 homepage", () => {
     await deck.focus();
     await page.keyboard.press("ArrowRight");
     await expect(deck).toHaveAttribute("data-slide", "2");
-    await deck.locator(".deck__dot").first().click();
-    await expect(deck).toHaveAttribute("data-slide", "0");
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toHaveAttribute("open", "");
+    // 從首頁帶 #id 進來要直接打開
+    await page.goto(`${basePath}/projects/#smart-album`);
+    await expect(page.locator('dialog.project-dialog [data-deck="smart-album"]')).toBeVisible();
   });
 
   test("insights shows the latest weekly issue with sourced stories", async ({ page }) => {
     await page.goto(`${basePath}/insights/`);
     await page.waitForLoadState("networkidle");
-    await expect(page.locator(".issue__headlines li")).toHaveCount(3);
+    await expect(page.locator(".issue .issue__headlines li")).toHaveCount(3);
     await expect(page.locator(".issue__story")).toHaveCount(3);
+    await expect(page.locator(".row--issue")).toHaveCount(2);
+    // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開
+    await page.goto(`${basePath}/insights/#vol-1`);
+    await expect(page.locator("#vol-1")).toHaveAttribute("open", "");
     const links = page.locator(".issue__sources a");
     expect(await links.count()).toBeGreaterThanOrEqual(3);
     for (const href of await links.evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href))) expect(href).toMatch(/^https:\/\//);

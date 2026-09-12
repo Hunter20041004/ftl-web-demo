@@ -133,7 +133,7 @@ export function SiteFooter() {
             { href: "/insights/", zh: "洞察", en: "Insights" },
           ]} />
           <FooterColumn title="資源" en="Resources" items={[
-            { href: "/resources/#jobs", zh: "職缺與獎學金", en: "Jobs & scholarships" },
+            { href: "/resources/", zh: "職缺與獎學金", en: "Jobs & scholarships" },
             { href: "/events/#blockchain", zh: "區塊鏈基礎系列課程", en: "Blockchain series" },
             { href: "/about/#reward", zh: "出席獎勵金", en: "Attendance reward" },
             { href: "/events/", zh: "學期行事曆", en: "Semester calendar" },

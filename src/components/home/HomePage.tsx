@@ -19,17 +19,17 @@ const channels = [
 ];
 
 // 我們做的五件事：每張連到對應的內頁段落
+// 寫給「對社團有興趣的人」：每張卡講你加入後會得到什麼
 const formats = [
-  { icon: "users", zh: "講座", en: "Lectures", bodyZh: "每學期三位業界講者，各來自不同領域。", bodyEn: "Three industry speakers a semester, each from a different sector.", href: "/events/#lectures" },
-  { icon: "layers", zh: "工作坊", en: "Workshops", bodyZh: "三場實作，每場都有產出：原型、提案、簡報。", bodyEn: "Three hands-on sessions, each with an output: a prototype, a proposal, a pitch.", href: "/events/#workshops" },
-  { icon: "book", zh: "英語讀書會", en: "English reading club", bodyZh: "三本書，全程英文討論。", bodyEn: "Three books, discussed entirely in English.", href: "/events/#reading" },
-  { icon: "rocket", zh: "專案", en: "Projects", bodyZh: "分組做出可以展示的東西，用簡報的方式公開。", bodyEn: "Teams build something they can show, presented as slides.", href: "/projects/" },
-  { icon: "sparkle", zh: "交流", en: "Networking", bodyZh: "校友 networking 會、雞尾酒會、期中與期末聚餐。", bodyEn: "Alumni networking, a cocktail party and semester dinners.", href: "/events/#calendar" },
+  { icon: "users", zh: "講座", en: "Lectures", bodyZh: "直接聽業界的人講他們正在做的事：一學期三位講者，來自三個不同領域。", bodyEn: "Hear people from the industry talk about what they are actually doing: three speakers a semester, from three different sectors.", href: "/events/#lectures" },
+  { icon: "layers", zh: "工作坊", en: "Workshops", bodyZh: "動手做，不只聽。三場實作，離開時你手上會有原型、提案或簡報。", bodyEn: "Build, not just listen. Three hands-on sessions; you leave with a prototype, a proposal or a pitch deck.", href: "/events/#workshops" },
+  { icon: "book", zh: "英語讀書會", en: "English reading club", bodyZh: "用英文討論三本金融科技的書，把專業英文練到能開口。", bodyEn: "Discuss three FinTech books entirely in English and get comfortable speaking the professional vocabulary.", href: "/events/#reading" },
+  { icon: "rocket", zh: "專案", en: "Projects", bodyZh: "跟不同科系的人組隊，做出一個能放進履歷、能公開展示的成果。", bodyEn: "Team up across departments and build something you can put on a résumé and show in public.", href: "/projects/" },
+  { icon: "sparkle", zh: "交流", en: "Networking", bodyZh: "認識校友、業師和其他社員：networking 會、雞尾酒會、期中與期末聚餐。", bodyEn: "Meet alumni, mentors and other members: networking night, cocktail party, mid-term and end-of-term dinners.", href: "/events/#calendar" },
 ];
 
 // 首頁順序：這是誰 → 做什麼 → 本週 → 最新週報 → 專案 → 合作對象 → 聯絡。每段都是摘要，細節在內頁。
 export function HomePage() {
-  const latest = weekly[0];
   return (
     <SitePageShell>
       <main id="main" className="page" data-visual-baseline="glass-v6">
@@ -58,7 +58,7 @@ export function HomePage() {
             <div className="sec-head reveal reveal--fade">
               <div>
                 <h2 className="h1" data-en="Who we are">我們是誰</h2>
-                <p className="lead mt-4" data-en="NCCU’s first FinTech student society, founded under the guidance of the NCCU College of Commerce FinTech Research Center. Open to all departments and years, including graduate students. Every Wednesday we run one of five formats.">政大第一個 FinTech 學術社團，由政大商學院金融科技研究中心指導成立。跨系、跨年級、含研究所。每週三上社課，形式有五種。</p>
+                <p className="lead mt-4" data-en="If you are curious about FinTech but don’t know where to start, this is the place: NCCU’s first FinTech student society, open to every department and year including graduate students, guided by the NCCU College of Commerce FinTech Research Center. One session every Wednesday — here is what you get.">如果你對金融科技有興趣、但不知道從哪裡開始，這裡就是起點：政大第一個 FinTech 學術社團，不分科系與年級、含研究所，由政大商學院金融科技研究中心指導成立。每週三一堂社課，你會得到這五件事。</p>
               </div>
               <a className="link-arrow" href="/about/"><span data-en="About us">關於我們</span><Icon name="arrow-right" /></a>
             </div>
@@ -88,15 +88,19 @@ export function HomePage() {
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
               <h2 className="h1" data-en="FinTech Weekly">FinTech 週報</h2>
-              <a className="link-arrow" href="/insights/"><span data-en="Read this issue">看這一期</span><Icon name="arrow-right" /></a>
+              <a className="link-arrow" href="/insights/"><span data-en="All issues">所有期數</span><Icon name="arrow-right" /></a>
             </div>
-            <a className="issue__cover issue__cover--link reveal" href="/insights/">
-              <span className="issue__eyebrow en" data-en={`Vol.${String(latest.vol).padStart(2, "0")} · Highlights`}>Vol.{String(latest.vol).padStart(2, "0")} · 本期精選</span>
-              <p className="issue__range num">{latest.range}</p>
-              <ol className="issue__headlines">
-                {latest.headlines.map((h, i) => <li key={h}><span className="grad-text" data-en={latest.headlinesEn[i]}>{h}</span></li>)}
-              </ol>
-            </a>
+            <div className="grid grid-3" data-stagger>
+              {weekly.slice(0, 3).map((issue, n) => (
+                <a className={`issue__cover issue__cover--link reveal reveal--rise${n === 0 ? " issue__cover--latest" : ""}`} href={`/insights/#vol-${issue.vol}`} key={issue.vol}>
+                  <span className="issue__eyebrow en" data-en={`Vol.${String(issue.vol).padStart(2, "0")}${n === 0 ? " · Latest" : ""}`}>Vol.{String(issue.vol).padStart(2, "0")}{n === 0 ? " · 最新" : ""}</span>
+                  <p className="issue__range num">{issue.range}</p>
+                  <ol className="issue__headlines issue__headlines--small">
+                    {issue.headlines.map((h, i) => <li key={h}><span className="grad-text" data-en={issue.headlinesEn[i]}>{h}</span></li>)}
+                  </ol>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -111,7 +115,7 @@ export function HomePage() {
                 <a className="card project-teaser reveal reveal--rise" href={`/projects/#${deck.id}`} key={deck.id}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
                   <img className="project-teaser__img" src={deck.cover} alt="" loading="lazy" />
-                  <h3 className="h3">{deck.name}</h3>
+                  <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3><span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span></div>
                   <p className="card__body" data-en={deck.taglineEn}>{deck.tagline}</p>
                 </a>
               ))}

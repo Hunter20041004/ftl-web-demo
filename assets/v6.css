@@ -597,3 +597,13 @@ a{ color:inherit }
 .book__body{ display:flex; flex-direction:column; gap:8px; min-width:0 }
 .book .h3{ font-size:1.05rem }
 .book .tag{ align-self:flex-start }
+
+/* ══ 專案牆與對話框 ═════════════════════════════════════════ */
+button.project-teaser{ text-align:left; font:inherit; cursor:pointer; border:0 }
+.project-dialog{ border:0; padding:0; background:transparent; max-width:min(1100px,94vw); width:100%; margin:auto }
+.project-dialog::backdrop{ background:rgba(11,31,58,.45); backdrop-filter:blur(8px) }
+.project-dialog__inner{ position:relative; padding:var(--s5); border-radius:var(--r-lg); background:rgba(251,250,255,.96); box-shadow:var(--shadow-lift) }
+.project-dialog__close{ position:absolute; top:12px; right:12px; z-index:2 }
+.project-dialog .deck__stage{ min-height:0 }
+.issue__cover--latest{ box-shadow:var(--glass-hi), var(--shadow-lift), 0 0 0 2px rgba(22,104,227,.25) }
+.issue__headlines--small{ font-size:clamp(1.05rem,1.4vw,1.25rem); gap:4px }

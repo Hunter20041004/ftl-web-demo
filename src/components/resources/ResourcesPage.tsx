@@ -32,7 +32,7 @@ function ResourceCard({ item }: { item: Resource }) {
       <p className="dim" style={{ fontSize: ".95rem" }} data-en={item.orgEn}>{item.org}</p>
       <p className="card__body" data-en={item.summaryEn}>{item.summary}</p>
       {item.details ? <ul className="bullets-plain">{item.details.map((line, i) => <li key={line} data-en={item.detailsEn?.[i]}>{line}</li>)}</ul> : null}
-      {item.contact ? <p className="card__body"><b data-en="Contact｜">聯絡｜</b>{item.contact}</p> : null}
+      {item.contact ? <p className="card__body"><b data-en="Contact｜">聯絡｜</b><span data-en="Aaron Chao｜Human Resources｜aaron.chao@chubb.com｜02-8161-1988 #8719">{item.contact}</span></p> : null}
       <div className="card__foot">
         {isJob ? <a className="btn" href="mailto:aaron.chao@chubb.com"><Icon name="mail" /><span data-en="Email the recruiter">寫信給招募窗口</span></a> : <span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source">開啟來源</span>}
         {isJob ? null : <Icon name="arrow-up-right" />}

@@ -197,7 +197,7 @@ export const books: Book[] = [
 ];
 
 // 區塊鏈基礎系列課程：社團主辦、TABEI 共同主辦。零基礎、不需程式。日期尚未排定（英文場 10/21）。
-export type ChainCourse = { n: string; title: string; titleEn: string; keywords: string; hook: string; hookEn: string; body: string; bodyEn: string; practice: string; practiceEn: string };
+export type ChainCourse = { n: string; title: string; titleEn: string; keywords: string; keywordsEn: string; hook: string; hookEn: string; body: string; bodyEn: string; practice: string; practiceEn: string };
 
 export const chainSeries = {
   name: "區塊鏈基礎系列課程",
@@ -213,11 +213,11 @@ export const chainSeries = {
   instructor: "朱廷翊（合作企劃部）",
   instructorEn: "Chu Ting-Yi (Partnerships & programs)",
   courses: [
-    { n: "01", title: "看不見的鎖：雜湊、簽章與後量子時代", titleEn: "The Invisible Lock: hashes, signatures and the post-quantum era", keywords: "雜湊 · 數位簽章 · 私鑰 · 錢包 · 後量子密碼學（PQC）", hook: "你在網站上設的密碼，資料庫裡到底存成什麼樣子？如果量子電腦真的問世，今天所有的加密還撐得住嗎？", hookEn: "What does the password you set on a website actually look like in the database? If quantum computers arrive, will today’s encryption hold?", body: "從最小的元件講起：一段文字如何被壓成固定長度的亂碼、簽名如何證明「這件事是我做的」而不需要任何人作保，最後談量子運算的威脅與各國的後量子密碼標準。", bodyEn: "Start from the smallest parts: how text is compressed into a fixed-length scramble, how a signature proves “I did this” without anyone vouching for you, and finally the quantum threat and the post-quantum standards countries are drafting.", practice: "驗證雜湊的雪崩效應、分組競賽找出符合條件的雜湊值、建立第一個錢包並完成一筆轉帳。", practiceEn: "Verify the avalanche effect of hashes, race in teams to find a qualifying hash, create your first wallet and make a transfer." },
-    { n: "02", title: "一塊錢怎麼變成一串程式碼：穩定幣", titleEn: "How a Dollar Becomes Code: stablecoins", keywords: "穩定幣 · 準備金 · 脫鉤 · 跨境支付 · 虛擬資產服務法", hook: "為什麼一枚代幣可以長期等於一美元？同一筆錢在鏈上幾十秒就到，銀行為什麼要三天？", hookEn: "Why can one token stay worth one US dollar for years? Why does the same money arrive in seconds on-chain when a bank takes three days?", body: "拆解三種讓價格穩住的機制，回顧真實的脫鉤事件，並讀懂一份準備金報告——什麼叫「十足準備」、為什麼法規要禁止付息。", bodyEn: "Break down the three mechanisms that hold a price steady, revisit real de-pegging events, and learn to read a reserve report — what “fully reserved” means and why the law bans paying interest.", practice: "在測試網完成一次穩定幣轉帳，與傳統跨境匯款的時間和費用做對照；查閱真實發行商的準備金報告。", practiceEn: "Make a stablecoin transfer on a testnet and compare time and fees with a traditional remittance; read a real issuer’s reserve report." },
-    { n: "03", title: "你的證件正在變成手機裡的一張卡：數位身分", titleEn: "Your ID Is Becoming a Card on Your Phone: digital identity", keywords: "DID · 可驗證憑證（VC）· 選擇性揭露 · 數位憑證皮夾 · 零知識證明", hook: "買酒只需要證明你滿十八歲，為什麼店員連你住哪裡都看到了？", hookEn: "To buy alcohol you only need to prove you are over eighteen — so why does the clerk see your address?", body: "證件數位化真正的改變不是「不用帶卡」，而是「只給對方需要的那一項」。從發證者、持有者、驗證者的三方模型談到選擇性揭露、撤銷機制與零知識證明。", bodyEn: "What digitising ID really changes is not “no card to carry” but “only give the one field they need”. From the issuer–holder–verifier model to selective disclosure, revocation and zero-knowledge proofs.", practice: "用政府「數位憑證皮夾」App 在沙盒系統走完發卡、出示與驗證的流程，並實際操作可遺忘權清除資料。", practiceEn: "Use the government Digital Wallet app in a sandbox to issue, present and verify a credential, then exercise the right to be forgotten." },
-    { n: "04", title: "資產上鏈：從供應鏈到跨境金融", titleEn: "Assets On-Chain: from supply chains to cross-border finance", keywords: "RWA 代幣化 · 聯盟鏈 · 供應鏈溯源 · 預言機 · 跨境結算", hook: "你手上這杯咖啡，真的來自標籤上寫的那座莊園嗎？一棟房子要怎麼被切成一千份？", hookEn: "Is the coffee in your hand really from the estate on the label? How do you split a house into a thousand pieces?", body: "處理「鏈上與現實怎麼對得起來」：真實資產代幣化的權利歸屬、企業為何選聯盟鏈、預言機為何是最脆弱的一環，以及國際金融基礎設施的代幣化實驗。", bodyEn: "How on-chain records line up with the real world: ownership in real-world asset tokenisation, why companies choose consortium chains, why oracles are the weakest link, and tokenisation experiments in international financial infrastructure.", practice: "分組為一項產品設計鏈上履歷憑證並實際簽發，觀察一筆資料從產地到消費者手上如何被驗證。", practiceEn: "Design and issue an on-chain provenance credential for a product and follow one record from origin to consumer." },
-    { n: "EN", title: "Proof of Stake — The Making of Ethereum and the Philosophy of Blockchains", titleEn: "Proof of Stake — The Making of Ethereum and the Philosophy of Blockchains", keywords: "EVM · Solidity · 智能合約 · Gas · 權益證明", hook: "比特幣只能記帳，以太坊為什麼可以跑程式？為什麼幾十行程式碼可以管住幾十億美元的資產？", hookEn: "Bitcoin only keeps accounts; why can Ethereum run programs? Why can a few dozen lines of code hold billions of dollars?", body: "以 Vitalik Buterin 的同名文集為引子，重點放在技術本身：EVM 如何讓每個節點跑出相同結果、Solidity 合約長什麼樣、為什麼要付 Gas、轉向權益證明改變了什麼。全程英文，10/21 社課時段。", bodyEn: "Using Vitalik Buterin’s essays as the entry point, the focus is the technology: how the EVM makes every node compute the same result, what a Solidity contract looks like, why gas is paid, and what changed with proof of stake. Entirely in English, 10/21.", practice: "在瀏覽器部署一份合約，把一句話寫上鏈並互相讀取；每位學員在鏈上留下一筆屬於自己的紀錄。", practiceEn: "Deploy a contract in the browser, write one sentence on-chain and read each other’s; every participant leaves a record of their own on the chain." },
+    { n: "01", title: "看不見的鎖：雜湊、簽章與後量子時代", titleEn: "The Invisible Lock: hashes, signatures and the post-quantum era", keywords: "雜湊 · 數位簽章 · 私鑰 · 錢包 · 後量子密碼學（PQC）", keywordsEn: "Hashes · Digital signatures · Private keys · Wallets · Post-quantum cryptography (PQC)", hook: "你在網站上設的密碼，資料庫裡到底存成什麼樣子？如果量子電腦真的問世，今天所有的加密還撐得住嗎？", hookEn: "What does the password you set on a website actually look like in the database? If quantum computers arrive, will today’s encryption hold?", body: "從最小的元件講起：一段文字如何被壓成固定長度的亂碼、簽名如何證明「這件事是我做的」而不需要任何人作保，最後談量子運算的威脅與各國的後量子密碼標準。", bodyEn: "Start from the smallest parts: how text is compressed into a fixed-length scramble, how a signature proves “I did this” without anyone vouching for you, and finally the quantum threat and the post-quantum standards countries are drafting.", practice: "驗證雜湊的雪崩效應、分組競賽找出符合條件的雜湊值、建立第一個錢包並完成一筆轉帳。", practiceEn: "Verify the avalanche effect of hashes, race in teams to find a qualifying hash, create your first wallet and make a transfer." },
+    { n: "02", title: "一塊錢怎麼變成一串程式碼：穩定幣", titleEn: "How a Dollar Becomes Code: stablecoins", keywords: "穩定幣 · 準備金 · 脫鉤 · 跨境支付 · 虛擬資產服務法", keywordsEn: "Stablecoins · Reserves · De-pegging · Cross-border payments · Virtual Asset Services Act", hook: "為什麼一枚代幣可以長期等於一美元？同一筆錢在鏈上幾十秒就到，銀行為什麼要三天？", hookEn: "Why can one token stay worth one US dollar for years? Why does the same money arrive in seconds on-chain when a bank takes three days?", body: "拆解三種讓價格穩住的機制，回顧真實的脫鉤事件，並讀懂一份準備金報告——什麼叫「十足準備」、為什麼法規要禁止付息。", bodyEn: "Break down the three mechanisms that hold a price steady, revisit real de-pegging events, and learn to read a reserve report — what “fully reserved” means and why the law bans paying interest.", practice: "在測試網完成一次穩定幣轉帳，與傳統跨境匯款的時間和費用做對照；查閱真實發行商的準備金報告。", practiceEn: "Make a stablecoin transfer on a testnet and compare time and fees with a traditional remittance; read a real issuer’s reserve report." },
+    { n: "03", title: "你的證件正在變成手機裡的一張卡：數位身分", titleEn: "Your ID Is Becoming a Card on Your Phone: digital identity", keywords: "DID · 可驗證憑證（VC）· 選擇性揭露 · 數位憑證皮夾 · 零知識證明", keywordsEn: "DID · Verifiable credentials (VC) · Selective disclosure · Digital credential wallet · Zero-knowledge proofs", hook: "買酒只需要證明你滿十八歲，為什麼店員連你住哪裡都看到了？", hookEn: "To buy alcohol you only need to prove you are over eighteen — so why does the clerk see your address?", body: "證件數位化真正的改變不是「不用帶卡」，而是「只給對方需要的那一項」。從發證者、持有者、驗證者的三方模型談到選擇性揭露、撤銷機制與零知識證明。", bodyEn: "What digitising ID really changes is not “no card to carry” but “only give the one field they need”. From the issuer–holder–verifier model to selective disclosure, revocation and zero-knowledge proofs.", practice: "用政府「數位憑證皮夾」App 在沙盒系統走完發卡、出示與驗證的流程，並實際操作可遺忘權清除資料。", practiceEn: "Use the government Digital Wallet app in a sandbox to issue, present and verify a credential, then exercise the right to be forgotten." },
+    { n: "04", title: "資產上鏈：從供應鏈到跨境金融", titleEn: "Assets On-Chain: from supply chains to cross-border finance", keywords: "RWA 代幣化 · 聯盟鏈 · 供應鏈溯源 · 預言機 · 跨境結算", keywordsEn: "RWA tokenisation · Consortium chains · Supply-chain provenance · Oracles · Cross-border settlement", hook: "你手上這杯咖啡，真的來自標籤上寫的那座莊園嗎？一棟房子要怎麼被切成一千份？", hookEn: "Is the coffee in your hand really from the estate on the label? How do you split a house into a thousand pieces?", body: "處理「鏈上與現實怎麼對得起來」：真實資產代幣化的權利歸屬、企業為何選聯盟鏈、預言機為何是最脆弱的一環，以及國際金融基礎設施的代幣化實驗。", bodyEn: "How on-chain records line up with the real world: ownership in real-world asset tokenisation, why companies choose consortium chains, why oracles are the weakest link, and tokenisation experiments in international financial infrastructure.", practice: "分組為一項產品設計鏈上履歷憑證並實際簽發，觀察一筆資料從產地到消費者手上如何被驗證。", practiceEn: "Design and issue an on-chain provenance credential for a product and follow one record from origin to consumer." },
+    { n: "EN", title: "Proof of Stake — The Making of Ethereum and the Philosophy of Blockchains", titleEn: "Proof of Stake — The Making of Ethereum and the Philosophy of Blockchains", keywords: "EVM · Solidity · 智能合約 · Gas · 權益證明", keywordsEn: "EVM · Solidity · Smart contracts · Gas · Proof of stake", hook: "比特幣只能記帳，以太坊為什麼可以跑程式？為什麼幾十行程式碼可以管住幾十億美元的資產？", hookEn: "Bitcoin only keeps accounts; why can Ethereum run programs? Why can a few dozen lines of code hold billions of dollars?", body: "以 Vitalik Buterin 的同名文集為引子，重點放在技術本身：EVM 如何讓每個節點跑出相同結果、Solidity 合約長什麼樣、為什麼要付 Gas、轉向權益證明改變了什麼。全程英文，10/21 社課時段。", bodyEn: "Using Vitalik Buterin’s essays as the entry point, the focus is the technology: how the EVM makes every node compute the same result, what a Solidity contract looks like, why gas is paid, and what changed with proof of stake. Entirely in English, 10/21.", practice: "在瀏覽器部署一份合約，把一句話寫上鏈並互相讀取；每位學員在鏈上留下一筆屬於自己的紀錄。", practiceEn: "Deploy a contract in the browser, write one sentence on-chain and read each other’s; every participant leaves a record of their own on the chain." },
   ] as ChainCourse[],
 };
 
@@ -338,12 +338,12 @@ export const partners = [
 // ── FinTech 週報 ─────────────────────────────────────────────────────────
 // 依 nccu-fintechlab-social/docs/週報-Prompt.md 的規則產出：先做選題卡（每條事實附來源），
 // 再鋪成「封面三則短標 ＋ 三則各一段 ≤180 字摘要」。網站版多放來源連結，讓讀者可以自己點開查證。
-export type WeeklyStory = { title: string; titleEn: string; summary: string; summaryEn: string; sources: Array<{ label: string; href: string; primary: boolean }> };
+export type WeeklyStory = { title: string; titleEn: string; summary: string; summaryEn: string; sources: Array<{ label: string; labelEn: string; href: string; primary: boolean }> };
 export type WeeklyIssue = { vol: number; range: string; year: number; headlines: [string, string, string]; headlinesEn: [string, string, string]; stories: WeeklyStory[]; note?: string };
 
 export const weekly: WeeklyIssue[] = [
   {
-    vol: 2, range: "09/07 – 09/13", year: 2026,
+    vol: 3, range: "09/07 – 09/13", year: 2026,
     headlines: ["Circle 4 億美元買跨境支付", "Block 申請國家信託銀行", "電支帳戶突破 4,150 萬"],
     headlinesEn: ["Circle buys Tazapay for $400M", "Block applies for a trust bank", "E-payment accounts pass 41.5M"],
     stories: [
@@ -353,9 +353,9 @@ export const weekly: WeeklyIssue[] = [
         summaryEn: "Circle, issuer of the USDC stablecoin, announced on September 8 an all-stock, $400 million acquisition of Singapore-based Tazapay. Tazapay handles business-to-business cross-border payments: over $25 billion in annualised volume, payout rails in more than 100 markets, and about 60% of volume already settled in stablecoins. Closing is expected in 2027, subject to approvals including the Monetary Authority of Singapore. Why it matters in Taiwan: the Virtual Asset Services Act passed in June, and the FSC chair said on September 2 that stablecoin rules could take effect as early as Q1 2027 — regulation is catching up with stablecoins turning from speculation into payment plumbing.",
         summary: "發行美元穩定幣 USDC 的 Circle 在 9 月 8 日宣布，以 4 億美元全股票交易收購新加坡的 Tazapay。Tazapay 做的是「企業之間的跨境收付款」，年化交易量超過 250 億美元，付款通路涵蓋 100 多個市場，其中約六成的交易量已經用穩定幣結算。交易預計 2027 年完成，還要經過新加坡金管局等監理機關核准。對台灣讀者的關係：台灣的《虛擬資產服務法》今年 6 月三讀通過，金管會主委 9 月 2 日表示穩定幣子法最快 2027 年第一季上路——穩定幣從「炒作標的」變成「付款管線」的趨勢，台灣的法規正在追上。",
         sources: [
-          { label: "Circle 新聞稿（Business Wire，2026-09-08）", href: "https://www.businesswire.com/news/home/20260908409825/en/", primary: true },
-          { label: "Payments Dive 報導（2026-09-10）", href: "https://www.paymentsdive.com/news/circle-buys-tazapay-for-400m/829956/", primary: false },
-          { label: "Focus Taiwan：金管會主委談穩定幣子法時程（2026-09-02）", href: "https://focustaiwan.tw/business/202609020014", primary: false },
+          { label: "Circle 新聞稿（Business Wire，2026-09-08）", labelEn: "Circle press release (Business Wire, 2026-09-08)", href: "https://www.businesswire.com/news/home/20260908409825/en/", primary: true },
+          { label: "Payments Dive 報導（2026-09-10）", labelEn: "Payments Dive (2026-09-10)", href: "https://www.paymentsdive.com/news/circle-buys-tazapay-for-400m/829956/", primary: false },
+          { label: "Focus Taiwan：金管會主委談穩定幣子法時程（2026-09-02）", labelEn: "Focus Taiwan: FSC chair on the stablecoin rules timeline (2026-09-02)", href: "https://focustaiwan.tw/business/202609020014", primary: false },
         ],
       },
       {
@@ -364,8 +364,8 @@ export const weekly: WeeklyIssue[] = [
         summaryEn: "Block, parent of Square and Cash App, announced on September 8 an application to the OCC for Builders Bank & Trust, a national trust bank that takes no deposits and makes no loans, offering custody and fiduciary services including bitcoin and stablecoins. Block already owns a Utah industrial bank founded in 2021. After a May executive order told agencies to speed up fintech charter applications, Stripe, Circle, Revolut and PayPal took the same route. Why it matters in Taiwan: the FSC is piloting virtual-asset custody by banks this year, so the US approach is a reference point. Approval timing: not available.",
         summary: "Square 與 Cash App 的母公司 Block 在 9 月 8 日宣布，向美國聯邦金融監理機關 OCC 申請設立 Builders Bank & Trust，這是一家「國家信託銀行」：不收存款、不放款，專門提供保管與信託服務，包括保管比特幣和穩定幣。Block 目前已經有一家 2021 年成立的猶他州工業銀行。今年 5 月美國總統簽署行政命令要求加速金融科技公司的銀行執照申請後，Stripe、Circle、Revolut、PayPal 都走了同一條路。對台灣讀者的關係：金管會今年也在推動「虛擬資產保管業務試辦」，讓銀行替客戶保管虛擬資產——美國的做法是台灣可以對照的樣本。核准時程查不到。",
         sources: [
-          { label: "Payments Dive 報導（2026-09-09，引 Block 新聞稿）", href: "https://www.paymentsdive.com/news/block-seeks-occ-bank-charter/829903/", primary: false },
-          { label: "時報資訊：金管會 2026 金融科技雙主軸與保管業務試辦（2026-08-19）", href: "https://www.chinatimes.com/realtimenews/20260819001292-260410", primary: false },
+          { label: "Payments Dive 報導（2026-09-09，引 Block 新聞稿）", labelEn: "Payments Dive (2026-09-09, citing Block’s press release)", href: "https://www.paymentsdive.com/news/block-seeks-occ-bank-charter/829903/", primary: false },
+          { label: "時報資訊：金管會 2026 金融科技雙主軸與保管業務試辦（2026-08-19）", labelEn: "China Times: FSC’s 2026 FinTech themes and custody pilot (2026-08-19)", href: "https://www.chinatimes.com/realtimenews/20260819001292-260410", primary: false },
         ],
       },
       {
@@ -374,20 +374,55 @@ export const weekly: WeeklyIssue[] = [
         summaryEn: "On September 10 the FSC published July figures: about 41.51 million e-payment account users, up roughly 380,000 from June. Monthly payment collection was about NT$33.01 billion (NT$29.65 billion in June), stored-value deposits about NT$33.5 billion, domestic and overseas small remittances about NT$18.01 billion, and outstanding balances about NT$20.09 billion. “E-payment” means accounts such as LINE Pay Money, JKOPay and EasyWallet that can store value and transfer. Why it matters in Taiwan: 41.51 million accounts exceed the population, so most people hold more than one; the monthly release is the most direct way to track mobile-payment growth.",
         summary: "金管會 9 月 10 日公布 7 月份統計：電子支付帳戶總使用者約 4,151 萬人，比上個月多約 38 萬人。當月代理收付實質交易款項約 330.1 億元（上月 296.5 億元），收受儲值款項約 335 億元，國內外小額匯兌約 180.1 億元，支付款項餘額約 200.9 億元。「電子支付」指的是 LINE Pay Money、街口、悠遊付這類可以儲值、轉帳的帳戶。對台灣讀者的關係：4,151 萬個帳戶已經超過台灣人口，代表多數人不只一個電支帳戶；這些數字每月公布一次，是觀察行動支付有沒有繼續成長最直接的來源。",
         sources: [
-          { label: "金管會新聞稿：115 年 7 月份信用卡、現金卡及電子支付機構業務資訊（2026-09-10）", href: "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202609100002&dtable=News", primary: true },
+          { label: "金管會新聞稿：115 年 7 月份信用卡、現金卡及電子支付機構業務資訊（2026-09-10）", labelEn: "FSC press release: July 2026 credit card, cash card and e-payment statistics (2026-09-10)", href: "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202609100002&dtable=News", primary: true },
         ],
       },
     ],
     note: "三則皆於 2026-09-12 查證；發布前請再點開來源確認。",
   },
   {
+    vol: 2, range: "09/02 – 09/06", year: 2026,
+    headlines: ["穩定幣子法最快明年 Q1", "Stripe 找人做穩定幣卡", "Ramp 把 AI 花費納管"],
+    headlinesEn: ["Taiwan stablecoin rules: Q1 2027", "Stripe hires for stablecoin cards", "Ramp brings AI spend under control"],
+    stories: [
+      {
+        title: "金管會主委：虛擬資產與穩定幣子法規最快 2027 年第一季上路",
+        titleEn: "FSC chair: virtual-asset and stablecoin rules could take effect in Q1 2027",
+        summary: "金管會主委彭金隆 9 月 2 日在台北的亞洲金融科技聯盟（AFA）高峰會表示，《虛擬資產服務法》今年 6 月 30 日三讀通過後，金管會正在訂九項子法規，其中穩定幣的草案預計最快明年第一季公告實施。「穩定幣」是價格釘住某種法定貨幣（例如美元）的加密貨幣；台灣第一次為它的發行訂出法律架構。對台灣讀者的關係：之後在台灣發行穩定幣的業者要同時經過金管會與央行核准，這是判斷哪些穩定幣「合規」的第一個依據。子法規的正式內容還沒公布。",
+        summaryEn: "At the Asia FinTech Alliance summit in Taipei on September 2, FSC chair Peng Jin-lung said that after the Virtual Asset Services Act passed on June 30, the FSC is drafting nine subsidiary regulations, and the stablecoin draft could be announced and take effect as early as Q1 2027. A stablecoin is a cryptocurrency pegged to a fiat currency such as the US dollar; this is Taiwan’s first legal framework for issuing one. Why it matters in Taiwan: issuers will need approval from both the FSC and the central bank — the first yardstick for which stablecoins count as compliant. The text of the rules is not yet published.",
+        sources: [
+          { label: "Focus Taiwan（中央社英文）報導（2026-09-02）", labelEn: "Focus Taiwan (CNA English), 2026-09-02", href: "https://focustaiwan.tw/business/202609020014", primary: false },
+          { label: "Taipei Times 報導（2026-09-03）", labelEn: "Taipei Times (2026-09-03)", href: "https://www.taipeitimes.com/News/biz/archives/2026/09/03/2003863581", primary: false },
+        ],
+      },
+      {
+        title: "Stripe 延攬 Drew Turchin 負責穩定幣連結的支付卡業務",
+        titleEn: "Stripe hires Drew Turchin to run stablecoin-linked payment cards",
+        summary: "Payments Dive 9 月 3 日報導，Stripe 聘請曾任職 Native Markets 與 Uniswap Labs 的 Drew Turchin，負責「穩定幣連結的支付卡」：使用者的穩定幣餘額可以在任何收卡的地方直接刷。Stripe 2024 年 10 月以 11 億美元收購穩定幣平台 Bridge，今年 6 月又加入約 140 家公司共同宣布的 Open USD 穩定幣。Stripe 網站引用的研究顯示，穩定幣連結卡的月交易量在 2024 年達 15 億美元，前一年是 2.5 億美元。對台灣讀者的關係：這類卡在台灣還不能發行，要等穩定幣子法規（見上一則）定案。",
+        summaryEn: "Payments Dive reported on September 3 that Stripe hired Drew Turchin, formerly of Native Markets and Uniswap Labs, to lead stablecoin-linked payment cards — cards that let a stablecoin balance be spent anywhere cards are accepted. Stripe bought the stablecoin platform Bridge for $1.1 billion in October 2024 and in June joined about 140 companies announcing the Open USD stablecoin. Research cited on Stripe’s site puts stablecoin-linked card volume at $1.5 billion a month in 2024, up from $250 million the year before. Why it matters in Taiwan: such cards cannot be issued here until the stablecoin rules above are finalised.",
+        sources: [
+          { label: "Payments Dive 報導（2026-09-03）", labelEn: "Payments Dive (2026-09-03)", href: "https://www.paymentsdive.com/news/stripe-taps-new-stablecoin-executive/829509/", primary: false },
+        ],
+      },
+      {
+        title: "Ramp 推出 Router：把公司花在 AI 上的錢納入費用管理",
+        titleEn: "Ramp launches Router to bring corporate AI spending under expense controls",
+        summary: "發企業卡與費用管理軟體的 Ramp 在 8 月 19 日推出 Router，讓公司看到自己在 OpenAI、Anthropic、Google 等各家模型上花了多少「代幣費」，依成本與速度把任務分派給不同模型，並像差旅費一樣設上限。Ramp 說自家的 AI 支出從 2025 年夏天到現在成長了 21 倍；同月 Stripe 以 75 億美元收購同類型的 OpenRouter。對台灣讀者的關係：「AI 用量」正在變成企業的一項固定支出，費用管理、企業卡與支付公司都在搶這塊；找實習或看產業時，這是一條新出現的產品線。",
+        summaryEn: "Ramp, which issues corporate cards and expense software, launched Router on August 19: it shows what a company spends on tokens across OpenAI, Anthropic, Google and other models, routes tasks by cost and speed, and sets limits the way travel expenses are capped. Ramp says its own AI spend grew 21× since summer 2025; the same month Stripe bought the comparable OpenRouter for $7.5 billion. Why it matters in Taiwan: AI usage is becoming a fixed line item for companies, and expense, corporate-card and payments firms are competing for it — a new product line worth knowing when looking at internships or the industry.",
+        sources: [
+          { label: "Payments Dive 報導（2026-09-04）", labelEn: "Payments Dive (2026-09-04)", href: "https://www.paymentsdive.com/news/ramp-takes-on-ai-expense/829642/", primary: false },
+        ],
+      },
+    ],
+  },
+  {
     vol: 1, range: "08/27 – 09/01", year: 2026,
     headlines: ["烏國跨境支付", "ECB 重評 TARGET", "澳洲 A2A 支付"],
     headlinesEn: ["Uzbekistan cross-border pay", "ECB re-plans TARGET", "Australia A2A payments"],
     stories: [
-      { title: "烏國央行與螞蟻談跨境支付", titleEn: "Uzbekistan’s central bank talks cross-border payments with Ant Group", summaryEn: "At the Silk Road FinTech Forum the Central Bank of Uzbekistan discussed cross-border payment cooperation with Ant Group: easier payments for international visitors and better access to payment services for Uzbek citizens abroad, plus fintech talent development. So far only discussions; no product or launch date has been announced.", summary: "烏茲別克央行在絲路金融科技論壇與螞蟻集團討論跨境支付合作。焦點包括讓國際旅客付款更便利，也改善烏國公民在海外使用支付服務的可近性。雙方同時談到金融科技人才培育，但目前只有合作討論，尚未公布產品或上線時程。", sources: [{ label: "烏茲別克央行新聞稿", href: "https://cbu.uz/en/press_center/releases/4444882/", primary: true }] },
-      { title: "ECB 重評 TARGET 更新時程", titleEn: "ECB reassesses the TARGET release timeline", summaryEn: "After Swift postponed its 2026 standards update, the Eurosystem decided to reassess the November TARGET Services release. The ECB is still evaluating updating the system on schedule while delaying the retirement of unstructured addresses. The final timeline is not yet published; participants should watch for the decision.", summary: "Swift 延後 2026 年標準更新後，歐元體系決定重新評估 11 月 TARGET Services 發布時程。ECB 仍在評估如期更新系統、但延後停用非結構化地址的方案。最終時程尚未公布，參與機構需留意後續決定。", sources: [{ label: "ECB 公告", href: "https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews260828.en.html", primary: true }] },
-      { title: "澳洲推進 A2A 支付現代化", titleEn: "Australia pushes account-to-account payments modernisation", summaryEn: "The Reserve Bank of Australia’s Payments System Board reviewed the future of account-to-account payments, welcomed an industry vision and a roadmap. Open questions remain on the batch clearing system, resilience, pull payments and standardisation; if industry cannot coordinate, the Board encourages the RBA to consider further action.", summary: "澳洲央行支付系統委員會檢視帳戶對帳戶支付的未來，歡迎業界提出願景並推動路線圖。仍待解決批次清算系統去向、韌性、拉式付款與標準化等問題。若業界無法協調推進，委員會鼓勵央行考慮進一步行動。", sources: [{ label: "澳洲央行新聞稿", href: "https://www.rba.gov.au/media-releases/2026/mr-26-23.html", primary: true }] },
+      { title: "烏國央行與螞蟻談跨境支付", titleEn: "Uzbekistan’s central bank talks cross-border payments with Ant Group", summaryEn: "At the Silk Road FinTech Forum the Central Bank of Uzbekistan discussed cross-border payment cooperation with Ant Group: easier payments for international visitors and better access to payment services for Uzbek citizens abroad, plus fintech talent development. So far only discussions; no product or launch date has been announced.", summary: "烏茲別克央行在絲路金融科技論壇與螞蟻集團討論跨境支付合作。焦點包括讓國際旅客付款更便利，也改善烏國公民在海外使用支付服務的可近性。雙方同時談到金融科技人才培育，但目前只有合作討論，尚未公布產品或上線時程。", sources: [{ label: "烏茲別克央行新聞稿", labelEn: "Central Bank of Uzbekistan press release", href: "https://cbu.uz/en/press_center/releases/4444882/", primary: true }] },
+      { title: "ECB 重評 TARGET 更新時程", titleEn: "ECB reassesses the TARGET release timeline", summaryEn: "After Swift postponed its 2026 standards update, the Eurosystem decided to reassess the November TARGET Services release. The ECB is still evaluating updating the system on schedule while delaying the retirement of unstructured addresses. The final timeline is not yet published; participants should watch for the decision.", summary: "Swift 延後 2026 年標準更新後，歐元體系決定重新評估 11 月 TARGET Services 發布時程。ECB 仍在評估如期更新系統、但延後停用非結構化地址的方案。最終時程尚未公布，參與機構需留意後續決定。", sources: [{ label: "ECB 公告", labelEn: "ECB announcement", href: "https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews260828.en.html", primary: true }] },
+      { title: "澳洲推進 A2A 支付現代化", titleEn: "Australia pushes account-to-account payments modernisation", summaryEn: "The Reserve Bank of Australia’s Payments System Board reviewed the future of account-to-account payments, welcomed an industry vision and a roadmap. Open questions remain on the batch clearing system, resilience, pull payments and standardisation; if industry cannot coordinate, the Board encourages the RBA to consider further action.", summary: "澳洲央行支付系統委員會檢視帳戶對帳戶支付的未來，歡迎業界提出願景並推動路線圖。仍待解決批次清算系統去向、韌性、拉式付款與標準化等問題。若業界無法協調推進，委員會鼓勵央行考慮進一步行動。", sources: [{ label: "澳洲央行新聞稿", labelEn: "Reserve Bank of Australia media release", href: "https://www.rba.gov.au/media-releases/2026/mr-26-23.html", primary: true }] },
     ],
     note: "取自社群專案 2026-09-01 的實跑輸出；三則均來自事件主責央行或主管機關。",
   },
@@ -396,14 +431,14 @@ export const weekly: WeeklyIssue[] = [
 // ── 專案：簡報式呈現 ────────────────────────────────────────────────────
 // 先用社員在 GitHub 上公開的專案當第一版；每個專案是一疊「投影片」，每張一個重點。
 export type Slide = { kicker?: string; kickerEn?: string; title: string; titleEn: string; body?: string; bodyEn?: string; bullets?: string[]; bulletsEn?: string[]; stat?: [string, string]; statEn?: string };
-export type ProjectDeck = { id: string; name: string; nameEn: string; tagline: string; taglineEn: string; tags: string[]; repo: string; demo?: string; owner: string; ownerEn: string; cover: string; slides: Slide[] };
+export type ProjectDeck = { id: string; name: string; nameEn: string; tagline: string; taglineEn: string; tags: string[]; tagsEn: string[]; repo: string; demo?: string; owner: string; ownerEn: string; cover: string; slides: Slide[] };
 
 export const projectDecks: ProjectDeck[] = [
   {
     id: "course-scheduler", name: "政大排課", nameEn: "NCCU Course Scheduler",
     tagline: "實習友善的排課工具：AI 提方案，本地規則做最後把關。",
     taglineEn: "An internship-friendly course planner: AI proposes, local rules decide.",
-    tags: ["AI", "產品", "開源"], repo: "https://github.com/Hunter20041004/nccu-course-scheduler", demo: "https://hunter20041004.github.io/nccu-course-scheduler/", owner: "社員專案", ownerEn: "Member project",
+    tags: ["AI", "產品", "開源"], tagsEn: ["AI", "Product", "Open source"], repo: "https://github.com/Hunter20041004/nccu-course-scheduler", demo: "https://hunter20041004.github.io/nccu-course-scheduler/", owner: "社員專案", ownerEn: "Member project",
     cover: "https://opengraph.githubassets.com/1/Hunter20041004/nccu-course-scheduler",
     slides: [
       { kicker: "問題", kickerEn: "Problem", title: "選課要同時顧衝堂、資格、學分、實習空檔", titleEn: "Course selection means juggling conflicts, eligibility, credits and internship days", body: "政大 115-1 有 2,800 多門課。學生真正的痛點不是找課，是把「能不能修」「跟實習撞不撞」「學分夠不夠」一起算清楚。", bodyEn: "NCCU offers 2,800+ courses in 115-1. The real pain is not finding courses but working out eligibility, internship clashes and credit totals all at once." },
@@ -417,7 +452,7 @@ export const projectDecks: ProjectDeck[] = [
     id: "design-thinking-ai", name: "Design Thinking × AI 作品集", nameEn: "Design Thinking × AI Portfolio",
     tagline: "從 Python 視覺化到神經網路、遷移學習與多模型協作的課程作業整理版。",
     taglineEn: "Coursework from Python visualisation to neural networks, transfer learning and multi-model orchestration.",
-    tags: ["AI", "課程作業", "Notebook"], repo: "https://github.com/Hunter20041004/design-thinking-ai-portfolio", owner: "社員專案", ownerEn: "Member project",
+    tags: ["AI", "課程作業", "Notebook"], tagsEn: ["AI", "Coursework", "Notebook"], repo: "https://github.com/Hunter20041004/design-thinking-ai-portfolio", owner: "社員專案", ownerEn: "Member project",
     cover: "https://opengraph.githubassets.com/1/Hunter20041004/design-thinking-ai-portfolio",
     slides: [
       { kicker: "這是什麼", kickerEn: "What it is", title: "六本可在 Colab 打開的 Notebook", titleEn: "Six notebooks you can open in Colab", body: "政大「設計思考 × AI」課程與一門 MOOCs 深度學習課的作業，每本都有 Problem、Method、Results、Limitations 四節。", bodyEn: "Assignments from NCCU’s Design Thinking × AI course and a MOOC deep-learning course; each has Problem, Method, Results and Limitations sections." },
@@ -430,7 +465,7 @@ export const projectDecks: ProjectDeck[] = [
     id: "smart-album", name: "AI 表情相簿管家", nameEn: "Smart Album Cleaner",
     tagline: "本機執行的照片整理工具：用表情品質分類，配可還原的垃圾桶流程。",
     taglineEn: "A local photo-cleanup tool: expression-quality classification with a recoverable trash workflow.",
-    tags: ["電腦視覺", "隱私", "FastAPI + Vue"], repo: "https://github.com/Hunter20041004/smart-album-cleaner", owner: "社員專案", ownerEn: "Member project",
+    tags: ["電腦視覺", "隱私", "FastAPI + Vue"], tagsEn: ["Computer vision", "Privacy", "FastAPI + Vue"], repo: "https://github.com/Hunter20041004/smart-album-cleaner", owner: "社員專案", ownerEn: "Member project",
     cover: "https://opengraph.githubassets.com/1/Hunter20041004/smart-album-cleaner",
     slides: [
       { kicker: "問題", kickerEn: "Problem", title: "幾千張照片，哪些該刪？", titleEn: "Thousands of photos — which ones to delete?", body: "手機相簿裡大量閉眼、模糊、表情尷尬的照片。想清理，又怕誤刪。", bodyEn: "Phone albums fill up with closed-eye, blurry and awkward shots. You want to clean up but fear deleting the wrong ones." },

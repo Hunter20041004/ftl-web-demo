@@ -24,7 +24,7 @@ export function InsightsPage() {
 
         <section className="section--tight section" id="weekly">
           <div className="wrap">
-            <article className="issue reveal">
+            <article className="issue reveal" id={`vol-${latest.vol}`}>
               <div className="issue__cover">
                 <span className="issue__eyebrow en" data-en={`Vol.${String(latest.vol).padStart(2, "0")} · Highlights`}>Vol.{String(latest.vol).padStart(2, "0")} · 本期精選</span>
                 <p className="issue__range num">{latest.range}</p>
@@ -42,7 +42,7 @@ export function InsightsPage() {
                       <summary data-en="Sources">來源</summary>
                       <ul>
                         {story.sources.map((s) => (
-                          <li key={s.href}><a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>{s.primary ? <span className="tag tag--ghost">一手</span> : null}</li>
+                          <li key={s.href}><a href={s.href} target="_blank" rel="noopener noreferrer" data-en={s.labelEn}>{s.label}</a>{s.primary ? <span className="tag tag--ghost" data-en="Primary">一手</span> : null}</li>
                         ))}
                       </ul>
                     </details>
@@ -60,7 +60,7 @@ export function InsightsPage() {
             </div>
             <div className="rows" data-stagger>
               {past.map((issue) => (
-                <details className="row row--issue reveal" key={issue.vol}>
+                <details className="row row--issue reveal" id={`vol-${issue.vol}`} key={issue.vol}>
                   <summary className="row__summary">
                     <span className="row__date num"><b>Vol.{String(issue.vol).padStart(2, "0")}</b><span>{issue.range}</span></span>
                     <span className="row__main"><span className="row__title" data-en={issue.headlinesEn.join(" / ")}>{issue.headlines.join("／")}</span></span>
@@ -71,7 +71,7 @@ export function InsightsPage() {
                       <div key={story.title}>
                         <h3 className="h3" data-en={story.titleEn}>{story.title}</h3>
                         <p className="card__body" data-en={story.summaryEn}>{story.summary}</p>
-                        <p className="dim" style={{ fontSize: ".9rem" }}>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : "來源："}<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></span>)}</p>
+                        <p className="dim" style={{ fontSize: ".9rem" }}><span data-en="Sources: ">來源：</span>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : ""}<a href={s.href} target="_blank" rel="noopener noreferrer" data-en={s.labelEn}>{s.label}</a></span>)}</p>
                       </div>
                     ))}
                   </div>

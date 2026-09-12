@@ -29,14 +29,14 @@ function mondayOf(date: Date) {
   return d;
 }
 
-// 把兩份資料攤平成「某一天有什麼」。招募時程的日期區間（09/14 – 09/17）逐日展開。
+// 把兩份資料攤平成「某一天有什麼」。
 function buildItems(): Array<{ date: Date; item: DayItem }> {
   const out: Array<{ date: Date; item: DayItem }> = [];
   for (const entry of calendar) {
     if (entry.kind === "school") continue;
     out.push({ date: parseMonthDay(entry.date), item: { label: entry.zh, labelEn: entry.en, kind: calendarKinds[entry.kind].zh, kindEn: calendarKinds[entry.kind].en, tagClass: calendarKinds[entry.kind].tag } });
   }
-  // 招募的日期區間（09/14 – 09/17）只標開始與截止兩天，不然一整排都是同一句
+  // 招募的長區間（書審 09/07 – 09/17）只標開始與截止兩天，不然一整排都是同一句
   for (const step of membership.timeline) {
     const [start, end] = step.date.split("–").map((s) => s.trim());
     const from = parseMonthDay(start);
@@ -45,10 +45,18 @@ function buildItems(): Array<{ date: Date; item: DayItem }> {
       continue;
     }
     const to = parseMonthDay(end);
-    const short = step.zh.split("；")[0].split("（")[0].replace(/^（.*?）/, "");
-    const shortEn = step.en;
-    out.push({ date: from, item: { label: `${short} 開始`, labelEn: `${shortEn} open`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
-    out.push({ date: to, item: { label: `${short} 截止`, labelEn: `${shortEn} close`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
+    // 拿掉開頭的括號註記（「（六、日）晚上面試」→「晚上面試」）
+    const short = step.zh.replace(/^（.*?）/, "");
+    const days = Math.round((to.getTime() - from.getTime()) / 86400000) + 1;
+    if (days <= 2) {
+      // 兩天內的區間（例如週末面試）每天都標同一句
+      for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
+        out.push({ date: new Date(d), item: { label: short, labelEn: step.en, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
+      }
+      continue;
+    }
+    out.push({ date: from, item: { label: `${short}開始`, labelEn: `${step.en} open`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
+    out.push({ date: to, item: { label: `${short}截止`, labelEn: `${step.en} close`, kind: "招募", kindEn: "Recruitment", tagClass: "tag tag--ok" } });
   }
   return out;
 }

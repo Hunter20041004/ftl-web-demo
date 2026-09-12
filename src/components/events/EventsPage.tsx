@@ -153,7 +153,7 @@ export function EventsPage() {
                   <span className="principle__n">{course.n}</span>
                   <div>
                     <h3 className="h3" data-en={course.titleEn}>{course.title}</h3>
-                    <p className="keywords en">{course.keywords}</p>
+                    <p className="keywords en" data-en={course.keywordsEn}>{course.keywords}</p>
                     <p className="card__body" data-en={course.hookEn}>{course.hook}</p>
                     <p className="card__body" data-en={course.bodyEn}>{course.body}</p>
                     <p className="card__body"><b data-en="Hands-on｜">體驗｜</b><span data-en={course.practiceEn}>{course.practice}</span></p>
