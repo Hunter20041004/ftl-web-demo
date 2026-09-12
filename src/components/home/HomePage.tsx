@@ -44,7 +44,7 @@ export function HomePage() {
                   <span data-en="NCCU FinTech">政大金融科技</span><br />
                   <span className="grad-text" data-en="Innovation Lab">創新實驗室</span>
                 </h1>
-                <p className="hero__sub en">NCCU FinTech Innovation Lab</p>
+                <p className="hero__sub en" data-en="政大金融科技創新實驗室">NCCU FinTech Innovation Lab</p>
                 <p className="lead hero__desc" data-en="Finance × Technology × Industry × Practice">金融 × 科技 × 產學 × 實作</p>
                 <div className="hero__cta">
                   <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add LINE Bot">加入 LINE Bot</span></a>
