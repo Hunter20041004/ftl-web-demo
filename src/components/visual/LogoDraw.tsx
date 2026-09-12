@@ -10,6 +10,8 @@ const STROKES = [
   { d: "M 55 500 L 55 120 C 55 80 80 55 120 55 L 520 55 C 575 55 605 100 580 150 L 495 380 C 480 420 500 455 545 455 L 705 455", from: "left" },
   { d: "M 40 300 C 90 250 160 218 238 208", from: "right" },
   { d: "M 325 105 L 325 440 C 325 480 350 500 390 500", from: "top" },
+  // 第四筆：橫掃下方「FinTech Lab / NCCU」字樣，讓字也是被寫出來的，不是另外淡入的
+  { d: "M 80 615 L 660 615", from: "text" },
 ] as const;
 
 export function LogoDraw() {
@@ -45,7 +47,7 @@ export function LogoDraw() {
           {/* 遮罩：粗筆沿骨架描邊，筆到哪裡原圖就露出到哪裡 */}
           <mask id="logo-draw-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="733" height="692">
             {STROKES.map((stroke, index) => (
-              <path key={stroke.from} className="logo-draw__brush" d={stroke.d} pathLength={1} style={{ "--i": index } as React.CSSProperties} />
+              <path key={stroke.from} className="logo-draw__brush" d={stroke.d} pathLength={1} data-from={stroke.from} style={{ "--i": index } as React.CSSProperties} />
             ))}
           </mask>
         </defs>

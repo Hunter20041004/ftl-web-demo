@@ -17,7 +17,7 @@ test.describe("glass-v6 homepage", () => {
     // 動畫在 HTML 一到就開始跑（純 CSS），所以用 commit 而不是 load 去抓「還在畫」的狀態
     await page.goto(`${basePath}/`, { waitUntil: "commit" });
     const logo = page.locator(".logo-draw");
-    await expect(logo.locator("mask path")).toHaveCount(3);
+    await expect(logo.locator("mask path")).toHaveCount(4);
     await expect(logo.locator("img")).toHaveCSS("opacity", "0");
     await expect(logo).toHaveAttribute("data-logo-state", "done", { timeout: 15000 });
     await expect(logo.locator("img")).toHaveCSS("opacity", "1");
