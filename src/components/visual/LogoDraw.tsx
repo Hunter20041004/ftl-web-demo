@@ -14,6 +14,7 @@ const STROKES = [
 
 export function LogoDraw() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const logoSrc = withBasePath("/assets/ftl-logo.png");
 
   // 完成狀態直接寫在 DOM 屬性上（不走 React state）：這是動畫收尾的旗標，
   // 給測試與 CSS 讀，不需要重新 render。
@@ -39,19 +40,19 @@ export function LogoDraw() {
 
   return (
     <div ref={rootRef} className="logo-draw" data-logo-state="drawing" aria-hidden="true">
-      <svg className="logo-draw__strokes" viewBox="0 0 733 692">
+      <svg className="logo-draw__svg" viewBox="0 0 733 692">
         <defs>
-          <linearGradient id="logo-draw-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#1668E3" />
-            <stop offset="1" stopColor="#60D0F0" />
-          </linearGradient>
+          {/* 遮罩：粗筆沿骨架描邊，筆到哪裡原圖就露出到哪裡 */}
+          <mask id="logo-draw-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="733" height="692">
+            {STROKES.map((stroke, index) => (
+              <path key={stroke.from} className="logo-draw__brush" d={stroke.d} pathLength={1} style={{ "--i": index } as React.CSSProperties} />
+            ))}
+          </mask>
         </defs>
-        {STROKES.map((stroke, index) => (
-          <path key={stroke.from} d={stroke.d} pathLength={1} data-from={stroke.from} style={{ "--i": index } as React.CSSProperties} />
-        ))}
+        <image className="logo-draw__paint" href={logoSrc} width="733" height="692" mask="url(#logo-draw-mask)" />
       </svg>
       {/* eslint-disable-next-line @next/next/no-img-element -- 靜態匯出、PNG 原圖，不走 next/image */}
-      <img className="logo-draw__img" src={withBasePath("/assets/ftl-logo.png")} alt="" width={733} height={692} />
+      <img className="logo-draw__img" src={logoSrc} alt="" width={733} height={692} />
     </div>
   );
 }
