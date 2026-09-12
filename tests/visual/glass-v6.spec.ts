@@ -23,6 +23,20 @@ test.describe("glass-v6 homepage", () => {
     await expect(week.locator(".week__day--today .week__head .num")).toHaveText("9/24");
     // 9/21 錄取公布、9/23 講座 都落在這一週
     await expect(week.locator(".week__items li")).toContainText(["公布專案生錄取結果", "AI 時代商業模式創新"]);
+
+    // 往後最多 6 週、往前最多 3 週；到邊界時按鈕失效
+    const next = week.locator("[data-week-nav=next]");
+    const prev = week.locator("[data-week-nav=prev]");
+    await next.click();
+    await expect(week).toHaveAttribute("data-week-start", "9/28");
+    for (let i = 0; i < 5; i++) await next.click();
+    await expect(week).toHaveAttribute("data-week-start", "11/02");
+    await expect(next).toBeDisabled();
+    await week.locator("[data-week-nav=today]").click();
+    await expect(week).toHaveAttribute("data-week-start", "9/21");
+    for (let i = 0; i < 3; i++) await prev.click();
+    await expect(week).toHaveAttribute("data-week-start", "8/31");
+    await expect(prev).toBeDisabled();
   });
 
   test("logo draws in, then settles on the original image", async ({ page }) => {

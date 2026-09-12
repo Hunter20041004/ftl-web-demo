@@ -335,7 +335,17 @@ a{ color:inherit }
 .partner b{ font-size:1rem; font-weight:700; white-space:nowrap }
 
 /* ══ 首頁：本週日曆（週一到週日）═══════════════════════════ */
-.week__range{ font-size:1.05rem; color:var(--ink-3); margin-bottom:var(--s4) }
+.week__bar{ display:flex; align-items:center; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; margin-bottom:var(--s4) }
+.week__range{ display:flex; align-items:center; gap:10px; font-size:1.05rem; color:var(--ink-3); margin:0 }
+.week__now{ font-family:var(--f); font-size:.8rem; font-weight:700; padding:3px 10px; border-radius:var(--r-pill); background:rgba(22,104,227,.1); color:var(--b-ink) }
+.week__nav{ display:flex; gap:8px }
+.week__btn{ height:40px; min-width:40px; padding:0 12px; border:0; border-radius:var(--r-pill); background:rgba(255,255,255,.78); box-shadow:var(--glass-hi), var(--shadow-soft);
+  font-family:var(--f); font-size:1.1rem; font-weight:700; color:var(--ink); cursor:pointer; transition:transform 150ms var(--ease), opacity var(--dur) ease }
+.week__btn--text{ font-size:.92rem; padding:0 16px }
+.week__btn:hover:not(:disabled){ transform:translateY(-2px) }
+.week__btn:disabled{ opacity:.35; cursor:default }
+.week__grid{ animation:week-in .35s var(--ease) both }
+@keyframes week-in{ from{ opacity:0; transform:translateY(8px) } }
 .week__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px }
 .week__day{ min-height:160px; padding:var(--s3) var(--s3) var(--s4); border-radius:var(--r-sm); background:var(--glass); box-shadow:var(--glass-hi), var(--shadow-soft) }
 .week__day--empty{ background:rgba(255,255,255,.38); box-shadow:var(--glass-hi) }

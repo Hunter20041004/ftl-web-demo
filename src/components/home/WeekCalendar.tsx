@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { calendar, calendarKinds, membership } from "@/lib/content";
 
 // 首頁「重要時程」：一週七天（週一到週日）的日曆，每次載入依今天的日期算出本週，
@@ -64,10 +64,16 @@ function useToday() {
   return new Date(key);
 }
 
+// 可以往前翻 3 週、往後翻 6 週
+const MIN_OFFSET = -3;
+const MAX_OFFSET = 6;
+
 export function WeekCalendar() {
   const today = useToday();
+  const [offset, setOffset] = useState(0);
 
   const monday = mondayOf(today);
+  monday.setDate(monday.getDate() + offset * 7);
   const days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(monday);
     date.setDate(monday.getDate() + i);
@@ -77,11 +83,19 @@ export function WeekCalendar() {
   const fmt = (d: Date) => `${d.getMonth() + 1}/${String(d.getDate()).padStart(2, "0")}`;
   const isEmptyWeek = days.every((day) => day.items.length === 0);
   const next = ITEMS.filter((entry) => entry.date > sunday).sort((a, b) => a.date.getTime() - b.date.getTime())[0];
+  // 翻到別週時 key 換掉，格子重新進場，看得出來換頁了
 
   return (
-    <div className="week" data-week-start={fmt(monday)}>
-      <p className="week__range num">{fmt(monday)} – {fmt(sunday)}</p>
-      <ol className="week__grid">
+    <div className="week" data-week-start={fmt(monday)} data-week-offset={offset}>
+      <div className="week__bar">
+        <p className="week__range num">{fmt(monday)} – {fmt(sunday)}{offset === 0 ? <span className="week__now" data-en="This week">本週</span> : null}</p>
+        <div className="week__nav">
+          <button type="button" className="week__btn" data-week-nav="prev" aria-label="上一週" disabled={offset <= MIN_OFFSET} onClick={() => setOffset((o) => Math.max(MIN_OFFSET, o - 1))}>‹</button>
+          <button type="button" className="week__btn week__btn--text" data-week-nav="today" disabled={offset === 0} onClick={() => setOffset(0)} data-en="Today">回到本週</button>
+          <button type="button" className="week__btn" data-week-nav="next" aria-label="下一週" disabled={offset >= MAX_OFFSET} onClick={() => setOffset((o) => Math.min(MAX_OFFSET, o + 1))}>›</button>
+        </div>
+      </div>
+      <ol className="week__grid" key={fmt(monday)}>
         {days.map((day, i) => (
           <li className={`week__day${sameDay(day.date, today) ? " week__day--today" : ""}${day.items.length ? "" : " week__day--empty"}`} key={i}>
             <span className="week__head"><b data-en={DAY_NAMES_EN[i]}>週{DAY_NAMES[i]}</b><span className="num">{fmt(day.date)}</span></span>
