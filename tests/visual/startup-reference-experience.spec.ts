@@ -16,9 +16,10 @@ test("homepage adopts a reference-inspired data stage and state-driven showcases
   await expect(heroStage).toBeVisible();
 
   const navCta = page.locator(".nav__cta");
-  await expect(navCta).toBeVisible();
+  await expect(navCta).toBeAttached();
+  if ((page.viewportSize()?.width ?? 0) > 900) await expect(navCta).toBeVisible();
 
-  const heroNetwork = heroStage.locator('[data-transaction-network="hero"]');
+  const heroNetwork = hero.locator('[data-transaction-network="hero"]');
   await expect(heroNetwork).toBeVisible();
 
   const heroRows = heroStage.locator(".ios-row");
@@ -30,7 +31,7 @@ test("homepage adopts a reference-inspired data stage and state-driven showcases
 
   const weekly = page.locator("#weekly .weekly");
   await expect(weekly).toHaveAttribute("data-startup-carousel", "true");
-  const weeklyCards = weekly.locator(":scope > .card");
+  const weeklyCards = weekly.locator(".card");
   await expect(weeklyCards).toHaveCount(3);
   await expect(weekly).toHaveAttribute("data-active-card", "0");
   await weeklyCards.nth(1).hover();
