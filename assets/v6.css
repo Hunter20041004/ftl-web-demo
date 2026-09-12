@@ -92,8 +92,8 @@ a{ color:inherit }
 
 /* ══ 版面 ═══════════════════════════════════════════════════ */
 .wrap{ width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:var(--s5) }
-.section{ position:relative; padding-block:clamp(var(--s8),8vw,var(--s10)) }
-.section--tight{ padding-block:clamp(var(--s7),6vw,var(--s9)) }
+.section{ position:relative; padding-block:clamp(var(--s7),6vw,var(--s9)) }
+.section--tight{ padding-block:clamp(var(--s6),4.5vw,var(--s8)) }
 /* 交錯區塊：不切邊，上下緣羽化 */
 .section--alt{ background:linear-gradient(180deg, transparent, rgba(238,244,253,.9) 14%, rgba(238,244,253,.9) 86%, transparent) }
 .section > .wrap{ position:relative; z-index:1 }
@@ -108,7 +108,7 @@ a{ color:inherit }
 .mt-4{ margin-top:var(--s4) } .mt-5{ margin-top:var(--s5) } .mt-6{ margin-top:var(--s6) } .mt-7{ margin-top:var(--s7) }
 
 /* ══ 玻璃：唯一的分層材質 ═══════════════════════════════════ */
-.glass,.panel,.pane,.card,.ios-row,.row,.partner,.info,.member,.contact-channel{
+.glass,.panel,.pane,.card,.ios-row,.row,.partner,.info,.member{
   background:var(--glass);
   border:0;
   box-shadow:var(--glass-hi), var(--shadow-soft);
@@ -118,7 +118,7 @@ a{ color:inherit }
 .card{ position:relative; display:flex; flex-direction:column; gap:var(--s3); padding:var(--s5); border-radius:var(--r);
   color:inherit; text-decoration:none; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
 @media (hover:hover) and (pointer:fine){
-  a.card:hover,.card--interactive:hover,.ios-row:hover,a.row:hover,.contact-channel:hover{ transform:translateY(-4px); box-shadow:var(--glass-hi), var(--shadow-lift) }
+  a.card:hover,.card--interactive:hover,.ios-row:hover,a.row:hover{ transform:translateY(-4px); box-shadow:var(--glass-hi), var(--shadow-lift) }
 }
 .card--bar{ padding-left:calc(var(--s5) + 6px) }
 .card--bar::before{ content:''; position:absolute; left:var(--s4); top:var(--s5); bottom:var(--s5); width:4px; border-radius:2px; background:var(--g-stroke) }
@@ -371,11 +371,8 @@ a{ color:inherit }
 .form-note .icon{ width:18px; height:18px }
 .spinner{ width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; animation:spin .8s linear infinite }
 @keyframes spin{ to{ transform:rotate(360deg) } }
-.contact-channel{ display:flex; align-items:center; gap:var(--s4); padding:var(--s4) var(--s5); border-radius:var(--r); color:inherit; text-decoration:none; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
-.contact-channel__mark{ flex:none; width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:var(--g-chip); color:#fff }
-.contact-channel__mark .icon{ width:21px; height:21px }
-.contact-channel__meta{ font-size:.84rem; color:var(--ink-3) }
-.contact-detail{ display:flex; flex-direction:column; gap:var(--s2) }
+.contact-channel__mark{ width:48px; height:48px; border-radius:16px }
+.contact-channel__meta{ font-size:.84rem }
 .stats{ display:flex; flex-wrap:wrap; gap:clamp(var(--s6),5vw,var(--s8)) }
 .stat b{ display:block; font-family:var(--f-en); font-size:clamp(1.9rem,3.2vw,2.5rem); font-weight:300; line-height:1; color:var(--b) }
 .stat span{ display:block; margin-top:8px; font-size:.82rem; color:var(--ink-2) }

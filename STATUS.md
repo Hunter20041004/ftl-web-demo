@@ -1,30 +1,18 @@
 # STATUS — FTL Website
 
-## Stable product baseline
-The original first-version public site remains on `main` at baseline commit `fa033f0f33f3c93d7bcccd6066228031cc26ab4e`.
+## 正式站
+`main` ＝ 第一版靜態站（`fa033f0`），GitHub Pages：https://hunter20041004.github.io/ftl-web-demo/
 
-## Modern architecture
-- Next.js 16 static export: available.
-- React 19 / TypeScript 5.9: available.
-- Seven public React routes: available.
-- Shared site chrome and interactions: available.
-- GitHub Pages base-path support: available.
-- Playwright route QA: available.
-- Tailwind 4 utilities: available.
-- shadcn-compatible primitive foundation: available for future admin UI.
+## 進行中：Glass V6 改版（2026-09-12 起）
+- 分支 `redesign/glass-v6`，基底是 Next.js 16 靜態匯出版（`rebuild/v1-on-new-architecture`）。
+- 決策：零硬線玻璃材質、Outfit ＋ Huninn、首屏 logo 線條動畫、移除四個問題清單／數據列／交易網絡、七頁全部套用。
+- spec：`docs/specs/2026-09-12-glass-v6-redesign-design.md`；交接：`HANDOFF.md`。
+- 預覽：https://raw.githack.com/Hunter20041004/ftl-web-demo/preview-glass-v6/index.html
 
-## Current task
-`rebuild/v1-on-new-architecture` ports the first-version visual experience onto the modern architecture while refining one explicitly approved global decorative system.
+## 已退役的視覺方向（不要復活）
+- 莫比烏斯（`assets/mobius.js`，只留給根目錄舊靜態頁）
+- 交易網絡（2026-09-11 ～ 09-12，已自 Next 版刪除）
+- V2–V5 各 redesign 分支
 
-## Current visual system
-- Product decision on 2026-09-11: the Möbius concept is retired.
-- Do not reintroduce `MobiusVisual`, `mobius-continuity.css`, or the legacy Möbius runtime into the Next homepage.
-- Homepage replacement: sparse Transaction Network scenes at Hero, Events, Contact and Partners.
-- Visual goal: relationship topology between people / institutions / data / transactions; restrained, financial and editorial rather than crypto or star-field.
-- `assets/mobius.js` remains only as a historical V1 reference asset and is not part of the current Next runtime.
-
-## Visual rule
-For layout, content hierarchy, section composition and brand balance, `main` V1 is authoritative. Later V2/V3/V4/V5 redesign branches are not visual references. The Transaction Network decision above is the explicit exception to the old Möbius treatment.
-
-## Deployment
-A dedicated preview will be published before any merge decision. `main` must not be changed during parity reconstruction.
+## 技術棧
+Next.js 16（static export）／React 19／TypeScript 5.9／Playwright 視覺測試／GitHub Actions 建預覽分支。

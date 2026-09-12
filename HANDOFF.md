@@ -1,56 +1,35 @@
-# HANDOFF — First Version on New Architecture
+# HANDOFF — Glass V6 改版
 
-## Current round
-Rebuild the original FTL first-version website on the modern application architecture without redesigning its content structure or section language.
+## 這一輪在做什麼
+使用者看過 Next.js 重建版後認為線條太生硬、與柔和漸層背景不搭，決定大改版。
+設計決策全部在 `docs/specs/2026-09-12-glass-v6-redesign-design.md`，本檔只寫交接與驗收。
 
-## Visual source of truth
-- Repository: `Hunter20041004/ftl-web-demo`
-- Original branch: `main`
-- Original baseline commit: `fa033f0f33f3c93d7bcccd6066228031cc26ab4e`
-- The original `assets/ftl.css` remains the public-site visual contract for layout, typography, cards, sections and brand balance.
-- Product decision on 2026-09-11: retire the global Möbius visual concept. Do not restore it from `assets/mobius.js`, older branches, or prior handoff notes.
-- Its replacement is the Transaction Network visual system in `src/components/visual/TransactionNetworkVisual.tsx` + `assets/transaction-network.css`.
+## 分支
+- 工作分支：`redesign/glass-v6`（自 `rebuild/v1-on-new-architecture` 開出）
+- 預覽：push 後由 `.github/workflows/glass-v6-preview.yml` 建到 `preview-glass-v6` 分支，
+  網址 https://raw.githack.com/Hunter20041004/ftl-web-demo/preview-glass-v6/index.html
+- `main` 仍是舊的靜態 V1，正式站（GitHub Pages）沒動，等使用者拍板才合併。
 
-## Transaction Network visual rule
-- The concept represents relationships between people, institutions, data and transactions — not crypto, blockchain, or a generic node constellation.
-- Use a small number of deliberate nodes and curved connections; never fill the viewport with particles.
-- Four homepage anchor scenes are intentional: Hero, Events, Contact and Partners.
-- Hero forms the first relationship graph mostly on the right side.
-- Events introduces more participating endpoints while staying quieter than the content.
-- Contact converges toward a hub and switches to cooler cyan reflections on the saturated blue slab.
-- Partners resolves into a restrained horizontal relationship chain behind the marquee.
-- Only one or two links per scene should visibly carry a transaction pulse.
-- Keep the network behind content, semi-hidden at scene edges, and free of neon beams, star-field noise, dashboard framing, or crypto aesthetics.
+## 視覺規則（取代舊的「V1 為準」）
+- **零硬線**：不准用 1px 實線分層。卡片＝玻璃（`--glass`）＋內側高光（`--glass-hi`）＋柔陰影（`--shadow-soft`）。
+- 色調沿用 V1 的變數，不新增主色。
+- 字體：英文 Outfit、中文 Huninn（LINE Seed TC 不在 Google Fonts；若使用者提供字體檔，放 `assets/fonts/` 後把 `--f` 第一順位換回 LINE Seed TC）。
+- 一頁只有一個主角動畫：首頁是 logo 線條畫入（`LogoDraw`）。其他只做進場淡入、hover 微浮 4px、社團宗旨的捲動填色。
+- 莫比烏斯與交易網絡兩套裝飾都已退役，不要從舊分支撿回來。
 
-## What must stay visually faithful
-- Original hero hierarchy, material, gradient, pane/stats composition and CTA count.
-- Original Weekly feature + side-card composition.
-- Original three-item Mission composition.
-- Original Events cards.
-- Original saturated blue Contact slab; its decorative background is now Transaction Network rather than Möbius.
-- Original horizontal Partners marquee.
-- Original white / ice-blue / deep-blue / cyan brand balance.
-- Original responsive behavior unless a real bug prevents use.
+## 檔案地圖
+- `assets/v6.css` — 唯一的樣式表（`ftl.css` 只給根目錄舊的靜態 HTML 用，Next 版不再載入）
+- `src/components/visual/LogoDraw.tsx` — 首屏 logo 動畫；骨架路徑座標系＝`ftl-logo.png` 的 733×692
+- `src/components/runtime/MotionEnhancements.tsx` — 捲動填色
+- `tests/visual/glass-v6.spec.ts` — 視覺契約；`routes.spec.ts` — 七頁四視口無橫向捲軸
 
-## Architecture being used
-- Next.js 16 static export.
-- React 19 + TypeScript 5.9.
-- Seven React routes.
-- Shared React navigation/footer/runtime interactions.
-- GitHub Pages basePath support.
-- Tailwind 4 utilities are available without Preflight on the public site so they cannot silently alter V1.
-- shadcn-compatible primitive dependencies are installed for future admin-console work; public V1 does not use them to restyle the site.
+## 驗收關卡
+1. `npm test`（typecheck ＋ lint）
+2. `npm run test:visual`（48 個案例：7 頁 × 4 視口 ＋ glass-v6 契約 × 4 視口）
+3. `npm run build` 靜態匯出成功
+4. 1280×800 與 375×812 截圖自檢通過（見 spec 檢查清單）
+5. 預覽網址開得起來、console 無錯
 
-## Current branch
-`rebuild/v1-on-new-architecture`
-
-## Completion gate
-1. Original V1 parity acceptance test passes for content structure, with the approved Transaction Network exception.
-2. Transaction Network visual acceptance test passes.
-3. TypeScript passes.
-4. ESLint passes.
-5. Static Next export passes.
-6. Multi-viewport Playwright QA passes.
-7. Desktop and mobile screenshots are reviewed.
-8. Dedicated live preview is opened and checked.
-9. `main` remains unchanged until product approval.
+## 已知未完成
+- 站上內容仍是示意資料，清單在 `docs/內容待確認清單.md`。
+- 內頁版面沿用共用骨架（大標區＋玻璃卡／玻璃列），尚未逐頁做個別的版面設計。

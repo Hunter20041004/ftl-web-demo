@@ -5,6 +5,7 @@ on:
     branches:
       - refactor/next-architecture-chatgpt
       - rebuild/v1-on-new-architecture
+      - redesign/glass-v6
   pull_request:
 
 jobs:
