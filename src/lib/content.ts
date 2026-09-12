@@ -328,11 +328,12 @@ export const resources: Resource[] = [
   },
 ];
 
+// logo 找得到的放 logo（assets/partners/），找不到的維持文字
 export const partners = [
-  { zh: "臺灣區塊鏈愛好者協會（TABEI）", en: "Taiwan Blockchain Enthusiasts Institute", sub: "區塊鏈基礎系列課程 共同主辦", subEn: "Co-host, Blockchain Foundations Series" },
-  { zh: "好廣告數據", en: "Good Ads Data", sub: "第 3 週講座", subEn: "Week 3 lecture" },
-  { zh: "市民永續", en: "City Sustainability", sub: "第 6 週講座", subEn: "Week 6 lecture" },
-  { zh: "台灣金融研訓院", en: "Taiwan Academy of Banking and Finance", sub: "第 11 週講座", subEn: "Week 11 lecture" },
+  { zh: "臺灣區塊鏈愛好者協會（TABEI）", en: "Taiwan Blockchain Enthusiasts Institute", logo: "/assets/partners/tabei.png", markOnly: true, href: "https://www.chain.tw/" },
+  { zh: "好廣告數據", en: "Good Ads Data", logo: "/assets/partners/gad.svg", href: "https://gad-dev-464210.web.app/" },
+  { zh: "市民永續", en: "City Sustainability", href: "https://www.greenhope.com.tw/" },
+  { zh: "台灣金融研訓院", en: "Taiwan Academy of Banking and Finance", logo: "/assets/partners/tabf.svg", href: "https://www.tabf.org.tw/" },
 ];
 
 // ── FinTech 週報 ─────────────────────────────────────────────────────────
@@ -429,49 +430,58 @@ export const weekly: WeeklyIssue[] = [
 ];
 
 // ── 專案：簡報式呈現 ────────────────────────────────────────────────────
-// 先用社員在 GitHub 上公開的專案當第一版；每個專案是一疊「投影片」，每張一個重點。
-export type Slide = { kicker?: string; kickerEn?: string; title: string; titleEn: string; body?: string; bodyEn?: string; bullets?: string[]; bulletsEn?: string[]; stat?: [string, string]; statEn?: string };
-export type ProjectDeck = { id: string; name: string; nameEn: string; tagline: string; taglineEn: string; tags: string[]; tagsEn: string[]; repo: string; demo?: string; owner: string; ownerEn: string; cover: string; slides: Slide[] };
+// 每個專案固定四張：痛點 → 解法 → 產品 → 影響，再加封面與 GitHub／Demo 連結。
+// 每張有一個視覺：圖片、流程、數字或清單。進行中的專案標 status: "wip"。
+export type SlideVisual =
+  | { kind: "image"; src: string; alt?: string }
+  | { kind: "flow"; steps: string[]; stepsEn: string[] }
+  | { kind: "stats"; items: Array<[string, string, string]> }
+  | { kind: "list"; items: string[]; itemsEn: string[] };
+export type Slide = { kicker: string; kickerEn: string; title: string; titleEn: string; body: string; bodyEn: string; visual: SlideVisual };
+export type ProjectDeck = { id: string; name: string; nameEn: string; tagline: string; taglineEn: string; tags: string[]; tagsEn: string[]; repo: string; demo?: string; owner: string; ownerEn: string; status: "done" | "wip"; cover: string; slides: [Slide, Slide, Slide, Slide] };
+
+const K = {
+  pain: ["痛點", "Pain point"], solution: ["解法", "Solution"], product: ["產品", "Product"], impact: ["影響", "Impact"],
+} as const;
 
 export const projectDecks: ProjectDeck[] = [
   {
     id: "course-scheduler", name: "政大排課", nameEn: "NCCU Course Scheduler",
     tagline: "實習友善的排課工具：AI 提方案，本地規則做最後把關。",
     taglineEn: "An internship-friendly course planner: AI proposes, local rules decide.",
-    tags: ["AI", "產品", "開源"], tagsEn: ["AI", "Product", "Open source"], repo: "https://github.com/Hunter20041004/nccu-course-scheduler", demo: "https://hunter20041004.github.io/nccu-course-scheduler/", owner: "社員專案", ownerEn: "Member project",
-    cover: "https://opengraph.githubassets.com/1/Hunter20041004/nccu-course-scheduler",
+    tags: ["AI", "產品", "開源"], tagsEn: ["AI", "Product", "Open source"], repo: "https://github.com/Hunter20041004/nccu-course-scheduler", demo: "https://hunter20041004.github.io/nccu-course-scheduler/", owner: "社員專案", ownerEn: "Member project", status: "done",
+    cover: "/assets/projects/course-scheduler.jpg",
     slides: [
-      { kicker: "問題", kickerEn: "Problem", title: "選課要同時顧衝堂、資格、學分、實習空檔", titleEn: "Course selection means juggling conflicts, eligibility, credits and internship days", body: "政大 115-1 有 2,800 多門課。學生真正的痛點不是找課，是把「能不能修」「跟實習撞不撞」「學分夠不夠」一起算清楚。", bodyEn: "NCCU offers 2,800+ courses in 115-1. The real pain is not finding courses but working out eligibility, internship clashes and credit totals all at once." },
-      { kicker: "做法", kickerEn: "Approach", title: "AI 提案，規則裁決", titleEn: "AI proposes, rules decide", body: "模型產生候選課表；一個確定性的驗證器擋掉任何衝堂、不符資格、學分不足、動到鎖定課或實習日的方案。沒通過的方案永遠不會出現在使用者面前，幻覺出來的課進不了課表。", bodyEn: "The model generates candidate schedules; a deterministic validator rejects any plan with a time conflict, an eligibility breach, too few credits, a changed locked course or an internship-day clash. Rejected plans are never shown; hallucinated courses cannot reach the timetable." },
-      { kicker: "功能", kickerEn: "Features", title: "從候選清單到手機桌布", titleEn: "From candidate list to phone wallpaper", bullets: ["政大節次方格（A/B/1/2…/H）", "官方課程庫搜尋，不需 API Key", "截圖匯入、AI 推薦最多三個方案", "實習時段規劃：已確認／待確認分開算", "匯出手機桌布課表"], bulletsEn: ["NCCU period grid (A/B/1/2…/H)", "Official course search, no API key needed", "Screenshot import; up to three AI-recommended plans", "Internship planning: confirmed and pending slots counted separately", "Export the timetable as a phone wallpaper"] },
-      { kicker: "隱私", kickerEn: "Privacy", title: "自帶金鑰，伺服器什麼都不留", titleEn: "Bring your own key; the server keeps nothing", body: "AI 功能用使用者自己的 Gemini API Key，只存在當前分頁；截圖與提示不落地。", bodyEn: "AI features use the user’s own Gemini API key, kept only in the current tab; screenshots and prompts are never stored." },
-      { kicker: "品質", kickerEn: "Quality", title: "測試與 CI", titleEn: "Tests and CI", bullets: ["Unit tests、rendered HTML tests", "對政大課程系統的 live contract test", "GitHub Actions CI"], bulletsEn: ["Unit tests and rendered HTML tests", "Live contract test against the NCCU course system", "GitHub Actions CI"], stat: ["2,829", "門課程可查"], statEn: "courses searchable" },
+      { kicker: K.pain[0], kickerEn: K.pain[1], title: "選課要同時顧衝堂、資格、學分、實習空檔", titleEn: "Course selection means juggling conflicts, eligibility, credits and internship days", body: "政大 115-1 有 2,800 多門課。學生真正的痛點不是找課，是把「能不能修」「跟實習撞不撞」「學分夠不夠」一起算清楚——現有工具只幫你排時間。", bodyEn: "NCCU offers 2,800+ courses in 115-1. The real pain is not finding courses but working out eligibility, internship clashes and credit totals at once — existing tools only lay out the timetable.", visual: { kind: "stats", items: [["2,829", "門課程", "courses"], ["4", "個條件要同時成立", "constraints at once"], ["3", "個 AI 方案上限", "AI plans at most"]] } },
+      { kicker: K.solution[0], kickerEn: K.solution[1], title: "AI 提案，規則裁決", titleEn: "AI proposes, rules decide", body: "模型產生候選課表；一個確定性的驗證器擋掉任何衝堂、不符資格、學分不足、動到鎖定課或實習日的方案。沒通過的方案永遠不會出現在使用者面前。", bodyEn: "The model generates candidate schedules; a deterministic validator rejects any plan with a conflict, an eligibility breach, too few credits, a changed locked course or an internship-day clash. Rejected plans are never shown.", visual: { kind: "flow", steps: ["輸入背景與偏好", "AI 產生最多三個方案", "本地規則驗證", "只顯示通過的方案"], stepsEn: ["Enter background and preferences", "AI generates up to three plans", "Local rules validate", "Only passing plans are shown"] } },
+      { kicker: K.product[0], kickerEn: K.product[1], title: "從候選清單到手機桌布", titleEn: "From candidate list to phone wallpaper", body: "政大節次方格、官方課程庫搜尋（不需 API Key）、截圖匯入、實習時段規劃、匯出手機桌布課表。AI 功能用使用者自己的 Gemini 金鑰，伺服器什麼都不留。", bodyEn: "NCCU period grid, official course search (no API key), screenshot import, internship planning, and timetable export as a phone wallpaper. AI features use the user’s own Gemini key; the server keeps nothing.", visual: { kind: "image", src: "/assets/projects/course-scheduler.jpg" } },
+      { kicker: K.impact[0], kickerEn: K.impact[1], title: "幻覺出來的課進不了課表", titleEn: "Hallucinated courses cannot reach the timetable", body: "「AI 提案、規則裁決」是一個可以複用的模式：模型負責發散，確定性程式負責守門。專案附完整測試與對政大課程系統的即時契約測試，任何人都能驗證。", bodyEn: "“AI proposes, rules decide” is a reusable pattern: the model diverges, deterministic code guards the gate. The project ships with full tests and a live contract test against NCCU’s course system, so anyone can verify it.", visual: { kind: "list", items: ["Unit tests 與 rendered HTML tests", "對政大課程系統的 live contract test", "GitHub Actions CI，每次提交都跑", "開源，可公開檢視"], itemsEn: ["Unit tests and rendered HTML tests", "Live contract test against NCCU’s course system", "GitHub Actions CI on every commit", "Open source, publicly reviewable"] } },
     ],
   },
   {
     id: "design-thinking-ai", name: "Design Thinking × AI 作品集", nameEn: "Design Thinking × AI Portfolio",
     tagline: "從 Python 視覺化到神經網路、遷移學習與多模型協作的課程作業整理版。",
     taglineEn: "Coursework from Python visualisation to neural networks, transfer learning and multi-model orchestration.",
-    tags: ["AI", "課程作業", "Notebook"], tagsEn: ["AI", "Coursework", "Notebook"], repo: "https://github.com/Hunter20041004/design-thinking-ai-portfolio", owner: "社員專案", ownerEn: "Member project",
-    cover: "https://opengraph.githubassets.com/1/Hunter20041004/design-thinking-ai-portfolio",
+    tags: ["AI", "課程作業", "Notebook"], tagsEn: ["AI", "Coursework", "Notebook"], repo: "https://github.com/Hunter20041004/design-thinking-ai-portfolio", owner: "社員專案", ownerEn: "Member project", status: "done",
+    cover: "/assets/projects/design-thinking.jpg",
     slides: [
-      { kicker: "這是什麼", kickerEn: "What it is", title: "六本可在 Colab 打開的 Notebook", titleEn: "Six notebooks you can open in Colab", body: "政大「設計思考 × AI」課程與一門 MOOCs 深度學習課的作業，每本都有 Problem、Method、Results、Limitations 四節。", bodyEn: "Assignments from NCCU’s Design Thinking × AI course and a MOOC deep-learning course; each has Problem, Method, Results and Limitations sections." },
-      { kicker: "內容", kickerEn: "Contents", title: "由淺到深", titleEn: "From basics up", bullets: ["01 函數與數學視覺化", "02 MNIST 神經網路（Gradio 介面）", "03 BTS 遷移學習分類器（ResNet50V2）", "04 多 LLM 辯論場", "05 Reflection Agent：Writer → Reviewer → Writer", "06 CNN 手寫數字分類"], bulletsEn: ["01 Function and math visualisation", "02 MNIST neural network (Gradio UI)", "03 BTS transfer-learning classifier (ResNet50V2)", "04 Multi-LLM debate arena", "05 Reflection agent: Writer → Reviewer → Writer", "06 CNN handwritten-digit classifier"] },
-      { kicker: "方法", kickerEn: "Method", title: "把評估方法與安全邊界寫清楚", titleEn: "Evaluation method and safety boundaries made explicit", body: "驗證只用訓練資料切分、測試集只評一次；固定隨機種子；金鑰只從環境變數讀，不寫進 Notebook；公開版不含執行輸出與身分資訊。", bodyEn: "Validation uses only a training split; the test set is evaluated once; seeds are fixed; keys are read from environment variables, never written into notebooks; public copies contain no outputs or identity metadata." },
-      { kicker: "誠實", kickerEn: "Honesty", title: "不編數字", titleEn: "No invented numbers", body: "只保留公開檔案撐得住的證據。Notebook 03 的曲線是課堂診斷，不是獨立測試結果；04、05 的範例輸出是作者手寫、明確標示的示範，不是模型輸出。", bodyEn: "Only evidence the public files support is kept. Notebook 03’s curves are classroom diagnostics, not an independent test; the examples in 04 and 05 are author-written, clearly labelled, not model output." },
+      { kicker: K.pain[0], kickerEn: K.pain[1], title: "課堂作業做完就散了，也沒人能檢查", titleEn: "Coursework scatters after class, and no one can check it", body: "AI 課程的作業通常留在各自的 Colab 裡：沒有統一格式、沒寫評估方法、金鑰和個資混在輸出裡，事後連自己都不敢公開。", bodyEn: "AI coursework usually stays in scattered Colab notebooks: no common format, no stated evaluation method, keys and personal data mixed into outputs — too messy to share even with yourself later.", visual: { kind: "stats", items: [["6", "本作業", "notebooks"], ["2", "門課", "courses"], ["0", "個共同格式", "common format"]] } },
+      { kicker: K.solution[0], kickerEn: K.solution[1], title: "每本都用同一個骨架，把方法和限制寫清楚", titleEn: "One skeleton for every notebook, with method and limits made explicit", body: "每本 Notebook 固定四節：Problem、Method、Results、Limitations。驗證只用訓練資料切分、測試集只評一次、固定隨機種子；金鑰只從環境變數讀；公開版清掉輸出與身分資訊。", bodyEn: "Every notebook has four fixed sections: Problem, Method, Results, Limitations. Validation uses only a training split, the test set is evaluated once, seeds are fixed; keys come from environment variables; public copies are stripped of outputs and identity.", visual: { kind: "flow", steps: ["Problem", "Method", "Results", "Limitations"], stepsEn: ["Problem", "Method", "Results", "Limitations"] } },
+      { kicker: K.product[0], kickerEn: K.product[1], title: "六本可以直接在 Colab 打開的 Notebook", titleEn: "Six notebooks that open straight in Colab", body: "從函數視覺化、MNIST 神經網路、ResNet50V2 遷移學習，到多 LLM 辯論場、Writer → Reviewer → Writer 的 Reflection Agent、CNN 手寫數字分類。", bodyEn: "From function visualisation, an MNIST network and ResNet50V2 transfer learning to a multi-LLM debate arena, a Writer → Reviewer → Writer reflection agent and a CNN digit classifier.", visual: { kind: "image", src: "/assets/projects/design-thinking.jpg" } },
+      { kicker: K.impact[0], kickerEn: K.impact[1], title: "可以被檢查的學習證據", titleEn: "Learning evidence that can be checked", body: "只保留公開檔案撐得住的證據：不編準確率、示範輸出明確標示是手寫的、資料集來源與授權寫在限制裡。讀者可以看到問題怎麼拆、方法怎麼選、邊界在哪。", bodyEn: "Only evidence the public files support is kept: no invented accuracy, example outputs clearly labelled as hand-written, dataset provenance and licensing stated in the limitations. A reader can see how the problem was split, why the method was chosen, and where the boundaries are.", visual: { kind: "list", items: ["不編數字：Notebook 03 的曲線標示為課堂診斷", "範例輸出明確標示為作者手寫", "CI 只做結構驗證，不執行付費 API", "資料集權利未確認的就不放進 repo"], itemsEn: ["No invented numbers: notebook 03’s curves are labelled as classroom diagnostics", "Example outputs clearly labelled as author-written", "CI validates structure only, never calls paid APIs", "Datasets with unverified rights are kept out of the repo"] } },
     ],
   },
   {
     id: "smart-album", name: "AI 表情相簿管家", nameEn: "Smart Album Cleaner",
     tagline: "本機執行的照片整理工具：用表情品質分類，配可還原的垃圾桶流程。",
     taglineEn: "A local photo-cleanup tool: expression-quality classification with a recoverable trash workflow.",
-    tags: ["電腦視覺", "隱私", "FastAPI + Vue"], tagsEn: ["Computer vision", "Privacy", "FastAPI + Vue"], repo: "https://github.com/Hunter20041004/smart-album-cleaner", owner: "社員專案", ownerEn: "Member project",
-    cover: "https://opengraph.githubassets.com/1/Hunter20041004/smart-album-cleaner",
+    tags: ["電腦視覺", "隱私", "FastAPI + Vue"], tagsEn: ["Computer vision", "Privacy", "FastAPI + Vue"], repo: "https://github.com/Hunter20041004/smart-album-cleaner", owner: "社員專案", ownerEn: "Member project", status: "wip",
+    cover: "/assets/projects/smart-album.jpg",
     slides: [
-      { kicker: "問題", kickerEn: "Problem", title: "幾千張照片，哪些該刪？", titleEn: "Thousands of photos — which ones to delete?", body: "手機相簿裡大量閉眼、模糊、表情尷尬的照片。想清理，又怕誤刪。", bodyEn: "Phone albums fill up with closed-eye, blurry and awkward shots. You want to clean up but fear deleting the wrong ones." },
-      { kicker: "做法", kickerEn: "Approach", title: "MobileNetV3 判斷表情品質，全程在本機", titleEn: "MobileNetV3 scores expression quality, entirely on your machine", body: "FastAPI 提供 API 與前端，Vue 3 顯示掃描進度與結果；照片不離開電腦。刪除走 Trash 清單：軟刪除、可還原、最後才移到系統垃圾桶。", bodyEn: "FastAPI serves the API and frontend; Vue 3 shows scan progress and results; photos never leave the computer. Deletion goes through a Trash list: soft-delete, restore, and only then the system trash." },
-      { kicker: "證據", kickerEn: "Evidence", title: "75.1% 準確率，193 張標記測試集", titleEn: "75.1% accuracy on 193 labelled test images", body: "主觀的 Good／Bad 二分類：Bad 召回率 82.8%、Good 召回率 67.0%。Model Card 明寫這不代表真實世界、子群體或身分辨識表現。", bodyEn: "A subjective Good/Bad classification: Bad recall 82.8%, Good recall 67.0%. The model card states this does not establish real-world, subgroup or identity-recognition performance.", stat: ["75.1%", "測試集準確率"], statEn: "test-set accuracy" },
-      { kicker: "安全", kickerEn: "Safety", title: "限制主機、來源與可存取的照片根目錄", titleEn: "Restricts hosts, origins and accessible photo roots", body: "以 weights_only=True 載入模型權重；目前完整掃描流程僅支援 macOS。", bodyEn: "Model weights load with weights_only=True; the full scan flow currently supports macOS only." },
+      { kicker: K.pain[0], kickerEn: K.pain[1], title: "幾千張照片，哪些該刪？", titleEn: "Thousands of photos — which ones to delete?", body: "手機相簿裡大量閉眼、模糊、表情尷尬的照片。想清理，又怕誤刪；把照片丟上雲端服務整理，又不想讓私人照片離開電腦。", bodyEn: "Phone albums fill up with closed-eye, blurry and awkward shots. You want to clean up but fear deleting the wrong ones, and you don’t want private photos leaving your computer for a cloud service.", visual: { kind: "stats", items: [["1,000+", "張待整理", "photos to sort"], ["2", "個怕的事：誤刪、外流", "fears: wrong deletes, leaks"]] } },
+      { kicker: K.solution[0], kickerEn: K.solution[1], title: "本機判斷，可還原地刪", titleEn: "Judge locally, delete reversibly", body: "MobileNetV3 在本機分析人臉表情品質，照片不離開電腦。刪除走 Trash 清單：先軟刪除、可還原，最後才移到系統垃圾桶。", bodyEn: "MobileNetV3 scores expression quality on the machine; photos never leave it. Deletion goes through a Trash list: soft-delete first, restorable, then the system trash.", visual: { kind: "flow", steps: ["選資料夾", "本機掃描與分類", "檢視結果", "軟刪除 → 可還原 → 系統垃圾桶"], stepsEn: ["Pick a folder", "Scan and classify locally", "Review results", "Soft-delete → restore → system trash"] } },
+      { kicker: K.product[0], kickerEn: K.product[1], title: "FastAPI ＋ Vue 3 的本機應用", titleEn: "A local FastAPI + Vue 3 app", body: "後端限制主機、來源與可存取的照片根目錄；前端顯示掃描進度與結果。目前完整掃描流程支援 macOS。", bodyEn: "The backend restricts hosts, origins and accessible photo roots; the frontend shows scan progress and results. The full scan flow currently supports macOS.", visual: { kind: "image", src: "/assets/projects/smart-album.jpg" } },
+      { kicker: K.impact[0], kickerEn: K.impact[1], title: "75.1% 準確率，並老實寫出它不代表什麼", titleEn: "75.1% accuracy — and an honest note on what it does not mean", body: "193 張標記測試集：Bad 召回率 82.8%、Good 召回率 67.0%。Model Card 明寫這不代表真實世界、子群體或身分辨識表現。", bodyEn: "193 labelled test images: Bad recall 82.8%, Good recall 67.0%. The model card states this does not establish real-world, subgroup or identity-recognition performance.", visual: { kind: "stats", items: [["75.1%", "測試集準確率", "test-set accuracy"], ["82.8%", "Bad 召回率", "Bad recall"], ["67.0%", "Good 召回率", "Good recall"]] } },
     ],
   },
 ];

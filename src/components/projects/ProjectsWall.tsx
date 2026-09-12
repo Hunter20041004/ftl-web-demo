@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SlideDeck } from "@/components/projects/SlideDeck";
+import { withBasePath } from "@/lib/site-data";
 import { projectDecks, type ProjectDeck } from "@/lib/content";
 
 function Icon({ name }: { name: string }) {
@@ -51,8 +52,8 @@ export function ProjectsWall() {
         {projectDecks.map((deck) => (
           <button type="button" className="card project-teaser reveal reveal--rise" data-project={deck.id} id={deck.id} key={deck.id} onClick={() => { history.replaceState(null, "", `#${deck.id}`); setOpen(deck); }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
-            <img className="project-teaser__img" src={deck.cover} alt="" loading="lazy" />
-            <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3><span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span></div>
+            <img className="project-teaser__img" src={withBasePath(deck.cover)} alt="" loading="lazy" />
+            <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress">進行中</span> : <span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span>}</div>
             <p className="card__body" data-en={deck.taglineEn}>{deck.tagline}</p>
             <div className="tag-row">{deck.tags.map((tag, i) => <span className="tag" key={tag} data-en={deck.tagsEn[i]}>{tag}</span>)}</div>
           </button>

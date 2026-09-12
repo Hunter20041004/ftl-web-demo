@@ -96,6 +96,7 @@ test.describe("glass-v6 homepage", () => {
     await deck.locator("[data-deck-nav=next]").click();
     await expect(deck).toHaveAttribute("data-slide", "1");
     await expect(deck.locator(".deck__title")).toContainText("選課要同時顧");
+    await expect(deck.locator(".deck__stats li")).toHaveCount(3);
     await deck.focus();
     await page.keyboard.press("ArrowRight");
     await expect(deck).toHaveAttribute("data-slide", "2");

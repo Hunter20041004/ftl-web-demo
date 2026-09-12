@@ -1,7 +1,35 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { ProjectDeck } from "@/lib/content";
+import type { ProjectDeck, SlideVisual } from "@/lib/content";
+import { withBasePath } from "@/lib/site-data";
+
+// 每張投影片右半邊的視覺：圖片、流程、數字或清單
+function Visual({ v }: { v: SlideVisual }) {
+  if (v.kind === "image") {
+    // eslint-disable-next-line @next/next/no-img-element -- 專案截圖，靜態檔
+    return <img className="deck__img" src={withBasePath(v.src)} alt={v.alt ?? ""} loading="lazy" />;
+  }
+  if (v.kind === "flow") {
+    return (
+      <ol className="deck__flow">
+        {v.steps.map((step, i) => <li key={step}><span className="deck__flowN num">{i + 1}</span><span data-en={v.stepsEn[i]}>{step}</span></li>)}
+      </ol>
+    );
+  }
+  if (v.kind === "stats") {
+    return (
+      <ul className="deck__stats">
+        {v.items.map(([n, zh, en]) => <li key={zh}><b className="grad-text num">{n}</b><span data-en={en}>{zh}</span></li>)}
+      </ul>
+    );
+  }
+  return (
+    <ul className="bullets-plain deck__list">
+      {v.items.map((item, i) => <li key={item} data-en={v.itemsEn[i]}>{item}</li>)}
+    </ul>
+  );
+}
 
 function Icon({ name }: { name: string }) {
   return (
@@ -37,22 +65,23 @@ export function SlideDeck({ deck }: { deck: ProjectDeck }) {
         {slide === null ? (
           <div className="deck__slide deck__slide--cover">
             <div className="deck__coverText">
-              <span className="deck__kicker" data-en={deck.ownerEn}>{deck.owner}</span>
+              <span className="deck__kicker"><span data-en={deck.ownerEn}>{deck.owner}</span>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress">進行中</span> : null}</span>
               <h3 className="deck__title display">{deck.name}</h3>
               <p className="deck__sub en">{deck.nameEn}</p>
               <p className="deck__body" data-en={deck.taglineEn}>{deck.tagline}</p>
               <div className="tag-row">{deck.tags.map((tag, i) => <span className="tag" key={tag} data-en={deck.tagsEn[i]}>{tag}</span>)}</div>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 產生的社群圖，外站來源 */}
-            <img className="deck__cover" src={deck.cover} alt="" loading="lazy" />
+            <img className="deck__cover" src={withBasePath(deck.cover)} alt="" loading="lazy" />
           </div>
         ) : (
-          <div className="deck__slide">
-            {slide.kicker ? <span className="deck__kicker" data-en={slide.kickerEn}>{slide.kicker}</span> : null}
-            <h3 className="deck__title h1" data-en={slide.titleEn}>{slide.title}</h3>
-            {slide.body ? <p className="deck__body" data-en={slide.bodyEn}>{slide.body}</p> : null}
-            {slide.bullets ? <ul className="bullets-plain deck__bullets">{slide.bullets.map((b, i) => <li key={b} data-en={slide.bulletsEn?.[i]}>{b}</li>)}</ul> : null}
-            {slide.stat ? <p className="deck__stat"><b className="grad-text num">{slide.stat[0]}</b><span data-en={slide.statEn}>{slide.stat[1]}</span></p> : null}
+          <div className="deck__slide deck__slide--split">
+            <div className="deck__text">
+              <span className="deck__kicker" data-en={slide.kickerEn}>{slide.kicker}</span>
+              <h3 className="deck__title h1" data-en={slide.titleEn}>{slide.title}</h3>
+              <p className="deck__body" data-en={slide.bodyEn}>{slide.body}</p>
+            </div>
+            <div className="deck__visual"><Visual v={slide.visual} /></div>
           </div>
         )}
       </div>

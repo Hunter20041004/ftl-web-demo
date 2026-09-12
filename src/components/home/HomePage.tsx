@@ -2,6 +2,7 @@ import { SitePageShell } from "@/components/layout/SitePageShell";
 import { WeekCalendar } from "@/components/home/WeekCalendar";
 import { LogoDraw } from "@/components/visual/LogoDraw";
 import { partners, projectDecks, weekly } from "@/lib/content";
+import { withBasePath } from "@/lib/site-data";
 
 function Icon({ name, className = "icon" }: { name: string; className?: string }) {
   return (
@@ -114,8 +115,8 @@ export function HomePage() {
               {projectDecks.map((deck) => (
                 <a className="card project-teaser reveal reveal--rise" href={`/projects/#${deck.id}`} key={deck.id}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
-                  <img className="project-teaser__img" src={deck.cover} alt="" loading="lazy" />
-                  <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3><span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span></div>
+                  <img className="project-teaser__img" src={withBasePath(deck.cover)} alt="" loading="lazy" />
+                  <div className="card__top"><h3 className="h3" data-en={deck.nameEn}>{deck.name}</h3>{deck.status === "wip" ? <span className="tag tag--warn" data-en="In progress">進行中</span> : <span className="tag tag--ghost" data-en={deck.ownerEn}>{deck.owner}</span>}</div>
                   <p className="card__body" data-en={deck.taglineEn}>{deck.tagline}</p>
                 </a>
               ))}
@@ -133,7 +134,11 @@ export function HomePage() {
             <div className="marquee__track">
               <div className="marquee__group">
                 {partners.map((partner) => (
-                  <div className="partner" key={partner.en}><span className="partner__dot" /><b data-en={partner.en}>{partner.zh}</b></div>
+                  <a className="partner" key={partner.en} href={partner.href} target="_blank" rel="noopener noreferrer">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- 合作單位 logo，靜態檔 */}
+                    {partner.logo ? <img className={`partner__logo${"markOnly" in partner ? " partner__logo--mark" : ""}`} src={withBasePath(partner.logo)} alt={partner.zh} loading="lazy" /> : <span className="partner__dot" />}
+                    {!partner.logo || "markOnly" in partner ? <b data-en={partner.en}>{partner.zh}</b> : null}
+                  </a>
                 ))}
               </div>
             </div>
