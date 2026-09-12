@@ -1,10 +1,9 @@
 /*
  * Architecture layer only.
  *
- * The public-site visual source of truth is the original first-version
- * `assets/ftl.css`, loaded after this file by the root layout. Tailwind is
- * available for new/admin UI, but its Preflight reset is intentionally not
- * loaded here so it cannot silently change first-version rendering.
+ * The site's visual source of truth is `assets/v6.css`, loaded after this
+ * file by the root layout. Tailwind is available for new/admin UI, but its
+ * Preflight reset is intentionally not loaded so it cannot change v6 rendering.
  */
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/utilities" layer(utilities);

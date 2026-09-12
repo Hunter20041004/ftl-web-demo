@@ -10,7 +10,6 @@
 - spec：`docs/specs/2026-09-12-glass-v6-redesign-design.md`；交接：`HANDOFF.md`；週報格式：`docs/週報編輯規範.md`。
 
 ## 已退役的視覺方向（不要復活）
-- 莫比烏斯（`assets/mobius.js`，只留給根目錄舊靜態頁）
 - 交易網絡（2026-09-11 ～ 09-12，已自 Next 版刪除）
 - V2–V5 各 redesign 分支
 
