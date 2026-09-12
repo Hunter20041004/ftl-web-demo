@@ -67,6 +67,8 @@ body::after{
   mask-image:radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
 }
 #site-header,#site-footer,.page{ position:relative; z-index:1 }
+[hidden]{ display:none !important }
+html.lang-pending body{ visibility:hidden }
 .page{ counter-reset:sec }
 img{ max-width:100% }
 h1,h2,h3,h4,p{ margin:0 }
@@ -628,3 +630,15 @@ button.project-teaser{ text-align:left; font:inherit; cursor:pointer; border:0 }
 .partner__logo{ height:34px; width:auto; max-width:180px; object-fit:contain }
 a.partner{ text-decoration:none; color:inherit }
 .partner__logo--mark{ height:30px; border-radius:8px }
+
+/* ══ 活動列表：可點開的列 ══════════════════════════════════════ */
+button.row--button{ width:100%; text-align:left; font:inherit; cursor:pointer; border:0 }
+.row--button .row__side .icon{ color:#9BAFD0; transition:transform var(--dur) var(--ease), color var(--dur) ease }
+@media (hover:hover) and (pointer:fine){ .row--button:hover{ transform:translateY(-3px); box-shadow:var(--glass-hi), var(--shadow-lift) } .row--button:hover .row__side .icon{ transform:translateX(3px); color:var(--b) } }
+.event-detail{ display:flex; flex-direction:column; gap:var(--s3); padding:var(--s3) var(--s2) 0 }
+.event-detail .h2{ max-width:30ch }
+.event-detail__book{ display:grid; grid-template-columns:120px 1fr; gap:var(--s5); align-items:start }
+.event-detail__book .book__cover{ width:120px }
+@media (max-width:640px){ .event-detail__book{ grid-template-columns:1fr } }
+.project-dialog__inner .card__top{ padding-right:56px }
+.res-grid{ align-items:start }

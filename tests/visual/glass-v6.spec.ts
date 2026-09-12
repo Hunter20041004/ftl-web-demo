@@ -60,6 +60,33 @@ test.describe("glass-v6 homepage", () => {
     await expect(tabs.locator("#payment h3")).toContainText("1,500");
   });
 
+  test("events filter works and a session opens its details", async ({ page }) => {
+    await page.goto(`${basePath}/events/`);
+    await page.waitForLoadState("networkidle");
+    await page.locator('.filter[data-filter="lecture"]').click();
+    await expect(page.locator('#event-list [data-cat="lecture"]:visible')).toHaveCount(3);
+    await expect(page.locator('#event-list [data-cat="workshop"]:visible')).toHaveCount(0);
+    await page.locator('[data-event="3"]').click();
+    const dialog = page.locator("dialog[open] .event-detail");
+    await expect(dialog).toContainText("陳顯立");
+    await expect(dialog).toContainText("生成式 AI");
+    await page.keyboard.press("Escape");
+    await page.locator('.filter[data-filter="reading"]').click();
+    await page.locator('[data-event="4"]').click();
+    await expect(page.locator("dialog[open] .event-detail .book__cover")).toBeVisible();
+  });
+
+  test("english mode does not flash chinese when navigating between pages", async ({ page }) => {
+    await page.goto(`${basePath}/about/`);
+    await page.locator('[data-set-lang="en"]').first().click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    // 進下一頁：第一次可見時就該是英文（body 在翻譯完成前是藏起來的）
+    await page.goto(`${basePath}/events/`, { waitUntil: "commit" });
+    await page.waitForFunction(() => !!document.body && !document.documentElement.classList.contains("lang-pending"));
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.locator("h1")).toContainText("events");
+  });
+
   test("resources filter by type and books show covers", async ({ page }) => {
     await page.goto(`${basePath}/resources/`);
     await page.waitForLoadState("networkidle");

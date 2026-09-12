@@ -102,6 +102,7 @@ export function SiteInteractions() {
     });
 
     applyLang(readLang());
+    document.documentElement.classList.remove("lang-pending");
     // 網址帶 #id 指到一個摺疊區塊（details）時，直接展開它
     const openHashDetails = () => {
       const id = window.location.hash.slice(1);

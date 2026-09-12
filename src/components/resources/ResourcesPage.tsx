@@ -28,11 +28,16 @@ function ResourceCard({ item }: { item: Resource }) {
   const inner = (
     <>
       <div className="card__top"><span className="ios-row__icon"><Icon name={kindIcon[item.kind]} /></span><span className={kindTag[item.kind]} data-en={item.kindEn}>{item.kindZh}</span></div>
-      <h3 className={isJob ? "h2" : "h3"} data-en={item.titleEn}>{item.title}</h3>
+      <h3 className="h3" data-en={item.titleEn}>{item.title}</h3>
       <p className="dim" style={{ fontSize: ".95rem" }} data-en={item.orgEn}>{item.org}</p>
       <p className="card__body" data-en={item.summaryEn}>{item.summary}</p>
-      {item.details ? <ul className="bullets-plain">{item.details.map((line, i) => <li key={line} data-en={item.detailsEn?.[i]}>{line}</li>)}</ul> : null}
-      {item.contact ? <p className="card__body"><b data-en="Contact｜">聯絡｜</b><span data-en="Aaron Chao｜Human Resources｜aaron.chao@chubb.com｜02-8161-1988 #8719">{item.contact}</span></p> : null}
+      {item.details ? (
+        <details className="issue__sources">
+          <summary data-en="Details">工作內容與條件</summary>
+          <ul className="bullets-plain">{item.details.map((line, i) => <li key={line} data-en={item.detailsEn?.[i]}>{line}</li>)}</ul>
+          {item.contact ? <p className="card__body mt-4"><b data-en="Contact｜">聯絡｜</b><span data-en="Aaron Chao｜Human Resources｜aaron.chao@chubb.com｜02-8161-1988 #8719">{item.contact}</span></p> : null}
+        </details>
+      ) : null}
       <div className="card__foot">
         {isJob ? <a className="btn" href="mailto:aaron.chao@chubb.com"><Icon name="mail" /><span data-en="Email the recruiter">寫信給招募窗口</span></a> : <span className="dim" style={{ fontSize: ".9rem" }} data-en="Open source">開啟來源</span>}
         {isJob ? null : <Icon name="arrow-up-right" />}
@@ -40,7 +45,7 @@ function ResourceCard({ item }: { item: Resource }) {
     </>
   );
   return isJob
-    ? <article className="card card--feature reveal reveal--rise res-item res-item--wide" data-cat={item.kind}>{inner}</article>
+    ? <article className="card reveal reveal--rise res-item" data-cat={item.kind}>{inner}</article>
     : <a className="card reveal reveal--rise res-item" data-cat={item.kind} href={item.href} target="_blank" rel="noopener noreferrer">{inner}</a>;
 }
 
@@ -74,7 +79,6 @@ export function ResourcesPage() {
                     <h3 className="h3 en">{book.title}</h3>
                     <p className="dim en" style={{ fontSize: ".95rem" }}>{book.author}</p>
                     <p className="card__body" data-en={book.synopsisEn}>{book.synopsis}</p>
-                    <p className="dim" style={{ fontSize: ".9rem" }} data-en={book.whenEn}>{book.when}</p>
                   </div>
                 </article>
               ))}

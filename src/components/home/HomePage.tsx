@@ -136,8 +136,8 @@ export function HomePage() {
                 {partners.map((partner) => (
                   <a className="partner" key={partner.en} href={partner.href} target="_blank" rel="noopener noreferrer">
                     {/* eslint-disable-next-line @next/next/no-img-element -- 合作單位 logo，靜態檔 */}
-                    {partner.logo ? <img className={`partner__logo${"markOnly" in partner ? " partner__logo--mark" : ""}`} src={withBasePath(partner.logo)} alt={partner.zh} loading="lazy" /> : <span className="partner__dot" />}
-                    {!partner.logo || "markOnly" in partner ? <b data-en={partner.en}>{partner.zh}</b> : null}
+                    {partner.logo ? <img className={`partner__logo${"markOnly" in partner ? " partner__logo--mark" : ""}`} src={withBasePath(partner.logo)} alt="" loading="lazy" /> : <span className="partner__dot" />}
+                    <b data-en={partner.en}>{partner.zh}</b>
                   </a>
                 ))}
               </div>

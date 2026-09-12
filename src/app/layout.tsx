@@ -27,6 +27,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-Hant-TW" suppressHydrationWarning>
       <head>
+        {/* 英文模式：在第一次繪製前先把頁面藏起來，等 SiteInteractions 把文字換成英文再顯示，避免先閃中文 */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(localStorage.getItem('ftl-lang')==='en')document.documentElement.classList.add('lang-pending')}catch(e){}" }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Huninn&family=IBM+Plex+Mono:wght@400;500&display=swap" />
