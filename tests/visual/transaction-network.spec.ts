@@ -48,6 +48,21 @@ test("transaction network replaces the mobius with sparse relationship topology"
   await expect(heroEdge).toHaveCSS("stroke", "rgb(19, 64, 116)");
   await expect(heroNode).toHaveCSS("stroke", "rgb(19, 64, 116)");
 
+  const hubField = hero.locator(".transaction-network__hub-field").first();
+  const hubOpacity = await hubField.evaluate((el) => Number.parseFloat(getComputedStyle(el).opacity));
+  expect(hubOpacity).toBeLessThanOrEqual(0.02);
+
+  const flow = hero.locator("[data-network-flow]").first();
+  const flowStyle = await flow.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return {
+      width: Number.parseFloat(style.strokeWidth),
+      opacity: Number.parseFloat(style.strokeOpacity),
+    };
+  });
+  expect(flowStyle.width).toBeLessThanOrEqual(1.5);
+  expect(flowStyle.opacity).toBeLessThanOrEqual(0.5);
+
   const contactEdge = contact.locator("[data-network-edge]").first();
   const contactCore = contact.locator(".transaction-network__node-core").first();
   await expect(contactEdge).toHaveCSS("stroke", "rgb(126, 220, 250)");
