@@ -18,8 +18,8 @@ export function ContactPage() {
         <section className="pagehead">
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Contact">聯絡我們</span>
-            <h1 className="h1" data-en="Pick whichever is least effort for you">挑一個對你最不費力的方式</h1>
-            <p className="lead" data-en="The LINE bot is fastest and answers most recruitment questions on its own. For collaboration or press, email works better.">LINE Bot 最快，而且大部分招募問題它自己就能回答。談合作或媒體採訪，走 Email 比較好。</p>
+            <h1 className="h1" data-en="Contact">聯絡方式</h1>
+            <p className="lead" data-en="Recruitment and session questions: LINE Bot. Collaboration and press: email.">招募與社課問題找 LINE Bot；合作與媒體採訪請寄 Email。</p>
           </div>
         </section>
 
@@ -30,7 +30,7 @@ export function ContactPage() {
                 <div>
                   <span className="ios-row__icon contact-channel__mark"><Icon name="message" /></span>
                   <h2 className="h1 mt-5" data-en="FTL LINE Bot">FTL LINE Bot</h2>
-                  <p className="lead mt-4" data-en="Answers recruitment questions, pushes the weekly digest every Monday, and reminds you before each event. When it can’t help, a human takes over within a day.">回答招募問題、每週一推播週報、每場活動前提醒你。答不出來時，一天內轉給真人。</p>
+                  <p className="lead mt-4" data-en="Recruitment questions, payment, session reminders and check-in all run through the LINE Bot. When it can’t help, an officer takes over.">招募問題、繳費、社課提醒與簽到都在 LINE Bot 上。答不出來時由幹部接手。</p>
                   <div className="hero__cta mt-6">
                     <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add on LINE">加入好友</span></a>
                     <a className="btn btn--lg" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>Email</span></a>
@@ -56,34 +56,20 @@ export function ContactPage() {
           <div className="wrap">
             <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "start" }}>
               <div className="reveal">
-                <span className="eyebrow" data-en="Write to us">寫信給我們</span>
-                <h2 className="h2" data-en="Collaboration, media, or just a question">合作、採訪，或只是有個問題</h2>
-                <form className="mt-6" data-demo-form="" noValidate>
-                  <div className="field">
-                    <label htmlFor="f-name">姓名 <span className="req">*</span></label>
-                    <input id="f-name" name="name" type="text" required autoComplete="name" placeholder="王小明" data-en-ph="Your name" />
-                    <span className="field__err"><Icon name="alert" /><span data-en="Please enter your name">請填寫姓名</span></span>
-                  </div>
-                  <div className="field">
-                    <label htmlFor="f-email">Email <span className="req">*</span></label>
-                    <input id="f-email" name="email" type="email" required autoComplete="email" placeholder="you@example.com" data-en-ph="you@example.com" />
-                    <span className="field__hint" data-en="We reply within two working days.">我們會在兩個工作天內回覆。</span>
-                    <span className="field__err"><Icon name="alert" /><span data-en="Please enter a valid email address">請填寫正確的 Email 格式</span></span>
-                  </div>
-                  <div className="field">
-                    <label htmlFor="f-msg">訊息內容 <span className="req">*</span></label>
-                    <textarea id="f-msg" name="message" required placeholder="想談的合作、想問的問題，或想加入我們的理由。" data-en-ph="What you’d like to work on, ask about, or why you want to join." />
-                    <span className="field__err"><Icon name="alert" /><span data-en="Please write a message">請填寫訊息內容</span></span>
-                  </div>
-                  <button className="btn btn--primary btn--lg btn--block" type="submit"><span data-en="Send">送出</span><Icon name="arrow-right" /></button>
-                  <p className="form-note"><Icon name="check" /><span data-en="Sent. This is a demo form — nothing was actually delivered.">已送出。這是示意表單，實際上沒有寄出任何東西。</span></p>
-                </form>
+                <span className="eyebrow" data-en="Email">Email</span>
+                <h2 className="h2" data-en="Collaboration, press, sponsorship">合作、採訪、贊助</h2>
+                <p className="lead mt-4" data-en="Write to the society mailbox. Officers check it on weekdays.">寫信到社團信箱，幹部平日會看信。</p>
+                <a className="btn btn--primary btn--lg mt-6" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>nccufintechlab@gmail.com</span></a>
+                <dl className="info-list mt-6">
+                  <div className="info"><dt data-en="Instagram">Instagram</dt><dd><a href="https://www.instagram.com/nccufintechlab/" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
+                  <div className="info"><dt data-en="Threads">Threads</dt><dd><a href="https://www.threads.com/@nccufintechlab" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>
+                </dl>
               </div>
 
               <div className="panel reveal" id="center" style={{ padding: "clamp(24px,3.5vw,44px)" }}>
                 <span className="eyebrow" data-en="Our advisor">指導單位</span>
                 <h2 className="h2" data-en="NCCU College of Commerce FinTech Research Center">政大商學院金融科技研究中心</h2>
-                <p className="lead mt-4" style={{ fontSize: "1rem" }} data-en="FTL was founded under the Center’s guidance. For academic collaboration, research partnerships, or matters concerning the FinTech program itself, contact the Center directly.">FTL 在研究中心指導下成立。學術合作、研究夥伴，或與金融科技學程本身有關的事，請直接聯絡研究中心。</p>
+                <p className="lead mt-4" style={{ fontSize: "1rem" }} data-en="FTL was founded under the Center’s guidance. For academic collaboration or matters concerning the FinTech program, contact the Center directly.">FTL 在研究中心指導下成立。學術合作、研究夥伴，或與金融科技學程本身有關的事，請直接聯絡研究中心。</p>
                 <dl className="info-list mt-6">
                   <div className="info"><dt data-en="Website">網站</dt><dd><a href="https://www.ftrc.nccu.edu.tw/" target="_blank" rel="noopener noreferrer">ftrc.nccu.edu.tw</a></dd></div>
                   <div className="info"><dt data-en="Address">地址</dt><dd data-en="Room 302, 3F, Yi-Xian Building, No. 64, Sec. 2, Zhinan Rd., Wenshan Dist., Taipei 116">116 臺北市文山區指南路二段 64 號<br />逸仙樓 3 樓 302 室</dd></div>

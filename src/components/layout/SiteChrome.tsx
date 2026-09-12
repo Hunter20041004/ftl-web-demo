@@ -28,9 +28,9 @@ export function SiteHeader() {
       <div className="devbar">
         <span className="devbar__dot" aria-hidden="true" />
         <span
-          data-en="Work in progress — numbers, roster, partners and events on this site are placeholders, not official information."
+          data-en="Preview site — course, fee and calendar data are from the 115-1 plan; officer names are partially masked."
         >
-          開發中的展示版 —— 站上的人數、幹部名單、合作對象與活動皆為示意資料，非正式資訊。
+          預覽版 —— 課程、社費與行事曆依 115-1 計畫文件；幹部姓名部分遮罩。
         </span>
       </div>
       <div id="site-header">
@@ -124,7 +124,7 @@ export function SiteFooter() {
         <div className="footer__top">
           <div className="footer__brand">
             <img className="flogo" src={logoSrc} alt="FTL · FinTech Lab · NCCU" />
-            <p data-en="Finance × Technology × Industry × Building things. NCCU’s first FinTech academic society.">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團。</p>
+            <p data-en="AI × FinTech × Business. NCCU’s first FinTech student society.">金融 × 科技 × 產學 × 實作。政大第一個 FinTech 學術社團。</p>
             <div className="social">
               {socialItems.map((item) => (
                 <a key={item.href} href={item.href} aria-label={item.label} title={item.label}>
@@ -135,15 +135,15 @@ export function SiteFooter() {
           </div>
           <FooterColumn title="探索" en="Explore" items={[
             { href: "/about/", zh: "關於我們", en: "About" },
-            { href: "/projects/", zh: "專案", en: "Projects" },
-            { href: "/insights/", zh: "洞察", en: "Insights" },
+            { href: "/courses/", zh: "課程", en: "Courses" },
+            { href: "/join/", zh: "入社", en: "Join" },
             { href: "/events/", zh: "活動", en: "Events" },
           ]} />
           <FooterColumn title="資源" en="Resources" items={[
-            { href: "/resources/#jobs", zh: "職缺快報", en: "Job Alerts" },
-            { href: "/resources/#library", zh: "FTL 圖書館", en: "FTL Library" },
-            { href: "/resources/#contests", zh: "競賽資訊", en: "Competitions" },
-            { href: "/insights/#weekly", zh: "FinTech 週報", en: "Weekly Digest" },
+            { href: "/resources/#jobs", zh: "職缺與獎學金", en: "Jobs & scholarships" },
+            { href: "/courses/#blockchain", zh: "區塊鏈基礎系列課程", en: "Blockchain series" },
+            { href: "/join/#reward", zh: "出席獎勵金", en: "Attendance reward" },
+            { href: "/events/", zh: "學期行事曆", en: "Semester calendar" },
           ]} />
           <FooterColumn title="聯絡" en="Contact" items={[
             { href: "https://page.line.me/nccufintechlab", zh: "LINE Bot", en: "LINE Bot" },

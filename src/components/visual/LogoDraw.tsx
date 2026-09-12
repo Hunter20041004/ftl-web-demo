@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import { withBasePath } from "@/lib/site-data";
 import { PIECE_DILATE, PIECE_TRANSFORM, PIECES, type PieceKey } from "@/components/visual/logo-pieces";
 
-// 首屏主視覺：四顆光點各自從畫面外遠處飛進來，沿著緞帶骨架走；光點走過的地方，
-// 原圖 PNG 就被「刷」出來。每支刷子只能露出自己那幾片緞帶（用分件輪廓當遮罩），
-// 所以刷子可以很寬——緞帶一出現就是完整的，不會有沒刷到的角落留到最後才補。
+// 首屏主視覺：四支刷子各自從畫面外沿著緞帶骨架刷進來，刷過的地方原圖 PNG 就露出來。
+// 每支刷子只能露出自己那幾片緞帶（用分件輪廓當遮罩），所以刷子可以很寬——
+// 緞帶一出現就是完整的，不會有沒刷到的角落留到最後才補。
 // 全部刷完後一道高光斜掃過 logo 作收；之後只剩極慢的浮動。時序在 assets/v6.css。
 //
-// d＝光點／刷子的路徑（733×692 座標，起點在畫面外）、w＝刷寬、at＝起飛秒數、dur＝走完秒數。
+// d＝刷子的路徑（733×692 座標，起點在畫面外）、w＝刷寬、at＝起筆秒數、dur＝刷完秒數。
 // 覆蓋率用 scratchpad/cover4.mjs 逐像素量過：未覆蓋 22 px（0.01%）。
 // exclude＝這支刷子「不准露出」的別人緞帶：主緞帶那支很寬（輪廓又膨脹過），經過 T 的頂端與
 // F 中臂的接縫時會提早露出對方幾個像素。用「對方的輪廓 ∩ 一個矩形」擋掉——只擋接縫以外的部分，
@@ -26,12 +26,8 @@ const STROKES: ReadonlyArray<Stroke> = [
   { id: "text", pieces: [], clipY: 530, d: "M -760 615 L 80 615 L 720 615", w: 150, at: 1.5, dur: 1.0 },
 ];
 
-// 光點的緩動要跟刷子的 CSS 緩動一模一樣，兩者才會走在同一個點上（assets/v6.css 的 logo-draw）
-const EASE = "0.45 0.05 0.25 1";
-
-// 刷子是圓頭的，刷出來的前緣比刷子中心點超前「半個筆寬」。要讓前緣剛好停在光點上：
-// 刷子的路徑往起點方向多退半個筆寬、光點的路徑在終點方向多走半個筆寬——兩條一樣長，
-// 用同一組緩動走，任何時刻「刷子中心＋半寬」就等於光點位置。
+// 刷子是圓頭的，前緣比路徑點超前半個筆寬；路徑往起點方向多退半個筆寬，
+// 刷出來的前緣才會從畫面外開始、剛好在骨架終點停下。
 const NUM = /-?\d+(?:\.\d+)?/g;
 function extendStart(d: string, by: number) {
   const [x1, y1, x2, y2] = (d.match(NUM) ?? []).slice(0, 4).map(Number);
@@ -40,15 +36,6 @@ function extendStart(d: string, by: number) {
   const sy = y1 - ((y2 - y1) / len) * by;
   return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${x1} ${y1} ${d.slice(d.indexOf("L"))}`;
 }
-function extendEnd(d: string, by: number) {
-  const nums = (d.match(NUM) ?? []).map(Number);
-  const [x1, y1, x2, y2] = nums.slice(-4);
-  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
-  const ex = x2 + ((x2 - x1) / len) * by;
-  const ey = y2 + ((y2 - y1) / len) * by;
-  return `${d} L ${ex.toFixed(1)} ${ey.toFixed(1)}`;
-}
-
 export function LogoDraw() {
   const rootRef = useRef<HTMLDivElement>(null);
   const logoSrc = withBasePath("/assets/ftl-logo.png");
@@ -79,14 +66,6 @@ export function LogoDraw() {
     <div ref={rootRef} className="logo-draw" data-logo-state="drawing" aria-hidden="true">
       <svg className="logo-draw__svg" viewBox="0 0 733 692">
         <defs>
-          <radialGradient id="logo-comet">
-            <stop offset="0" stopColor="#fff" />
-            <stop offset=".35" stopColor="#BFF0FF" stopOpacity=".95" />
-            <stop offset="1" stopColor="#1668E3" stopOpacity="0" />
-          </radialGradient>
-          <filter id="logo-comet-blur" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="6" />
-          </filter>
           {/* 擋別人緞帶用的矩形（見 Stroke.exclude） */}
           {STROKES.flatMap((stroke) => (stroke.exclude ?? []).map(({ piece, within: [x, y, w, h] }) => (
             <clipPath key={`${stroke.id}-${piece}`} id={`logo-exclude-${stroke.id}-${piece}`}><rect x={x} y={y} width={w} height={h} /></clipPath>
@@ -126,14 +105,6 @@ export function LogoDraw() {
           </mask>
         </defs>
         <image className="logo-draw__paint" href={logoSrc} width="733" height="692" mask="url(#logo-draw-mask)" />
-        {/* 光點：SMIL animateMotion 走同一條路徑、同一組緩動，所以永遠在刷子的前緣 */}
-        {STROKES.map((stroke) => (
-          <g key={stroke.id} className="logo-draw__comet" style={{ animationDelay: `${stroke.at}s`, animationDuration: `${stroke.dur}s` }}>
-            <circle r="30" fill="url(#logo-comet)" filter="url(#logo-comet-blur)" opacity=".8" />
-            <circle r="9" fill="#fff" />
-            <animateMotion path={extendEnd(stroke.d, stroke.w / 2)} begin={`${stroke.at}s`} dur={`${stroke.dur}s`} fill="freeze" calcMode="spline" keyTimes="0;1" keySplines={EASE} />
-          </g>
-        ))}
       </svg>
       {/* eslint-disable-next-line @next/next/no-img-element -- 靜態匯出、PNG 原圖，不走 next/image */}
       <img className="logo-draw__img" src={logoSrc} alt="" width={733} height={692} />

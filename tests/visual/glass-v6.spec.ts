@@ -10,7 +10,7 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForLoadState("networkidle");
     await expect(page.locator("main#main")).toHaveAttribute("data-visual-baseline", "glass-v6");
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
-    await expect(page.locator("#mission, #weekly, #events, #contact, #partners")).toHaveCount(5);
+    await expect(page.locator("#recruit, #semester, #events, #contact, #partners")).toHaveCount(5);
   });
 
   test("logo draws in, then settles on the original image", async ({ page }) => {
@@ -18,7 +18,6 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/`, { waitUntil: "commit" });
     const logo = page.locator(".logo-draw");
     await expect(logo.locator(".logo-draw__brush")).toHaveCount(4);
-    await expect(logo.locator(".logo-draw__comet")).toHaveCount(4);
     await expect(logo.locator("img")).toHaveCSS("opacity", "0");
     await expect(logo).toHaveAttribute("data-logo-state", "done", { timeout: 15000 });
     await expect(logo.locator("img")).toHaveCSS("opacity", "1");
@@ -29,7 +28,7 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/`);
     await page.waitForLoadState("networkidle");
     const hardLines = await page.evaluate(() => {
-      const selectors = ".card, .ios-row, .partner, .principle, .btn, .sec-head, .tag";
+      const selectors = ".card, .ios-row, .row, .partner, .principle, .tstep, .btn, .sec-head, .tag";
       return Array.from(document.querySelectorAll<HTMLElement>(selectors)).filter((el) => {
         const cs = getComputedStyle(el);
         const solidBorder = ["Top", "Right", "Bottom", "Left"].some((side) =>
@@ -52,14 +51,5 @@ test.describe("glass-v6 homepage", () => {
       return document.fonts.check('16px "Outfit"') && document.fonts.check('16px "Huninn"');
     });
     expect(fontsReady).toBe(true);
-  });
-
-  test("fill-text words light up on scroll", async ({ page }) => {
-    await page.goto(`${basePath}/`);
-    await page.waitForLoadState("networkidle");
-    const words = page.locator(".fill-text .w");
-    await expect(words.first()).not.toHaveClass(/in/);
-    await page.locator(".fill-text").scrollIntoViewIfNeeded();
-    await expect(words.last()).toHaveClass(/in/, { timeout: 4000 });
   });
 });

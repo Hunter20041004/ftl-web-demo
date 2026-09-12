@@ -16,7 +16,9 @@
   --ok:#0B6E4F; --warn:#8A5300; --danger:#B3261E;
   --g-cta:linear-gradient(100deg,#0A46B4 0%,#1B6FE0 100%);
   --g-chip:linear-gradient(145deg,#4E8BF2 0%,#1B4FCE 62%,#274888 100%);
-  --g-text:linear-gradient(120deg,#1B6FE0 0%,#0A46B4 62%,#0A34C8 100%);
+  /* 品牌漸層：跟 logo 一樣從亮藍走到深藍，中間帶一點青 */
+  --g-text:linear-gradient(118deg,#2B8BFF 0%,#1668E3 42%,#0A46B4 78%,#0A34C8 100%);
+  --g-brand:linear-gradient(118deg,#60D0F0 0%,#2B8BFF 30%,#1668E3 62%,#0A34C8 100%);
   --g-stroke:linear-gradient(120deg,#1668E3,#60D0F0);
 
   /* ---- 材質：玻璃 ---- */
@@ -75,7 +77,7 @@ a{ color:inherit }
 .display{ font-size:clamp(2.5rem,6vw,4.5rem); line-height:1.06; letter-spacing:-.03em }
 .h1{ font-size:clamp(2rem,4vw,3rem); line-height:1.14; letter-spacing:-.025em }
 .h2{ font-size:clamp(1.5rem,2.6vw,2rem); line-height:1.22; letter-spacing:-.02em }
-.h3{ font-size:1.12rem; line-height:1.45; letter-spacing:-.012em }
+.h3{ font-size:1.18rem; line-height:1.45; letter-spacing:-.012em }
 .en,.num,.display .en{ font-family:var(--f-en) }
 .display .en,.h1 .en{ font-weight:400 }
 .lead{ font-size:1.06rem; line-height:1.8; color:var(--ink-2) }
@@ -84,7 +86,7 @@ a{ color:inherit }
 .grad-text{ background:var(--g-text); -webkit-background-clip:text; background-clip:text; color:transparent }
 .eyebrow{
   display:inline-flex; align-items:center; gap:10px; margin-bottom:var(--s4);
-  font-family:var(--f-en); font-size:.78rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--b-ink);
+  font-family:var(--f-en); font-size:.82rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--b-ink);
 }
 .eyebrow::before{ content:counter(sec,decimal-leading-zero); font-weight:600; opacity:.55 }
 .section .eyebrow::before{ counter-increment:sec }
@@ -125,13 +127,13 @@ a{ color:inherit }
 .card--fill{ background:var(--g-cta); color:#fff; box-shadow:var(--shadow-cta) }
 .card--fill .h3,.card--fill h3{ color:#fff } .card--fill .card__body{ color:#DCE8FF }
 .card__top{ display:flex; align-items:center; justify-content:space-between; gap:var(--s3) }
-.card__body{ color:var(--ink-2); font-size:.95rem; line-height:1.75 }
+.card__body{ color:var(--ink-2); font-size:1rem; line-height:1.75 }
 .card__foot{ margin-top:auto; padding-top:var(--s3); display:flex; align-items:center; justify-content:space-between; gap:var(--s3) }
-.card__index{ font-family:var(--f-en); font-size:.74rem; font-weight:500; letter-spacing:.1em; color:var(--ink-3); text-transform:uppercase }
+.card__index{ font-family:var(--f-en); font-size:.8rem; font-weight:500; letter-spacing:.08em; color:var(--ink-3); text-transform:uppercase }
 
 /* 標籤：淡藍玻璃膠囊，不用實心也不用邊框 */
 .tag{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:var(--r-pill);
-  background:rgba(22,104,227,.1); color:var(--b-ink); font-size:.76rem; font-weight:700; letter-spacing:.02em; white-space:nowrap }
+  background:rgba(22,104,227,.1); color:var(--b-ink); font-size:.82rem; font-weight:700; letter-spacing:.02em; white-space:nowrap }
 .tag--cyan{ background:rgba(96,208,240,.18); color:#0A5A8A }
 .tag--ok{ background:rgba(11,110,79,.1); color:var(--ok) }
 .tag--warn{ background:rgba(138,83,0,.1); color:var(--warn) }
@@ -179,11 +181,11 @@ a{ color:inherit }
   color:inherit; text-decoration:none; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
 .row__main{ min-width:0 }
 .row__title{ font-weight:700; font-size:1.02rem; line-height:1.5 }
-.row__meta{ font-size:.86rem; color:var(--ink-2); margin-top:4px; display:flex; flex-wrap:wrap; align-items:center; gap:10px }
+.row__meta{ font-size:.92rem; color:var(--ink-2); margin-top:4px; display:flex; flex-wrap:wrap; align-items:center; gap:10px }
 .row__side{ display:flex; align-items:center; gap:var(--s4); flex:none }
 .numchip{ flex:none; width:34px; height:34px; border-radius:50%; background:var(--g-chip); color:#fff; font-family:var(--f-en); font-size:.82rem; font-weight:600; display:grid; place-items:center }
 .info{ display:flex; gap:var(--s5); align-items:flex-start; padding:var(--s4) var(--s5); border-radius:var(--r) }
-.info dt{ flex:none; width:7.5em; font-size:.8rem; font-weight:700; color:var(--ink-3); letter-spacing:.04em; padding-top:2px }
+.info dt{ flex:none; width:7.5em; font-size:.86rem; font-weight:700; color:var(--ink-3); letter-spacing:.04em; padding-top:2px }
 .info dd{ margin:0; font-size:.98rem }
 .info dd a{ color:var(--b-ink); text-decoration:none } .info dd a:hover{ text-decoration:underline }
 .bullets{ display:flex; flex-direction:column; gap:var(--s3); margin-top:var(--s4) }
@@ -245,8 +247,8 @@ a{ color:inherit }
 }
 @media (max-width:640px){ .hero__cta{ flex-direction:column; align-items:stretch } .hero__cta .btn{ width:100% } }
 
-/* logo 動畫（LogoDraw.tsx）：四顆光點從畫面外飛進來沿緞帶走，走過的地方原圖被刷出來；
-   每支刷子只露出自己那幾片緞帶，所以緞帶一出現就是完整的。刷完一道高光斜掃收尾。 */
+/* logo 動畫（LogoDraw.tsx）：四支刷子沿緞帶骨架把原圖刷出來；每支刷子只露出自己那幾片緞帶，
+   所以緞帶一出現就是完整的。刷完一道高光斜掃收尾。 */
 .logo-draw{ position:relative; width:100%; max-width:440px; margin-inline:auto; aspect-ratio:733/692 }
 .logo-draw__svg,.logo-draw__img,.logo-draw__shine{ position:absolute; inset:0; width:100%; height:100% }
 .logo-draw__svg{ overflow:visible }
@@ -257,9 +259,6 @@ a{ color:inherit }
   animation:logo-draw 1.5s cubic-bezier(.45,.05,.25,1) both;
 }
 @keyframes logo-draw{ from{ stroke-dashoffset:1 } to{ stroke-dashoffset:0 } }
-/* 光點的生命：起飛時亮起、走到終點時熄滅（位置由 SMIL 控制） */
-.logo-draw__comet{ opacity:0; animation:logo-comet-life 1.5s linear both }
-@keyframes logo-comet-life{ 0%{ opacity:0 } 5%{ opacity:1 } 88%{ opacity:1 } 100%{ opacity:0 } }
 /* 刷完後換成原圖：刷子已覆蓋全部像素，這一步在畫面上看不出變化 */
 .logo-draw__img{ object-fit:contain; opacity:0;
   animation:logo-fade-in .5s ease-out both, logo-float 8s ease-in-out infinite;
@@ -280,15 +279,6 @@ a{ color:inherit }
   .logo-draw__img{ animation:none; opacity:1 }
 }
 
-/* ══ 捲動填色的大字宣言（agentcat 手法）═══════════════════════ */
-.fill-text{ font-size:clamp(1.75rem,4.2vw,3.25rem); line-height:1.3; font-weight:700; letter-spacing:-.02em; max-width:22ch }
-.fill-text .w{ display:inline-block; color:var(--ink); background:linear-gradient(90deg, var(--ink) 50%, rgba(11,31,58,.16) 50%) no-repeat;
-  background-size:200% 100%; background-position:100% 0; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  transition:background-position 420ms var(--ease) }
-.fill-text .w.in{ background-position:0 0 }
-.fill-text .w--accent{ background-image:linear-gradient(90deg, var(--b) 50%, rgba(22,104,227,.18) 50%) }
-@media (prefers-reduced-motion:reduce){ .fill-text .w{ background-position:0 0; transition:none } }
-
 /* ══ 首頁區塊 ═══════════════════════════════════════════════ */
 .weekly{ display:grid; gap:18px; grid-template-columns:1.55fr 1fr; align-items:stretch }
 .weekly__side{ display:grid; gap:18px }
@@ -301,9 +291,12 @@ a{ color:inherit }
 
 .principles{ display:grid; gap:18px; grid-template-columns:repeat(3,1fr); margin-top:clamp(var(--s6),4vw,var(--s7)) }
 .principle{ padding:var(--s5); border-radius:var(--r) }
-.principle__n{ display:block; font-family:var(--f-en); font-size:2.6rem; font-weight:300; line-height:1; letter-spacing:-.04em; color:var(--b); margin-bottom:var(--s4) }
-.principle h3{ font-size:1.12rem; line-height:1.45; margin-bottom:var(--s2) }
-.principle p{ font-size:.94rem; line-height:1.75; color:var(--ink-2) }
+.principle__n{ display:block; font-family:var(--f-en); font-size:2.4rem; font-weight:300; line-height:1; letter-spacing:-.03em; margin-bottom:var(--s4);
+  background:var(--g-brand); -webkit-background-clip:text; background-clip:text; color:transparent }
+.principle{ text-decoration:none; color:inherit; transition:transform var(--dur) var(--ease), box-shadow var(--dur) ease }
+.principle h3{ font-size:1.12rem; line-height:1.5; margin-bottom:var(--s2) }
+.principle p{ font-size:.98rem; line-height:1.7; color:var(--ink-2) }
+@media (hover:hover) and (pointer:fine){ a.principle:hover{ transform:translateY(-4px); box-shadow:var(--glass-hi), var(--shadow-lift) } }
 @media (max-width:900px){ .principles{ grid-template-columns:1fr } }
 
 .agenda{ display:grid; gap:12px }
@@ -340,15 +333,81 @@ a{ color:inherit }
 .partner{ display:flex; align-items:center; gap:13px; height:74px; padding:0 var(--s5); border-radius:var(--r) }
 .partner__dot{ width:30px; height:30px; border-radius:10px; flex:none; background:var(--g-chip) }
 .partner b{ font-size:.95rem; font-weight:700 }
-.partner span{ display:block; font-size:.78rem; color:var(--ink-2) }
+.partner span{ display:block; font-size:.86rem; color:var(--ink-2) }
+
+/* ══ 時程：一排玻璃步驟 ════════════════════════════════════ */
+.timeline-glass{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:12px }
+.tstep{ position:relative; padding:var(--s4) var(--s5); border-radius:var(--r); background:var(--glass); box-shadow:var(--glass-hi), var(--shadow-soft) }
+.tstep__date{ display:block; font-family:var(--f-en); font-size:1.25rem; font-weight:500; letter-spacing:-.01em; margin-bottom:6px;
+  background:var(--g-brand); -webkit-background-clip:text; background-clip:text; color:transparent }
+.tstep__label{ font-size:.98rem; line-height:1.55; color:var(--ink-2) }
+.tstep--done{ opacity:.6 }
+.tstep--done .tstep__date{ background:none; color:var(--ink-3) }
+
+/* ══ 課程頁 ═════════════════════════════════════════════════ */
+.chips{ display:flex; flex-wrap:wrap; gap:8px }
+.chip{ display:inline-flex; align-items:center; height:38px; padding:0 16px; border-radius:var(--r-pill); background:rgba(255,255,255,.7); box-shadow:var(--glass-hi), var(--shadow-soft);
+  font-size:.92rem; font-weight:700; color:var(--ink-2); text-decoration:none; transition:transform 150ms var(--ease), color var(--dur) ease }
+.chip:hover{ transform:translateY(-2px); color:var(--b-ink) }
+.card--lecture{ padding:clamp(var(--s5),3vw,var(--s6)); border-radius:var(--r-lg) }
+.card--lecture .h2{ max-width:30ch }
+.card--lecture .card__body,.card--lecture .bio{ max-width:72ch }
+.card--row > div{ max-width:78ch }
+.lecture__speaker{ font-size:1.05rem; color:var(--ink-2) }
+.lecture__speaker b{ font-size:1.25rem }
+.bio{ list-style:none; margin:var(--s3) 0 0; padding:0; display:flex; flex-direction:column; gap:6px; font-size:.92rem; line-height:1.7; color:var(--ink-3) }
+.bullets-plain{ list-style:none; margin:var(--s3) 0 0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:.98rem; line-height:1.7; color:var(--ink-2) }
+.bullets-plain li{ position:relative; padding-left:18px }
+.bullets-plain li::before{ content:''; position:absolute; left:0; top:.68em; width:8px; height:8px; border-radius:50%; background:var(--g-brand) }
+.bullets-plain b{ color:var(--ink) }
+.keywords{ font-size:.9rem; color:var(--b-ink); margin:4px 0 var(--s3) }
+.card--row{ flex-direction:row; gap:var(--s5); align-items:flex-start }
+.card--row .principle__n{ flex:none; width:3.2rem; margin:0; font-size:2rem }
+.card--row .card__body{ margin-top:8px }
+@media (max-width:640px){ .card--row{ flex-direction:column; gap:var(--s3) } }
+.info-list--inline{ flex-direction:row; flex-wrap:wrap; gap:var(--s3) }
+.info-list--inline .info{ flex:1 1 260px; background:rgba(255,255,255,.5); box-shadow:none }
+
+/* ══ 入社頁 ═════════════════════════════════════════════════ */
+.tiers{ width:100%; border-collapse:collapse; font-size:1rem }
+.tiers th{ text-align:left; font-size:.84rem; font-weight:700; letter-spacing:.04em; color:var(--ink-3); padding:0 0 12px }
+.tiers td{ padding:12px 10px }
+.tiers tbody tr:nth-child(odd) td{ background:rgba(22,104,227,.06) }
+.tiers td:first-child{ border-radius:10px 0 0 10px } .tiers td:last-child{ border-radius:0 10px 10px 0 }
+.tiers td:last-child,.tiers th:last-child{ text-align:right }
+.tiers td b{ font-family:var(--f-en); font-size:1.3rem; font-weight:500 }
+.steps{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:14px }
+.steps .card{ flex-direction:row; align-items:flex-start; gap:var(--s4) }
+.steps .card__body{ margin:0 }
+.faq{ display:flex; flex-direction:column; gap:12px }
+.faq__item{ padding:0 }
+.faq__q{ display:flex; align-items:center; justify-content:space-between; gap:var(--s4); padding:var(--s4) var(--s5); font-size:1.05rem; font-weight:700; cursor:pointer; list-style:none }
+.faq__q::-webkit-details-marker{ display:none }
+.faq__q .icon{ flex:none; color:#9BAFD0; transition:transform var(--dur) var(--ease) }
+.faq__item[open] .faq__q .icon{ transform:rotate(90deg); color:var(--b) }
+.faq__item .card__body{ padding:0 var(--s5) var(--s5) }
+
+/* ══ 關於頁：幹部名單 ═══════════════════════════════════════ */
+.roster{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px }
+.roster li{ display:flex; justify-content:space-between; gap:var(--s3); font-size:1.02rem }
+.roster .dim{ font-size:.92rem }
+
+/* ══ 活動頁：行事曆列 ═══════════════════════════════════════ */
+.row__date{ display:flex; flex-direction:column; align-items:flex-start; min-width:4.6em; font-family:var(--f-en) }
+.row__date b{ font-size:1.15rem; font-weight:500; letter-spacing:-.01em }
+.row__date span{ font-size:.82rem; color:var(--ink-3) }
+.row--muted{ opacity:.6 }
+.counts{ display:inline-flex; align-items:center; gap:6px; font-size:.88rem; font-weight:700; color:var(--ok) }
+.counts .icon{ width:16px; height:16px }
+.ios-row__meta{ font-size:.9rem; font-weight:400 }
 
 /* ══ 內頁共用 ═══════════════════════════════════════════════ */
 .pagehead{ position:relative; padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s5),3vw,var(--s6)) }
-.pagehead .h1{ max-width:20ch }
+.pagehead .h1{ max-width:26ch }
 .pagehead .lead{ max-width:58ch; margin-top:var(--s5) }
 .member{ align-items:flex-start }
 .member__ava{ width:100%; aspect-ratio:4/5; border-radius:var(--r-sm); display:grid; place-items:center; overflow:hidden; background:linear-gradient(160deg,#EAF2FD,#D4E5FA); color:var(--b-ink); font-family:var(--f-en); font-size:2rem; font-weight:300 }
-.member__role{ font-family:var(--f-en); font-size:.74rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--b-ink) }
+.member__role{ display:block; margin-bottom:var(--s3); font-family:var(--f-en); font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--b-ink) }
 .member__meta{ display:flex; flex-direction:column; gap:6px; margin-top:var(--s2) }
 .member__meta a{ display:inline-flex; align-items:center; gap:8px; color:var(--ink-3); text-decoration:none; font-size:.82rem; word-break:break-all }
 .member__meta a .icon{ width:14px; height:14px; flex:none }
@@ -393,10 +452,10 @@ a{ color:inherit }
 .footer__brand p{ color:var(--ink-2); font-size:.95rem; max-width:32ch }
 .footer h4{ font-family:var(--f-en); font-size:.74rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--b-ink); margin-bottom:var(--s4) }
 .footer__list{ display:flex; flex-direction:column; gap:11px }
-.footer__list a{ color:var(--ink-2); text-decoration:none; font-size:.92rem; transition:color var(--dur) ease }
+.footer__list a{ color:var(--ink-2); text-decoration:none; font-size:.98rem; transition:color var(--dur) ease }
 .footer__list a:hover{ color:var(--b-ink) }
 .footer__bar{ background:none }
-.footer__bottom{ display:flex; align-items:center; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; padding-block:var(--s5) var(--s6); font-size:.8rem; color:var(--ink-3) }
+.footer__bottom{ display:flex; align-items:center; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; padding-block:var(--s5) var(--s6); font-size:.88rem; color:var(--ink-3) }
 .social{ display:flex; gap:var(--s2); margin-top:var(--s4) }
 .social a{ width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.78); box-shadow:var(--glass-hi), var(--shadow-soft); color:var(--ink-2);
   transition:color var(--dur) ease, background-color var(--dur) ease, transform 150ms var(--ease) }
