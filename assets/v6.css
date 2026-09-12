@@ -251,18 +251,16 @@ a{ color:inherit }
 .logo-draw__svg,.logo-draw__img{ position:absolute; inset:0; width:100%; height:100% }
 .logo-draw__svg{ overflow:visible }
 .logo-draw__brush{
-  fill:none; stroke:#fff; stroke-width:104; stroke-linecap:round; stroke-linejoin:round;
+  fill:none; stroke:#fff; stroke-linecap:round; stroke-linejoin:round;
   stroke-dasharray:1; stroke-dashoffset:1;
-  /* 收尾不用超慢的 ease：最後 20% 幾乎不動會被看成「停頓」 */
+  /* 收尾不用超慢的 ease：最後 20% 幾乎不動會被看成「停頓」。筆寬與時序寫在 LogoDraw.tsx */
   animation:logo-draw 1.5s cubic-bezier(.45,.05,.25,1) both;
-  animation-delay:calc(.25s + var(--i,0) * .2s);
 }
-/* 字樣那一筆：在 L 收尾時橫掃過去，緊接著整張原圖在同一段時間內淡入補邊——三件事重疊，沒有空檔 */
-.logo-draw__brush[data-from="text"]{ stroke-width:150; animation-duration:.8s; animation-delay:1.35s }
 @keyframes logo-draw{ from{ stroke-dashoffset:1 } to{ stroke-dashoffset:0 } }
+/* 刷完後換成原圖：因為五筆已刷到全部像素，這一步在畫面上看不出任何變化 */
 .logo-draw__img{ object-fit:contain; opacity:0;
-  animation:logo-fade-in .9s ease-out both, logo-float 8s ease-in-out infinite;
-  animation-delay:1.5s, 2.6s; filter:drop-shadow(0 24px 40px rgba(22,104,227,.18)) }
+  animation:logo-fade-in .6s ease-out both, logo-float 8s ease-in-out infinite;
+  animation-delay:1.7s, 2.6s; filter:drop-shadow(0 24px 40px rgba(22,104,227,.18)) }
 @keyframes logo-fade-in{ to{ opacity:1 } }
 @keyframes logo-float{ 0%,100%{ translate:0 0 } 50%{ translate:0 -6px } }
 .logo-draw__svg{ animation:logo-float 8s ease-in-out infinite; animation-delay:2.6s }
