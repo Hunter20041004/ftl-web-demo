@@ -1,5 +1,5 @@
 import { SitePageShell } from "@/components/layout/SitePageShell";
-import { papers, weekly } from "@/lib/content";
+import { papers, weekly, type WeeklyStory } from "@/lib/content";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -10,6 +10,21 @@ function Icon({ name }: { name: string }) {
 }
 
 // 洞察頁＝FinTech 週報。最新一期完整展開（封面三則短標 ＋ 三則摘要 ＋ 來源），往期收成清單。
+// 每則新聞的固定結構：一句話 → 重點 → 為什麼重要 → 台灣視角 →（名詞）
+function StoryBody({ story }: { story: WeeklyStory }) {
+  return (
+    <div className="story">
+      <p className="story__lede" data-en={story.ledeEn}>{story.lede}</p>
+      <ul className="story__facts">
+        {story.facts.map((f, i) => <li key={f} data-en={story.factsEn[i]}>{f}</li>)}
+      </ul>
+      <p className="story__why"><b data-en="Why it matters｜">為什麼重要｜</b><span data-en={story.whyEn}>{story.why}</span></p>
+      <p className="story__taiwan"><b data-en="Taiwan｜">台灣視角｜</b><span data-en={story.taiwanEn}>{story.taiwan}</span></p>
+      {story.term ? <p className="story__term"><b data-en="Term｜">名詞｜</b><span data-en={story.termEn}>{story.term}</span></p> : null}
+    </div>
+  );
+}
+
 export function InsightsPage() {
   const [latest, ...past] = weekly;
   return (
@@ -31,15 +46,14 @@ export function InsightsPage() {
                 <ol className="issue__headlines">
                   {latest.headlines.map((h, i) => <li key={h}><span className="grad-text" data-en={latest.headlinesEn[i]}>{h}</span></li>)}
                 </ol>
+                <p className="issue__lede" data-en={latest.ledeEn}>{latest.lede}</p>
               </div>
               <div className="issue__stories" data-stagger>
                 {latest.stories.map((story, i) => (
                   <div className="card issue__story reveal reveal--rise" key={story.title}>
                     <span className="issue__n num">{String(i + 1).padStart(2, "0")}</span>
                     <h2 className="h2" data-en={story.titleEn}>{story.title}</h2>
-                    {story.summary.split("\n\n").map((para, j) => (
-                      <p className="card__body" data-en={story.summaryEn.split("\n\n")[j] ?? story.summaryEn} key={j}>{para}</p>
-                    ))}
+                    <StoryBody story={story} />
                     <details className="issue__sources">
                       <summary data-en="Sources">來源</summary>
                       <ul>
@@ -72,9 +86,7 @@ export function InsightsPage() {
                     {issue.stories.map((story) => (
                       <div key={story.title}>
                         <h3 className="h3" data-en={story.titleEn}>{story.title}</h3>
-                        {story.summary.split("\n\n").map((para, j) => (
-                      <p className="card__body" data-en={story.summaryEn.split("\n\n")[j] ?? story.summaryEn} key={j}>{para}</p>
-                    ))}
+                        <StoryBody story={story} />
                         <p className="dim" style={{ fontSize: ".9rem" }}><span data-en="Sources: ">來源：</span>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : ""}<a href={s.href} target="_blank" rel="noopener noreferrer" data-en={s.labelEn}>{s.label}</a></span>)}</p>
                       </div>
                     ))}

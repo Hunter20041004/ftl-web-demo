@@ -154,6 +154,12 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForLoadState("networkidle");
     await expect(page.locator(".issue .issue__headlines li")).toHaveCount(3);
     await expect(page.locator(".issue__story")).toHaveCount(3);
+    // 每則固定結構：一句話 → 重點（至少兩條）→ 為什麼重要 → 台灣視角
+    await expect(page.locator(".issue__lede")).toHaveCount(1);
+    await expect(page.locator(".issue__story .story__lede")).toHaveCount(3);
+    for (let i = 0; i < 3; i += 1) expect(await page.locator(".issue__story").nth(i).locator(".story__facts li").count()).toBeGreaterThanOrEqual(2);
+    await expect(page.locator(".issue__story .story__why")).toHaveCount(3);
+    await expect(page.locator(".issue__story .story__taiwan")).toHaveCount(3);
     await expect(page.locator(".row--issue")).toHaveCount(2);
     await expect(page.locator("#research .paper")).toHaveCount(6);
     // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開

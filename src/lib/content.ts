@@ -331,22 +331,41 @@ export const partners = [
 ];
 
 // ── FinTech 週報 ─────────────────────────────────────────────────────────
-// 依 nccu-fintechlab-social/docs/週報-Prompt.md 的規則產出：先做選題卡（每條事實附來源），
-// 再鋪成「封面三則短標 ＋ 三則各一段 ≤180 字摘要」。網站版多放來源連結，讓讀者可以自己點開查證。
-export type WeeklyStory = { title: string; titleEn: string; summary: string; summaryEn: string; sources: Array<{ label: string; labelEn: string; href: string; primary: boolean }> };
-export type WeeklyIssue = { vol: number; range: string; year: number; headlines: [string, string, string]; headlinesEn: [string, string, string]; stories: WeeklyStory[]; note?: string };
+// 週報編輯格式（見 docs/週報編輯規範.md）：每期三則、一則一件事、每期一句導語；
+// 每則固定「一句話 → 重點 2–4 條 → 為什麼重要 → 台灣視角 →（名詞）→ 來源」。
+// 讀者 10 秒看標題與一句話、1 分鐘看重點、想深入再看後兩段；所有數字都要能在來源裡找到。
+export type WeeklyStory = {
+  title: string; titleEn: string;
+  lede: string; ledeEn: string;               // 一句話：發生了什麼
+  facts: string[]; factsEn: string[];         // 重點：關鍵數字與事實，2–4 條
+  why: string; whyEn: string;                 // 為什麼重要
+  taiwan: string; taiwanEn: string;           // 台灣視角
+  term?: string; termEn?: string;             // 名詞：只在第一次出現需要解釋時才有
+  sources: Array<{ label: string; labelEn: string; href: string; primary: boolean }>;
+};
+export type WeeklyIssue = { vol: number; range: string; year: number; headlines: [string, string, string]; headlinesEn: [string, string, string]; lede: string; ledeEn: string; stories: WeeklyStory[] };
 
 export const weekly: WeeklyIssue[] = [
   {
     vol: 3, range: "09/07 – 09/13", year: 2026,
     headlines: ["Circle 4 億美元買跨境支付", "Block 申請國家信託銀行", "電支帳戶突破 4,150 萬"],
     headlinesEn: ["Circle buys Tazapay for $400M", "Block applies for a trust bank", "E-payment accounts pass 41.5M"],
+    lede: "本週三則都在講同一件事：誰有資格把錢和幣合法送進帳戶，以及台灣的帳戶已經開了多少。",
+    ledeEn: "All three stories this week are about the same thing: who is allowed to move money and coins into accounts, and how many accounts Taiwan already has.",
     stories: [
       {
         title: "Circle 以 4 億美元收購新加坡跨境支付公司 Tazapay",
         titleEn: "Circle to acquire Singapore cross-border payments firm Tazapay for $400M",
-        summaryEn: "Circle issues USDC, a stablecoin pegged to the US dollar — increasingly used as a payment rail rather than an investment. On September 8 Circle announced a $400 million all-stock acquisition of Singapore-based Tazapay, which handles business-to-business cross-border payments: over $25 billion in annualised volume, payout rails in more than 100 markets, and about 60% of volume already settled in stablecoins. Circle’s stated reason is to join “issuing a stablecoin” with “actually moving money into bank accounts across countries”, making USDC easier to use for payments in Asia and emerging markets. Closing is expected in 2027, subject to approvals including the Monetary Authority of Singapore.\n\nWhy it matters in Taiwan: the Virtual Asset Services Act passed in June, and the FSC chair said on September 2 that stablecoin rules could take effect as early as Q1 2027. While stablecoins abroad are already becoming cross-border payment plumbing, Taiwan’s rules are catching up — and services here that let you pay abroad in stablecoins will likely run on infrastructure like this.",
-        summary: "Circle 是發行美元穩定幣 USDC 的公司；「穩定幣」是一種價格釘住美元的加密貨幣，用途愈來愈接近付款工具而不是投資標的。9 月 8 日 Circle 宣布以 4 億美元全股票交易收購新加坡的 Tazapay。Tazapay 做的是企業之間的跨境收付款：年化交易量超過 250 億美元，付款通路涵蓋 100 多個市場，其中約六成的交易量已經用穩定幣結算。Circle 說買下它的原因，是把「發行穩定幣」和「把錢真正送到各國銀行帳戶」這兩段接起來，讓 USDC 在亞洲與新興市場更容易被拿來付款。交易預計 2027 年完成，還要經過新加坡金管局等監理機關核准。\n\n跟台灣讀者的關係：台灣的《虛擬資產服務法》今年 6 月三讀通過，金管會主委 9 月 2 日表示穩定幣子法最快 2027 年第一季上路。也就是說，當國外已經在把穩定幣當成跨境付款的管線，台灣的法規正在追上；之後在台灣看到「用穩定幣付跨境款項」的服務，背後很可能就是這類基礎設施。",
+        lede: "USDC 發行商 Circle 9 月 8 日宣布，以全股票交易收購做企業跨境收付款的 Tazapay，預計 2027 年完成。",
+        ledeEn: "Circle, the issuer of USDC, announced on September 8 an all-stock acquisition of B2B cross-border payments firm Tazapay, expected to close in 2027.",
+        facts: ["交易金額 4 億美元，全股票", "Tazapay 年化交易量逾 250 億美元，付款通路涵蓋 100 多個市場", "約六成交易量已用穩定幣結算", "仍待新加坡金管局等監理機關核准"],
+        factsEn: ["$400 million, all stock", "Tazapay: over $25B annualised volume, payout rails in 100+ markets", "About 60% of volume already settled in stablecoins", "Subject to approvals including the Monetary Authority of Singapore"],
+        why: "穩定幣要能付款，缺的不是發行，而是最後一哩：把錢真正送進各國銀行帳戶。Circle 買的就是這一段管線。",
+        whyEn: "What stablecoins lack as a payment tool is not issuance but the last mile: getting money into bank accounts in each country. That is the plumbing Circle is buying.",
+        taiwan: "《虛擬資產服務法》6 月三讀通過，金管會主委 9 月 2 日表示穩定幣子法最快 2027 年第一季上路；之後在台灣出現的「用穩定幣付跨境款項」服務，背後多半會是這類基礎設施。",
+        taiwanEn: "Taiwan’s Virtual Asset Services Act passed in June and the FSC chair said on September 2 that stablecoin rules could take effect as early as Q1 2027; cross-border stablecoin payment services that appear here will mostly run on infrastructure like this.",
+        term: "穩定幣：價格釘住美元等法定貨幣的加密貨幣，用途愈來愈接近付款工具而不是投資標的。",
+        termEn: "Stablecoin: a cryptocurrency pegged to a fiat currency such as the US dollar, increasingly used for payments rather than as an investment.",
         sources: [
           { label: "Circle 新聞稿（Business Wire，2026-09-08）", labelEn: "Circle press release (Business Wire, 2026-09-08)", href: "https://www.businesswire.com/news/home/20260908409825/en/", primary: true },
           { label: "Payments Dive 報導（2026-09-10）", labelEn: "Payments Dive (2026-09-10)", href: "https://www.paymentsdive.com/news/circle-buys-tazapay-for-400m/829956/", primary: false },
@@ -356,8 +375,14 @@ export const weekly: WeeklyIssue[] = [
       {
         title: "Block 向美國 OCC 申請設立「只保管、不收存款」的信託銀行",
         titleEn: "Block asks the OCC for a custody-only national trust bank",
-        summaryEn: "Block is the parent of Square terminals and Cash App. On September 8 it announced an application to the OCC, the US federal bank regulator, for Builders Bank & Trust — a national trust bank that takes no deposits and makes no loans, offering custody and fiduciary services including custody of bitcoin and stablecoins. Block already owns a Utah industrial bank founded in 2021; the extra charter puts “custody of digital assets” under a federal framework instead of state-by-state supervision. The backdrop: a May executive order telling federal agencies to speed up fintech bank-charter applications, after which Stripe, Circle, Revolut and PayPal took the same route — become a custody-only bank first, then see. Approval timing is not available.\n\nWhy it matters in Taiwan: the FSC is piloting virtual-asset custody by banks this year. The US answer is a special-purpose charter; Taiwan’s is letting existing banks pilot. Different paths, same question: who may legally hold your coins, and who is liable when something goes wrong.",
-        summary: "Block 是 Square 收款機與 Cash App 的母公司。9 月 8 日它宣布向美國聯邦金融監理機關 OCC 申請設立 Builders Bank & Trust，這是一家「國家信託銀行」：不收存款、不放款，專門做保管與信託服務，包括替客戶保管比特幣與穩定幣。Block 其實已經有一家 2021 年成立的猶他州工業銀行，這次多申請一張執照，是想把「保管數位資產」這件事放進聯邦層級的監理框架裡，而不是各州各管。背景是今年 5 月美國總統簽署行政命令，要求聯邦機關加速金融科技公司的銀行執照申請；之後 Stripe、Circle、Revolut、PayPal 都走了同一條路——先當「只保管、不放款」的銀行，再看下一步。核准時程目前查不到。\n\n跟台灣讀者的關係：金管會今年也在推動「虛擬資產保管業務試辦」，讓銀行替客戶保管虛擬資產。美國的做法是「發一種專門的執照」，台灣是「讓既有銀行試辦」，路徑不同，但要解決的問題一樣：誰可以合法替你保管幣，出事誰負責。",
+        lede: "Square 與 Cash App 的母公司 Block 9 月 8 日宣布，向美國聯邦監理機關 OCC 申請設立 Builders Bank & Trust。",
+        ledeEn: "Block, parent of Square and Cash App, announced on September 8 an application to the OCC, the US federal bank regulator, for Builders Bank & Trust.",
+        facts: ["國家信託銀行：不收存款、不放款，只做保管與信託，含比特幣與穩定幣", "Block 已有一家 2021 年成立的猶他州工業銀行", "今年 5 月的行政命令要求聯邦機關加速金融科技公司的執照申請；Stripe、Circle、Revolut、PayPal 已走同一條路", "核准時程未公布"],
+        factsEn: ["A national trust bank: no deposits, no loans, custody and fiduciary services only, including bitcoin and stablecoins", "Block already owns a Utah industrial bank founded in 2021", "A May executive order told federal agencies to speed up fintech charter applications; Stripe, Circle, Revolut and PayPal have taken the same route", "No approval timeline published"],
+        why: "多一張聯邦執照，是把「保管數位資產」從各州各管改成聯邦層級統一監理；先當只保管的銀行，再決定下一步，正在變成大型金融科技公司的標準路徑。",
+        whyEn: "An extra federal charter moves digital-asset custody from state-by-state supervision to a single federal framework; becoming a custody-only bank first is turning into the standard path for large fintechs.",
+        taiwan: "金管會今年推動「虛擬資產保管業務試辦」，讓既有銀行替客戶保管虛擬資產。美國發專用執照、台灣讓既有銀行試辦，路徑不同，要回答的問題相同：誰可以合法替你保管幣，出事誰負責。",
+        taiwanEn: "The FSC is piloting virtual-asset custody by existing banks this year. The US issues a special-purpose charter, Taiwan lets existing banks pilot: different paths, same question — who may legally hold your coins, and who is liable when something goes wrong.",
         sources: [
           { label: "Payments Dive 報導（2026-09-09，引 Block 新聞稿）", labelEn: "Payments Dive (2026-09-09, citing Block’s press release)", href: "https://www.paymentsdive.com/news/block-seeks-occ-bank-charter/829903/", primary: false },
           { label: "時報資訊：金管會 2026 金融科技雙主軸與保管業務試辦（2026-08-19）", labelEn: "China Times: FSC’s 2026 FinTech themes and custody pilot (2026-08-19)", href: "https://www.chinatimes.com/realtimenews/20260819001292-260410", primary: false },
@@ -366,25 +391,40 @@ export const weekly: WeeklyIssue[] = [
       {
         title: "金管會：7 月底電子支付帳戶使用者約 4,151 萬人",
         titleEn: "FSC: about 41.51 million e-payment accounts at end of July",
-        summaryEn: "“E-payment” means accounts such as LINE Pay Money, JKOPay and EasyWallet that can store value, transfer and pay — unlike a credit card, they work like a small wallet on your phone. The FSC publishes their statistics monthly; the September 10 release covers July: about 41.51 million e-payment account users, up roughly 380,000 from June; monthly payment collection about NT$33.01 billion (NT$29.65 billion in June), stored-value deposits about NT$33.5 billion, domestic and overseas small remittances about NT$18.01 billion, and outstanding balances about NT$20.09 billion. All four figures rose month on month.\n\nWhy it matters in Taiwan: 41.51 million accounts exceed the population, so most people hold more than one, and “which one gets used” is now the competitive question. The release is monthly and fixed in format — the most direct source for tracking whether mobile payments keep growing and which line (stored value, transfers, collection) grows fastest, and citable in any report or project.",
-        summary: "「電子支付」指的是 LINE Pay Money、街口、悠遊付這類可以儲值、轉帳、收付款的帳戶，跟只能刷卡付款的信用卡不同，它更像一個放在手機裡的小錢包。金管會每個月公布一次這些帳戶的統計，9 月 10 日公布的是 7 月份：電子支付帳戶總使用者約 4,151 萬人，比上個月多約 38 萬人；當月代理收付實質交易款項約 330.1 億元（上月 296.5 億元），收受儲值款項約 335 億元，國內外小額匯兌約 180.1 億元，支付款項餘額約 200.9 億元。四個數字都比上個月高。\n\n跟台灣讀者的關係：4,151 萬個帳戶已經超過台灣人口，代表多數人不只開了一個電支帳戶，「用哪一個」正在變成業者的競爭重點。這份統計每月公布一次、格式固定，是觀察台灣行動支付有沒有繼續成長、哪一項（儲值、轉帳、代收付）長得最快的最直接來源，之後做報告或專案都可以直接引用。",
+        lede: "金管會 9 月 10 日公布 7 月電子支付統計，帳戶使用者、交易、儲值與匯兌四項數字都比上月高。",
+        ledeEn: "The FSC published July e-payment statistics on September 10; accounts, transactions, stored value and remittances all rose month on month.",
+        facts: ["使用者約 4,151 萬人，較 6 月增加約 38 萬人", "代理收付實質交易款項約 330.1 億元（6 月 296.5 億元）", "收受儲值款項約 335 億元；國內外小額匯兌約 180.1 億元", "支付款項餘額約 200.9 億元"],
+        factsEn: ["About 41.51 million users, up roughly 380,000 from June", "Payment collection about NT$33.01 billion (NT$29.65 billion in June)", "Stored value about NT$33.5 billion; domestic and overseas small remittances about NT$18.01 billion", "Outstanding balances about NT$20.09 billion"],
+        why: "帳戶數已超過台灣人口，代表多數人不只開一個電支帳戶；業者的競爭重點從「有沒有開戶」變成「日常用哪一個」。",
+        whyEn: "Accounts now exceed Taiwan’s population, so most people hold more than one; the competition has shifted from opening accounts to being the one used daily.",
+        taiwan: "這份統計每月公布、格式固定，是觀察台灣行動支付是否持續成長、哪一項（儲值、轉帳、代收付）長最快的最直接來源，做報告或專案可以直接引用。",
+        taiwanEn: "Published monthly in a fixed format, this release is the most direct source for tracking whether mobile payments keep growing and which line grows fastest — citable in any report or project.",
+        term: "電子支付：LINE Pay Money、街口、悠遊付這類可儲值、轉帳、收付款的帳戶；與只能付款的信用卡不同，更像放在手機裡的錢包。",
+        termEn: "E-payment: accounts such as LINE Pay Money, JKOPay and EasyWallet that can store value, transfer and pay — closer to a wallet on your phone than a credit card.",
         sources: [
           { label: "金管會新聞稿：115 年 7 月份信用卡、現金卡及電子支付機構業務資訊（2026-09-10）", labelEn: "FSC press release: July 2026 credit card, cash card and e-payment statistics (2026-09-10)", href: "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202609100002&dtable=News", primary: true },
         ],
       },
     ],
-    note: "三則皆於 2026-09-12 查證；發布前請再點開來源確認。",
   },
   {
     vol: 2, range: "09/02 – 09/06", year: 2026,
     headlines: ["穩定幣子法最快明年 Q1", "Stripe 找人做穩定幣卡", "Ramp 把 AI 花費納管"],
-    headlinesEn: ["Taiwan stablecoin rules: Q1 2027", "Stripe hires for stablecoin cards", "Ramp brings AI spend under control"],
+    headlinesEn: ["Stablecoin rules by Q1 2027", "Stripe hires for stablecoin cards", "Ramp brings AI spend under control"],
+    lede: "本週看兩條線：穩定幣從法規到產品各前進一步，以及企業開始把 AI 用量當成一筆要管的支出。",
+    ledeEn: "Two threads this week: stablecoins move a step forward on both rules and products, and companies start treating AI usage as a cost to be managed.",
     stories: [
       {
         title: "金管會主委：虛擬資產與穩定幣子法規最快 2027 年第一季上路",
-        titleEn: "FSC chair: virtual-asset and stablecoin rules could take effect in Q1 2027",
-        summary: "「穩定幣」是價格釘住某種法定貨幣（例如美元）的加密貨幣。台灣今年 6 月 30 日三讀通過《虛擬資產服務法》，第一次為虛擬資產業者與穩定幣的發行訂出法律架構；但法律只是骨架，細節要靠子法規。金管會主委彭金隆 9 月 2 日在台北的亞洲金融科技聯盟（AFA）高峰會表示，金管會正在訂九項子法規，其中穩定幣的草案預計最快明年第一季公告實施。他也提到，國際上對虛擬資產與穩定幣的討論已經從「該不該發展」變成「怎麼健全地發展」。子法規的正式內容目前還沒公布。\n\n跟台灣讀者的關係：之後在台灣發行穩定幣的業者要同時經過金管會與央行核准，這會是判斷哪些穩定幣「合規」的第一個依據。對想做相關專案或找相關實習的人來說，2027 年第一季是一個值得記住的時間點：法規上路前後，會是業者最需要人手的時候。",
-        summaryEn: "A stablecoin is a cryptocurrency pegged to a fiat currency such as the US dollar. Taiwan passed the Virtual Asset Services Act on June 30, its first legal framework for virtual-asset providers and stablecoin issuance — but the act is only the skeleton; the details come from subsidiary regulations. At the Asia FinTech Alliance summit in Taipei on September 2, FSC chair Peng Jin-lung said the FSC is drafting nine such regulations, and that the stablecoin draft could be announced and take effect as early as Q1 2027. He added that the global conversation has moved from “whether” to “how to develop soundly”. The text of the rules is not yet published.\n\nWhy it matters in Taiwan: issuers will need approval from both the FSC and the central bank — the first yardstick for which stablecoins count as compliant. For anyone planning a project or an internship in this area, Q1 2027 is a date to remember: the months around a rule taking effect are when firms need people most.",
+        titleEn: "FSC chair: virtual-asset and stablecoin rules could take effect as early as Q1 2027",
+        lede: "金管會主委彭金隆 9 月 2 日在台北的亞洲金融科技聯盟高峰會表示，《虛擬資產服務法》九項子法規訂定中，穩定幣草案最快明年第一季公告實施。",
+        ledeEn: "FSC chair Peng Jin-lung said at the Asia FinTech Alliance summit in Taipei on September 2 that nine sets of rules under the Virtual Asset Services Act are being drafted, with the stablecoin draft to take effect as early as Q1 next year.",
+        facts: ["《虛擬資產服務法》今年 6 月 30 日三讀通過", "子法規共九項，穩定幣草案最快 2027 年第一季實施", "正式內容尚未公布"],
+        factsEn: ["The Virtual Asset Services Act passed its third reading on June 30", "Nine sets of implementing rules; the stablecoin draft could take effect in Q1 2027", "Final text not yet published"],
+        why: "法律只是骨架，誰能發、怎麼發、要留多少準備金，都在子法規裡；這是判斷哪些穩定幣在台灣「合規」的第一個依據。",
+        whyEn: "The Act is only the skeleton; who may issue, how, and with what reserves is all in the implementing rules — the first basis for judging which stablecoins are compliant in Taiwan.",
+        taiwan: "在台灣發行穩定幣將需要金管會與央行同時核准。對想做相關專案或找實習的人，2027 年第一季是值得記住的時間點：法規上路前後是業者最需要人手的時候。",
+        taiwanEn: "Issuing a stablecoin in Taiwan will need approval from both the FSC and the central bank. For anyone planning a project or internship in this area, Q1 2027 is the date to remember: firms need the most hands right around when rules take effect.",
         sources: [
           { label: "Focus Taiwan（中央社英文）報導（2026-09-02）", labelEn: "Focus Taiwan (CNA English), 2026-09-02", href: "https://focustaiwan.tw/business/202609020014", primary: false },
           { label: "Taipei Times 報導（2026-09-03）", labelEn: "Taipei Times (2026-09-03)", href: "https://www.taipeitimes.com/News/biz/archives/2026/09/03/2003863581", primary: false },
@@ -392,18 +432,32 @@ export const weekly: WeeklyIssue[] = [
       },
       {
         title: "Stripe 延攬 Drew Turchin 負責穩定幣連結的支付卡業務",
-        titleEn: "Stripe hires Drew Turchin to run stablecoin-linked payment cards",
-        summary: "Stripe 是全球最大的線上收款基礎設施公司之一。Payments Dive 9 月 3 日報導，Stripe 聘請曾任職 Native Markets 與 Uniswap Labs 的 Drew Turchin，負責「穩定幣連結的支付卡」——使用者把穩定幣放在帳戶裡，刷卡時自動換成當地貨幣付款，任何收卡的地方都能用。這不是突然的決定：Stripe 2024 年 10 月以 11 億美元收購穩定幣平台 Bridge，今年 6 月又加入約 140 家公司共同宣布的 Open USD 穩定幣。Stripe 網站引用的研究顯示，穩定幣連結卡的月交易量在 2024 年達 15 億美元，前一年是 2.5 億美元，一年成長六倍。\n\n跟台灣讀者的關係：這類卡在台灣還不能發行，要等穩定幣子法規（見上一則）定案。但它說明了穩定幣真正的落地方式可能不是「大家去買幣」，而是藏在一張看起來很普通的卡後面——這是看 FinTech 產品時很值得記住的一個模式：技術在後面換掉，前面的使用習慣不變。",
-        summaryEn: "Stripe is one of the largest online payment infrastructure companies. Payments Dive reported on September 3 that Stripe hired Drew Turchin, formerly of Native Markets and Uniswap Labs, to lead stablecoin-linked payment cards: the user holds stablecoins in an account, and at checkout the card converts to local currency, usable anywhere cards are accepted. It is not a sudden move: Stripe bought the stablecoin platform Bridge for $1.1 billion in October 2024 and in June joined about 140 companies announcing the Open USD stablecoin. Research cited on Stripe’s site puts stablecoin-linked card volume at $1.5 billion a month in 2024, up from $250 million the year before — six times in a year.\n\nWhy it matters in Taiwan: such cards cannot be issued here until the stablecoin rules above are finalised. But they show how stablecoins may actually land: not “everyone buys crypto”, but hidden behind an ordinary-looking card. A pattern worth remembering when you look at FinTech products — the technology changes underneath, the habit in front stays the same.",
+        titleEn: "Stripe hires Drew Turchin to lead stablecoin-linked cards",
+        lede: "Payments Dive 9 月 3 日報導，Stripe 聘請曾任職 Native Markets 與 Uniswap Labs 的 Drew Turchin，負責穩定幣連結的支付卡。",
+        ledeEn: "Payments Dive reported on September 3 that Stripe hired Drew Turchin, formerly of Native Markets and Uniswap Labs, to lead stablecoin-linked cards.",
+        facts: ["穩定幣卡：帳戶裡放穩定幣，刷卡時自動換成當地貨幣，任何收卡的地方都能用", "Stripe 2024 年 10 月以 11 億美元收購穩定幣平台 Bridge；今年 6 月加入約 140 家公司共同宣布的 Open USD", "Stripe 引用的研究：穩定幣卡月交易量 2024 年達 15 億美元，前一年 2.5 億美元"],
+        factsEn: ["Stablecoin card: hold stablecoins in the account, auto-convert to local currency at the point of sale, usable anywhere cards are accepted", "Stripe bought stablecoin platform Bridge for $1.1B in October 2024 and joined the ~140-company Open USD stablecoin in June", "Research cited by Stripe: stablecoin-card monthly volume reached $1.5B in 2024, from $250M a year earlier"],
+        why: "穩定幣真正的落地方式可能不是「大家去買幣」，而是藏在一張看起來很普通的卡後面：技術在後面換掉，前面的使用習慣不變。",
+        whyEn: "Stablecoins may reach everyday use not by people buying coins but behind an ordinary-looking card: the technology changes underneath while the habit in front stays the same.",
+        taiwan: "這類卡在台灣還不能發行，要等穩定幣子法規（見上一則）定案。",
+        taiwanEn: "Cards like this cannot be issued in Taiwan yet; they wait on the stablecoin rules in the previous story.",
         sources: [
           { label: "Payments Dive 報導（2026-09-03）", labelEn: "Payments Dive (2026-09-03)", href: "https://www.paymentsdive.com/news/stripe-taps-new-stablecoin-executive/829509/", primary: false },
         ],
       },
       {
         title: "Ramp 推出 Router：把公司花在 AI 上的錢納入費用管理",
-        titleEn: "Ramp launches Router to bring corporate AI spending under expense controls",
-        summary: "Ramp 是一家發企業卡、做費用管理軟體的美國金融科技公司；企業用它的卡付款，再用它的軟體管報銷與預算。8 月 19 日 Ramp 推出 Router：公司可以看到自己在 OpenAI、Anthropic、Google、Meta 等各家模型上花了多少「代幣費」（AI 依用量計價的單位），依成本、速度與表現把任務分派給不同模型，並像管差旅費一樣設上限。Ramp 說這個工具內部已經用了三年，自家的 AI 支出從 2025 年夏天到現在成長了 21 倍；同一個月，Stripe 以 75 億美元收購同類型的 OpenRouter，這個領域約有十來家公司在做。\n\n跟台灣讀者的關係：「AI 用量」正在變成企業一項會失控的固定支出，所以費用管理、企業卡與支付公司都在搶著幫企業管它。這是一條新出現的產品線——找實習、看產業、或想做專案時，「幫公司管 AI 花費」是一個台灣還很少人做的題目。",
-        summaryEn: "Ramp is a US fintech that issues corporate cards and makes expense software: companies pay with its cards and manage reimbursements and budgets in its software. On August 19 Ramp launched Router: a company can see what it spends on tokens (the usage unit AI is priced in) across OpenAI, Anthropic, Google, Meta and others, route tasks to models by cost, speed and performance, and set limits the way travel expenses are capped. Ramp says it has used the tool internally for three years and that its own AI spend grew 21× since summer 2025; the same month Stripe bought the comparable OpenRouter for $7.5 billion, in a field of roughly a dozen players.\n\nWhy it matters in Taiwan: AI usage is becoming a fixed cost that companies struggle to control, so expense, corporate-card and payment firms are racing to manage it. It is a new product line — for internships, industry watching or a project, “helping companies manage AI spend” is a topic few in Taiwan have touched.",
+        titleEn: "Ramp launches Router to bring AI spend into expense management",
+        lede: "企業卡與費用管理公司 Ramp 8 月 19 日推出 Router，讓公司看見並管控各家 AI 模型的用量費用。",
+        ledeEn: "Ramp, a corporate-card and expense-management company, launched Router on August 19 to let companies see and control what they spend on AI models.",
+        facts: ["可看到在 OpenAI、Anthropic、Google、Meta 等模型上花了多少代幣費，依成本、速度與表現分派任務，並像差旅費一樣設上限", "Ramp 內部已使用三年，自家 AI 支出自 2025 年夏天至今成長 21 倍", "同月 Stripe 以 75 億美元收購同類型的 OpenRouter；這個領域約有十來家公司"],
+        factsEn: ["Shows token spend across OpenAI, Anthropic, Google, Meta and others, routes tasks by cost, speed and quality, and sets caps like travel budgets", "Used internally at Ramp for three years; its own AI spend has grown 21× since summer 2025", "The same month Stripe bought OpenRouter, a similar product, for $7.5B; roughly a dozen companies compete here"],
+        why: "AI 用量正在變成企業一項會失控的固定支出，所以費用管理、企業卡與支付公司都在搶著幫企業管它。",
+        whyEn: "AI usage is becoming a fixed cost that can run away, so expense-management, corporate-card and payments companies are all racing to manage it.",
+        taiwan: "「幫公司管 AI 花費」在台灣還很少人做，是找實習、看產業或做專案時一個新出現的題目。",
+        taiwanEn: "Managing corporate AI spend is still rare in Taiwan — a newly opened topic for internships, industry research or projects.",
+        term: "代幣費：AI 模型依用量計價的單位。",
+        termEn: "Token fees: the usage-based unit AI models are billed in.",
         sources: [
           { label: "Payments Dive 報導（2026-09-04）", labelEn: "Payments Dive (2026-09-04)", href: "https://www.paymentsdive.com/news/ramp-takes-on-ai-expense/829642/", primary: false },
         ],
@@ -414,12 +468,53 @@ export const weekly: WeeklyIssue[] = [
     vol: 1, range: "08/27 – 09/01", year: 2026,
     headlines: ["烏國跨境支付", "ECB 重評 TARGET", "澳洲 A2A 支付"],
     headlinesEn: ["Uzbekistan cross-border pay", "ECB re-plans TARGET", "Australia A2A payments"],
+    lede: "創刊號看三家央行：一個在談跨境支付合作、一個在調整支付系統時程、一個在推帳戶對帳戶支付。",
+    ledeEn: "The first issue looks at three central banks: one discussing cross-border payment cooperation, one re-planning a payment system release, one pushing account-to-account payments.",
     stories: [
-      { title: "烏國央行與螞蟻談跨境支付", titleEn: "Uzbekistan’s central bank talks cross-border payments with Ant Group", summaryEn: "At the Silk Road FinTech Forum the Central Bank of Uzbekistan discussed cross-border payment cooperation with Ant Group: easier payments for international visitors and better access to payment services for Uzbek citizens abroad, plus fintech talent development. So far only discussions; no product or launch date has been announced.", summary: "烏茲別克央行在絲路金融科技論壇與螞蟻集團討論跨境支付合作。焦點包括讓國際旅客付款更便利，也改善烏國公民在海外使用支付服務的可近性。雙方同時談到金融科技人才培育，但目前只有合作討論，尚未公布產品或上線時程。", sources: [{ label: "烏茲別克央行新聞稿", labelEn: "Central Bank of Uzbekistan press release", href: "https://cbu.uz/en/press_center/releases/4444882/", primary: true }] },
-      { title: "ECB 重評 TARGET 更新時程", titleEn: "ECB reassesses the TARGET release timeline", summaryEn: "After Swift postponed its 2026 standards update, the Eurosystem decided to reassess the November TARGET Services release. The ECB is still evaluating updating the system on schedule while delaying the retirement of unstructured addresses. The final timeline is not yet published; participants should watch for the decision.", summary: "Swift 延後 2026 年標準更新後，歐元體系決定重新評估 11 月 TARGET Services 發布時程。ECB 仍在評估如期更新系統、但延後停用非結構化地址的方案。最終時程尚未公布，參與機構需留意後續決定。", sources: [{ label: "ECB 公告", labelEn: "ECB announcement", href: "https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews260828.en.html", primary: true }] },
-      { title: "澳洲推進 A2A 支付現代化", titleEn: "Australia pushes account-to-account payments modernisation", summaryEn: "The Reserve Bank of Australia’s Payments System Board reviewed the future of account-to-account payments, welcomed an industry vision and a roadmap. Open questions remain on the batch clearing system, resilience, pull payments and standardisation; if industry cannot coordinate, the Board encourages the RBA to consider further action.", summary: "澳洲央行支付系統委員會檢視帳戶對帳戶支付的未來，歡迎業界提出願景並推動路線圖。仍待解決批次清算系統去向、韌性、拉式付款與標準化等問題。若業界無法協調推進，委員會鼓勵央行考慮進一步行動。", sources: [{ label: "澳洲央行新聞稿", labelEn: "Reserve Bank of Australia media release", href: "https://www.rba.gov.au/media-releases/2026/mr-26-23.html", primary: true }] },
+      {
+        title: "烏茲別克央行與螞蟻集團討論跨境支付合作",
+        titleEn: "Uzbekistan’s central bank talks cross-border payments with Ant Group",
+        lede: "烏茲別克央行在絲路金融科技論壇與螞蟻集團討論跨境支付合作，目前只有討論，尚未公布產品或時程。",
+        ledeEn: "At the Silk Road FinTech Forum the Central Bank of Uzbekistan discussed cross-border payment cooperation with Ant Group; discussions only, no product or date announced.",
+        facts: ["焦點：讓國際旅客付款更便利、改善烏國公民在海外使用支付服務的可近性", "雙方同時談到金融科技人才培育"],
+        factsEn: ["Focus: easier payments for international visitors and better access to payment services for Uzbek citizens abroad", "Both sides also discussed fintech talent development"],
+        why: "央行直接與民間支付平台談合作，代表跨境支付的入口正從銀行轉向錢包業者。",
+        whyEn: "A central bank negotiating directly with a private payment platform shows the entry point for cross-border payments shifting from banks to wallet operators.",
+        taiwan: "台灣的電子支付業者同樣在推跨境掃碼付款；央行與錢包業者怎麼分工，是可以拿來對照的案例。",
+        taiwanEn: "Taiwan’s e-payment operators are also pushing cross-border QR payments; how a central bank and wallet operators divide the work is a case worth comparing.",
+        sources: [{ label: "烏茲別克央行新聞稿", labelEn: "Central Bank of Uzbekistan press release", href: "https://cbu.uz/en/press_center/releases/4444882/", primary: true }],
+      },
+      {
+        title: "ECB 重新評估 TARGET Services 11 月更新時程",
+        titleEn: "ECB reassesses the November TARGET Services release",
+        lede: "Swift 延後 2026 年標準更新後，歐元體系決定重新評估 11 月 TARGET Services 的發布時程，最終時程尚未公布。",
+        ledeEn: "After Swift postponed its 2026 standards update, the Eurosystem decided to reassess the November TARGET Services release; the final timeline is not yet published.",
+        facts: ["評估中的方案：如期更新系統，但延後停用非結構化地址", "參與機構需留意後續決定"],
+        factsEn: ["Option under evaluation: update on schedule but delay retiring unstructured addresses", "Participants should watch for the decision"],
+        why: "支付系統的時程牽一髮動全身：Swift 一延後，歐洲央行的大額支付系統就得跟著重排。",
+        whyEn: "Payment-system timelines are tightly coupled: when Swift slips, the ECB’s large-value payment system has to re-plan too.",
+        taiwan: "台灣的金融機構同樣要跟上 Swift 的報文標準更新，時程變動會直接影響本地系統的改版排程。",
+        taiwanEn: "Taiwan’s financial institutions must follow the same Swift messaging updates, so timeline changes feed straight into local upgrade schedules.",
+        term: "TARGET Services：歐洲央行體系的大額支付與證券結算系統。",
+        termEn: "TARGET Services: the Eurosystem’s large-value payment and securities settlement systems.",
+        sources: [{ label: "ECB 公告", labelEn: "ECB announcement", href: "https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews260828.en.html", primary: true }],
+      },
+      {
+        title: "澳洲央行推進帳戶對帳戶支付現代化",
+        titleEn: "Australia pushes account-to-account payments modernisation",
+        lede: "澳洲央行支付系統委員會檢視帳戶對帳戶支付的未來，歡迎業界提出的願景並推動路線圖。",
+        ledeEn: "The Reserve Bank of Australia’s Payments System Board reviewed the future of account-to-account payments and welcomed an industry vision and roadmap.",
+        facts: ["待解：批次清算系統去向、韌性、拉式付款與標準化", "若業界無法協調推進，委員會鼓勵央行考慮進一步行動"],
+        factsEn: ["Open questions: the batch clearing system, resilience, pull payments and standardisation", "If industry cannot coordinate, the Board encourages the RBA to consider further action"],
+        why: "帳戶對帳戶支付繞過卡組織，手續費更低；央行公開表態會介入，等於給業界設了期限。",
+        whyEn: "Account-to-account payments bypass card networks and cost less; a central bank openly signalling it may step in effectively sets industry a deadline.",
+        taiwan: "台灣的轉帳與電支帳戶互轉已經普及，澳洲在拉式付款與標準化上的討論，是下一步可以參考的方向。",
+        taiwanEn: "Transfers between bank and e-payment accounts are already common in Taiwan; Australia’s discussion of pull payments and standardisation points to the next step.",
+        term: "帳戶對帳戶（A2A）支付：錢直接從付款人帳戶轉到收款人帳戶，不經過信用卡組織。",
+        termEn: "Account-to-account (A2A) payments: money moves directly between bank accounts without a card network.",
+        sources: [{ label: "澳洲央行新聞稿", labelEn: "Reserve Bank of Australia media release", href: "https://www.rba.gov.au/media-releases/2026/mr-26-23.html", primary: true }],
+      },
     ],
-    note: "取自社群專案 2026-09-01 的實跑輸出；三則均來自事件主責央行或主管機關。",
   },
 ];
 

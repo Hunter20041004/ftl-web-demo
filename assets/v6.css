@@ -566,7 +566,15 @@ a{ color:inherit }
 .issue__story{ position:relative; padding:clamp(var(--s5),3vw,var(--s6)) }
 .issue__story .h2{ max-width:72ch }
 .issue__story .card__body{ max-width:72ch; font-size:1.05rem }
-.issue__story .card__body + .card__body{ margin-top:.9em }
+.issue__lede{ margin-top:var(--s4); font-size:1.02rem; line-height:1.75; color:var(--ink-2); max-width:52ch }
+.story{ display:grid; gap:14px; max-width:72ch }
+.story__lede{ font-size:1.08rem; line-height:1.75; color:var(--ink) }
+.story__facts{ margin:0; padding:0; list-style:none; display:grid; gap:8px }
+.story__facts li{ position:relative; padding-left:18px; font-size:.98rem; line-height:1.7; color:var(--ink-2) }
+.story__facts li::before{ content:""; position:absolute; left:2px; top:.72em; width:7px; height:7px; border-radius:50%; background:var(--g-brand) }
+.story__why,.story__taiwan,.story__term{ font-size:.98rem; line-height:1.75; color:var(--ink-2) }
+.story__why b,.story__taiwan b,.story__term b{ color:var(--ink) }
+.story__term{ color:var(--ink-3); font-size:.92rem }
 .issue__n{ font-family:var(--f-en); font-size:.9rem; font-weight:600; letter-spacing:.1em; color:var(--ink-3) }
 .issue__sources summary{ cursor:pointer; font-size:.9rem; font-weight:700; color:var(--b-ink); list-style:none }
 .issue__sources summary::-webkit-details-marker{ display:none }
@@ -657,8 +665,7 @@ button.row--button{ width:100%; text-align:left; font:inherit; cursor:pointer; b
 /* ══ 首頁五張卡：你會得到什麼 ═══════════════════════════════ */
 .format__get{ font-size:1rem; font-weight:700; line-height:1.4 }
 /* ══ 聯絡區：LINE QR ════════════════════════════════════════ */
-.qr{ display:flex; align-items:center; gap:var(--s4) }
-.qr__img{ width:112px; height:112px; border-radius:16px; background:#fff; padding:8px; box-shadow:0 12px 30px -12px rgba(0,0,0,.4) }
-.qr__text{ display:flex; flex-direction:column; gap:4px; font-size:.95rem }
-.qr__text .en{ opacity:.85 }
+.qr{ display:flex }
+.qr__img{ width:128px; height:128px; border-radius:16px; background:#fff; padding:8px; box-shadow:0 12px 30px -12px rgba(0,0,0,.4) }
+@media (max-width:760px){ .qr{ display:none } }
 .t-head{ display:block }

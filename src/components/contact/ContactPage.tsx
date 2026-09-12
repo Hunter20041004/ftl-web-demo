@@ -19,7 +19,7 @@ export function ContactPage() {
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Contact">聯絡我們</span>
             <h1 className="h1" data-en="Contact">聯絡方式</h1>
-            <p className="lead" data-en="Recruitment and session questions: LINE Bot. Collaboration and press: email.">招募與社課問題找 LINE Bot；合作與媒體採訪請寄 Email。</p>
+            <p className="lead" data-en="Membership and session questions: LINE Bot. Collaboration proposals: email.">入社與社課問題透過 LINE Bot；合作提案請寄 Email。</p>
           </div>
         </section>
 

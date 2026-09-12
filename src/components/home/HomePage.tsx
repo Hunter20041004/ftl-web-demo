@@ -154,11 +154,11 @@ export function HomePage() {
               <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "center" }}>
                 <div>
                   <h2 className="h1" data-en="Contact">聯絡我們</h2>
-                  <p className="lead mt-4" data-en="Recruitment and session questions: LINE Bot. Collaboration and press: email.">招募與社課問題找 LINE Bot；合作與採訪請寄 Email。</p>
+                  <p className="lead mt-4" data-en="Membership and session questions: LINE Bot. Collaboration proposals: email.">入社與社課問題透過 LINE Bot；合作提案請寄 Email。</p>
+                  {/* 桌機才顯示 QR：手機沒辦法掃自己的螢幕，直接點右邊的 LINE Bot 卡 */}
                   <div className="qr mt-6">
                     {/* eslint-disable-next-line @next/next/no-img-element -- QR code，靜態檔 */}
                     <img className="qr__img" src={withBasePath("/assets/line-qr.png")} alt="LINE Bot QR code" width={480} height={480} loading="lazy" />
-                    <div className="qr__text"><b data-en="Scan to add the LINE Bot">掃描加入 LINE Bot</b><span className="en">@nccufintechlab</span></div>
                   </div>
                 </div>
                 <div className="ios-list" data-stagger>
