@@ -23,7 +23,6 @@ export function ResourcesPage() {
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Resources">資源</span>
             <h1 className="h1" data-en="Jobs, scholarships and programs">職缺、獎學金與計畫</h1>
-            <p className="lead" data-en="Opportunities that reach the society are posted here and pushed through the LINE Bot. Each entry links to the original source.">社團收到的機會會放在這裡，並透過 LINE Bot 推播。每一則都附原始來源。</p>
           </div>
         </section>
 

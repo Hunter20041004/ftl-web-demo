@@ -19,7 +19,6 @@ export function InsightsPage() {
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Insights">洞察</span>
             <h1 className="h1" data-en="FinTech Weekly">FinTech 週報</h1>
-            <p className="lead" data-en="Three stories a week, written so a first-year business student can follow them. Every fact links back to a source; primary sources (regulators, company statements) come first.">每週三則，寫到大一新生看得懂。每一個事實都連得回來源，一手來源（主管機關、公司公告）優先。</p>
           </div>
         </section>
 
@@ -50,7 +49,6 @@ export function InsightsPage() {
                   </div>
                 ))}
               </div>
-              {latest.note ? <p className="note mt-6"><Icon name="alert" /><span>{latest.note}</span></p> : null}
             </article>
           </div>
         </section>
@@ -76,12 +74,10 @@ export function InsightsPage() {
                         <p className="dim" style={{ fontSize: ".9rem" }}>{story.sources.map((s, i) => <span key={s.href}>{i ? "、" : "來源："}<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></span>)}</p>
                       </div>
                     ))}
-                    {issue.note ? <p className="dim" style={{ fontSize: ".9rem" }}>{issue.note}</p> : null}
                   </div>
                 </details>
               ))}
             </div>
-            <p className="dim mt-6" style={{ fontSize: ".95rem" }} data-en="Produced with the society’s weekly-digest prompt: a sourced fact card first, then the copy; nothing is added that is not on the card.">依社團的週報 Prompt 產出：先做附來源的選題卡，再寫文案；卡上沒有的事實一個都不加。</p>
           </div>
         </section>
       </main>

@@ -26,7 +26,7 @@ export function EventsPage() {
           <div className="wrap reveal">
             <span className="eyebrow" data-en="Events">活動</span>
             <h1 className="h1" data-en={`115-1 calendar and courses · ${semester.meetingDayEn}`}>115-1 行事曆與課程 · {semester.meetingDay}</h1>
-            <p className="lead" data-en="Sixteen weeks from 09/09 to 12/23. Sessions marked ✓ count toward the attendance reward (11 in total). Course details are below the calendar.">9/09 到 12/23 共十六週。標示 ✓ 的場次計入出席獎勵金（共 11 堂）。課程內容在行事曆下方。</p>
+            <p className="lead" data-en="09/09 – 12/23. Sessions marked ✓ count toward the attendance reward.">9/09 – 12/23。標示「計入」的場次計入出席獎勵金。</p>
             <div className="chips mt-5">
               <a className="chip" href="#calendar" data-en="Calendar">行事曆</a>
               <a className="chip" href="#lectures" data-en="Lectures ×3">講座 ×3</a>
@@ -110,7 +110,7 @@ export function EventsPage() {
         <section className="section" id="reading">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <div><h2 className="h1" data-en="English reading club">英語讀書會</h2><p className="lead mt-4" data-en="Presentations, group discussion and closing remarks are all in English.">導讀簡報、小組討論與總結發言全程使用英文。</p></div>
+              <div><h2 className="h1" data-en="English reading club">英語讀書會</h2><p className="lead mt-4" data-en="Conducted entirely in English.">全程英文。</p></div>
             </div>
             <div className="grid grid-3" data-stagger>
               {books.map((book) => (
@@ -161,7 +161,6 @@ export function EventsPage() {
                 </article>
               ))}
             </details>
-            <p className="note mt-6"><Icon name="alert" /><span data-en="Session dates and venue will be announced via the LINE Bot.">中文場日期與地點確定後由 LINE Bot 公告。</span></p>
           </div>
         </section>
       </main>

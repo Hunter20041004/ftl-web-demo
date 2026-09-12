@@ -35,7 +35,6 @@ export function ContactPage() {
                     <a className="btn btn--primary btn--lg" href="https://page.line.me/nccufintechlab"><Icon name="message" /><span data-en="Add on LINE">加入好友</span></a>
                     <a className="btn btn--lg" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>Email</span></a>
                   </div>
-                  <p className="note mt-6"><Icon name="check" /><span data-en="LINE Bot, Instagram, Threads and email verified 2026-09-09.">LINE Bot、Instagram、Threads 與信箱皆為 2026-09-09 查證過的實際帳號。</span></p>
                 </div>
 
                 <div className="ios-list" data-stagger="">
@@ -57,7 +56,6 @@ export function ContactPage() {
             <div className="grid grid-2" style={{ gap: "clamp(32px,5vw,64px)", alignItems: "start" }}>
               <div className="reveal">
                 <h2 className="h2">Email</h2>
-                <p className="lead mt-4" data-en="Write to the society mailbox. Officers check it on weekdays.">寫信到社團信箱，幹部平日會看信。</p>
                 <a className="btn btn--primary btn--lg mt-6" href="mailto:nccufintechlab@gmail.com"><Icon name="mail" /><span>nccufintechlab@gmail.com</span></a>
                 <dl className="info-list mt-6">
                   <div className="info"><dt data-en="Instagram">Instagram</dt><dd><a href="https://www.instagram.com/nccufintechlab/" target="_blank" rel="noopener noreferrer">@nccufintechlab</a></dd></div>

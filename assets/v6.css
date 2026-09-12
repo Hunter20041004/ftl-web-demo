@@ -396,6 +396,12 @@ a{ color:inherit }
 .info-list--inline{ flex-direction:row; flex-wrap:wrap; gap:var(--s3) }
 .info-list--inline .info{ flex:1 1 260px; background:rgba(255,255,255,.5); box-shadow:none }
 
+/* ══ 社員相關資訊：身份切換 ══════════════════════════════════ */
+.mtabs__switch{ display:inline-grid; grid-template-columns:1fr 1fr; gap:4px; padding:5px; border-radius:var(--r-pill); background:rgba(11,31,58,.06); margin-bottom:clamp(var(--s5),3vw,var(--s6)) }
+.mtabs__tab{ height:46px; padding:0 26px; border:0; border-radius:var(--r-pill); background:none; font-family:var(--f); font-size:1.02rem; font-weight:700; color:var(--ink-3); cursor:pointer; transition:color var(--dur) ease, background var(--dur) ease }
+.mtabs__tab--on{ background:var(--g-brand); color:#fff; box-shadow:var(--shadow-cta) }
+.mtabs .flow{ animation:week-in .35s var(--ease) both }
+
 /* ══ 社員相關資訊：四個步驟 ══════════════════════════════════ */
 .flow{ display:flex; flex-direction:column; gap:clamp(var(--s6),4vw,var(--s7)) }
 .flow__step{ display:grid; grid-template-columns:64px minmax(0,1fr); gap:var(--s4) }

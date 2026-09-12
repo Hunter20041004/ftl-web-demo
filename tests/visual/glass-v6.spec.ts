@@ -39,6 +39,20 @@ test.describe("glass-v6 homepage", () => {
     await expect(prev).toBeDisabled();
   });
 
+  test("membership info switches between project member and auditor", async ({ page }) => {
+    await page.goto(`${basePath}/about/`);
+    await page.waitForLoadState("networkidle");
+    const tabs = page.locator(".mtabs");
+    await expect(tabs).toHaveAttribute("data-membership", "project");
+    await expect(tabs.locator(".tstep")).toHaveCount(4);
+    await expect(tabs.locator(".tiers")).toHaveCount(1);
+    await tabs.locator("[data-membership-tab=auditor]").click();
+    await expect(tabs).toHaveAttribute("data-membership", "auditor");
+    await expect(tabs.locator(".tstep")).toHaveCount(0);
+    await expect(tabs.locator(".tiers")).toHaveCount(0);
+    await expect(tabs.locator("#payment h3")).toContainText("1,500");
+  });
+
   test("projects are slide decks that page with buttons and arrow keys", async ({ page }) => {
     await page.goto(`${basePath}/projects/`);
     await page.waitForLoadState("networkidle");
