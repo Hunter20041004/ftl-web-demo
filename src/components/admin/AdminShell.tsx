@@ -9,7 +9,13 @@ import { withBasePath } from "@/lib/site-data";
 // 後台的外殼與登入閘。四種狀態：沒設定 Supabase／沒登入／登入但不是管理員／管理員。
 const NAV = [
   { href: "/admin/", label: "總覽" },
+  { href: "/admin/weekly/", label: "週報" },
+  { href: "/admin/events/", label: "活動" },
+  { href: "/admin/resources/", label: "資源" },
+  { href: "/admin/projects/", label: "專案" },
+  { href: "/admin/papers/", label: "研究文章" },
   { href: "/admin/partners/", label: "合作對象" },
+  { href: "/admin/settings/", label: "學期設定" },
   { href: "/admin/admins/", label: "管理員" },
   { href: "/admin/trash/", label: "已刪除" },
 ];

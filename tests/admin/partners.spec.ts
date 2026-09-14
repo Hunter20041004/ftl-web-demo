@@ -49,7 +49,7 @@ test("admin can add, publish, reorder, delete and restore a partner", async ({ p
   await expect(page.getByTestId("entity-row")).toHaveCount(4);
   await page.getByRole("navigation").getByRole("link", { name: "已刪除" }).click();
   await expect(page.getByText("E2E 測試夥伴")).toBeVisible();
-  await page.getByRole("button", { name: "還原" }).click();
+  await page.getByTestId("trash-row").filter({ hasText: "E2E 測試夥伴" }).getByRole("button", { name: "還原" }).click();
   await page.getByRole("navigation").getByRole("link", { name: "合作對象" }).click();
   await expect(page.getByTestId("entity-row")).toHaveCount(5);
 });

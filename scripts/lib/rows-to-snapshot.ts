@@ -25,7 +25,8 @@ export function rowsToSnapshot(rows: Rows, opts: { today: string; generatedAt: s
   const events = rows.events.filter((e) => e.semester === code).sort((a, b) => a.week - b.week || a.position - b.position)
     .map((e) => ({ ...e, date: mmdd(e.date) }));
   const calendar = events.map((e) => {
-    const { lecture: _l, workshop: _w, book: _b, ...rest } = obj(e.data);
+    // 後台可能把可篩選欄位也存在 data 裡（semester/week/date/kind），一律以列的欄位為準
+    const { lecture: _l, workshop: _w, book: _b, semester: _s, week: _wk, date: _d, kind: _k, ...rest } = obj(e.data);
     return { week: e.week, date: e.date, kind: e.kind, ...rest };
   });
   const lectures = events.filter((e) => e.kind === "lecture").map((e) => ({ week: e.week, date: e.date, ...obj(obj(e.data).lecture) }));
