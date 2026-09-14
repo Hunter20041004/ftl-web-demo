@@ -18,16 +18,18 @@ export function useSession() {
 }
 
 // 是否在 admins 名單裡：RLS 之下，不在名單的人查 admins 會拿到 0 列，等於「不是」
-export function useIsAdmin(email: string | undefined) {
-  const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined);
+// 回傳 true／false，或 { error } 代表查不到（例如免費專案閒置中、網路斷線）
+export function useIsAdmin(email: string | undefined): boolean | { error: string } | undefined {
+  const [state, setState] = useState<boolean | { error: string } | undefined>(undefined);
   useEffect(() => {
     if (!email) return;
     let cancelled = false;
-    getSupabase().from("admins").select("email").eq("email", email.toLowerCase()).maybeSingle()
-      .then(({ data }) => { if (!cancelled) setIsAdmin(Boolean(data)); });
+    Promise.resolve(getSupabase().from("admins").select("email").eq("email", email.toLowerCase()).maybeSingle())
+      .then(({ data, error }) => { if (!cancelled) setState(error ? { error: error.message } : Boolean(data)); })
+      .catch((e: Error) => { if (!cancelled) setState({ error: e.message }); });
     return () => { cancelled = true; };
   }, [email]);
-  return email ? isAdmin : undefined;
+  return email ? state : undefined;
 }
 
 export async function signInWithGoogle() {

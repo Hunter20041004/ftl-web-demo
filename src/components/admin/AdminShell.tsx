@@ -38,6 +38,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     );
   }
   if (isAdmin === undefined) return <Center><p className="text-muted-foreground">確認權限中…</p></Center>;
+  if (typeof isAdmin === "object") {
+    return (
+      <Center>
+        <div className="w-full max-w-sm glass glass-lift p-8">
+          <h1 className="text-xl font-bold">暫時連不上資料庫</h1>
+          <p className="mt-2 text-sm text-muted-foreground">資料庫可能正在喚醒，請 30 秒後重新整理。若一直失敗，把這段訊息給工程師：{isAdmin.error}</p>
+          <Button variant="outline" className="mt-6" onClick={() => window.location.reload()}>重新整理</Button>
+        </div>
+      </Center>
+    );
+  }
   if (!isAdmin) {
     return (
       <Center>
