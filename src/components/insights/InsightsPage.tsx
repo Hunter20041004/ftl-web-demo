@@ -48,6 +48,7 @@ export function InsightsPage() {
           </div>
         </section>
 
+        {latest ? (
         <section className="section--tight section" id="weekly">
           <div className="wrap">
             <article className="issue reveal" id={`vol-${latest.vol}`}>
@@ -79,7 +80,11 @@ export function InsightsPage() {
             </article>
           </div>
         </section>
+        ) : (
+        <section className="section--tight section" id="weekly"><div className="wrap"><p className="lead" data-en="No issues yet." suppressHydrationWarning>還沒有週報。</p></div></section>
+        )}
 
+        {past.length ? (
         <section className="section section--alt" id="archive">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
@@ -107,6 +112,7 @@ export function InsightsPage() {
             </div>
           </div>
         </section>
+        ) : null}
         <section className="section" id="research">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">

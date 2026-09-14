@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-// 與 SiteInteractions.translateElement 同一套規則：data-zh 存原文、innerHTML 換成 data-en
-const EARLY_LANG_SCRIPT = `try{if(localStorage.getItem('ftl-lang')==='en'){var d=document;d.documentElement.lang='en';d.querySelectorAll('[data-en]').forEach(function(e){if(e.dataset.zh===undefined)e.dataset.zh=e.innerHTML;if(e.innerHTML!==e.dataset.en)e.innerHTML=e.dataset.en});d.querySelectorAll('[data-en-ph]').forEach(function(e){if(e.dataset.zhPh===undefined)e.dataset.zhPh=e.placeholder;e.placeholder=e.dataset.enPh||e.placeholder});d.querySelectorAll('.lang').forEach(function(e){e.dataset.lang='en'});d.querySelectorAll('[data-set-lang]').forEach(function(e){e.setAttribute('aria-pressed',String(e.dataset.setLang==='en'))})}}catch(e){}document.documentElement.classList.remove('lang-pending')`;
+// 與 SiteInteractions.translateElement 同一套規則：data-zh 存原文、textContent 換成 data-en（純文字，不當 HTML）
+const EARLY_LANG_SCRIPT = `try{if(localStorage.getItem('ftl-lang')==='en'){var d=document;d.documentElement.lang='en';d.querySelectorAll('[data-en]').forEach(function(e){if(e.dataset.zh===undefined)e.dataset.zh=e.textContent;if(e.textContent!==e.dataset.en)e.textContent=e.dataset.en});d.querySelectorAll('[data-en-ph]').forEach(function(e){if(e.dataset.zhPh===undefined)e.dataset.zhPh=e.placeholder;e.placeholder=e.dataset.enPh||e.placeholder});d.querySelectorAll('.lang').forEach(function(e){e.dataset.lang='en'});d.querySelectorAll('[data-set-lang]').forEach(function(e){e.setAttribute('aria-pressed',String(e.dataset.setLang==='en'))})}}catch(e){}document.documentElement.classList.remove('lang-pending')`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

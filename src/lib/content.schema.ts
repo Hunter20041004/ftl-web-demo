@@ -81,7 +81,7 @@ export const projectDeckSchema = z.object({
 
 export const paperSchema = z.object({
   title: str, titleEn: z.string().optional(), authors: str, authorsEn: z.string().optional(), venue: str, venueEn: z.string().optional(),
-  year: z.number().int(), region: z.enum(["intl", "tw"]), summary: str, summaryEn: str, href: str,
+  year: z.number().int().min(1900).max(2100), region: z.enum(["intl", "tw"]), summary: str, summaryEn: str, href: str,
 });
 
 export const snapshotSchema = z.object({

@@ -61,10 +61,11 @@ function readLang() {
 
 let applyingLang = false;
 
+// 一律當純文字換：data-en 來自後台輸入，若含 <img onerror> 之類的標籤，用 innerHTML 會變成真的元素（stored XSS）
 function translateElement(el: HTMLElement, lang: "zh" | "en") {
-  if (el.dataset.zh === undefined) el.dataset.zh = el.innerHTML;
-  const next = lang === "en" ? el.dataset.en ?? el.innerHTML : el.dataset.zh;
-  if (el.innerHTML !== next) el.innerHTML = next;
+  if (el.dataset.zh === undefined) el.dataset.zh = el.textContent ?? "";
+  const next = lang === "en" ? el.dataset.en ?? el.textContent ?? "" : el.dataset.zh;
+  if (el.textContent !== next) el.textContent = next;
 }
 
 function applyLang(lang: "zh" | "en") {

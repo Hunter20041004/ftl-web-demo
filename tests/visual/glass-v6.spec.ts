@@ -232,3 +232,24 @@ test.describe("glass-v6 homepage", () => {
     expect(fontsReady).toBe(true);
   });
 });
+
+// 極端案例：後台內容若含 HTML 標籤，語言切換時必須當文字顯示，不能變成真的元素（防 stored XSS）
+test.describe("edge cases", () => {
+  test("english text containing markup is rendered as text, not HTML", async ({ page }) => {
+    await page.goto(`${basePath}/about/`);
+    await page.waitForFunction(() => !!document.querySelector("[data-hydrated]"));
+    await page.evaluate(() => {
+      const el = document.createElement("p");
+      el.id = "xss-probe";
+      el.setAttribute("data-en", '<img src=x onerror="document.body.dataset.pwned=\'1\'"> <b>bold</b>');
+      el.textContent = "中文";
+      document.querySelector("main")!.appendChild(el);
+    });
+    await page.locator('[data-set-lang="en"]').first().click();
+    await expect(page.locator("#xss-probe")).toHaveText('<img src=x onerror="document.body.dataset.pwned=\'1\'"> <b>bold</b>');
+    expect(await page.locator("#xss-probe img, #xss-probe b").count()).toBe(0);
+    expect(await page.evaluate(() => document.body.dataset.pwned)).toBeUndefined();
+    await page.locator('[data-set-lang="zh"]').first().click();
+    await expect(page.locator("#xss-probe")).toHaveText("中文");
+  });
+});

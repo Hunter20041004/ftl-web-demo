@@ -1,7 +1,8 @@
 // 瀏覽器端縮圖：SVG 原樣；其他格式畫到 canvas 縮到最長邊 maxEdge。有透明的存 PNG，否則 JPEG。
 export async function resizeImage(file: File, maxEdge: number): Promise<Blob> {
+  if (!file.type.startsWith("image/")) throw new Error("請選擇圖片檔（PNG、JPG 或 SVG）");
   if (file.type === "image/svg+xml") return file;
-  const bitmap = await createImageBitmap(file);
+  const bitmap = await createImageBitmap(file).catch(() => { throw new Error("這個檔案不是可用的圖片"); });
   const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
   const w = Math.round(bitmap.width * scale), h = Math.round(bitmap.height * scale);
   const canvas = document.createElement("canvas");

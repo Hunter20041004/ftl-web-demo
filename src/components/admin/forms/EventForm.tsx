@@ -48,7 +48,7 @@ export function EventForm({ data, setData, errors }: FormProps<EventData>) {
       <div className="grid gap-3 md:grid-cols-4">
         <SelectField id="kind" label="類型" value={data.kind} onChange={(v) => setKind(v as EventData["kind"])} error={errors.kind} options={KIND_OPTIONS} />
         <TextField id="semester" label="學期" value={data.semester} onChange={(v) => set("semester", v.trim())} error={errors.semester} placeholder="115-1" hint="要跟學期設定的代號一樣才會上前台" />
-        <TextField id="week" label="週次" type="number" value={data.week} onChange={(v) => set("week", Number(v))} error={errors.week} />
+        <TextField id="week" label="週次" type="number" value={data.week} onChange={(v) => set("week", v === "" ? Number.NaN : Number(v))} error={errors.week} />
         <TextField id="date" label="日期" type="date" value={data.date} onChange={(v) => set("date", v)} error={errors.date} />
       </div>
       <BilingualField id="zh" label="活動名稱" zh={data.zh} en={data.en} onZh={(v) => set("zh", v)} onEn={(v) => set("en", v)} errors={{ zh: errors.zh ?? "", zhEn: errors.en ?? "" }} />

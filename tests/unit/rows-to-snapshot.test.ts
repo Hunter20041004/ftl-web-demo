@@ -74,3 +74,10 @@ test("collectImagePaths lists every /media path once", () => {
   const paths = collectImagePaths({ ...out, partners: [{ zh: "a", en: "a", href: "https://a/", logo: "/media/partners/a.png" }, { zh: "b", en: "b", href: "https://b/", logo: "/media/partners/a.png" }] });
   assert.equal(paths.filter((p) => p === "/media/partners/a.png").length, 1);
 });
+
+test("all categories empty still produces a valid snapshot", () => {
+  const rows = rowsFromSnapshot();
+  rows.events = []; rows.resources = []; rows.projects = []; rows.papers = []; rows.partners = []; rows.weekly_issues = []; rows.weekly_stories = [];
+  const out = rowsToSnapshot(rows, { today: "2026-09-14", generatedAt: "x" });
+  assert.deepEqual([out.calendar, out.resources, out.projectDecks, out.papers, out.partners, out.weekly], [[], [], [], [], [], []]);
+});

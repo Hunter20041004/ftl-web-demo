@@ -48,7 +48,7 @@ export function WeeklyIssueForm({ data, setData, errors, isNew }: FormProps<Issu
       ) : null}
 
       <div className="grid gap-3 md:grid-cols-3">
-        <TextField id="vol" label="期數" type="number" value={data.vol} onChange={(v) => set("vol", Number(v))} error={errors.vol} />
+        <TextField id="vol" label="期數" type="number" value={data.vol} onChange={(v) => set("vol", v === "" ? Number.NaN : Number(v))} error={errors.vol} />
         <TextField id="range_start" label="起" type="date" value={data.range_start} onChange={(v) => set("range_start", v)} error={errors.range_start} />
         <TextField id="range_end" label="迄" type="date" value={data.range_end} onChange={(v) => set("range_end", v)} error={errors.range_end} />
       </div>
