@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T12:16:09.818Z",
+  "generatedAt": "2026-09-14T12:18:46.190Z",
   "semester": {
     "code": "115-1",
     "range": "2026.09 – 2026.12",
@@ -1423,19 +1423,5 @@
       ]
     }
   ],
-  "articles": [
-    {
-      "slug": "prod-test-article",
-      "title": "正式站測試文章（會刪）",
-      "titleEn": "Prod test article (to delete)",
-      "author": "專案開發部",
-      "authorEn": "Projects",
-      "date": "2026-09-14",
-      "summary": "這是一篇用來驗證發布流程的測試文章。",
-      "summaryEn": "A test article to verify the publish flow.",
-      "body": "## 小標\n\n第一段有 **重點** 與[連結](https://example.com)。\n\n- 第一點\n- 第二點\n\n> 引言一段",
-      "tags": [],
-      "tagsEn": []
-    }
-  ]
+  "articles": []
 }
