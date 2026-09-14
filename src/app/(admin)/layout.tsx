@@ -17,6 +17,8 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Huninn&display=swap" />
       </head>
       <body>
+        {/* 防點擊劫持：後台不允許被別的網站用 iframe 包起來（GitHub Pages 無法設 X-Frame-Options，只能在頁面裡擋） */}
+        <script dangerouslySetInnerHTML={{ __html: "if(window.top!==window.self){document.documentElement.style.display='none';window.top.location=window.self.location.href}" }} />
         <AdminShell>{children}</AdminShell>
       </body>
     </html>

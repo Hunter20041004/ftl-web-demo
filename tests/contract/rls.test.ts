@@ -47,3 +47,11 @@ test("admins email is lower-cased and the last admin cannot be deleted", { skip:
     assert.ok(del.error, "deleting the last admin must fail");
   }
 });
+
+// 正式專案只允許 Google 登入；email/password 註冊要關掉（測試專案為了 E2E 保留）
+test("production auth has email/password sign-in disabled", { skip: !process.env.SUPABASE_ACCESS_TOKEN }, async () => {
+  const r = await fetch("https://api.supabase.com/v1/projects/xesxfcqtbzmlanyvdeys/config/auth", { headers: { Authorization: `Bearer ${process.env.SUPABASE_ACCESS_TOKEN}` } });
+  const cfg = await r.json();
+  assert.equal(cfg.external_email_enabled, false);
+  assert.equal(cfg.external_google_enabled, true);
+});
