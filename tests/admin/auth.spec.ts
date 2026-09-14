@@ -6,7 +6,7 @@ test.beforeEach(() => { test.skip(!TEST_URL() || !TEST_ANON(), "needs SUPABASE_T
 test("logged-out visitor sees the Google sign-in screen only", async ({ page }) => {
   await page.goto("/admin/");
   await expect(page.getByRole("button", { name: /Google 登入/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: "合作對象" })).toHaveCount(0);
+  await expect(page.getByRole("navigation").getByRole("link", { name: "合作對象" })).toHaveCount(0);
 });
 
 test("a logged-in non-admin is rejected and can sign out", async ({ page }) => {
@@ -18,6 +18,6 @@ test("a logged-in non-admin is rejected and can sign out", async ({ page }) => {
 
 test("an admin sees the shell with navigation", async ({ page }) => {
   await loginAs(page, USERS.editor);
-  await expect(page.getByRole("link", { name: "合作對象" })).toBeVisible();
-  await expect(page.getByText(USERS.editor.email)).toBeVisible();
+  await expect(page.getByRole("navigation").getByRole("link", { name: "合作對象" })).toBeVisible();
+  await expect(page.getByRole("complementary").getByText(USERS.editor.email)).toBeVisible();
 });

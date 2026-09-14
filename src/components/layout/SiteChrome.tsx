@@ -148,7 +148,7 @@ export function SiteFooter() {
       </div>
       <div className="footer__bar">
         <div className="wrap footer__bottom">
-          <span data-en="© 2026 NCCU FinTech Innovation Lab" suppressHydrationWarning>© 2026 政大金融科技創新實驗室</span>
+          <span><span data-en="© 2026 NCCU FinTech Innovation Lab" suppressHydrationWarning>© 2026 政大金融科技創新實驗室</span> · <a href={withBasePath("/privacy/")} data-en="Privacy" suppressHydrationWarning>隱私權政策</a></span>
           <span data-en="Guided by the NCCU College of Commerce FinTech Research Center" suppressHydrationWarning>政大商學院金融科技研究中心 指導成立</span>
         </div>
       </div>

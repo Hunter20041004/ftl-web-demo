@@ -13,7 +13,7 @@ test.afterEach(async () => {
 
 test("admin can add, publish, reorder, delete and restore a partner", async ({ page }) => {
   await loginAs(page, USERS.editor);
-  await page.getByRole("link", { name: "合作對象" }).click();
+  await page.getByRole("navigation").getByRole("link", { name: "合作對象" }).click();
   await expect(page.getByTestId("partner-row")).toHaveCount(4);
 
   // 新增：缺英文名 → 發布被擋、欄位標紅
@@ -44,9 +44,9 @@ test("admin can add, publish, reorder, delete and restore a partner", async ({ p
   await rowsLocator.nth(0).getByRole("button", { name: "刪除" }).click();
   await page.getByRole("button", { name: "確定刪除" }).click();
   await expect(page.getByTestId("partner-row")).toHaveCount(4);
-  await page.getByRole("link", { name: "已刪除" }).click();
+  await page.getByRole("navigation").getByRole("link", { name: "已刪除" }).click();
   await expect(page.getByText("E2E 測試夥伴")).toBeVisible();
   await page.getByRole("button", { name: "還原" }).click();
-  await page.getByRole("link", { name: "合作對象" }).click();
+  await page.getByRole("navigation").getByRole("link", { name: "合作對象" }).click();
   await expect(page.getByTestId("partner-row")).toHaveCount(5);
 });
