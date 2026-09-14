@@ -6,12 +6,12 @@ import { getRebuildStatus, type RebuildStatus } from "@/lib/admin/rebuild";
 import { withBasePath } from "@/lib/site-data";
 
 const CATEGORIES = [
+  { table: "weekly_issues", label: "週報", href: "/admin/weekly/", ready: true },
+  { table: "events", label: "活動", href: "/admin/events/", ready: true },
+  { table: "resources", label: "資源", href: "/admin/resources/", ready: true },
+  { table: "projects", label: "專案", href: "/admin/projects/", ready: true },
+  { table: "papers", label: "研究文章", href: "/admin/papers/", ready: true },
   { table: "partners", label: "合作對象", href: "/admin/partners/", ready: true },
-  { table: "weekly_issues", label: "週報", ready: false },
-  { table: "events", label: "活動", ready: false },
-  { table: "resources", label: "資源", ready: false },
-  { table: "projects", label: "專案", ready: false },
-  { table: "papers", label: "研究文章", ready: false },
 ] as const;
 
 export function AdminOverview() {
