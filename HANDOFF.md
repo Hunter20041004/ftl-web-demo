@@ -50,3 +50,13 @@
 - 驗證：契約測試 3/3；pull-content 實跑；Playwright 80；正式站 pipeline 從 Supabase 拉到 3 期／16 活動／…；端到端「改合作對象名稱 → 重建 → 正式站出現 → 改回」通過。
 - Google 登入已設好（2026-09-14）：Google Cloud 專案 `ftl-web`（社團 Gmail 名下）、OAuth 用戶端「Supabase (ftl-web)」、redirect 指向 Supabase callback；Supabase 正式專案 Google provider Enabled，Site URL 與 redirect 白名單＝`…/ftl-web-demo/admin/**` 與 `http://localhost:3000/admin/**`。Client ID/Secret 在 `.env.local`。
 - Google OAuth 目前是「測試」狀態：只有測試使用者名單上的帳號能登入（已加社團 Gmail 與 weiwsxwsx@gmail.com，上限 100 人）。要對所有幹部開放而不用逐一加名單，得在 Google Auth Platform「品牌」頁補首頁與隱私權政策連結後按「發布應用程式」（只用 email/profile 範圍，不需審核）——第 2 期做後台時順便做一頁 /privacy/。
+
+
+## CMS 第 2 期（後台核心＋合作對象）— 2026-09-14
+
+計畫：`docs/plans/2026-09-14-cms-plan-2-admin-core.md`。Task 1–5 完成。
+- 後台 `/admin/`：`src/app/(admin)`（自己的 root layout＋admin.css，視覺沿用前台）、`src/components/admin`、`src/lib/admin`。
+- 發布鏈：`supabase/functions/trigger-rebuild`（部署在測試與正式專案；測試專案設 `REBUILD_DRY_RUN=true`）；GitHub fine-grained token 只在 Supabase secrets 與 `.env.local`（`GITHUB_DISPATCH_TOKEN`）。
+- 測試：後台 E2E 6 條（`tests/admin`，測試專案 email 帳號 `scripts/setup-test-users.ts`）、契約 6 條、單元 20、前台視覺 80。CI 的 next-ci 跑全部（含 admin E2E，用 TEST secrets）。
+- 本機開發：`.env.local` 的 `NEXT_PUBLIC_SUPABASE_*` 指向測試專案；正式 build 由 pages.yml 用 secrets 注入正式專案。
+- 第 3 期要做：週報／活動／資源／專案／研究文章編輯器、學期設定、已刪除擴到全類別、Google OAuth 從測試模式發布（品牌頁填首頁與 /privacy/）。
