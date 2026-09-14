@@ -109,7 +109,7 @@ export function EntityPage<T extends object>(props: {
           <li key={row.id} data-testid="entity-row" data-status={row.status}
             draggable={sortable} onDragStart={() => setDragId(row.id)} onDragOver={(e) => { if (sortable) e.preventDefault(); }}
             onDrop={() => { if (sortable && dragId) { void move(dragId, i); setDragId(null); } }}
-            className={`flex flex-wrap items-center gap-3 glass px-4 py-3 md:flex-nowrap md:gap-4 ${dragId === row.id ? "opacity-50" : ""}`}>
+            className={`flex flex-wrap items-center gap-3 overflow-hidden glass px-4 py-3 md:flex-nowrap md:gap-4 ${dragId === row.id ? "opacity-50" : ""}`}>
             {sortable ? (
               <>
                 <span className="hidden cursor-grab text-muted-foreground md:inline" aria-hidden="true">⋮⋮</span>
@@ -119,7 +119,7 @@ export function EntityPage<T extends object>(props: {
                 </span>
               </>
             ) : null}
-            <div className="min-w-0 flex-1 basis-40">{props.summary(row)}</div>
+            <div className="min-w-0 flex-1 basis-40 [overflow-wrap:anywhere]">{props.summary(row)}</div>
             {row.status === "draft" ? <span className="rounded-full bg-muted px-2 py-0.5 text-xs">草稿</span> : null}
             <div className="ml-auto flex gap-1">
               <Button variant="ghost" size="sm" onClick={() => open(row)}>編輯</Button>
