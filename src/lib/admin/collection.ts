@@ -14,7 +14,7 @@ export type Collection<T> = {
 };
 
 // supabase-js 的查詢型別很長，這裡只用得到 eq/is/order
-type Query = ReturnType<ReturnType<ReturnType<typeof getSupabase>["from"]>["select"]>;
+export type Query = ReturnType<ReturnType<ReturnType<typeof getSupabase>["from"]>["select"]>;
 
 export function makeCollection<T extends object>(table: string, opts: { columns?: (data: T) => Record<string, unknown>; hasPosition?: boolean } = {}): Collection<T> {
   const hasPosition = opts.hasPosition ?? true;
