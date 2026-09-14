@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { getSupabase } from "./supabase";
+import { getSupabase } from "./supabase.ts";
 import { withBasePath } from "@/lib/site-data";
 
 // 登入狀態：undefined＝還在問 Supabase；null＝沒登入
