@@ -115,7 +115,7 @@ export function HomePage() {
               <a className="link-arrow" href={withBasePath("/projects/")}><span data-en="All projects" suppressHydrationWarning>所有專案</span><Icon name="arrow-right" /></a>
             </div>
             <div className="grid grid-3" data-stagger>
-              {projectDecks.map((deck) => (
+              {projectDecks.slice(0, 3).map((deck) => (
                 <a className="card project-teaser reveal reveal--rise" href={withBasePath(`/projects/#${deck.id}`)} key={deck.id}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- GitHub 社群圖 */}
                   <img className="project-teaser__img" src={withBasePath(deck.cover)} alt="" loading="lazy" />

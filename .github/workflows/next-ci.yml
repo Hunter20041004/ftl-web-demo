@@ -24,7 +24,7 @@ jobs:
           SUPABASE_TEST_URL: ${{ secrets.SUPABASE_TEST_URL }}
           SUPABASE_TEST_ANON_KEY: ${{ secrets.SUPABASE_TEST_ANON_KEY }}
           SUPABASE_TEST_SERVICE_KEY: ${{ secrets.SUPABASE_TEST_SERVICE_KEY }}
-        run: npx playwright test
+        run: npx playwright test tests/visual && npx playwright test --project=admin --workers=1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -19,10 +19,9 @@ export type Query = ReturnType<ReturnType<ReturnType<typeof getSupabase>["from"]
 export function makeCollection<T extends object>(table: string, opts: { columns?: (data: T) => Record<string, unknown>; hasPosition?: boolean } = {}): Collection<T> {
   const hasPosition = opts.hasPosition ?? true;
   const columns = opts.columns ?? (() => ({}));
-  const selectCols = `id, ${hasPosition ? "position, " : ""}status, deleted_at, updated_at, data`;
 
   const list: Collection<T>["list"] = async (o = {}) => {
-    let q = getSupabase().from(table).select(o.filter ? "*" : selectCols) as Query;
+    let q = getSupabase().from(table).select("*") as Query;   // 連可篩選欄位一起拿（活動的學期清單、專案代號都要）
     if (!o.includeDeleted) q = q.is("deleted_at", null);
     if (o.filter) q = o.filter(q);
     q = q.order(o.order ?? (hasPosition ? "position" : "updated_at"), { ascending: o.ascending ?? hasPosition });

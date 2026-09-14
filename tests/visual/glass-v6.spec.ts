@@ -8,6 +8,7 @@ const count = {
   lectures: snap.lectures.length,
   books: snap.books.length + 1,   // 讀書會的書＋區塊鏈系列課程那本（寫在程式裡）
   projects: snap.projectDecks.length,
+  projectsOnHome: Math.min(3, snap.projectDecks.length),
   pastIssues: Math.max(0, snap.weekly.length - 1),
   papers: snap.papers.length,
 };
@@ -24,6 +25,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
     await expect(page.locator("#who, #schedule, #weekly, #projects, #partners, #contact")).toHaveCount(6);
     await expect(page.locator("#weekly .issue__cover")).toHaveCount(count.issuesOnHome);
+    await expect(page.locator("#projects .project-teaser")).toHaveCount(count.projectsOnHome);   // 首頁只放前 3 個（決定 #15）
     await expect(page.locator(".format")).toHaveCount(5);
   });
 
