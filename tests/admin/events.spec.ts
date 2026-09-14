@@ -38,3 +38,15 @@ test("events: lecture fields, ISO date column, current-semester filter", async (
   expect(data?.data.lecture.speaker).toBe("王小明");
   await deleteAndRestore(page, "活動", "E2E 講座");
 });
+
+test("editing a seeded lecture shows its type and speaker fields (columns merged into the form)", async ({ page }) => {
+  await loginAs(page, USERS.editor);
+  await page.getByRole("navigation").getByRole("link", { name: "活動" }).click();
+  const row = page.getByTestId("entity-row").filter({ hasText: "AI 時代商業模式創新" });
+  await expect(row).toContainText("講座");
+  await row.getByRole("button", { name: "編輯" }).click();
+  await expect(page.getByLabel("類型")).toHaveValue("lecture");
+  await expect(page.getByLabel("週次")).toHaveValue("3");
+  await expect(page.getByLabel("日期")).toHaveValue("2026-09-23");
+  await expect(page.getByLabel("講者（中文）")).toHaveValue("陳顯立");
+});

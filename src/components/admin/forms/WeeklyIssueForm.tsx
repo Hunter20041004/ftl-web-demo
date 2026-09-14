@@ -19,6 +19,7 @@ const textToSources = (t: string): ParsedStory["sources"] => t.split("\n").map((
 export function WeeklyIssueForm({ data, setData, errors, isNew }: FormProps<IssueDraft>) {
   const [paste, setPaste] = useState("");
   const [missing, setMissing] = useState<string[]>([]);
+  const [pasteVersion, setPasteVersion] = useState(0);   // 拆解後讓來源文字框重掛，帶入新值
   const set = <K extends keyof IssueDraft>(k: K, v: IssueDraft[K]) => setData((d) => ({ ...d, [k]: v }));
   const setStory = (i: number, patch: Partial<ParsedStory>) => setData((d) => ({ ...d, stories: d.stories.map((s, j) => (j === i ? { ...s, ...patch } : s)) as IssueDraft["stories"] }));
 
@@ -29,6 +30,7 @@ export function WeeklyIssueForm({ data, setData, errors, isNew }: FormProps<Issu
       stories: [0, 1, 2].map((i) => parsed.stories[i] ?? d.stories[i]) as IssueDraft["stories"],
     }));
     setMissing(parsed.missing);
+    setPasteVersion((v) => v + 1);
   };
 
   return (
@@ -74,16 +76,24 @@ export function WeeklyIssueForm({ data, setData, errors, isNew }: FormProps<Issu
             <BilingualField id={p("taiwan")} label="台灣視角" zh={s.taiwan} en={s.taiwanEn} onZh={(v) => setStory(i, { taiwan: v })} onEn={(v) => setStory(i, { taiwanEn: v })} errors={errsFor("taiwan")} multiline />
             <BilingualListField id={p("watch")} label="接下來" zh={s.watch} en={s.watchEn} onZh={(v) => setStory(i, { watch: v })} onEn={(v) => setStory(i, { watchEn: v })} errors={errsFor("watch")} />
             <BilingualField id={p("term")} label="名詞（可空）" zh={s.term} en={s.termEn} onZh={(v) => setStory(i, { term: v || undefined })} onEn={(v) => setStory(i, { termEn: v || undefined })} errors={errsFor("term")} />
-            <div className="grid gap-1.5" data-field={p("sources")}>
-              <Label htmlFor={`${p("sources")}-text`}>來源</Label>
-              <Textarea id={`${p("sources")}-text`} rows={3} defaultValue={sourcesToText(s.sources)} className="rounded-xl bg-white/80" placeholder="標籤｜英文標籤｜https://…｜一手（一行一筆）" aria-invalid={Boolean(err("sources"))}
-                onBlur={(e) => setStory(i, { sources: textToSources(e.target.value) })} onChange={(e) => setStory(i, { sources: textToSources(e.target.value) })} />
-              <p className="text-xs text-muted-foreground">一行一筆：標籤｜英文標籤｜網址｜一手（一手來源才寫最後一段）</p>
-              <Err msg={err("sources")} />
-            </div>
+            <SourcesField key={pasteVersion} id={p("sources")} sources={s.sources} onChange={(v) => setStory(i, { sources: v })} error={err("sources")} />
           </fieldset>
         );
       })}
     </>
+  );
+}
+
+// 來源用文字框編輯；初始值來自 sources，之後以打字的文字為準（父層用 key 在貼上拆解後重掛）
+function SourcesField({ id, sources, onChange, error }: { id: string; sources: ParsedStory["sources"]; onChange: (v: ParsedStory["sources"]) => void; error?: string }) {
+  const [text, setText] = useState(() => sourcesToText(sources));
+  return (
+    <div className="grid gap-1.5" data-field={id}>
+      <Label htmlFor={`${id}-text`}>來源</Label>
+      <Textarea id={`${id}-text`} rows={3} value={text} className="rounded-xl bg-white/80" placeholder="標籤｜英文標籤｜https://…｜一手（一行一筆）" aria-invalid={Boolean(error)}
+        onChange={(e) => { setText(e.target.value); onChange(textToSources(e.target.value)); }} />
+      <p className="text-xs text-muted-foreground">一行一筆：標籤｜英文標籤｜網址｜一手（一手來源才寫最後一段）</p>
+      <Err msg={error} />
+    </div>
   );
 }

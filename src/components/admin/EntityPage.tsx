@@ -22,6 +22,7 @@ export function EntityPage<T extends object>(props: {
   listOptions?: Parameters<Collection<T>["list"]>[0];
   toolbar?: ReactNode;
   draftCheck?: (data: T) => Errors;         // 存草稿時的最低檢查（預設：不檢查）
+  toForm?: (row: Row<T>) => T;              // 打開編輯時把列轉成表單資料（預設：row.data）
   onSaved?: (row: Row<T>) => void;
 }) {
   const { collection, sortable = false, Form } = props;
@@ -46,7 +47,7 @@ export function EntityPage<T extends object>(props: {
   }, [version, collection]);
   const reload = () => setVersion((v) => v + 1);
 
-  const open = (row: Row<T> | "new") => { setEditing(row); setForm(row === "new" ? props.empty() : structuredClone(row.data)); setErrors({}); };
+  const open = (row: Row<T> | "new") => { setEditing(row); setForm(row === "new" ? props.empty() : structuredClone(props.toForm ? props.toForm(row) : row.data)); setErrors({}); };
   const close = () => { setEditing(null); setForm(null); setConfirming(false); };
   const isPublished = editing !== null && editing !== "new" && editing.status === "published";
 

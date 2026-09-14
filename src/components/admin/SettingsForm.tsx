@@ -77,7 +77,7 @@ export function SettingsForm() {
         <legend className="px-1 text-sm font-semibold text-primary">學期</legend>
         <div className="grid gap-3 md:grid-cols-2">
           <TextField id="semester.code" label="學期代號" value={S.code} onChange={(v) => setS({ code: v })} error={errors["semester.code"]} placeholder="115-1" hint="活動要標同一個代號才會出現在前台" />
-          <TextField id="semester.range" label="期間" value={S.range} onChange={(v) => setS({ range: v })} error={errors["semester.range"]} placeholder="2026.09 – 2026.12" hint="前台顯示用；活動日期的年份也從這裡的起始年推" />
+          <TextField id="semester.range" label="期間" value={S.range} onChange={(v) => setS({ range: v })} error={errors["semester.range"]} placeholder="2026.09 – 2026.12" hint="前台「成立資訊」與行事曆標題顯示用" />
         </div>
         <BilingualField id="semester.meetingDay" label="上課日" zh={S.meetingDay} en={S.meetingDayEn} onZh={(v) => setS({ meetingDay: v })} onEn={(v) => setS({ meetingDayEn: v })} errors={errors} placeholderZh="每週三" placeholderEn="Wednesdays" />
         <TextField id="semester.focus" label="標語" value={S.focus} onChange={(v) => setS({ focus: v })} error={errors["semester.focus"]} />

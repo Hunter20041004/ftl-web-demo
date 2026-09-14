@@ -44,7 +44,7 @@ export function makeCollection<T extends object>(table: string, opts: { columns?
       ? sb.from(table).update(payload).eq("id", row.id)
       : sb.from(table).insert({ ...payload, ...(hasPosition ? { position: row.position ?? (await nextPosition()) } : {}) });
     const { data, error } = await q.select("*").single();
-    if (error) throw new Error(error.message);
+    if (error) throw new Error(error.code === "23505" ? "已經有同樣代號／期數的項目了" : error.message);
     return data as unknown as Row<T>;
   };
 
