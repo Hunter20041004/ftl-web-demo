@@ -34,6 +34,7 @@ export function EventsList() {
       title="活動" intro={`前台只顯示目前學期（${current}）的活動，依週次排序。要準備下學期，先在學期設定改代號，或在這裡切換學期新增。`} addLabel="新增活動" noun="活動"
       collection={events} schema={eventSchema} empty={() => emptyEvent(semester)} listOptions={listOptions} wide
       toForm={(row) => ({ ...row.data, kind: String(row.kind) as EventData["kind"], semester: String(row.semester), week: Number(row.week), date: String(row.date) })}
+      onSaved={(row) => { const s = String(row.semester); setKnown((k) => (k.includes(s) ? k : [...k, s].sort().reverse())); if (s !== semester) setSemester(s); }}
       toolbar={
         <select value={semester} onChange={(e) => setSemester(e.target.value)} className="h-10 rounded-full border border-input bg-white/80 px-3 text-sm" aria-label="學期">
           {known.map((s) => <option key={s} value={s}>{s}{s === current ? "（目前）" : ""}</option>)}
