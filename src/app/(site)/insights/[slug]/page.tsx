@@ -4,10 +4,11 @@ import { SitePageShell } from "@/components/layout/SitePageShell";
 import { ArticleBody } from "@/components/insights/ArticleBody";
 import { articles } from "@/lib/content";
 import { withBasePath } from "@/lib/site-data";
+import { articleParams, EMPTY_ARTICLE_SLUG } from "@/lib/article-params";
 
 // 每篇洞察文章一個靜態頁：/insights/<slug>/
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return articleParams(articles);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const a = articles.find((x) => x.slug === slug);
+  if (!a && slug === EMPTY_ARTICLE_SLUG) return <EmptyArticles />;
   if (!a) notFound();
   // 英文內文選填：沒有就顯示中文內文（不加說明文字）
   return (
@@ -44,6 +46,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="lang-zh-only"><ArticleBody markdown={a.body} /></div>
               {a.bodyEn ? <div className="lang-en-only"><ArticleBody markdown={a.bodyEn} /></div> : null}
             </article>
+          </div>
+        </section>
+      </main>
+    </SitePageShell>
+  );
+}
+
+// 沒有任何文章時的佔位頁（靜態輸出至少要有一頁）
+function EmptyArticles() {
+  return (
+    <SitePageShell>
+      <main id="main" className="page">
+        <section className="pagehead">
+          <div className="wrap reveal">
+            <a className="link-arrow" href={withBasePath("/insights/")}><span data-en="Back to Insights" suppressHydrationWarning>回洞察頁</span></a>
+            <h1 className="h1 mt-4" data-en="No articles yet" suppressHydrationWarning>目前還沒有洞察文章</h1>
+            <p className="lead" data-en="Check back soon." suppressHydrationWarning>敬請期待。</p>
           </div>
         </section>
       </main>
