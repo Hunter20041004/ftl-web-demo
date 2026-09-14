@@ -1,0 +1,55 @@
+【本期一句話】這週兩家公司都在買資格。
+【Issue lede】Two companies bought access this week.
+---
+【短標】Circle 買跨境支付
+【Headline】Circle buys payments
+【標題】Circle 以 4 億美元收購 Tazapay
+【Title】Circle to acquire Tazapay for $400M
+【一句話】發行 USDC 的 Circle 宣布收購。
+【Lede】Circle, issuer of USDC, announced the deal.
+【重點】
+- 交易金額 4 億美元
+- 2027 年完成
+【Facts】
+- $400 million
+- Closing in 2027
+【背景】Circle 的主力產品是 USDC。
+【Context】Circle's main product is USDC.
+【說法】穩定幣結算正在成為核心基礎設施。｜Jeremy Allaire，Circle 執行長
+【Quote】Stablecoin settlement is becoming core infrastructure.｜Jeremy Allaire, Circle CEO
+【為什麼重要】買的是最後一哩。
+【Why】It buys the last mile.
+【台灣視角】台灣的子法最快 2027 年。
+【Taiwan】Taiwan's rules come in 2027.
+【接下來】
+- 新加坡金管局核准
+【Watch】
+- MAS approval
+【名詞】穩定幣：釘住美元的加密貨幣。
+【Term】Stablecoin: a dollar-pegged crypto.
+【來源】
+- Circle 新聞稿｜Circle press release｜https://example.com/pr｜一手
+- Payments Dive｜Payments Dive｜https://example.com/pd
+---
+【短標】第二則
+【Headline】Second
+【標題】第二則標題
+【Title】Second title
+【一句話】二
+【Lede】Two
+【重點】
+- a
+【Facts】
+- a
+【背景】b
+【Context】b
+【為什麼重要】c
+【Why】c
+【台灣視角】d
+【Taiwan】d
+【接下來】
+- e
+【Watch】
+- e
+【來源】
+- s｜s｜https://example.com/2｜一手

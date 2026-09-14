@@ -16,7 +16,7 @@ export type FormProps<T> = { data: T; setData: (updater: (d: T) => T) => void; e
 export function EntityPage<T extends object>(props: {
   title: string; intro?: string; addLabel: string; noun: string;
   collection: Collection<T>; schema: ZodType; empty: () => T;
-  Form: (p: FormProps<T>) => ReactNode;
+  Form: (p: FormProps<T>) => ReactNode;   // 當元件用（<Form/>），表單裡才能有自己的 hooks
   summary: (row: Row<T>) => ReactNode;
   sortable?: boolean; wide?: boolean;
   listOptions?: Parameters<Collection<T>["list"]>[0];
@@ -24,7 +24,7 @@ export function EntityPage<T extends object>(props: {
   draftCheck?: (data: T) => Errors;         // 存草稿時的最低檢查（預設：不檢查）
   onSaved?: (row: Row<T>) => void;
 }) {
-  const { collection, sortable = false } = props;
+  const { collection, sortable = false, Form } = props;
   const [rows, setRows] = useState<Row<T>[] | null>(null);
   const [error, setError] = useState("");
   const [version, setVersion] = useState(0);
@@ -137,7 +137,7 @@ export function EntityPage<T extends object>(props: {
           </DialogHeader>
           {form && editing ? (
             <form className="grid gap-5" onSubmit={(e) => { e.preventDefault(); void submit("published"); }}>
-              {props.Form({ data: form, setData: (u) => setForm((d) => (d ? u(d) : d)), errors, isNew: editing === "new" })}
+              <Form data={form} setData={(u) => setForm((d) => (d ? u(d) : d))} errors={errors} isNew={editing === "new"} />
               {errors.form ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">{errors.form}</p> : null}
               <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" variant="ghost" onClick={close} disabled={busy}>取消</Button>

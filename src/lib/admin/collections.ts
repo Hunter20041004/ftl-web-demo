@@ -20,9 +20,3 @@ export type EventData = {
 export const events = makeCollection<EventData>("events", {
   columns: (d) => ({ semester: d.semester, week: d.week, date: d.date, kind: d.kind }),
 });
-
-export type WeeklyIssueData = { vol: number; range_start: string; range_end: string; lede: string; ledeEn: string };
-export const weeklyIssues = makeCollection<WeeklyIssueData>("weekly_issues", {
-  columns: (d) => ({ vol: d.vol, range_start: d.range_start, range_end: d.range_end }),
-  hasPosition: false,
-});

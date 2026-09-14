@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { Collection, Row } from "@/lib/admin/collection";
 import { partners } from "@/lib/admin/partners";
-import { papers, projects, resources, events, weeklyIssues } from "@/lib/admin/collections";
+import { papers, projects, resources, events } from "@/lib/admin/collections";
+import { weekly } from "@/lib/admin/weekly";
 import { RebuildStatus } from "./RebuildStatus";
 
 type Entry = { kind: string; collection: Collection<object>; row: Row<object>; label: string };
@@ -17,7 +18,7 @@ const SOURCES: Array<{ kind: string; collection: Collection<object>; label: (d: 
   { kind: "資源", collection: resources as Collection<object>, label: (d) => String(d.title) },
   { kind: "專案", collection: projects as Collection<object>, label: (d) => String(d.name) },
   { kind: "活動", collection: events as Collection<object>, label: (d) => String(d.zh) },
-  { kind: "週報", collection: weeklyIssues as Collection<object>, label: (d) => `Vol.${d.vol}` },
+  { kind: "週報", collection: weekly as unknown as Collection<object>, label: (d) => `Vol.${d.vol}` },
 ];
 
 export function TrashList() {
