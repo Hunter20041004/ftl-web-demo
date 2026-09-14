@@ -38,3 +38,14 @@
 - 分享縮圖 `assets/og.png`（1200×630）；favicon `src/app/icon.png`；書封 `assets/books/`（Open Library）。
 - 英文：長文都有 `*En` 欄位，元件用 `data-en` 帶出；`SiteInteractions` 的 MutationObserver 會把切換身份／翻週／翻投影片時新產生的節點也翻成英文。
 - 首頁順序：首屏 → 我們是誰（五種形式）→ 重要時程 → FinTech 週報 → 專案 → 合作對象 → 聯絡我們。每段都是摘要，細節在內頁。
+
+
+## CMS 第 1 期（內容管線）— 2026-09-14
+
+計畫：`docs/plans/2026-09-14-cms-plan-1-content-pipeline.md`。Task 1–9 程式全部完成、`npm test` 與 80 個視覺測試全綠。
+
+待使用者補做（依 `supabase/README.md`）：
+- [ ] 建 Supabase **測試**專案，交付 `SUPABASE_TEST_URL`／`SUPABASE_TEST_ANON_KEY`／`SUPABASE_TEST_SERVICE_KEY` → 工程師跑 `npm run test:contract`（Task 5 Step 4）、`seed-content`（Task 7 Step 6）、`pull-content` 實跑（Task 8 Step 6）。
+- [ ] 建 Supabase **正式**專案，交付 URL 與 service key → `gh secret set SUPABASE_URL` / `SUPABASE_SERVICE_KEY`（Task 9 Step 3），跑 seed，手動觸發一次 `pages.yml`，做端到端驗收（Task 9 Step 6）。
+
+在那之前 `pages.yml` 走降級路徑（`keeping committed snapshot`），正式站內容不變。

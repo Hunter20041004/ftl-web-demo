@@ -40,10 +40,24 @@ npm run test:visual  # Playwright（四種寬度）
 
 推到 `main` 就會由 `.github/workflows/pages.yml` 建置並部署到 GitHub Pages，約兩分鐘生效。
 
+## 內容怎麼更新
+
+六類內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定存在 Supabase。建站時 `scripts/pull-content.ts` 會拉已發布的資料、驗證格式、下載圖片，寫成 `src/lib/content.snapshot.json`；任何一筆不合格就不部署，前台維持舊版。
+
+- 現在（後台還沒做）：在 Supabase 後台改資料，再到 GitHub Actions 手動跑一次 `Deploy to GitHub Pages`。
+- 後台上線後：在後台按「發布」即可。
+- 幹部名單、指導單位、社團基本資料仍在 `src/lib/content.static.ts`，由工程師改。
+
 ## 檔案結構
 
 ```
-src/lib/content.ts      全站內容（課程、招募、週報、專案、資源）
+src/lib/content.ts      門面：元件一律從這裡 import
+src/lib/content.static.ts   留在程式裡的資料（幹部、區塊鏈課程、類別標籤）
+src/lib/content.remote.ts   六類內容＋學期設定，讀 content.snapshot.json（由 Supabase 產生）
+src/lib/content.schema.ts   內容的 zod schema（快照與資料庫共用同一形狀）
+scripts/pull-content.ts     建站時從 Supabase 拉內容、驗證、下載圖片、寫快照
+scripts/seed-content.ts     一次性：把快照匯入 Supabase
+supabase/                   資料庫 migration 與設定說明
 src/components/         各頁與元件
 assets/v6.css           唯一的樣式檔（設計代幣、玻璃卡、標籤、週曆…）
 assets/                 logo、書封、合作對象 logo、專案封面、LINE QR

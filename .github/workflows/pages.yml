@@ -1,14 +1,17 @@
-# 正式站：main 每次推送就 build 靜態檔並部署到 GitHub Pages
-# 網址 https://hunter20041004.github.io/ftl-web-demo/
+# 正式站：main 推送、手動、或後台發布（repository_dispatch: content-updated）都會
+# 從 Supabase 拉內容 → build → 部署到 GitHub Pages，並把新快照 commit 回 main。
+# 沒有設 SUPABASE secrets 時，pull-content 什麼都不做，沿用 repo 內的快照。
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [content-updated]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -21,17 +24,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - run: npm install --no-audit --no-fund
+      - name: Pull published content from Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/pull-content.ts
       - run: npm run typecheck
       - run: node scripts/check-internal-links.mjs
+      - run: npm run test:unit
       - run: NEXT_PUBLIC_BASE_PATH=/ftl-web-demo npm run build
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
+      - name: Commit refreshed snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/content.snapshot.json
+          git diff --cached --quiet || git commit -m "內容快照更新 [skip ci]"
+          git push
   deploy:
     needs: build
     runs-on: ubuntu-latest
