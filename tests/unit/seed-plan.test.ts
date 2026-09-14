@@ -15,6 +15,12 @@ test("snapshot → rows → snapshot is identity (after path rewrite)", () => {
   assert.deepEqual(back.papers, [...rewritten.papers].sort((a, b) => b.year - a.year));
 });
 
+test("snapshotToRows writes ISO dates for events (Postgres date column)", () => {
+  const rows = snapshotToRows(snap);
+  assert.match(rows.events[0].date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(rows.events[0].date, "2026-09-09");
+});
+
 test("rewriteAssetPaths turns /assets/x into /media/x and leaves others", () => {
   const out = rewriteAssetPaths({ ...snap, partners: [{ zh: "a", en: "a", href: "https://a/", logo: "/assets/partners/gad.svg" }] });
   assert.equal(out.partners[0].logo, "/media/partners/gad.svg");

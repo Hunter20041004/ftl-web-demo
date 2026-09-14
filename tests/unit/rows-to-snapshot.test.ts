@@ -24,7 +24,8 @@ export function rowsFromSnapshot(): Rows {
       const detail = kind === "lecture" ? { lecture: omitWeekDate(lectures.get(week)) }
         : kind === "workshop" ? { workshop: omitWeekDate(workshops.get(week)) }
         : kind === "reading" ? { book: omitWeekDate(books.get(week)) } : {};
-      return { id: `e${i}`, semester: snap.semester.code, week, date, kind, position: i, data: { ...rest, ...detail } };
+      // DB 的 date 欄位是 ISO（YYYY-MM-DD）；前台用 MM/DD。年份取學期起始年。
+      return { id: `e${i}`, semester: snap.semester.code, week, date: `${snap.semester.range.slice(0, 4)}-${date.replace("/", "-")}`, kind, position: i, data: { ...rest, ...detail } };
     }),
     resources: snap.resources.map((r, i) => ({ id: `r${i}`, kind: r.kind, deadline: r.deadline ?? null, position: i, data: r })),
     projects: snap.projectDecks.map((p, i) => ({ id: p.id, position: i, data: p })),
@@ -45,6 +46,12 @@ test("rows round-trip to the same snapshot", () => {
   assert.deepEqual(out.projectDecks, snap.projectDecks);
   assert.deepEqual(out.partners, snap.partners);
   assert.deepEqual(out.papers, [...snap.papers].sort((a, b) => b.year - a.year));
+});
+
+test("event dates come back as MM/DD even though the DB stores ISO", () => {
+  const out = rowsToSnapshot(rowsFromSnapshot(), { today: "2026-09-14", generatedAt: "x" });
+  assert.equal(out.calendar[0].date, "09/09");
+  assert.equal(out.lectures[0].date, snap.lectures[0].date);
 });
 
 test("expired resources and other semesters are excluded", () => {

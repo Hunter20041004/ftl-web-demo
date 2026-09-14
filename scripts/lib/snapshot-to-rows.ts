@@ -17,6 +17,13 @@ export function rewriteAssetPaths(s: Snapshot): Snapshot {
 }
 
 const isoFromRange = (year: number, mmdd: string) => `${year}-${mmdd.slice(0, 2)}-${mmdd.slice(3, 5)}`;
+// 活動日期 MM/DD → ISO：年份取學期 range 的起始年（"2026.09 – 2026.12"），月份小於起始月就算下一年（下學期跨年）
+function eventIso(mmdd: string, semesterRange: string) {
+  const startYear = Number(semesterRange.slice(0, 4));
+  const startMonth = Number(semesterRange.slice(5, 7));
+  const month = Number(mmdd.slice(0, 2));
+  return `${month < startMonth ? startYear + 1 : startYear}-${mmdd.slice(0, 2)}-${mmdd.slice(3, 5)}`;
+}
 const omitWeekDate = <T extends { week: number; date: string }>({ week: _w, date: _d, ...rest }: T) => rest;
 
 export function snapshotToRows(s: Snapshot): Rows {
@@ -29,7 +36,7 @@ export function snapshotToRows(s: Snapshot): Rows {
       const { week, date, kind, ...rest } = c;
       const l = lectures.get(week), w = workshops.get(week), b = books.get(week);
       const detail = kind === "lecture" && l ? { lecture: omitWeekDate(l) } : kind === "workshop" && w ? { workshop: omitWeekDate(w) } : kind === "reading" && b ? { book: omitWeekDate(b) } : {};
-      return { id: `${s.semester.code}-w${String(week).padStart(2, "0")}`, semester: s.semester.code, week, date, kind, position: i, data: { ...rest, ...detail } };
+      return { id: `${s.semester.code}-w${String(week).padStart(2, "0")}`, semester: s.semester.code, week, date: eventIso(date, s.semester.range), kind, position: i, data: { ...rest, ...detail } };
     }),
     resources: s.resources.map((r, i) => ({ id: `res-${i + 1}`, kind: r.kind, deadline: r.deadline ?? null, position: i, data: r })),
     projects: s.projectDecks.map((p, i) => ({ id: p.id, position: i, data: p })),

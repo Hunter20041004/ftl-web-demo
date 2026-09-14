@@ -21,7 +21,9 @@ export function rowsToSnapshot(rows: Rows, opts: { today: string; generatedAt: s
   const semester = obj(settings.semester);
   const code = String(semester.code ?? "");
 
-  const events = rows.events.filter((e) => e.semester === code).sort((a, b) => a.week - b.week || a.position - b.position);
+  // DB 的 date 是 ISO（YYYY-MM-DD）；前台顯示 MM/DD
+  const events = rows.events.filter((e) => e.semester === code).sort((a, b) => a.week - b.week || a.position - b.position)
+    .map((e) => ({ ...e, date: mmdd(e.date) }));
   const calendar = events.map((e) => {
     const { lecture: _l, workshop: _w, book: _b, ...rest } = obj(e.data);
     return { week: e.week, date: e.date, kind: e.kind, ...rest };
