@@ -10,8 +10,10 @@ export default defineConfig([
     "out/**",
     "public/assets/**",
     "assets/**",
-    "explorations/**",
-    "preview-chatgpt/**",
-    "*.html",
+    "public/media/**",
   ]),
+  {
+    // 用解構把某幾個欄位「拿掉」時，慣例用 _ 開頭命名，不算未使用
+    rules: { "@typescript-eslint/no-unused-vars": ["warn", { varsIgnorePattern: "^_", argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" }] },
+  },
 ]);
