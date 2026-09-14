@@ -23,16 +23,26 @@ async function wake() {
   throw new Error("Supabase did not wake up after 3 attempts");
 }
 
+// 免費專案偶爾回 Gateway Timeout；每個查詢都重試 3 次（間隔 5 秒），不要因為一次抖動就讓發布失敗
+async function retry<T>(label: string, fn: () => Promise<{ data: T | null; error: { message: string } | null }>): Promise<T> {
+  let last = "";
+  for (let i = 1; i <= 3; i += 1) {
+    const { data, error } = await fn();
+    if (!error && data) return data;
+    last = error?.message ?? "empty";
+    console.log(`${label}: attempt ${i} failed: ${last}`);
+    await new Promise((r) => setTimeout(r, 5_000));
+  }
+  throw new Error(`${label}: ${last}`);
+}
+
 async function get<T>(table: string): Promise<T[]> {
-  const { data, error } = await db.from(table).select("*").eq("status", "published").is("deleted_at", null);
-  if (error) throw new Error(`${table}: ${error.message}`);
-  return data as T[];
+  return retry<T[]>(table, () => db.from(table).select("*").eq("status", "published").is("deleted_at", null));
 }
 
 async function fetchRows(): Promise<Rows> {
   const issues = await get<Rows["weekly_issues"][number]>("weekly_issues");
-  const { data: stories, error } = await db.from("weekly_stories").select("*").in("issue_id", issues.map((i) => i.id));
-  if (error) throw new Error(`weekly_stories: ${error.message}`);
+  const stories = await retry<Rows["weekly_stories"]>("weekly_stories", () => db.from("weekly_stories").select("*").in("issue_id", issues.map((i) => i.id)));
   return {
     settings: await get("settings"),
     events: await get("events"),
@@ -46,9 +56,8 @@ async function fetchRows(): Promise<Rows> {
 }
 
 async function fetchImage(mediaPath: string) {
-  const { data, error } = await db.storage.from("media").download(mediaPath);
-  if (error || !data) throw new Error(`download ${mediaPath}: ${error?.message ?? "empty"}`);
-  return new Uint8Array(await data.arrayBuffer());
+  const blob = await retry<Blob>(`download ${mediaPath}`, () => db.storage.from("media").download(mediaPath));
+  return new Uint8Array(await blob.arrayBuffer());
 }
 
 await wake();
