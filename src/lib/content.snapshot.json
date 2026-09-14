@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T11:40:49.568Z",
+  "generatedAt": "2026-09-14T11:47:09.833Z",
   "semester": {
     "code": "115-1",
     "range": "2026.09 – 2026.12",
@@ -308,6 +308,14 @@
       "note": "社課結束",
       "noteEn": "Sessions end",
       "counts": false
+    },
+    {
+      "week": 17,
+      "date": "12/30",
+      "kind": "social",
+      "zh": "PROD 測試活動（稍後刪除）",
+      "en": "PROD test event",
+      "counts": false
     }
   ],
   "lectures": [
@@ -610,6 +618,135 @@
     }
   ],
   "weekly": [
+    {
+      "vol": 99,
+      "range": "09/14 – 09/20",
+      "year": 2026,
+      "headlines": [
+        "PROD 第一則",
+        "第二則",
+        "PROD 第三則"
+      ],
+      "headlinesEn": [
+        "Circle buys payments",
+        "Second",
+        "PROD third"
+      ],
+      "lede": "PROD 測試期（稍後刪除）。",
+      "ledeEn": "Two companies bought access this week.",
+      "stories": [
+        {
+          "title": "Circle 以 4 億美元收購 Tazapay",
+          "titleEn": "Circle to acquire Tazapay for $400M",
+          "lede": "發行 USDC 的 Circle 宣布收購。",
+          "ledeEn": "Circle, issuer of USDC, announced the deal.",
+          "facts": [
+            "交易金額 4 億美元",
+            "2027 年完成"
+          ],
+          "factsEn": [
+            "$400 million",
+            "Closing in 2027"
+          ],
+          "context": "Circle 的主力產品是 USDC。",
+          "contextEn": "Circle's main product is USDC.",
+          "quote": "穩定幣結算正在成為核心基礎設施。",
+          "quoteEn": "Stablecoin settlement is becoming core infrastructure.",
+          "quoteBy": "Jeremy Allaire，Circle 執行長",
+          "quoteByEn": "Jeremy Allaire, Circle CEO",
+          "why": "買的是最後一哩。",
+          "whyEn": "It buys the last mile.",
+          "taiwan": "台灣的子法最快 2027 年。",
+          "taiwanEn": "Taiwan's rules come in 2027.",
+          "watch": [
+            "新加坡金管局核准"
+          ],
+          "watchEn": [
+            "MAS approval"
+          ],
+          "term": "穩定幣：釘住美元的加密貨幣。",
+          "termEn": "Stablecoin: a dollar-pegged crypto.",
+          "sources": [
+            {
+              "label": "Circle 新聞稿",
+              "labelEn": "Circle press release",
+              "href": "https://example.com/pr",
+              "primary": true
+            },
+            {
+              "label": "Payments Dive",
+              "labelEn": "Payments Dive",
+              "href": "https://example.com/pd",
+              "primary": false
+            }
+          ]
+        },
+        {
+          "title": "第二則標題",
+          "titleEn": "Second title",
+          "lede": "二",
+          "ledeEn": "Two",
+          "facts": [
+            "a"
+          ],
+          "factsEn": [
+            "a"
+          ],
+          "context": "b",
+          "contextEn": "b",
+          "why": "c",
+          "whyEn": "c",
+          "taiwan": "d",
+          "taiwanEn": "d",
+          "watch": [
+            "e"
+          ],
+          "watchEn": [
+            "e"
+          ],
+          "sources": [
+            {
+              "label": "s",
+              "labelEn": "s",
+              "href": "https://example.com/2",
+              "primary": true
+            }
+          ]
+        },
+        {
+          "title": "PROD 測試第三則標題",
+          "titleEn": "PROD third title",
+          "lede": "正式站測試用。",
+          "ledeEn": "Production test.",
+          "facts": [
+            "測試重點"
+          ],
+          "factsEn": [
+            "test fact"
+          ],
+          "context": "測試背景。",
+          "contextEn": "Test context.",
+          "why": "測試。",
+          "whyEn": "Test.",
+          "taiwan": "測試。",
+          "taiwanEn": "Test.",
+          "watch": [
+            "測試"
+          ],
+          "watchEn": [
+            "test"
+          ],
+          "sources": [
+            {
+              "label": "測試來源",
+              "labelEn": "Test source",
+              "href": "https://example.com/prod3",
+              "primary": true
+            }
+          ]
+        }
+      ]
+    },
     {
       "vol": 3,
       "range": "09/07 – 09/13",
