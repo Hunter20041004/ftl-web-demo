@@ -24,7 +24,7 @@ async function wake() {
 }
 
 // 免費專案偶爾回 Gateway Timeout；每個查詢都重試 3 次（間隔 5 秒），不要因為一次抖動就讓發布失敗
-async function retry<T>(label: string, fn: () => Promise<{ data: T | null; error: { message: string } | null }>): Promise<T> {
+async function retry<T>(label: string, fn: () => PromiseLike<{ data: T | null; error: { message: string } | null }>): Promise<T> {
   let last = "";
   for (let i = 1; i <= 3; i += 1) {
     const { data, error } = await fn();
