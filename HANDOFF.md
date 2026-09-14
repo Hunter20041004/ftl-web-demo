@@ -44,8 +44,8 @@
 
 計畫：`docs/plans/2026-09-14-cms-plan-1-content-pipeline.md`。Task 1–9 程式全部完成、`npm test` 與 80 個視覺測試全綠。
 
-待使用者補做（依 `supabase/README.md`）：
-- [ ] 建 Supabase **測試**專案，交付 `SUPABASE_TEST_URL`／`SUPABASE_TEST_ANON_KEY`／`SUPABASE_TEST_SERVICE_KEY` → 工程師跑 `npm run test:contract`（Task 5 Step 4）、`seed-content`（Task 7 Step 6）、`pull-content` 實跑（Task 8 Step 6）。
-- [ ] 建 Supabase **正式**專案，交付 URL 與 service key → `gh secret set SUPABASE_URL` / `SUPABASE_SERVICE_KEY`（Task 9 Step 3），跑 seed，手動觸發一次 `pages.yml`，做端到端驗收（Task 9 Step 6）。
-
-在那之前 `pages.yml` 走降級路徑（`keeping committed snapshot`），正式站內容不變。
+全部接上（2026-09-14）：
+- Supabase 組織「政大金融創新實驗室」（社團 Gmail）：正式專案 `xesxfcqtbzmlanyvdeys`（首爾）、測試專案 `ftl-web-test` `bpadohdiuvbimvkwpecv`（孟買）。兩邊都跑過 migration、管理員＝社團 Gmail、seed 完成。
+- 鑰匙：GitHub secrets `SUPABASE_URL`／`SUPABASE_SERVICE_KEY`／`SUPABASE_TEST_*`；本機 `.env.local`（gitignore）。用的是新格式 `sb_publishable_…`／`sb_secret_…`。
+- 驗證：契約測試 3/3；pull-content 實跑；Playwright 80；正式站 pipeline 從 Supabase 拉到 3 期／16 活動／…；端到端「改合作對象名稱 → 重建 → 正式站出現 → 改回」通過。
+- 尚未做：Google 登入（Authentication → Providers → Google）等第 2 期後台開工時再設。
