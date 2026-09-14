@@ -9,6 +9,9 @@ test.beforeEach(() => { test.skip(!TEST_URL() || !TEST_ANON() || !service(), "ne
 test.afterEach(async () => {
   // 清掉測試建立的資料，seed 的 4 個合作對象不動
   await admin().from("partners").delete().like("data->>zh", "E2E%");
+  const { data: files } = await admin().storage.from("media").list("partners");
+  const stale = (files ?? []).filter((f) => /^gad-\d+\.svg$/.test(f.name)).map((f) => `partners/${f.name}`);
+  if (stale.length) await admin().storage.from("media").remove(stale);
 });
 
 test("admin can add, publish, reorder, delete and restore a partner", async ({ page }) => {

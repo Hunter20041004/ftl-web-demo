@@ -51,28 +51,35 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="flex w-60 shrink-0 flex-col bg-white/55 backdrop-blur-md shadow-[var(--shadow-soft)]">
-        <div className="px-5 py-5">
-          <p className="text-xs font-semibold tracking-wide text-primary">NCCU FINTECH LAB</p>
-          <p className="text-lg font-bold grad-text inline-block">後台</p>
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <aside className="flex shrink-0 flex-col bg-white/55 backdrop-blur-md shadow-[var(--shadow-soft)] md:w-60">
+        <div className="flex items-center justify-between px-5 py-4 md:block md:py-5">
+          <div>
+            <p className="text-xs font-semibold tracking-wide text-primary">NCCU FINTECH LAB</p>
+            <p className="text-lg font-bold grad-text inline-block">後台</p>
+          </div>
+          <a href={withBasePath("/")} className="text-xs text-muted-foreground hover:text-primary md:hidden">回官網</a>
         </div>
-        <nav className="flex flex-col gap-1 px-3">
+        <nav className="flex gap-1 overflow-x-auto px-3 pb-3 md:flex-col md:pb-0">
           {NAV.map((item) => {
             const active = pathname.endsWith(item.href.replace(/^\//, "/")) || pathname === withBasePath(item.href);
             return (
-              <a key={item.href} href={withBasePath(item.href)} className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${active ? "bg-secondary text-primary" : "text-foreground hover:bg-muted"}`}>
+              <a key={item.href} href={withBasePath(item.href)} className={`whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors md:rounded-lg ${active ? "bg-secondary text-primary" : "text-foreground hover:bg-muted"}`}>
                 {item.label}
               </a>
             );
           })}
         </nav>
-        <div className="mt-auto px-5 py-4 text-xs text-muted-foreground">
+        <div className="hidden mt-auto px-5 py-4 text-xs text-muted-foreground md:block">
+          <a href={withBasePath("/")} className="mb-3 block font-medium text-primary hover:underline">回官網 →</a>
           <p className="truncate" title={session.user.email}>{session.user.email}</p>
           <button type="button" className="mt-1 font-medium text-primary hover:underline" onClick={() => void signOut()}>登出</button>
         </div>
       </aside>
-      <main className="min-w-0 flex-1 px-8 py-8">{children}</main>
+      <main className="min-w-0 flex-1 px-4 py-6 md:px-8 md:py-8">
+        {children}
+        <p className="mt-8 text-xs text-muted-foreground md:hidden">{session.user.email} · <button type="button" className="font-medium text-primary" onClick={() => void signOut()}>登出</button></p>
+      </main>
     </div>
   );
 }

@@ -25,6 +25,7 @@ export function PartnerForm({ initial, isPublished, onSubmit, onCancel }: Props)
   const [uploading, setUploading] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const firstError = useRef<HTMLDivElement>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const set = (k: keyof Partner, v: string | boolean | undefined) => setData((d) => ({ ...d, [k]: v }));
 
@@ -35,6 +36,7 @@ export function PartnerForm({ initial, isPublished, onSubmit, onCancel }: Props)
     if (status === "published" && isPublished && !confirming) { setConfirming(true); return; }
     setBusy(true);
     try { await onSubmit({ ...data, logo: data.logo || undefined, markOnly: data.markOnly || undefined }, status); }
+    catch (e) { setErrors({ form: `儲存失敗：${(e as Error).message}` }); }
     finally { setBusy(false); setConfirming(false); }
   };
 
@@ -60,8 +62,12 @@ export function PartnerForm({ initial, isPublished, onSubmit, onCancel }: Props)
       {field("en", "英文名稱", "Taiwan Blockchain Enthusiasts Institute")}
       {field("href", "連結", "https://")}
       <div className="grid gap-1.5">
-        <Label htmlFor="partner-logo">Logo</Label>
-        <Input id="partner-logo" type="file" accept="image/*" onChange={(e) => void onFile(e.target.files?.[0])} />
+        <Label>Logo</Label>
+        <div className="flex items-center gap-3">
+          <Button type="button" variant="outline" size="sm" onClick={() => fileInput.current?.click()} disabled={uploading}>選擇圖片</Button>
+          <span className="text-xs text-muted-foreground">PNG、JPG 或 SVG；會自動縮到 400px</span>
+          <input ref={fileInput} id="partner-logo" type="file" accept="image/*" className="sr-only" aria-label="Logo" onChange={(e) => void onFile(e.target.files?.[0])} />
+        </div>
         {uploading ? <p className="text-xs text-muted-foreground">上傳中…</p> : null}
         {data.logo ? (
           <div className="flex items-center gap-3">
@@ -76,6 +82,7 @@ export function PartnerForm({ initial, isPublished, onSubmit, onCancel }: Props)
         <Switch id="partner-markOnly" checked={Boolean(data.markOnly)} onCheckedChange={(v) => set("markOnly", v)} />
         <Label htmlFor="partner-markOnly">Logo 已含名稱，前台不另顯示文字</Label>
       </div>
+      {errors.form ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">{errors.form}</p> : null}
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="ghost" onClick={onCancel} disabled={busy}>取消</Button>
         {!isPublished ? <Button type="button" variant="outline" onClick={() => void submit("draft")} disabled={busy || uploading}>存草稿</Button> : null}

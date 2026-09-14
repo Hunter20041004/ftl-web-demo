@@ -45,7 +45,7 @@ export function AdminOverview() {
           const n = counts[c.table];
           const body = (
             <>
-              <p className="text-sm text-muted-foreground">{c.label}{!c.ready ? <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs">後台第 3 期</span> : null}</p>
+              <p className="text-sm text-muted-foreground">{c.label}{!c.ready ? <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs">即將開放</span> : null}</p>
               <p className="mt-1 text-2xl font-bold" data-testid={`count-${c.table}`}>{n ? n.published : "…"}</p>
               <p className="text-xs text-muted-foreground">已發布{n && n.draft ? `・${n.draft} 筆草稿` : ""}</p>
             </>
