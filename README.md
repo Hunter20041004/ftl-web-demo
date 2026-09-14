@@ -45,7 +45,7 @@ npm run test:contract  # 連 Supabase 測試專案驗 RLS 與 Edge Function
 
 六類內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定存在 Supabase。建站時 `scripts/pull-content.ts` 會拉已發布的資料、驗證格式、下載圖片，寫成 `src/lib/content.snapshot.json`；任何一筆不合格就不部署，前台維持舊版。
 
-- 後台 https://hunter20041004.github.io/ftl-web-demo/admin/ ：用管理員名單上的 Google 帳號登入，改完按「發布」，約 2 分鐘上線。目前開放「合作對象」；其餘類別（週報、活動、資源、專案、研究文章、學期設定）第 3 期加入，在此之前仍可直接在 Supabase 後台改資料後手動跑一次 `Deploy to GitHub Pages`。
+- 後台 https://hunter20041004.github.io/ftl-web-demo/admin/ ：用管理員名單上的 Google 帳號登入，改完按「發布」，約 2 分鐘上線。六類內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定都在後台編輯。
 - 幹部操作說明：`docs/後台使用說明.md`。
 - 幹部名單、指導單位、社團基本資料仍在 `src/lib/content.static.ts`，由工程師改。
 

@@ -60,3 +60,12 @@
 - 測試：後台 E2E 6 條（`tests/admin`，測試專案 email 帳號 `scripts/setup-test-users.ts`）、契約 6 條、單元 20、前台視覺 80。CI 的 next-ci 跑全部（含 admin E2E，用 TEST secrets）。
 - 本機開發：`.env.local` 的 `NEXT_PUBLIC_SUPABASE_*` 指向測試專案；正式 build 由 pages.yml 用 secrets 注入正式專案。
 - 第 3 期要做：週報／活動／資源／專案／研究文章編輯器、學期設定、已刪除擴到全類別、Google OAuth 從測試模式發布（品牌頁填首頁與 /privacy/）。
+
+
+## CMS 第 3 期（其餘編輯器）— 2026-09-14
+
+計畫：`docs/plans/2026-09-14-cms-plan-3-all-editors.md`。全部完成。
+- 通用層：`src/lib/admin/collection.ts`（makeCollection）、`validate.ts`（zod → 欄位錯誤）、`media.ts`、`components/admin/fields`、`EntityPage.tsx`。新類別＝一個 form ＋ 一個 list 元件 ＋ 一個 route。
+- 週報：`lib/admin/weekly.ts`（一期＝issue＋3 stories）、`weekly-parse.ts`（貼上拆解，單元測試）；格式 `docs/週報貼上格式.md`。
+- 活動：`data` 也存 semester/week/date/kind（pull-content 以欄位為準並去掉重複鍵）。
+- 測試：後台 E2E 12、單元 24、契約 7、視覺 80。
