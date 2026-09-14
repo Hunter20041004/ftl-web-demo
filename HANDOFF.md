@@ -68,7 +68,7 @@
 - 通用層：`src/lib/admin/collection.ts`（makeCollection）、`validate.ts`（zod → 欄位錯誤）、`media.ts`、`components/admin/fields`、`EntityPage.tsx`。新類別＝一個 form ＋ 一個 list 元件 ＋ 一個 route。
 - 週報：`lib/admin/weekly.ts`（一期＝issue＋3 stories）、`weekly-parse.ts`（貼上拆解，單元測試）；格式 `docs/週報貼上格式.md`。
 - 活動：`data` 也存 semester/week/date/kind（pull-content 以欄位為準並去掉重複鍵）。
-- 測試：後台 E2E 12、單元 24、契約 7、視覺 80。
+- 測試：後台 E2E 12、單元 24、契約 7、視覺 80。（洞察文章後：E2E 16、單元 30、視覺 84）
 
 ## 極端測試與正式站驗證 — 2026-09-14（第 3 期上線後）
 
@@ -93,3 +93,13 @@
 實際探測（測試專案）：匿名讀 admins/settings → 0 列；匿名刪 Storage、非管理員改 settings → API 回 ok 但 RLS 靜默過濾、資料未變（已驗證）；非管理員自我加入 admins、上傳、觸發重建 → 全被擋；被移除的管理員舊 token 立即失效（RLS 每次查 admins）；偽造 JWT → 401。git 歷史無鑰匙；前台 bundle 只有 publishable key；npm audit 0；前台無第三方腳本。
 本次補強：正式專案關 email/password 登入（只留 Google）；後台加 frame-busting。
 接受的風險：Storage bucket 公開可列（都是前台要公開的圖）；GitHub Pages 無法設 CSP/X-Frame-Options；後台 session 存 localStorage（前台已無 innerHTML 注入點）；管理員彼此可加減（設計如此）；工程師這台 Mac 的 `.env.local` 存有全部鑰匙。
+
+## 洞察文章改為社團自撰長文 — 2026-09-14
+
+使用者決定：洞察文章是社團做研究後自己寫的詳細長文，不是外部論文連結。
+- DB：`articles` 表（migration 0003，正式／測試皆套用）；舊 `papers` 表保留但程式已不用（可日後 drop）。
+- 前台：`/insights/<slug>/` 每篇一頁（`src/app/(site)/insights/[slug]/page.tsx`），內文用 `src/lib/markdown.ts` 的安全子集（標題／段落／清單／引言／粗體／連結，無 innerHTML）；洞察頁卡片列表；英文內文選填。
+- 後台：`/admin/articles/`（`ArticleForm`、`ArticlesList`）；已刪除／總覽同步。
+- 上線時抓到：零篇文章時 `output: export` 拒絕產空的動態路由 → 正式站發布失敗一次（舊站未受影響）→ `src/lib/article-params.ts` 沒文章時產 `/insights/_none/` 佔位頁（單元測試＋全空 build 驗證）。
+- 正式站實測：後台新增 `prod-test-article` → 上線 → 刪除 → 消失（見本節下方紀錄）。
+- 文件：`docs/社員交接手冊.md`（給幹部的完整教學）、`docs/後台使用說明.md`、spec 變更紀錄。
