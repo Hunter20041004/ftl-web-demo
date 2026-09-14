@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T11:47:09.833Z",
+  "generatedAt": "2026-09-14T11:49:23.264Z",
   "semester": {
     "code": "115-1",
     "range": "2026.09 – 2026.12",
@@ -589,6 +589,18 @@
       "summary": "Anthropic 重啟校園大使計畫，分三條線：本科生 Claude Builder Club（校內 AI workshop、Hackathon、Demo Night）、研究生 Claude Campus Conversations、博士 Claude Science。",
       "summaryEn": "Anthropic has relaunched its campus ambassador program in three tracks: Claude Builder Club for undergraduates (AI workshops, hackathons, demo nights), Claude Campus Conversations for graduate students, and Claude Science for PhDs.",
       "href": "https://x.com/MaxForAI/status/2095196465773822266"
+    },
+    {
+      "kind": "scholarship",
+      "kindZh": "獎學金",
+      "kindEn": "Scholarship",
+      "title": "PROD 測試獎學金（稍後刪除）",
+      "titleEn": "PROD test scholarship",
+      "org": "測試單位",
+      "orgEn": "Test org",
+      "summary": "正式站測試。",
+      "summaryEn": "Production test.",
+      "deadline": "2099-12-31"
     }
   ],
   "partners": [
@@ -1555,6 +1567,78 @@
                 "Good recall"
               ]
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "prod-test-project",
+      "name": "PROD 測試專案（稍後刪除）",
+      "nameEn": "PROD test project",
+      "tagline": "一句話",
+      "taglineEn": "One line",
+      "tags": [
+        "AI"
+      ],
+      "tagsEn": [
+        "AI"
+      ],
+      "repo": "https://github.com/x/prod-test",
+      "owner": "社員專案",
+      "ownerEn": "Member project",
+      "status": "done",
+      "cover": "/media/projects/smart-album-1789386502063.jpg",
+      "slides": [
+        {
+          "kicker": "痛點",
+          "kickerEn": "Pain point",
+          "title": "PROD 痛點",
+          "titleEn": "Pain",
+          "body": "內文",
+          "bodyEn": "Body",
+          "visual": {
+            "kind": "list",
+            "items": [],
+            "itemsEn": []
+          }
+        },
+        {
+          "kicker": "解法",
+          "kickerEn": "Solution",
+          "title": "PROD 解法",
+          "titleEn": "Solution",
+          "body": "內文",
+          "bodyEn": "Body",
+          "visual": {
+            "kind": "list",
+            "items": [],
+            "itemsEn": []
+          }
+        },
+        {
+          "kicker": "產品",
+          "kickerEn": "Product",
+          "title": "PROD 產品",
+          "titleEn": "Product",
+          "body": "內文",
+          "bodyEn": "Body",
+          "visual": {
+            "kind": "list",
+            "items": [],
+            "itemsEn": []
+          }
+        },
+        {
+          "kicker": "影響",
+          "kickerEn": "Impact",
+          "title": "PROD 影響",
+          "titleEn": "Impact",
+          "body": "內文",
+          "bodyEn": "Body",
+          "visual": {
+            "kind": "list",
+            "items": [],
+            "itemsEn": []
           }
         }
       ]
