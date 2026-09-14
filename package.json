@@ -15,7 +15,8 @@
     "lint": "eslint src scripts tests *.ts *.mjs",
     "test:unit": "node --test \"tests/unit/**/*.test.ts\"",
     "test": "npm run typecheck && npm run lint && node scripts/check-internal-links.mjs && npm run test:unit",
-    "test:visual": "playwright test tests/visual"
+    "test:visual": "playwright test tests/visual",
+    "test:contract": "node --test \"tests/contract/**/*.test.ts\""
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.2.4",
