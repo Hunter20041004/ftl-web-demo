@@ -87,3 +87,9 @@
 - 圖片刪除項目後不會清 Storage 裡的檔（會慢慢累積，免費 1GB 很久才滿）。
 - 沒有版本歷史；改壞了靠 git 裡的快照 commit 由工程師撈。
 - GitHub Pages 本身偶爾短暫 503（實測遇到一次），與我們無關。
+
+## 資安檢查 — 2026-09-14
+
+實際探測（測試專案）：匿名讀 admins/settings → 0 列；匿名刪 Storage、非管理員改 settings → API 回 ok 但 RLS 靜默過濾、資料未變（已驗證）；非管理員自我加入 admins、上傳、觸發重建 → 全被擋；被移除的管理員舊 token 立即失效（RLS 每次查 admins）；偽造 JWT → 401。git 歷史無鑰匙；前台 bundle 只有 publishable key；npm audit 0；前台無第三方腳本。
+本次補強：正式專案關 email/password 登入（只留 Google）；後台加 frame-busting。
+接受的風險：Storage bucket 公開可列（都是前台要公開的圖）；GitHub Pages 無法設 CSP/X-Frame-Options；後台 session 存 localStorage（前台已無 innerHTML 注入點）；管理員彼此可加減（設計如此）；工程師這台 Mac 的 `.env.local` 存有全部鑰匙。
