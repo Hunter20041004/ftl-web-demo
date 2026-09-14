@@ -6,7 +6,7 @@ const snap = JSON.parse(readFileSync(new URL("../../src/lib/content.snapshot.jso
 const count = {
   issuesOnHome: Math.min(3, snap.weekly.length),
   lectures: snap.lectures.length,
-  books: snap.books.length,
+  books: snap.books.length + 1,   // 讀書會的書＋區塊鏈系列課程那本（寫在程式裡）
   projects: snap.projectDecks.length,
   pastIssues: Math.max(0, snap.weekly.length - 1),
   papers: snap.papers.length,
