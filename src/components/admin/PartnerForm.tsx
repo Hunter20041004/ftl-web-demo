@@ -66,7 +66,7 @@ export function PartnerForm({ initial, isPublished, onSubmit, onCancel }: Props)
         {data.logo ? (
           <div className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element -- Storage 公開網址 */}
-            <img data-testid="logo-preview" src={publicMediaUrl(data.logo)} alt="" className="h-10 max-w-40 rounded bg-white object-contain p-1 ring-1 ring-border" />
+            <img data-testid="logo-preview" src={publicMediaUrl(data.logo)} alt="" className="h-10 max-w-40 rounded-lg bg-white object-contain p-1 shadow-[var(--glass-hi),var(--shadow-soft)]" />
             <button type="button" className="text-xs text-muted-foreground hover:underline" onClick={() => set("logo", undefined)}>移除</button>
           </div>
         ) : null}

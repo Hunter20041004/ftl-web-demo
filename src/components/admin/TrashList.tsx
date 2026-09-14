@@ -20,13 +20,13 @@ export function TrashList() {
       <p className="mt-1 text-sm text-muted-foreground">還原後會回到原本的清單，要再發布一次才會上線。</p>
       <ul className="mt-5 grid gap-2">
         {rows?.map((row) => (
-          <li key={row.id} className="flex items-center gap-4 rounded-xl bg-card px-4 py-3 ring-1 ring-border">
+          <li key={row.id} className="flex items-center gap-4 glass px-4 py-3">
             <span className="rounded-full bg-muted px-2 py-0.5 text-xs">合作對象</span>
             <p className="min-w-0 flex-1 truncate">{row.data.zh} <span className="text-muted-foreground">／ {row.data.en}</span></p>
             <Button variant="outline" size="sm" onClick={async () => { await restorePartner(row.id); await reload(); }}>還原</Button>
           </li>
         ))}
-        {rows && rows.length === 0 ? <li className="rounded-xl bg-card px-4 py-8 text-center text-sm text-muted-foreground">沒有已刪除的項目。</li> : null}
+        {rows && rows.length === 0 ? <li className="glass px-4 py-8 text-center text-sm text-muted-foreground">沒有已刪除的項目。</li> : null}
       </ul>
     </div>
   );

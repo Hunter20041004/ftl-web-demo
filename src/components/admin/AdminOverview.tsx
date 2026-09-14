@@ -35,7 +35,7 @@ export function AdminOverview() {
   return (
     <div className="max-w-4xl">
       <h1 className="text-2xl font-bold">總覽</h1>
-      <div className="mt-5 rounded-2xl bg-card p-5 ring-1 ring-border" data-testid="last-rebuild">
+      <div className="mt-5 glass p-5" data-testid="last-rebuild">
         <p className="text-xs font-semibold tracking-wide text-muted-foreground">最近一次正式站重建</p>
         <p className="mt-1 font-medium">{rebuildText}{rebuild && "url" in rebuild && rebuild.url ? <> <a className="text-sm text-primary underline" href={rebuild.url} target="_blank" rel="noreferrer">紀錄</a></> : null}</p>
         <p className="mt-1 text-sm text-muted-foreground">正式站：<a className="text-primary underline" href="https://hunter20041004.github.io/ftl-web-demo/" target="_blank" rel="noreferrer">hunter20041004.github.io/ftl-web-demo</a></p>
@@ -51,8 +51,8 @@ export function AdminOverview() {
             </>
           );
           return c.ready
-            ? <a key={c.table} href={withBasePath(c.href)} className="rounded-2xl bg-card p-5 ring-1 ring-border transition hover:ring-primary">{body}</a>
-            : <div key={c.table} className="rounded-2xl bg-card/60 p-5 ring-1 ring-border">{body}</div>;
+            ? <a key={c.table} href={withBasePath(c.href)} className="glass p-5 transition hover:glass-lift hover:-translate-y-0.5">{body}</a>
+            : <div key={c.table} className="glass p-5 opacity-70">{body}</div>;
         })}
       </div>
     </div>

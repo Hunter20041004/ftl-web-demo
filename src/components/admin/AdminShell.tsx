@@ -28,7 +28,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   if (session === null) {
     return (
       <Center>
-        <div className="w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm">
+        <div className="w-full max-w-sm glass glass-lift p-8">
           <p className="text-sm font-semibold text-primary">NCCU FinTech Innovation Lab</p>
           <h1 className="mt-2 text-2xl font-bold">後台</h1>
           <p className="mt-2 text-sm text-muted-foreground">用社團登記過的 Google 帳號登入。</p>
@@ -41,7 +41,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   if (!isAdmin) {
     return (
       <Center>
-        <div className="w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm">
+        <div className="w-full max-w-sm glass glass-lift p-8">
           <h1 className="text-xl font-bold">這個帳號沒有權限</h1>
           <p className="mt-2 text-sm text-muted-foreground">{session.user.email}<br />請聯絡社長把這個 email 加進管理員名單。</p>
           <Button variant="outline" className="mt-6 rounded-full" onClick={() => void signOut()}>登出</Button>
@@ -52,10 +52,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-card">
+      <aside className="flex w-60 shrink-0 flex-col bg-white/55 backdrop-blur-md shadow-[var(--shadow-soft)]">
         <div className="px-5 py-5">
           <p className="text-xs font-semibold tracking-wide text-primary">NCCU FINTECH LAB</p>
-          <p className="text-lg font-bold">後台</p>
+          <p className="text-lg font-bold grad-text inline-block">後台</p>
         </div>
         <nav className="flex flex-col gap-1 px-3">
           {NAV.map((item) => {
@@ -67,7 +67,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="mt-auto border-t border-border px-5 py-4 text-xs text-muted-foreground">
+        <div className="mt-auto px-5 py-4 text-xs text-muted-foreground">
           <p className="truncate" title={session.user.email}>{session.user.email}</p>
           <button type="button" className="mt-1 font-medium text-primary hover:underline" onClick={() => void signOut()}>登出</button>
         </div>

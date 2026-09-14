@@ -1,26 +1,30 @@
-/* 後台專用樣式：完整的 Tailwind（含 preflight）＋ shadcn 代幣。前台的 v6.css 不會載進來。 */
+/* 後台專用樣式：完整的 Tailwind（含 preflight）＋ shadcn 代幣，顏色與材質沿用前台 v6（玻璃卡、品牌漸層、四角柔光、零硬線）。 */
 @import "tailwindcss";
 
 :root {
-  --background: #f5f8fc;
+  --background: #fbfaff;
   --foreground: #0b1f3a;
-  --card: #ffffff;
+  --card: rgba(255, 255, 255, 0.72);
   --card-foreground: #0b1f3a;
   --popover: #ffffff;
   --popover-foreground: #0b1f3a;
   --primary: #1668e3;
   --primary-foreground: #ffffff;
-  --secondary: #e8f0fb;
-  --secondary-foreground: #0b1f3a;
-  --muted: #eef2f8;
-  --muted-foreground: #5b6b82;
-  --accent: #e8f0fb;
-  --accent-foreground: #0b1f3a;
+  --secondary: rgba(22, 104, 227, 0.1);
+  --secondary-foreground: #0a46b4;
+  --muted: rgba(11, 31, 58, 0.06);
+  --muted-foreground: #4f6084;
+  --accent: rgba(22, 104, 227, 0.1);
+  --accent-foreground: #0a46b4;
   --destructive: #d93025;
-  --border: #d9e2ef;
-  --input: #d9e2ef;
+  --border: rgba(11, 31, 58, 0.08);
+  --input: rgba(11, 31, 58, 0.16);
   --ring: #1668e3;
-  --radius: 0.75rem;
+  --radius: 1rem;
+  --g-brand: linear-gradient(118deg, #60d0f0 0%, #2b8bff 30%, #1668e3 62%, #0a34c8 100%);
+  --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-soft: 0 12px 34px rgba(11, 31, 58, 0.05);
+  --shadow-lift: 0 22px 48px rgba(11, 31, 58, 0.09);
 }
 
 @theme inline {
@@ -45,9 +49,49 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
   --font-sans: "Outfit", "Huninn", system-ui, sans-serif;
 }
 
 html, body { height: 100%; }
-body { background: var(--background); color: var(--foreground); font-family: var(--font-sans); }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+/* 跟前台一樣的四角柔光 */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(720px 560px at 78% 12%, rgba(150, 201, 248, 0.5), transparent 66%),
+    radial-gradient(560px 520px at 58% 60%, rgba(113, 204, 249, 0.32), transparent 66%),
+    radial-gradient(680px 520px at -4% 4%, rgba(150, 201, 248, 0.26), transparent 64%),
+    radial-gradient(760px 560px at 104% 92%, rgba(113, 204, 249, 0.2), transparent 66%);
+}
+
+/* 玻璃卡：不用 1px 線，用內側高光＋柔陰影分層（前台 .glass 的同一套） */
+@utility glass {
+  background: var(--card);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--glass-hi), var(--shadow-soft);
+  border-radius: var(--radius-xl);
+}
+@utility glass-lift {
+  box-shadow: var(--glass-hi), var(--shadow-lift);
+}
+/* 品牌漸層膠囊按鈕（前台 .btn--primary） */
+@utility btn-brand {
+  background: var(--g-brand);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 24px -10px rgba(10, 52, 200, 0.55);
+  border-radius: 999px;
+}
+@utility grad-text {
+  background: var(--g-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

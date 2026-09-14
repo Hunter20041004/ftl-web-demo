@@ -46,7 +46,7 @@ export function AdminsList() {
 
       <ul className="mt-5 grid gap-2">
         {rows?.map((row) => (
-          <li key={row.email} data-testid="admin-row" data-email={row.email} className="flex items-center gap-4 rounded-xl bg-card px-4 py-3 ring-1 ring-border">
+          <li key={row.email} data-testid="admin-row" data-email={row.email} className="flex items-center gap-4 glass px-4 py-3">
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium">{row.email}{row.email === me ? <span className="ml-2 rounded-full bg-secondary px-2 py-0.5 text-xs text-primary">你</span> : null}</p>
               <p className="text-xs text-muted-foreground">由 {row.added_by ?? "—"} 於 {row.added_at.slice(0, 10)} 加入</p>

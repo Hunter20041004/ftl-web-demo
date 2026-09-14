@@ -74,10 +74,10 @@ export function PartnersList() {
             onDragStart={() => setDragId(row.id)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={() => void onDrop(row.id)}
-            className={`flex items-center gap-4 rounded-xl bg-card px-4 py-3 shadow-sm ring-1 ring-border ${dragId === row.id ? "opacity-50" : ""}`}
+            className={`flex items-center gap-4 glass px-4 py-3 ${dragId === row.id ? "opacity-50" : ""}`}
           >
             <span className="cursor-grab text-muted-foreground" aria-hidden="true">⋮⋮</span>
-            <div className="flex h-10 w-16 shrink-0 items-center justify-center rounded bg-white ring-1 ring-border">
+            <div className="flex h-10 w-16 shrink-0 items-center justify-center rounded-lg bg-white shadow-[var(--glass-hi),var(--shadow-soft)]">
               {/* eslint-disable-next-line @next/next/no-img-element -- Storage 公開網址 */}
               {row.data.logo ? <img src={publicMediaUrl(row.data.logo)} alt="" className="max-h-8 max-w-14 object-contain" /> : <span className="text-xs text-muted-foreground">無</span>}
             </div>
@@ -90,7 +90,7 @@ export function PartnersList() {
             <Button variant="ghost" size="sm" className="text-destructive" onClick={() => setDeleting(row)}>刪除</Button>
           </li>
         ))}
-        {rows && rows.length === 0 ? <li className="rounded-xl bg-card px-4 py-8 text-center text-sm text-muted-foreground">還沒有合作對象。</li> : null}
+        {rows && rows.length === 0 ? <li className="glass px-4 py-8 text-center text-sm text-muted-foreground">還沒有合作對象。</li> : null}
       </ul>
 
       <Dialog open={editing !== null} onOpenChange={(open) => { if (!open) setEditing(null); }}>
