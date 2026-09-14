@@ -4,7 +4,8 @@ import { makeCollection } from "./collection.ts";
 
 export const papers = makeCollection<Paper>("papers", { columns: (d) => ({ year: d.year }), hasPosition: false });
 export const resources = makeCollection<Resource>("resources", { columns: (d) => ({ kind: d.kind, deadline: d.deadline || null }) });
-export const projects = makeCollection<ProjectDeck>("projects");
+// projects 的主鍵就是網址代號（data.id）
+export const projects = makeCollection<ProjectDeck>("projects", { columns: (d) => ({ id: d.id }) });
 
 // 活動：data 放 CalendarItem 的其餘欄位＋依類型的細節；可篩選欄位 semester/week/date/kind
 export type EventData = {
