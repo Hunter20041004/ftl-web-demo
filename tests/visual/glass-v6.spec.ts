@@ -1,4 +1,16 @@
 import { expect, test } from "@playwright/test";
+import { readFileSync } from "node:fs";
+
+// 內容會由幹部在後台改，所以「幾筆」一律從當下的快照算，不寫死
+const snap = JSON.parse(readFileSync(new URL("../../src/lib/content.snapshot.json", import.meta.url), "utf8"));
+const count = {
+  issuesOnHome: Math.min(3, snap.weekly.length),
+  lectures: snap.lectures.length,
+  books: snap.books.length,
+  projects: snap.projectDecks.length,
+  pastIssues: Math.max(0, snap.weekly.length - 1),
+  papers: snap.papers.length,
+};
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -11,7 +23,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator("main#main")).toHaveAttribute("data-visual-baseline", "glass-v6");
     await expect(page.locator("[data-transaction-network], .pane--rows, .stats, .numlist")).toHaveCount(0);
     await expect(page.locator("#who, #schedule, #weekly, #projects, #partners, #contact")).toHaveCount(6);
-    await expect(page.locator("#weekly .issue__cover")).toHaveCount(3);
+    await expect(page.locator("#weekly .issue__cover")).toHaveCount(count.issuesOnHome);
     await expect(page.locator(".format")).toHaveCount(5);
   });
 
@@ -64,7 +76,7 @@ test.describe("glass-v6 homepage", () => {
     await page.goto(`${basePath}/events/`);
     await page.waitForLoadState("networkidle");
     await page.locator('.filter[data-filter="lecture"]').click();
-    await expect(page.locator('#event-list [data-cat="lecture"]:visible')).toHaveCount(3);
+    await expect(page.locator('#event-list [data-cat="lecture"]:visible')).toHaveCount(count.lectures);
     await expect(page.locator('#event-list [data-cat="workshop"]:visible')).toHaveCount(0);
     await page.locator('[data-event="3"]').click();
     const dialog = page.locator("dialog[open] .event-detail");
@@ -106,15 +118,15 @@ test.describe("glass-v6 homepage", () => {
     await page.waitForLoadState("networkidle");
     await expect(page.locator('.filter[data-filter="book"]')).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(0);
-    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(4);
+    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(count.books);
   });
 
   test("resources filter by type and books show covers", async ({ page }) => {
     await page.goto(`${basePath}/resources/`);
     await page.waitForLoadState("networkidle");
-    await expect(page.locator(".book__cover")).toHaveCount(4);
+    await expect(page.locator(".book__cover")).toHaveCount(count.books);
     await page.locator('.filter[data-filter="book"]').click();
-    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(4);
+    await expect(page.locator('.res-item[data-cat="book"]:visible')).toHaveCount(count.books);
     await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(0);
     await page.locator('.filter[data-filter="job"]').click();
     await expect(page.locator('.res-item[data-cat="job"]:visible')).toHaveCount(1);
@@ -143,7 +155,7 @@ test.describe("glass-v6 homepage", () => {
   test("projects wall opens a deck in a dialog and pages with buttons and arrow keys", async ({ page }) => {
     await page.goto(`${basePath}/projects/`);
     await page.waitForLoadState("networkidle");
-    await expect(page.locator(".project-teaser")).toHaveCount(3);
+    await expect(page.locator(".project-teaser")).toHaveCount(count.projects);
     await page.locator('[data-project="course-scheduler"]').click();
     const dialog = page.locator("dialog.project-dialog");
     await expect(dialog).toHaveAttribute("open", "");
@@ -182,8 +194,8 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator(".issue__story .story__context")).toHaveCount(3);
     await expect(page.locator(".issue__story .story__watch")).toHaveCount(3);
     expect(await page.locator(".issue__story .story__quote").count()).toBeGreaterThanOrEqual(1);
-    await expect(page.locator(".row--issue")).toHaveCount(2);
-    await expect(page.locator("#research .paper")).toHaveCount(6);
+    await expect(page.locator(".row--issue")).toHaveCount(count.pastIssues);
+    await expect(page.locator("#research .paper")).toHaveCount(count.papers);
     // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開
     await page.goto(`${basePath}/insights/#vol-1`);
     await expect(page.locator("#vol-1")).toHaveAttribute("open", "");
