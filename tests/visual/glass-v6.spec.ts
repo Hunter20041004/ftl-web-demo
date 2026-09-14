@@ -78,6 +78,8 @@ test.describe("glass-v6 homepage", () => {
 
   test("english mode does not flash chinese when navigating between pages", async ({ page }) => {
     await page.goto(`${basePath}/about/`);
+    // 切換鈕是 React 事件，要等掛載完再按（CI 機器慢，曾經按在掛載前而沒反應）
+    await page.waitForFunction(() => !!document.querySelector("[data-hydrated]"));
     await page.locator('[data-set-lang="en"]').first().click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     // 進下一頁：第一次可見時就該是英文（body 在翻譯完成前是藏起來的）
