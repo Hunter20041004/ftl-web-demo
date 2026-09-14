@@ -39,6 +39,7 @@
   "exclude": [
     "node_modules",
     "out",
-    "public/assets"
+    "public/assets",
+    "supabase/functions"
   ]
 }
