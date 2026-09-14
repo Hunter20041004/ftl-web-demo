@@ -176,7 +176,8 @@ test.describe("glass-v6 homepage", () => {
     await expect(deck).toHaveAttribute("data-slide", "2");
     await page.keyboard.press("Escape");
     await expect(dialog).not.toHaveAttribute("open", "");
-    // 從首頁帶 #id 進來要直接打開
+    // 從首頁帶 #id 進來要直接打開（整頁載入，而不是同頁改 hash：CI 曾在同頁改 hash 時偶發沒開）
+    await page.goto("about:blank");
     await page.goto(`${basePath}/projects/#smart-album`);
     await expect(page.locator('dialog.project-dialog [data-deck="smart-album"]')).toBeVisible();
   });
