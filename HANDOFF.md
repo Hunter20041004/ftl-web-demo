@@ -48,4 +48,5 @@
 - Supabase 組織「政大金融創新實驗室」（社團 Gmail）：正式專案 `xesxfcqtbzmlanyvdeys`（首爾）、測試專案 `ftl-web-test` `bpadohdiuvbimvkwpecv`（孟買）。兩邊都跑過 migration、管理員＝社團 Gmail、seed 完成。
 - 鑰匙：GitHub secrets `SUPABASE_URL`／`SUPABASE_SERVICE_KEY`／`SUPABASE_TEST_*`；本機 `.env.local`（gitignore）。用的是新格式 `sb_publishable_…`／`sb_secret_…`。
 - 驗證：契約測試 3/3；pull-content 實跑；Playwright 80；正式站 pipeline 從 Supabase 拉到 3 期／16 活動／…；端到端「改合作對象名稱 → 重建 → 正式站出現 → 改回」通過。
-- 尚未做：Google 登入（Authentication → Providers → Google）等第 2 期後台開工時再設。
+- Google 登入已設好（2026-09-14）：Google Cloud 專案 `ftl-web`（社團 Gmail 名下）、OAuth 用戶端「Supabase (ftl-web)」、redirect 指向 Supabase callback；Supabase 正式專案 Google provider Enabled，Site URL 與 redirect 白名單＝`…/ftl-web-demo/admin/**` 與 `http://localhost:3000/admin/**`。Client ID/Secret 在 `.env.local`。
+- Google OAuth 目前是「測試」狀態：只有測試使用者名單上的帳號能登入（已加社團 Gmail 與 weiwsxwsx@gmail.com，上限 100 人）。要對所有幹部開放而不用逐一加名單，得在 Google Auth Platform「品牌」頁補首頁與隱私權政策連結後按「發布應用程式」（只用 email/profile 範圍，不需審核）——第 2 期做後台時順便做一頁 /privacy/。
