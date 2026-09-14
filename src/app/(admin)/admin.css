@@ -1,0 +1,53 @@
+/* 後台專用樣式：完整的 Tailwind（含 preflight）＋ shadcn 代幣。前台的 v6.css 不會載進來。 */
+@import "tailwindcss";
+
+:root {
+  --background: #f5f8fc;
+  --foreground: #0b1f3a;
+  --card: #ffffff;
+  --card-foreground: #0b1f3a;
+  --popover: #ffffff;
+  --popover-foreground: #0b1f3a;
+  --primary: #1668e3;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f0fb;
+  --secondary-foreground: #0b1f3a;
+  --muted: #eef2f8;
+  --muted-foreground: #5b6b82;
+  --accent: #e8f0fb;
+  --accent-foreground: #0b1f3a;
+  --destructive: #d93025;
+  --border: #d9e2ef;
+  --input: #d9e2ef;
+  --ring: #1668e3;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Outfit", "Huninn", system-ui, sans-serif;
+}
+
+html, body { height: 100%; }
+body { background: var(--background); color: var(--foreground); font-family: var(--font-sans); }

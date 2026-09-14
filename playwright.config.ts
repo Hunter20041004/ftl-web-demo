@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  // 後台 E2E 需要測試專案的鑰匙：本機從 .env.local 讀（dev server 也是），CI 由 secrets 提供
+  globalSetup: "./tests/load-env.ts",
   use: {
     baseURL: "http://127.0.0.1:3000",
     trace: "retain-on-failure",
@@ -12,11 +14,13 @@ export default defineConfig({
     reuseExistingServer: true,
   },
   projects: [
-    { name: "desktop-1440", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
-    { name: "desktop-1280", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 800 } } },
-    { name: "desktop-1024", use: { ...devices["Desktop Chrome"], viewport: { width: 1024, height: 768 } } },
+    { name: "desktop-1440", testDir: "./tests/visual", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "desktop-1280", testDir: "./tests/visual", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 800 } } },
+    { name: "desktop-1024", testDir: "./tests/visual", use: { ...devices["Desktop Chrome"], viewport: { width: 1024, height: 768 } } },
+    { name: "admin", testDir: "./tests/admin", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 800 } } },
     {
       name: "mobile-390",
+      testDir: "./tests/visual",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 390, height: 844 },
