@@ -15,7 +15,7 @@ export type FormProps<T> = { data: T; setData: (updater: (d: T) => T) => void; e
 
 export function EntityPage<T extends object>(props: {
   title: string; intro?: string; addLabel: string; noun: string;
-  collection: Collection<T>; schema: ZodType; empty: () => T;
+  collection: Collection<T>; schema: ZodType; empty: (rows: Row<T>[]) => T;   // 給目前清單，方便算「下一個」
   Form: (p: FormProps<T>) => ReactNode;   // 當元件用（<Form/>），表單裡才能有自己的 hooks
   summary: (row: Row<T>) => ReactNode;
   sortable?: boolean; wide?: boolean;
@@ -47,7 +47,7 @@ export function EntityPage<T extends object>(props: {
   }, [version, collection]);
   const reload = () => setVersion((v) => v + 1);
 
-  const open = (row: Row<T> | "new") => { setEditing(row); setForm(row === "new" ? props.empty() : structuredClone(props.toForm ? props.toForm(row) : row.data)); setErrors({}); };
+  const open = (row: Row<T> | "new") => { setEditing(row); setForm(row === "new" ? props.empty(rows ?? []) : structuredClone(props.toForm ? props.toForm(row) : row.data)); setErrors({}); };
   const close = () => { setEditing(null); setForm(null); setConfirming(false); };
   const isPublished = editing !== null && editing !== "new" && editing.status === "published";
 
