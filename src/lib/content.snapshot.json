@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T10:57:50.265Z",
+  "generatedAt": "2026-09-14T11:08:09.949Z",
   "semester": {
     "code": "115-1",
     "range": "2026.09 – 2026.12",
@@ -1424,16 +1424,6 @@
     }
   ],
   "papers": [
-    {
-      "title": "PROD 測試文章（稍後刪除）",
-      "authors": "測試",
-      "venue": "測試出處",
-      "year": 2026,
-      "region": "tw",
-      "summary": "這是正式站端到端測試。",
-      "summaryEn": "Production end-to-end test.",
-      "href": "https://example.com/prod-test"
-    },
     {
       "title": "中央銀行數位貨幣（CBDC）整備狀況、以及如何因應加密貨幣跨入金融市場",
       "titleEn": "Taiwan’s CBDC readiness and the response to crypto entering financial markets",
