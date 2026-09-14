@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T06:19:16.806Z",
+  "generatedAt": "2026-09-14T06:21:01.773Z",
   "semester": {
     "code": "115-1",
     "range": "2026.09 – 2026.12",
@@ -593,7 +593,7 @@
     },
     {
       "zh": "好廣告數據",
-      "en": "Good Ads Data (E2E)",
+      "en": "Good Ads Data",
       "href": "https://gad-dev-464210.web.app/",
       "logo": "/media/partners/gad.svg"
     },
