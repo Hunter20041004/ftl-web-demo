@@ -6,7 +6,7 @@ export type Rows = {
   events: Array<{ id: string; semester: string; week: number; date: string; kind: string; position: number; data: unknown }>;
   resources: Array<{ id: string; kind: string; deadline: string | null; position: number; data: unknown }>;
   projects: Array<{ id: string; position: number; data: unknown }>;
-  papers: Array<{ id: string; year: number; data: unknown }>;
+  articles: Array<{ id: string; published_at: string; position: number; data: unknown }>;
   partners: Array<{ id: string; position: number; data: unknown }>;
   weekly_issues: Array<{ id: string; vol: number; range_start: string; range_end: string; data: unknown }>;
   weekly_stories: Array<{ id: string; issue_id: string; position: number; data: unknown }>;
@@ -39,7 +39,7 @@ export function rowsToSnapshot(rows: Rows, opts: { today: string; generatedAt: s
     .map((r) => r.data);
 
   const projectDecks = [...rows.projects].sort((a, b) => a.position - b.position).map((p) => p.data);
-  const papers = [...rows.papers].sort((a, b) => b.year - a.year).map((p) => p.data);
+  const articles = [...rows.articles].sort((a, b) => b.published_at.localeCompare(a.published_at)).map((a) => a.data);
   const partners = [...rows.partners].sort((a, b) => a.position - b.position).map((p) => p.data);
 
   const storiesByIssue = new Map<string, Rows["weekly_stories"]>();
@@ -61,7 +61,7 @@ export function rowsToSnapshot(rows: Rows, opts: { today: string; generatedAt: s
   return parseSnapshot({
     generatedAt: opts.generatedAt,
     semester, membership: settings.membership,
-    calendar, lectures, workshops, books, resources, partners, weekly, projectDecks, papers,
+    calendar, lectures, workshops, books, resources, partners, weekly, projectDecks, articles,
   });
 }
 
@@ -72,5 +72,6 @@ export function collectImagePaths(snapshot: Snapshot): string[] {
   snapshot.partners.forEach((p) => add(p.logo));
   snapshot.books.forEach((b) => add(b.cover));
   snapshot.projectDecks.forEach((d) => { add(d.cover); d.slides.forEach((s) => { if (s.visual.kind === "image") add(s.visual.src); }); });
+  snapshot.articles.forEach((a) => add(a.cover));
   return [...out];
 }

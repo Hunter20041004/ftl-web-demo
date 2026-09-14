@@ -16,7 +16,7 @@ NCCU FinTech Innovation Lab 的網站。Next.js 靜態匯出，部署在 GitHub 
 | `/about/` | 成立資訊、指導單位、幹部、社員相關資訊（專案生／旁聽生）、常見問題 |
 | `/events/` | 學期行事曆、講座、工作坊、英語讀書會、區塊鏈基礎系列課程 |
 | `/projects/` | 專案牆，點一張看投影片（痛點／解法／產品／影響） |
-| `/insights/` | FinTech 週報與研究文章 |
+| `/insights/` | FinTech 週報與洞察文章 |
 | `/resources/` | 職缺、獎學金、計畫、書單 |
 | `/contact/` | LINE Bot、IG、Threads、Email、研究中心聯絡資訊 |
 
@@ -43,9 +43,9 @@ npm run test:contract  # 連 Supabase 測試專案驗 RLS 與 Edge Function
 
 ## 內容怎麼更新
 
-六類內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定存在 Supabase。建站時 `scripts/pull-content.ts` 會拉已發布的資料、驗證格式、下載圖片，寫成 `src/lib/content.snapshot.json`；任何一筆不合格就不部署，前台維持舊版。
+六類內容（週報、活動、資源、專案、洞察文章、合作對象）與學期設定存在 Supabase。建站時 `scripts/pull-content.ts` 會拉已發布的資料、驗證格式、下載圖片，寫成 `src/lib/content.snapshot.json`；任何一筆不合格就不部署，前台維持舊版。
 
-- 後台 https://hunter20041004.github.io/ftl-web-demo/admin/ ：用管理員名單上的 Google 帳號登入，改完按「發布」，約 2 分鐘上線。六類內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定都在後台編輯。
+- 後台 https://hunter20041004.github.io/ftl-web-demo/admin/ ：用管理員名單上的 Google 帳號登入，改完按「發布」，約 2 分鐘上線。六類內容（週報、活動、資源、專案、洞察文章、合作對象）與學期設定都在後台編輯。
 - 幹部操作說明：`docs/後台使用說明.md`。
 - 幹部名單、指導單位、社團基本資料仍在 `src/lib/content.static.ts`，由工程師改。
 

@@ -25,7 +25,7 @@ for (const p of collectImagePaths(snapshot)) {
 }
 
 // 2. 清空（順序：先子表）
-for (const t of ["weekly_stories", "weekly_issues", "partners", "papers", "projects", "resources", "events", "settings"]) {
+for (const t of ["weekly_stories", "weekly_issues", "partners", "articles", "projects", "resources", "events", "settings"]) {
   const { error } = await db.from(t).delete().not("created_at", "is", null);
   if (error) throw new Error(`clear ${t}: ${error.message}`);
 }
@@ -42,7 +42,7 @@ await insert("settings", rows.settings.map((r) => ({ ...r, ...published })));
 await insert("events", rows.events.map(({ id: _i, ...r }) => ({ ...r, ...published })));
 await insert("resources", rows.resources.map(({ id: _i, ...r }) => ({ ...r, ...published })));
 await insert("projects", rows.projects.map((r) => ({ ...r, ...published })));
-await insert("papers", rows.papers.map(({ id: _i, ...r }) => ({ ...r, ...published })));
+if (rows.articles.length) await insert("articles", rows.articles.map((r) => ({ ...r, ...published })));
 await insert("partners", rows.partners.map(({ id: _i, ...r }) => ({ ...r, ...published })));
 const issues = await insert("weekly_issues", rows.weekly_issues.map(({ id: _i, ...r }) => ({ ...r, ...published })));
 const issueIdByVol = new Map(rows.weekly_issues.map((r, i) => [r.id, issues[i].id]));

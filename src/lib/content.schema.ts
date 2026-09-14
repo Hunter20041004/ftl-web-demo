@@ -79,9 +79,10 @@ export const projectDeckSchema = z.object({
   slides: z.tuple([slideSchema, slideSchema, slideSchema, slideSchema]),
 });
 
-export const paperSchema = z.object({
-  title: str, titleEn: z.string().optional(), authors: str, authorsEn: z.string().optional(), venue: str, venueEn: z.string().optional(),
-  year: z.number().int().min(1900).max(2100), region: z.enum(["intl", "tw"]), summary: str, summaryEn: str, href: str,
+// 洞察文章：社團自己寫的長文。內文是小型 Markdown（見 lib/markdown.ts）；英文內文選填，沒有時英文模式顯示中文內文。
+export const articleSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/), title: str, titleEn: str, author: str, authorEn: str, date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  summary: str, summaryEn: str, body: str, bodyEn: z.string().optional(), cover: z.string().optional(), tags: z.array(str), tagsEn: z.array(str),
 });
 
 export const snapshotSchema = z.object({
@@ -96,7 +97,7 @@ export const snapshotSchema = z.object({
   partners: z.array(partnerSchema),
   weekly: z.array(weeklyIssueSchema),
   projectDecks: z.array(projectDeckSchema),
-  papers: z.array(paperSchema),
+  articles: z.array(articleSchema),
 });
 
 export type Snapshot = z.infer<typeof snapshotSchema>;
@@ -112,7 +113,7 @@ export type WeeklyIssue = z.infer<typeof weeklyIssueSchema>;
 export type SlideVisual = z.infer<typeof slideVisualSchema>;
 export type Slide = z.infer<typeof slideSchema>;
 export type ProjectDeck = z.infer<typeof projectDeckSchema>;
-export type Paper = z.infer<typeof paperSchema>;
+export type Article = z.infer<typeof articleSchema>;
 
 export function parseSnapshot(json: unknown): Snapshot {
   const result = snapshotSchema.safeParse(json);

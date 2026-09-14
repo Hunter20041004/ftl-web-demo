@@ -10,7 +10,7 @@ const count = {
   projects: snap.projectDecks.length,
   projectsOnHome: Math.min(3, snap.projectDecks.length),
   pastIssues: Math.max(0, snap.weekly.length - 1),
-  papers: snap.papers.length,
+  articles: snap.articles.length,
 };
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -197,7 +197,7 @@ test.describe("glass-v6 homepage", () => {
     await expect(page.locator(".issue__story .story__watch")).toHaveCount(3);
     expect(await page.locator(".issue__story .story__quote").count()).toBeGreaterThanOrEqual(1);
     await expect(page.locator(".row--issue")).toHaveCount(count.pastIssues);
-    await expect(page.locator("#research .paper")).toHaveCount(count.papers);
+    await expect(page.locator("#research .paper")).toHaveCount(count.articles);
     // 首頁連結帶 #vol-1 進來時，往期那一格要自動展開
     await page.goto(`${basePath}/insights/#vol-1`);
     await expect(page.locator("#vol-1")).toHaveAttribute("open", "");

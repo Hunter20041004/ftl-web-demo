@@ -1,5 +1,6 @@
 import { SitePageShell } from "@/components/layout/SitePageShell";
-import { papers, weekly, type WeeklyStory } from "@/lib/content";
+import { articles, weekly, type WeeklyStory } from "@/lib/content";
+import { withBasePath } from "@/lib/site-data";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -113,24 +114,30 @@ export function InsightsPage() {
           </div>
         </section>
         ) : null}
+        {articles.length ? (
         <section className="section" id="research">
           <div className="wrap">
             <div className="sec-head reveal reveal--fade">
-              <h2 className="h1" data-en="Research" suppressHydrationWarning>研究文章</h2>
+              <h2 className="h1" data-en="Insight articles" suppressHydrationWarning>洞察文章</h2>
             </div>
             <div className="grid grid-2" data-stagger>
-              {papers.map((paper) => (
-                <a className="card paper reveal reveal--rise" href={paper.href} target="_blank" rel="noopener noreferrer" key={paper.href}>
-                  <div className="card__top"><span className={paper.region === "tw" ? "tag tag--cyan" : "tag"} data-en={paper.region === "tw" ? "Taiwan" : "International"} suppressHydrationWarning>{paper.region === "tw" ? "國內" : "國外"}</span><span className="card__index num">{paper.year}</span></div>
-                  <h3 className="h3" data-en={paper.titleEn} suppressHydrationWarning>{paper.title}</h3>
-                  <p className="dim" style={{ fontSize: ".95rem" }} data-en={paper.authorsEn || paper.venueEn ? `${paper.authorsEn ?? paper.authors} · ${paper.venueEn ?? paper.venue}` : undefined} suppressHydrationWarning>{`${paper.authors} · ${paper.venue}`}</p>
-                  <p className="card__body" data-en={paper.summaryEn} suppressHydrationWarning>{paper.summary}</p>
-                  <div className="card__foot"><span className="dim" style={{ fontSize: ".9rem" }} data-en="Read the paper" suppressHydrationWarning>閱讀原文</span><Icon name="arrow-up-right" /></div>
+              {articles.map((a) => (
+                <a className="card paper reveal reveal--rise" href={withBasePath(`/insights/${a.slug}/`)} key={a.slug}>
+                  {a.cover ? (
+                    /* eslint-disable-next-line @next/next/no-img-element -- 靜態檔 */
+                    <img className="article__cover" src={withBasePath(a.cover)} alt="" loading="lazy" />
+                  ) : null}
+                  <div className="card__top"><span className="card__index num">{a.date}</span></div>
+                  <h3 className="h3" data-en={a.titleEn} suppressHydrationWarning>{a.title}</h3>
+                  <p className="dim" style={{ fontSize: ".95rem" }} data-en={a.authorEn} suppressHydrationWarning>{a.author}</p>
+                  <p className="card__body" data-en={a.summaryEn} suppressHydrationWarning>{a.summary}</p>
+                  <div className="card__foot"><span className="dim" style={{ fontSize: ".9rem" }} data-en="Read the article" suppressHydrationWarning>閱讀全文</span><Icon name="arrow-right" /></div>
                 </a>
               ))}
             </div>
           </div>
         </section>
+        ) : null}
       </main>
     </SitePageShell>
   );

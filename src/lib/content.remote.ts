@@ -3,7 +3,7 @@
 import snapshotJson from "./content.snapshot.json";
 import { parseSnapshot } from "./content.schema.ts";
 
-export type { CalendarItem, Lecture, Workshop, Book, Resource, Partner, WeeklyStory, WeeklyIssue, SlideVisual, Slide, ProjectDeck, Paper } from "./content.schema.ts";
+export type { CalendarItem, Lecture, Workshop, Book, Resource, Partner, WeeklyStory, WeeklyIssue, SlideVisual, Slide, ProjectDeck, Article } from "./content.schema.ts";
 
 const snapshot = parseSnapshot(snapshotJson);
 
@@ -17,5 +17,5 @@ export const resources = snapshot.resources;
 export const partners = snapshot.partners;
 export const weekly = snapshot.weekly;
 export const projectDecks = snapshot.projectDecks;
-export const papers = snapshot.papers;
+export const articles = snapshot.articles;
 export const contentGeneratedAt = snapshot.generatedAt;

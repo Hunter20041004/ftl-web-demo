@@ -48,7 +48,7 @@ async function fetchRows(): Promise<Rows> {
     events: await get("events"),
     resources: await get("resources"),
     projects: await get("projects"),
-    papers: await get("papers"),
+    articles: await get("articles"),
     partners: await get("partners"),
     weekly_issues: issues,
     weekly_stories: stories as Rows["weekly_stories"],
@@ -67,4 +67,4 @@ const { snapshot, images } = await pull({
   today: new Date().toISOString().slice(0, 10),
   now: new Date().toISOString(),
 });
-console.log(`pull-content: ${snapshot.weekly.length} issues, ${snapshot.calendar.length} events, ${snapshot.resources.length} resources, ${snapshot.projectDecks.length} projects, ${snapshot.papers.length} papers, ${snapshot.partners.length} partners, ${images.length} images`);
+console.log(`pull-content: ${snapshot.weekly.length} issues, ${snapshot.calendar.length} events, ${snapshot.resources.length} resources, ${snapshot.projectDecks.length} projects, ${snapshot.articles.length} articles, ${snapshot.partners.length} partners, ${images.length} images`);

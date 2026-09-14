@@ -29,7 +29,7 @@ export function rowsFromSnapshot(): Rows {
     }),
     resources: snap.resources.map((r, i) => ({ id: `r${i}`, kind: r.kind, deadline: r.deadline ?? null, position: i, data: r })),
     projects: snap.projectDecks.map((p, i) => ({ id: p.id, position: i, data: p })),
-    papers: snap.papers.map((p, i) => ({ id: `p${i}`, year: p.year, data: p })),
+    articles: snap.articles.map((a, i) => ({ id: a.slug, published_at: a.date, position: i, data: a })),
     partners: snap.partners.map((p, i) => ({ id: `pa${i}`, position: i, data: p })),
     weekly_issues: snap.weekly.map((w) => ({ id: `w${w.vol}`, vol: w.vol, range_start: `${w.year}-${w.range.slice(0, 5).replace("/", "-")}`, range_end: `${w.year}-${w.range.slice(-5).replace("/", "-")}`, data: { lede: w.lede, ledeEn: w.ledeEn } })),
     weekly_stories: snap.weekly.flatMap((w) => w.stories.map((s, i) => ({ id: `w${w.vol}s${i}`, issue_id: `w${w.vol}`, position: i + 1, data: { ...s, headline: w.headlines[i], headlineEn: w.headlinesEn[i] } }))),
@@ -45,7 +45,7 @@ test("rows round-trip to the same snapshot", () => {
   assert.deepEqual(out.weekly, snap.weekly);
   assert.deepEqual(out.projectDecks, snap.projectDecks);
   assert.deepEqual(out.partners, snap.partners);
-  assert.deepEqual(out.papers, [...snap.papers].sort((a, b) => b.year - a.year));
+  assert.deepEqual(out.articles, snap.articles);
 });
 
 test("event dates come back as MM/DD even though the DB stores ISO", () => {
@@ -77,7 +77,7 @@ test("collectImagePaths lists every /media path once", () => {
 
 test("all categories empty still produces a valid snapshot", () => {
   const rows = rowsFromSnapshot();
-  rows.events = []; rows.resources = []; rows.projects = []; rows.papers = []; rows.partners = []; rows.weekly_issues = []; rows.weekly_stories = [];
+  rows.events = []; rows.resources = []; rows.projects = []; rows.articles = []; rows.partners = []; rows.weekly_issues = []; rows.weekly_stories = [];
   const out = rowsToSnapshot(rows, { today: "2026-09-14", generatedAt: "x" });
-  assert.deepEqual([out.calendar, out.resources, out.projectDecks, out.papers, out.partners, out.weekly], [[], [], [], [], [], []]);
+  assert.deepEqual([out.calendar, out.resources, out.projectDecks, out.articles, out.partners, out.weekly], [[], [], [], [], [], []]);
 });

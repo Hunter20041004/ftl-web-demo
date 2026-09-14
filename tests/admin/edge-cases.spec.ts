@@ -7,7 +7,7 @@ test.beforeEach(() => { test.skip(!TEST_URL() || !TEST_ANON() || !service(), "ne
 test.afterEach(async () => {
   await admin().from("partners").delete().like("data->>zh", "EDGE%");
   await admin().from("events").delete().like("data->>zh", "EDGE%");
-  await admin().from("papers").delete().like("data->>title", "EDGE%");
+  await admin().from("articles").delete().like("data->>title", "EDGE%");
 });
 
 test("very long text and special characters are stored verbatim", async ({ page }) => {
@@ -65,13 +65,12 @@ test("boundary values are blocked with field errors, duplicates get a friendly m
   await page.getByRole("button", { name: "發布" }).click();
   await expect(page.locator('[data-field="week"] .text-destructive')).toBeVisible();
   await page.keyboard.press("Escape");
-  // 研究文章：年份非數字
-  await page.getByRole("navigation").getByRole("link", { name: "研究文章" }).click();
-  await page.getByRole("button", { name: "新增研究文章" }).click();
-  await page.getByLabel("年份").fill("");
-  await page.getByLabel("標題（中文）").fill("EDGE 年份");
+  // 洞察文章：網址代號空白
+  await page.getByRole("navigation").getByRole("link", { name: "洞察文章" }).click();
+  await page.getByRole("button", { name: "新增文章" }).click();
+  await page.getByLabel("標題（中文）").fill("EDGE 代號");
   await page.getByRole("button", { name: "發布" }).click();
-  await expect(page.locator('[data-field="year"] .text-destructive')).toBeVisible();
+  await expect(page.locator('[data-field="slug"] .text-destructive')).toBeVisible();
   await page.keyboard.press("Escape");
   // 週報：重複期數
   await page.getByRole("navigation").getByRole("link", { name: "週報" }).click();

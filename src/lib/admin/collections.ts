@@ -1,8 +1,9 @@
 // 六類內容的通用層實例＋各自的可篩選欄位。
-import type { Paper, ProjectDeck, Resource } from "../content.schema.ts";
+import type { Article, ProjectDeck, Resource } from "../content.schema.ts";
 import { makeCollection } from "./collection.ts";
 
-export const papers = makeCollection<Paper>("papers", { columns: (d) => ({ year: d.year }), hasPosition: false });
+// articles 的主鍵是網址代號（data.slug）；日期存欄位方便排序
+export const articles = makeCollection<Article>("articles", { columns: (d) => ({ id: d.slug, published_at: d.date }) });
 export const resources = makeCollection<Resource>("resources", { columns: (d) => ({ kind: d.kind, deadline: d.deadline || null }) });
 // projects 的主鍵就是網址代號（data.id）
 export const projects = makeCollection<ProjectDeck>("projects", { columns: (d) => ({ id: d.id }) });

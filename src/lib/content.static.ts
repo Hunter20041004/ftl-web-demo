@@ -1,5 +1,5 @@
 // 留在程式裡、一年才改一次的資料：類別標籤、區塊鏈系列課程、幹部名單。
-// 六類會變動的內容（週報、活動、資源、專案、研究文章、合作對象）與學期設定在 content.remote.ts。
+// 六類會變動的內容（週報、活動、資源、專案、洞察文章、合作對象）與學期設定在 content.remote.ts。
 import type { CalendarKind } from "./content.schema.ts";
 export type { CalendarKind } from "./content.schema.ts";
 

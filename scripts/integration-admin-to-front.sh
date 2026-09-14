@@ -14,13 +14,14 @@ check index.html "ITG 合作夥伴"
 check index.html "ITG 專案"
 check index.html "ITG 短標 1"
 check projects/index.html "ITG 專案"   # 投影片內容在點開對話框後才渲染（既有視覺測試涵蓋）
-check insights/index.html "ITG 研究文章"
+check insights/index.html "ITG 洞察文章"
+check insights/itg-article/index.html "第一段"
 check insights/index.html "ITG 標題 1"
 check resources/index.html "ITG 職缺"
 check events/index.html "ITG 期末活動"
 node -e '
 import("@supabase/supabase-js").then(async ({createClient})=>{ const db=createClient(process.env.SUPABASE_TEST_URL, process.env.SUPABASE_TEST_SERVICE_KEY);
- for (const [t,c,v] of [["partners","data->>zh","ITG%"],["papers","data->>title","ITG%"],["resources","data->>title","ITG%"],["events","data->>zh","ITG%"]]) await db.from(t).delete().like(c,v);
+ for (const [t,c,v] of [["partners","data->>zh","ITG%"],["articles","data->>title","ITG%"],["resources","data->>title","ITG%"],["events","data->>zh","ITG%"]]) await db.from(t).delete().like(c,v);
  await db.from("projects").delete().eq("id","itg-project"); await db.from("weekly_issues").delete().eq("vol",98); console.log("cleaned"); });'
 cp /tmp/snapshot.before.json src/lib/content.snapshot.json
 exit $fail

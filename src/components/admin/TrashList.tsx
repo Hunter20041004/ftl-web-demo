@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { Collection, Row } from "@/lib/admin/collection";
 import { partners } from "@/lib/admin/partners";
-import { papers, projects, resources, events } from "@/lib/admin/collections";
+import { articles, projects, resources, events } from "@/lib/admin/collections";
 import { weekly } from "@/lib/admin/weekly";
 import { RebuildStatus } from "./RebuildStatus";
 
@@ -14,7 +14,7 @@ type Obj = Record<string, string | undefined>;
 // 六類的軟刪除項目集中在這裡；還原已發布的項目會自動重建。
 const SOURCES: Array<{ kind: string; collection: Collection<object>; label: (d: Obj) => string }> = [
   { kind: "合作對象", collection: partners as Collection<object>, label: (d) => `${d.zh} ／ ${d.en}` },
-  { kind: "研究文章", collection: papers as Collection<object>, label: (d) => String(d.title) },
+  { kind: "洞察文章", collection: articles as Collection<object>, label: (d) => String(d.title) },
   { kind: "資源", collection: resources as Collection<object>, label: (d) => String(d.title) },
   { kind: "專案", collection: projects as Collection<object>, label: (d) => String(d.name) },
   { kind: "活動", collection: events as Collection<object>, label: (d) => String(d.zh) },

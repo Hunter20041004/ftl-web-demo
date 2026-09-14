@@ -40,7 +40,7 @@ export function snapshotToRows(s: Snapshot): Rows {
     }),
     resources: s.resources.map((r, i) => ({ id: `res-${i + 1}`, kind: r.kind, deadline: r.deadline ?? null, position: i, data: r })),
     projects: s.projectDecks.map((p, i) => ({ id: p.id, position: i, data: p })),
-    papers: s.papers.map((p, i) => ({ id: `paper-${i + 1}`, year: p.year, data: p })),
+    articles: s.articles.map((a, i) => ({ id: a.slug, published_at: a.date, position: i, data: a })),
     partners: s.partners.map((p, i) => ({ id: `partner-${i + 1}`, position: i, data: p })),
     weekly_issues: s.weekly.map((w) => ({ id: `vol-${w.vol}`, vol: w.vol, range_start: isoFromRange(w.year, w.range.slice(0, 5)), range_end: isoFromRange(w.year, w.range.slice(-5)), data: { lede: w.lede, ledeEn: w.ledeEn } })),
     weekly_stories: s.weekly.flatMap((w) => w.stories.map((st, i) => ({ id: `vol-${w.vol}-${i + 1}`, issue_id: `vol-${w.vol}`, position: i + 1, data: { ...st, headline: w.headlines[i], headlineEn: w.headlinesEn[i] } }))),

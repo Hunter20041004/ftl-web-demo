@@ -83,7 +83,7 @@
 | `events` | `semester`、`week`、`date`、`kind`、`title`、`note`、`counts_reward`；講座：`speaker`、`speaker_role`、`speaker_org`、`abstract`、`bio`（json）；工作坊：`goal`、`modules`（json）；讀書會：`book_title`、`book_author`、`book_cover`、`book_synopsis`、`book_topics`（json） |
 | `resources` | `kind`（job/scholarship/program/book）、`title`、`org`、`body`、`href`、`deadline`（選填）、`cta`；書：`author`、`cover`、`synopsis`、`topics`（json） |
 | `projects` | `name`、`tagline`、`owner`、`state`（done/wip）、`tags`（json）、`cover`、`github`、`demo`、`position`、`slides`（json：固定 4 張，各含 kicker/title/body/visual） |
-| `papers` | `title`、`authors`、`venue`、`year`、`summary`、`href`、`topic` |
+| `articles`（2026-09-14 取代 `papers`） | `slug`（網址用）、`title`、`author`、`date`、`summary`、`body`（Markdown 長文，中文必填、英文選填）、`cover`（選填）、`tags`（json） |
 | `partners` | `name`、`logo`、`href`、`position`、`mark_only` |
 | `admins` | `email`（唯一）、`added_by`、`added_at` |
 
@@ -187,3 +187,7 @@ RLS：所有表 `select/insert/update/delete` 只允許 `auth.email()` 在 `admi
 - 圖片下載讓重建多幾十秒：可接受，實測後記錄。
 - GitHub API 查重建狀態需要 token：後台用「公開 repo 的 Actions 狀態」免 token 讀取；若 rate limit 不夠，改由 Edge Function 代查。
 - 網域：之後有網域時，Supabase 的 OAuth redirect 與 GitHub Pages 自訂網域各改一處。
+
+## 變更紀錄
+
+- **2026-09-14 洞察文章取代研究文章**：使用者決定「洞察文章是我們做研究後自己撰寫的詳細長文，不是套用外部論文」。`papers`（外部論文連結）改為 `articles`（社團自撰、Markdown 長文，每篇有獨立網頁 `/insights/<slug>/`）。舊 `papers` 表保留但不再使用，前台不再顯示外部論文。

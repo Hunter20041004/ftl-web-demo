@@ -9,7 +9,7 @@ const anon = process.env.SUPABASE_TEST_ANON_KEY;
 const service = process.env.SUPABASE_TEST_SERVICE_KEY;
 const enabled = Boolean(url && anon && service);
 
-const tables = ["settings", "events", "resources", "projects", "papers", "partners", "weekly_issues", "weekly_stories", "admins"];
+const tables = ["settings", "events", "resources", "projects", "articles", "partners", "weekly_issues", "weekly_stories", "admins"];
 
 // 沒登入（anon）的人：任何表都讀不到、寫不進。這條防「畫面有擋、資料庫沒擋」。
 test("anonymous client cannot read or write content tables", { skip: !enabled }, async () => {

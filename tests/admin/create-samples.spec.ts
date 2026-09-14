@@ -16,9 +16,12 @@ test("create one published item per category via the admin UI", async ({ page })
   await page.getByLabel("中文名稱").fill("ITG 合作夥伴"); await page.getByLabel("英文名稱").fill("ITG Partner"); await page.getByLabel("連結").fill("https://itg.example.com/");
   await publish();
 
-  await nav("研究文章"); await page.getByRole("button", { name: "新增研究文章" }).click();
-  await page.getByLabel("標題（中文）").fill("ITG 研究文章"); await page.getByLabel("作者（中文）").fill("ITG 作者"); await page.getByLabel("出處（中文）").fill("ITG 期刊");
-  await page.getByLabel("年份").fill("2026"); await page.getByLabel("摘要（中文）").fill("摘要"); await page.getByLabel("摘要（英文）").fill("Summary"); await page.getByLabel("連結").fill("https://itg.example.com/paper");
+  await nav("洞察文章"); await page.getByRole("button", { name: "新增文章" }).click();
+  await page.getByLabel("網址代號").fill("itg-article");
+  await page.getByLabel("標題（中文）").fill("ITG 洞察文章"); await page.getByLabel("標題（英文）").fill("ITG article");
+  await page.getByLabel("作者（中文）").fill("ITG 作者"); await page.getByLabel("作者（英文）").fill("ITG author");
+  await page.getByLabel("摘要（中文）").fill("摘要"); await page.getByLabel("摘要（英文）").fill("Summary");
+  await page.getByLabel("內文（中文）").fill("## 小標\n\n第一段 **重點**。\n\n- 一\n- 二");
   await publish();
 
   await nav("資源"); await page.getByRole("button", { name: "新增資源" }).click();

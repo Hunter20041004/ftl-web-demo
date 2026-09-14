@@ -10,7 +10,7 @@ const CATEGORIES = [
   { table: "events", label: "活動", href: "/admin/events/", ready: true },
   { table: "resources", label: "資源", href: "/admin/resources/", ready: true },
   { table: "projects", label: "專案", href: "/admin/projects/", ready: true },
-  { table: "papers", label: "研究文章", href: "/admin/papers/", ready: true },
+  { table: "articles", label: "洞察文章", href: "/admin/articles/", ready: true },
   { table: "partners", label: "合作對象", href: "/admin/partners/", ready: true },
 ] as const;
 

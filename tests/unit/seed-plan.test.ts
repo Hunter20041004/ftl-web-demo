@@ -11,8 +11,7 @@ test("snapshot → rows → snapshot is identity (after path rewrite)", () => {
   const rewritten = rewriteAssetPaths(snap);
   const rows = snapshotToRows(rewritten);
   const back = rowsToSnapshot(rows, { today: "2000-01-01", generatedAt: rewritten.generatedAt });
-  assert.deepEqual({ ...back, papers: [] }, { ...rewritten, papers: [] });
-  assert.deepEqual(back.papers, [...rewritten.papers].sort((a, b) => b.year - a.year));
+  assert.deepEqual(back, rewritten);
 });
 
 test("snapshotToRows writes ISO dates for events (Postgres date column)", () => {

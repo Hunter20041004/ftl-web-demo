@@ -13,7 +13,7 @@ const NAV = [
   { href: "/admin/events/", label: "活動" },
   { href: "/admin/resources/", label: "資源" },
   { href: "/admin/projects/", label: "專案" },
-  { href: "/admin/papers/", label: "研究文章" },
+  { href: "/admin/articles/", label: "洞察文章" },
   { href: "/admin/partners/", label: "合作對象" },
   { href: "/admin/settings/", label: "學期設定" },
   { href: "/admin/admins/", label: "管理員" },

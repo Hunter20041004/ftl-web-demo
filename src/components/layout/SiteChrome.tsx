@@ -136,7 +136,7 @@ export function SiteFooter() {
             { href: "/resources/", zh: "職缺與獎學金", en: "Jobs & scholarships" },
             { href: "/resources/#filter-book", zh: "書單", en: "Reading list" },
             { href: "/insights/", zh: "FinTech 週報", en: "FinTech Weekly" },
-            { href: "/insights/#research", zh: "研究文章", en: "Research" },
+            { href: "/insights/#research", zh: "洞察文章", en: "Articles" },
           ]} />
           <FooterColumn title="聯絡方式" en="Contact" items={[
             { href: "https://page.line.me/nccufintechlab", zh: "LINE Bot", en: "LINE Bot" },
