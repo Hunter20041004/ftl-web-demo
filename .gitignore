@@ -12,3 +12,6 @@ coverage/
 # Next.js 16 auto-generated agent rule files (project rules live in HANDOFF.md / docs)
 /AGENTS.md
 /CLAUDE.md
+
+# 圖片由 pull-content 在建站時從 Supabase 下載
+public/media/
