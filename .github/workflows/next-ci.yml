@@ -2,10 +2,7 @@ name: Next architecture CI
 
 on:
   push:
-    branches:
-      - refactor/next-architecture-chatgpt
-      - rebuild/v1-on-new-architecture
-      - redesign/glass-v6
+    branches: [main]
   pull_request:
 
 jobs:
