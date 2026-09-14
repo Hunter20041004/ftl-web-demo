@@ -33,3 +33,17 @@ test("media bucket is public-read, anon cannot upload", { skip: !enabled }, asyn
   const up = await client.storage.from("media").upload(`contract-test/${Date.now()}.txt`, new Blob(["x"]));
   assert.ok(up.error);
 });
+
+// 0002：email 小寫化、不能刪最後一位管理員
+test("admins email is lower-cased and the last admin cannot be deleted", { skip: !enabled }, async () => {
+  const client = createClient(url!, service!);
+  await client.from("admins").delete().eq("email", "mixed@test.local");
+  const ins = await client.from("admins").insert({ email: "Mixed@Test.local", added_by: "contract" }).select("email").single();
+  assert.equal(ins.data?.email, "mixed@test.local");
+  await client.from("admins").delete().eq("email", "mixed@test.local");
+  const { count } = await client.from("admins").select("*", { count: "exact", head: true });
+  if (count === 1) {
+    const del = await client.from("admins").delete().not("email", "is", null);
+    assert.ok(del.error, "deleting the last admin must fail");
+  }
+});

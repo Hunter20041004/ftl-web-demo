@@ -1,7 +1,7 @@
 // 發布鏈的後台端：叫 Edge Function trigger-rebuild（POST＝觸發重建、GET＝最近一次狀態）。
 import { getSupabase } from "./supabase.ts";
 
-export type RebuildStatus = { status: "queued" | "in_progress" | "completed" | "none"; conclusion?: "success" | "failure" | "cancelled" | null; updatedAt?: string; url?: string };
+export type RebuildStatus = { status: "queued" | "in_progress" | "completed" | "none"; conclusion?: "success" | "failure" | "cancelled" | null; createdAt?: string; updatedAt?: string; url?: string };
 
 async function call(method: "GET" | "POST", body?: unknown) {
   const sb = getSupabase();

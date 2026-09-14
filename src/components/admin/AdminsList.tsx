@@ -45,6 +45,7 @@ export function AdminsList() {
       {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
 
       <ul className="mt-5 grid gap-2">
+        {rows === null && !error ? <li className="glass px-4 py-8 text-center text-sm text-muted-foreground">載入中…</li> : null}
         {rows?.map((row) => (
           <li key={row.email} data-testid="admin-row" data-email={row.email} className="flex items-center gap-4 glass px-4 py-3">
             <div className="min-w-0 flex-1">

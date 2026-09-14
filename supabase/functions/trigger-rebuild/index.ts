@@ -34,7 +34,7 @@ Deno.serve(async (req) => {
     const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/pages.yml/runs?per_page=1`, { headers: gh });
     if (!r.ok) return json({ status: "none", github: r.status }, 200);
     const run = (await r.json()).workflow_runs?.[0];
-    return json(run ? { status: run.status, conclusion: run.conclusion, updatedAt: run.updated_at, url: run.html_url } : { status: "none" }, 200);
+    return json(run ? { status: run.status, conclusion: run.conclusion, createdAt: run.created_at, updatedAt: run.updated_at, url: run.html_url } : { status: "none" }, 200);
   }
 
   const body = await req.json().catch(() => ({}));

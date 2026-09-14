@@ -20,7 +20,8 @@ export function RebuildStatus({ trigger, onDone }: { trigger?: number; onDone?: 
       try {
         const s = await getRebuildStatus();
         if (cancelled) return;
-        const fresh = s.updatedAt ? Date.parse(s.updatedAt) >= startedAt - 60_000 : false;
+        // 只認觸發之後才建立的 run（留 15 秒給時鐘誤差）
+        const fresh = s.createdAt ? Date.parse(s.createdAt) >= startedAt - 15_000 : false;
         if (fresh) setState({ trigger, status: s, error: "" });
         if (fresh && s.status === "completed") { onDone?.(); return; }
       } catch (e) { if (!cancelled) setState({ trigger, status: null, error: `查詢狀態失敗：${(e as Error).message}` }); return; }

@@ -22,6 +22,7 @@ export function TrashList() {
       <p className="mt-1 text-sm text-muted-foreground">還原後會回到原本的清單；已發布的項目會自動重建回到前台。</p>
       <div className="mt-4"><RebuildStatus trigger={rebuildTick} /></div>
       <ul className="mt-5 grid gap-2">
+        {rows === null ? <li className="glass px-4 py-8 text-center text-sm text-muted-foreground">載入中…</li> : null}
         {rows?.map((row) => (
           <li key={row.id} className="flex items-center gap-4 glass px-4 py-3">
             <span className="rounded-full bg-muted px-2 py-0.5 text-xs">合作對象</span>

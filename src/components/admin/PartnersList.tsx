@@ -16,6 +16,7 @@ export function PartnersList() {
   const [deleting, setDeleting] = useState<PartnerRow | null>(null);
   const [dragId, setDragId] = useState<string | null>(null);
   const [rebuildTick, setRebuildTick] = useState(0);
+  const [notice, setNotice] = useState("");
 
   const [version, setVersion] = useState(0);
   const reload = useCallback(async () => { setVersion((v) => v + 1); }, []);
@@ -30,7 +31,8 @@ export function PartnersList() {
     await savePartner({ id: row?.id, data, status });
     setEditing(null);
     await reload();
-    if (status === "published") setRebuildTick((t) => t + 1);
+    if (status === "published") { setNotice(""); setRebuildTick((t) => t + 1); }
+    else setNotice("已存成草稿，還沒上線；之後按「編輯」→「發布」才會出現在前台。");
   };
 
   const onDrop = async (targetId: string) => {
@@ -73,10 +75,14 @@ export function PartnersList() {
         <Button className="rounded-full" onClick={() => setEditing("new")}>新增合作對象</Button>
       </div>
 
-      <div className="mt-5"><RebuildStatus trigger={rebuildTick} /></div>
+      <div className="mt-5 grid gap-2">
+        {notice ? <p className="rounded-xl bg-secondary px-4 py-3 text-sm text-primary" role="status">{notice}</p> : null}
+        <RebuildStatus trigger={rebuildTick} />
+      </div>
       {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
 
       <ul className="mt-5 grid gap-2">
+        {rows === null && !error ? <li className="glass px-4 py-8 text-center text-sm text-muted-foreground">載入中…</li> : null}
         {rows?.map((row) => (
           <li
             key={row.id}
