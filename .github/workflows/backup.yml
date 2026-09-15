@@ -1,0 +1,66 @@
+# 每週備份 Supabase（資料庫 dump ＋ Storage 圖片）到私人 repo ftl-web-backup。
+# 設計與還原方式：docs/specs/2026-09-15-supabase-backup-design.md、docs/社員交接手冊.md
+# 需要的 secrets：SUPABASE_URL、SUPABASE_SERVICE_KEY（既有）、SUPABASE_DB_URL（Session pooler 連線字串）、BACKUP_DEPLOY_KEY
+name: Weekly Supabase backup
+
+on:
+  schedule:
+    - cron: "0 19 * * 6"   # 台北每週日 03:00（UTC 週六 19:00）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: npm install --no-audit --no-fund
+
+      - name: Check out backup repo
+        uses: actions/checkout@v4
+        with:
+          repository: Hunter20041004/ftl-web-backup
+          ssh-key: ${{ secrets.BACKUP_DEPLOY_KEY }}
+          path: backup
+
+      - name: Download Storage bucket media (also wakes a paused free project)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          rm -rf backup/media
+          node scripts/backup-storage.ts
+
+      - name: Dump database (roles / schema / data)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          mkdir -p backup/db
+          supabase db dump --db-url "$SUPABASE_DB_URL" -f backup/db/roles.sql --role-only
+          supabase db dump --db-url "$SUPABASE_DB_URL" -f backup/db/schema.sql
+          supabase db dump --db-url "$SUPABASE_DB_URL" -f backup/db/data.sql --use-copy --data-only
+
+      - name: Verify backup is not empty
+        run: |
+          test -s backup/db/schema.sql
+          test -s backup/db/data.sql
+          grep -q "COPY" backup/db/data.sql || { echo "data.sql has no COPY blocks — dump looks empty"; exit 1; }
+          n=$(find backup/media -type f | wc -l); echo "media files: $n"; test "$n" -gt 0
+
+      - name: Commit and push to backup repo
+        working-directory: backup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "no changes since last backup"; exit 0; }
+          git commit -m "備份 $(TZ=Asia/Taipei date +%F)"
+          git push
