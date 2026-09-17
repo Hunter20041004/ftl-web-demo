@@ -115,7 +115,7 @@
 
 使用者用手機實測後回報三個問題（`2fa9d53`）：
 1. 幹部少一人：專案開發部加入王○問（交大管科三）。名單仍在 `src/lib/content.static.ts`（不在後台），沿用遮罩姓名、無英文名欄位（使用者拍板）。
-2. 週報「短標」上限 14 字寫不下外商公司名：`src/lib/admin/weekly.ts` 改 24 字，後台提示與 `docs/週報貼上格式.md`、`docs/週報編輯規範.md` 同步為「建議 12 字內、最多 24 字」；單元測試 `tests/unit/weekly-headline.test.ts`。
+2. 週報「短標」上限 14 字寫不下外商公司名：`src/lib/admin/weekly.ts` 先改 24 字、使用者隨後拍板改 100 字，後台提示與 `docs/週報貼上格式.md`、`docs/週報編輯規範.md` 同步為「建議 12 字內、最多 100 字」；單元測試 `tests/unit/weekly-headline.test.ts`。
 3. 手機選單打開後被首屏標題與 logo 蓋住、點不到：`.sheet` 在 `#site-header` 裡，而 `#site-header` 與 `.page` 同為 `z-index:1`，後出現的 `.page` 壓過去 → `#site-header{ z-index:2 }`（`assets/v6.css`）。`tests/visual/mobile-menu.spec.ts` 用 `elementFromPoint` 驗每個選單項目都在最上層（桌機視口跳過）。
 
 順手修的既有失敗：`glass-v6.spec.ts` 的「專案牆」寫死了已下架的 `course-scheduler`／`smart-album`，0 個專案時 CI 四個視口全紅 → 改從快照取第一／最後一個專案，0 個時跳過；有專案時用 `4d03559` 的舊快照驗過 4 視口通過。
@@ -123,4 +123,4 @@
 環境備註：本機 `next dev` 若是在新增路由之前啟動的，會對新頁面回 404（這次 `/admin/articles/` 就是），後台 E2E 會卡在「找不到新增文章」；重開伺服器即可。視覺測試 4 工作程序同時打老舊的開發伺服器會出現動畫時序類的偶發失敗，`--workers=2` 穩定。
 
 驗證：`npm test` 35/35、視覺 81 通過 7 跳過、後台 E2E 16 通過 1 跳過（需 TEST 鑰匙的那條）。
-- 部署流程補強（同日）：回寫快照的 push 撞到兩個問題——建置期間有人推新 commit 會被拒（`14e95ce`）、建置會弄髒 `next-env.d.ts` 讓 rebase 拒跑（`1f7a871`）→ `git pull --rebase --autostash origin main` 再 push。正式站 https://hunter20041004.github.io/ftl-web-demo/ 已驗：關於頁有王○問、CSS 含 `#site-header{ z-index:2 }`、後台週報提示「最多 24 字」、手機視口選單 7 個項目都在最上層、console 無錯。
+- 部署流程補強（同日）：回寫快照的 push 撞到兩個問題——建置期間有人推新 commit 會被拒（`14e95ce`）、建置會弄髒 `next-env.d.ts` 讓 rebase 拒跑（`1f7a871`）→ `git pull --rebase --autostash origin main` 再 push。正式站 https://hunter20041004.github.io/ftl-web-demo/ 已驗：關於頁有王○問、CSS 含 `#site-header{ z-index:2 }`、後台週報提示「最多 100 字」（後改 100）、手機視口選單 7 個項目都在最上層、console 無錯。

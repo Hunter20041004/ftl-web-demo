@@ -7,7 +7,7 @@ import type { ParsedStory } from "./weekly-parse.ts";
 
 export type IssueDraft = { vol: number; range_start: string; range_end: string; lede: string; ledeEn: string; stories: [ParsedStory, ParsedStory, ParsedStory] };
 
-const storySchema = weeklyStorySchema.extend({ headline: z.string().min(1).max(24), headlineEn: z.string().min(1) });
+const storySchema = weeklyStorySchema.extend({ headline: z.string().min(1).max(100), headlineEn: z.string().min(1) });
 export const issueSchema = z.object({
   vol: z.number().int().min(1),
   range_start: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), range_end: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
