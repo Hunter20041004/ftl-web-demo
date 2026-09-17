@@ -67,6 +67,8 @@ body::after{
   mask-image:radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
 }
 #site-header,#site-footer,.page{ position:relative; z-index:1 }
+/* 手機選單（.sheet）在 #site-header 裡；header 要壓在 .page 之上，選單打開才不會被首屏標題與 logo 蓋住 */
+#site-header{ z-index:2 }
 [hidden]{ display:none !important }
 html.lang-pending body{ visibility:hidden }
 .page{ counter-reset:sec }

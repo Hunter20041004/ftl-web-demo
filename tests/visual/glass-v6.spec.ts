@@ -155,13 +155,18 @@ test.describe("glass-v6 homepage", () => {
   });
 
   test("projects wall opens a deck in a dialog and pages with buttons and arrow keys", async ({ page }) => {
+    // 專案由幹部在後台增減：用快照裡的第一個與最後一個專案測，沒有專案就跳過（曾寫死已下架的專案名，CI 全紅）
+    const decks = snap.projectDecks as Array<{ id: string; slides: Array<{ title: string }> }>;
+    test.skip(decks.length === 0, "目前沒有上架的專案");
+    const first = decks[0];
+    const last = decks[decks.length - 1];
     await page.goto(`${basePath}/projects/`);
     await page.waitForLoadState("networkidle");
     await expect(page.locator(".project-teaser")).toHaveCount(count.projects);
-    await page.locator('[data-project="course-scheduler"]').click();
+    await page.locator(`[data-project="${first.id}"]`).click();
     const dialog = page.locator("dialog.project-dialog");
     await expect(dialog).toHaveAttribute("open", "");
-    const deck = dialog.locator('[data-deck="course-scheduler"]');
+    const deck = dialog.locator(`[data-deck="${first.id}"]`);
     await expect(deck).toHaveAttribute("data-slide", "0");
     // 投影片本身要看得到：手機上曾經只剩下面的按鈕列，舞台高度是 0
     const slide = deck.locator(".deck__slide").first();
@@ -169,8 +174,7 @@ test.describe("glass-v6 homepage", () => {
     expect((await slide.boundingBox())?.height ?? 0).toBeGreaterThan(160);
     await deck.locator("[data-deck-nav=next]").click();
     await expect(deck).toHaveAttribute("data-slide", "1");
-    await expect(deck.locator(".deck__title")).toContainText("選課要同時顧");
-    await expect(deck.locator(".deck__stats li")).toHaveCount(3);
+    await expect(deck.locator(".deck__title")).toContainText(first.slides[0].title);   // 第 0 張是封面，第 1 張＝slides[0]
     await deck.focus();
     await page.keyboard.press("ArrowRight");
     await expect(deck).toHaveAttribute("data-slide", "2");
@@ -178,8 +182,8 @@ test.describe("glass-v6 homepage", () => {
     await expect(dialog).not.toHaveAttribute("open", "");
     // 從首頁帶 #id 進來要直接打開（整頁載入，而不是同頁改 hash：CI 曾在同頁改 hash 時偶發沒開）
     await page.goto("about:blank");
-    await page.goto(`${basePath}/projects/#smart-album`);
-    await expect(page.locator('dialog.project-dialog [data-deck="smart-album"]')).toBeVisible();
+    await page.goto(`${basePath}/projects/#${last.id}`);
+    await expect(page.locator(`dialog.project-dialog [data-deck="${last.id}"]`)).toBeVisible();
   });
 
   test("insights shows the latest weekly issue with sourced stories", async ({ page }) => {

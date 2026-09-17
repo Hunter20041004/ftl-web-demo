@@ -61,7 +61,7 @@ export function WeeklyIssueForm({ data, setData, errors, isNew }: FormProps<Issu
         return (
           <fieldset key={i} data-testid={`story-${i}`} className="grid gap-3 rounded-2xl bg-white/60 p-4 shadow-[var(--glass-hi),var(--shadow-soft)]">
             <legend className="px-1 text-sm font-semibold text-primary">第 {i + 1} 則</legend>
-            <BilingualField id={p("headline")} label="短標" zh={s.headline} en={s.headlineEn} onZh={(v) => setStory(i, { headline: v })} onEn={(v) => setStory(i, { headlineEn: v })} errors={errsFor("headline")} placeholderZh="≤ 12 字，首頁封面用" />
+            <BilingualField id={p("headline")} label="短標" zh={s.headline} en={s.headlineEn} onZh={(v) => setStory(i, { headline: v })} onEn={(v) => setStory(i, { headlineEn: v })} errors={errsFor("headline")} placeholderZh="建議 12 字內、最多 24 字，首頁封面用" />
             <BilingualField id={p("title")} label="標題" zh={s.title} en={s.titleEn} onZh={(v) => setStory(i, { title: v })} onEn={(v) => setStory(i, { titleEn: v })} errors={errsFor("title")} />
             <BilingualField id={p("lede")} label="一句話" zh={s.lede} en={s.ledeEn} onZh={(v) => setStory(i, { lede: v })} onEn={(v) => setStory(i, { ledeEn: v })} errors={errsFor("lede")} multiline />
             <BilingualListField id={p("facts")} label="重點" zh={s.facts} en={s.factsEn} onZh={(v) => setStory(i, { facts: v })} onEn={(v) => setStory(i, { factsEn: v })} errors={errsFor("facts")} />

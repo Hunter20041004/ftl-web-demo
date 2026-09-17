@@ -42,7 +42,7 @@ export const leadership = {
   president: { name: "方○享", dept: "資管三", deptEn: "MIS, 3rd year" },
   vicePresident: { name: "何○文", dept: "日文三", deptEn: "Japanese, 3rd year" },
   departments: [
-    { name: "專案開發部", en: "Projects", members: [{ name: "曾○庭", dept: "會計四", deptEn: "Accounting, 4th year" }, { name: "陳○安", dept: "資管三", deptEn: "MIS, 3rd year" }, { name: "劉○綺", dept: "資管二", deptEn: "MIS, 2nd year" }, { name: "藍○瀋", dept: "統計碩二", deptEn: "Statistics, MS 2nd year" }] as Officer[] },
+    { name: "專案開發部", en: "Projects", members: [{ name: "曾○庭", dept: "會計四", deptEn: "Accounting, 4th year" }, { name: "陳○安", dept: "資管三", deptEn: "MIS, 3rd year" }, { name: "劉○綺", dept: "資管二", deptEn: "MIS, 2nd year" }, { name: "藍○瀋", dept: "統計碩二", deptEn: "Statistics, MS 2nd year" }, { name: "王○問", dept: "交大管科三", deptEn: "Management Science (NYCU), 3rd year" }] as Officer[] },
     { name: "合作企劃部", en: "Partnerships & programs", members: [{ name: "朱○翊", dept: "資管四", deptEn: "MIS, 4th year" }] as Officer[] },
     { name: "品牌人資社群部", en: "Brand, people & community", members: [{ name: "曾○甫", dept: "國貿三", deptEn: "International Business, 3rd year" }, { name: "謝○裕", dept: "財管三", deptEn: "Finance, 3rd year" }] as Officer[] },
     { name: "企業關係部", en: "Corporate relations", members: [{ name: "胡○晟", dept: "風管三", deptEn: "Risk Management, 3rd year" }, { name: "曾○翔", dept: "金融碩三", deptEn: "Money and Banking, MS 3rd year" }, { name: "李○翰", dept: "國金碩二", deptEn: "International Finance, MS 2nd year" }] as Officer[] },
