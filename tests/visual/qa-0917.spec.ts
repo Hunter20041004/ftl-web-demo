@@ -28,3 +28,21 @@ test("language toggle is at least 40px tall on phones", async ({ page, viewport 
   const h = await page.locator(".lang__btn").first().evaluate((el) => el.getBoundingClientRect().height);
   expect(h).toBeGreaterThanOrEqual(40);
 });
+
+// 活動頁的講座／工作坊／讀書會詳情卡預設收合（使用者 2026-09-17 拍板）：手機不用滑 16 屏；點標題列才展開內容。
+test("event detail cards are collapsed by default and expand on tap", async ({ page, viewport }) => {
+  await page.goto("/events/");
+  await page.waitForLoadState("networkidle");
+  const cards = page.locator("#lectures details.card, #workshops details.card, #reading details.card");
+  expect(await cards.count()).toBeGreaterThan(0);
+  for (let i = 0; i < await cards.count(); i++) expect(await cards.nth(i).evaluate((d) => (d as HTMLDetailsElement).open), `第 ${i + 1} 張卡預設應收合`).toBe(false);
+  if (viewport && viewport.width <= 560) {
+    const h = await page.evaluate(() => document.documentElement.scrollHeight);
+    expect(h, "手機活動頁收合後不該超過 10 屏（收合前約 15 屏）").toBeLessThan(812 * 10);
+  }
+  const first = cards.first();
+  await expect(first.locator("h3")).toBeVisible();                    // 標題列永遠看得到
+  await expect(first.locator(".card__body").first()).toBeHidden();    // 內容收著
+  await first.locator("summary").click();
+  await expect(first.locator(".card__body").first()).toBeVisible();
+});

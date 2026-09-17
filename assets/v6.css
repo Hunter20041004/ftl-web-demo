@@ -387,6 +387,16 @@ a{ color:inherit }
 .card--lecture{ padding:clamp(var(--s5),3vw,var(--s6)); border-radius:var(--r-lg) }
 .card--lecture .h2{ max-width:30ch }
 .card--lecture .card__body,.card--lecture .bio{ max-width:72ch }
+/* 可收合的詳情卡（活動頁講座／工作坊／讀書會）：標題列永遠可見，內容點了才展開 */
+.card--collapsible > summary{ list-style:none; cursor:pointer; display:flex; flex-direction:column; gap:var(--s3); margin:calc(-1 * var(--s5)); padding:var(--s5); border-radius:inherit }
+.card--collapsible > summary::-webkit-details-marker{ display:none }
+.card--collapsible > summary:focus-visible{ outline:2px solid var(--b); outline-offset:2px }
+.card--collapsible[open] > summary{ margin-bottom:0; padding-bottom:0 }
+.card--lecture.card--collapsible > summary{ margin:calc(-1 * clamp(var(--s5),3vw,var(--s6))); padding:clamp(var(--s5),3vw,var(--s6)) }
+.card--lecture.card--collapsible[open] > summary{ margin-bottom:0; padding-bottom:0 }
+.card__more{ display:inline-flex; align-items:center; gap:6px; min-height:40px; font-size:.9rem; font-weight:700; color:var(--b-ink) }
+.card__more .icon{ width:16px; height:16px; transition:transform var(--dur) var(--ease) }
+.card--collapsible[open] .card__more .icon{ transform:rotate(180deg) }
 .card--row > div{ max-width:78ch }
 .lecture__speaker{ font-size:1.05rem; color:var(--ink-2) }
 .lecture__speaker b{ font-size:1.25rem }

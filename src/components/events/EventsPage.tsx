@@ -57,18 +57,21 @@ export function EventsPage() {
             </div>
             <div className="stack" style={{ gap: 18 }} data-stagger>
               {lectures.map((lecture) => (
-                <article className="card card--lecture reveal reveal--rise" key={lecture.week}>
-                  <div className="card__top">
-                    <span className="card__index num">Week {String(lecture.week).padStart(2, "0")} · {lecture.date}</span>
-                    <span className="tag" data-en="Lecture" suppressHydrationWarning>講座</span>
-                  </div>
-                  <h3 className="h2"><SplitTitle text={lecture.title} en={lecture.titleEn} /></h3>
-                  <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn} suppressHydrationWarning>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`} suppressHydrationWarning>{`${lecture.role}，${lecture.org}`}</span></p>
+                <details className="card card--lecture card--collapsible reveal reveal--rise" key={lecture.week}>
+                  <summary className="card__summary">
+                    <div className="card__top">
+                      <span className="card__index num">Week {String(lecture.week).padStart(2, "0")} · {lecture.date}</span>
+                      <span className="tag" data-en="Lecture" suppressHydrationWarning>講座</span>
+                    </div>
+                    <h3 className="h2"><SplitTitle text={lecture.title} en={lecture.titleEn} /></h3>
+                    <p className="lecture__speaker"><b className="grad-text" data-en={lecture.speakerEn} suppressHydrationWarning>{lecture.speaker}</b>　<span data-en={`${lecture.roleEn}, ${lecture.orgEn}`} suppressHydrationWarning>{`${lecture.role}，${lecture.org}`}</span></p>
+                    <span className="card__more"><span data-en="Details" suppressHydrationWarning>展開內容</span><Icon name="chevron-down" /></span>
+                  </summary>
                   <p className="card__body" data-en={lecture.abstractEn} suppressHydrationWarning>{lecture.abstract}</p>
                   <ul className="bio">
                     {lecture.bio.map((line, i) => <li key={line} data-en={lecture.bioEn[i]} suppressHydrationWarning>{line}</li>)}
                   </ul>
-                </article>
+                </details>
               ))}
             </div>
           </div>
@@ -81,17 +84,20 @@ export function EventsPage() {
             </div>
             <div className="grid grid-3" data-stagger>
               {workshops.map((workshop) => (
-                <article className="card reveal reveal--rise" key={workshop.week}>
-                  <div className="card__top">
-                    <span className="card__index num">Week {String(workshop.week).padStart(2, "0")} · {workshop.date}</span>
-                    <span className="tag tag--cyan" data-en="Workshop" suppressHydrationWarning>工作坊</span>
-                  </div>
-                  <h3 className="h3"><SplitTitle text={workshop.title} en={workshop.titleEn} /></h3>
+                <details className="card card--collapsible reveal reveal--rise" key={workshop.week}>
+                  <summary className="card__summary">
+                    <div className="card__top">
+                      <span className="card__index num">Week {String(workshop.week).padStart(2, "0")} · {workshop.date}</span>
+                      <span className="tag tag--cyan" data-en="Workshop" suppressHydrationWarning>工作坊</span>
+                    </div>
+                    <h3 className="h3"><SplitTitle text={workshop.title} en={workshop.titleEn} /></h3>
+                    <span className="card__more"><span data-en="Details" suppressHydrationWarning>展開內容</span><Icon name="chevron-down" /></span>
+                  </summary>
                   <p className="card__body"><b data-en="Goal｜" suppressHydrationWarning>核心目標｜</b><span data-en={workshop.goalEn} suppressHydrationWarning>{workshop.goal}</span></p>
                   <ul className="bullets-plain">
                     {workshop.modules.map(([name, body], i) => <li key={name}><b data-en={workshop.modulesEn[i][0]} suppressHydrationWarning>{name}</b>　<span data-en={workshop.modulesEn[i][1]} suppressHydrationWarning>{body}</span></li>)}
                   </ul>
-                </article>
+                </details>
               ))}
             </div>
           </div>
@@ -104,18 +110,21 @@ export function EventsPage() {
             </div>
             <div className="grid grid-3" data-stagger>
               {books.map((book) => (
-                <article className="card reveal reveal--rise" key={book.week}>
-                  <div className="card__top">
-                    <span className="card__index num">Week {String(book.week).padStart(2, "0")} · {book.date}</span>
-                    <span className="tag tag--warn" data-en="Reading" suppressHydrationWarning>讀書會</span>
-                  </div>
-                  <h3 className="h3 en">{book.title}</h3>
-                  <p className="dim en" style={{ fontSize: ".95rem" }}>{book.author}</p>
+                <details className="card card--collapsible reveal reveal--rise" key={book.week}>
+                  <summary className="card__summary">
+                    <div className="card__top">
+                      <span className="card__index num">Week {String(book.week).padStart(2, "0")} · {book.date}</span>
+                      <span className="tag tag--warn" data-en="Reading" suppressHydrationWarning>讀書會</span>
+                    </div>
+                    <h3 className="h3 en">{book.title}</h3>
+                    <p className="dim en" style={{ fontSize: ".95rem" }}>{book.author}</p>
+                    <span className="card__more"><span data-en="Details" suppressHydrationWarning>展開內容</span><Icon name="chevron-down" /></span>
+                  </summary>
                   <p className="card__body" data-en={book.synopsisEn} suppressHydrationWarning>{book.synopsis}</p>
                   <ul className="bullets-plain en">
                     {book.topics.map((topic) => <li key={topic}>{topic}</li>)}
                   </ul>
-                </article>
+                </details>
               ))}
             </div>
           </div>
