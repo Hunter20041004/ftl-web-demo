@@ -123,3 +123,4 @@
 環境備註：本機 `next dev` 若是在新增路由之前啟動的，會對新頁面回 404（這次 `/admin/articles/` 就是），後台 E2E 會卡在「找不到新增文章」；重開伺服器即可。視覺測試 4 工作程序同時打老舊的開發伺服器會出現動畫時序類的偶發失敗，`--workers=2` 穩定。
 
 驗證：`npm test` 35/35、視覺 81 通過 7 跳過、後台 E2E 16 通過 1 跳過（需 TEST 鑰匙的那條）。
+- 部署流程補強（同日）：回寫快照的 push 撞到兩個問題——建置期間有人推新 commit 會被拒（`14e95ce`）、建置會弄髒 `next-env.d.ts` 讓 rebase 拒跑（`1f7a871`）→ `git pull --rebase --autostash origin main` 再 push。正式站 https://hunter20041004.github.io/ftl-web-demo/ 已驗：關於頁有王○問、CSS 含 `#site-header{ z-index:2 }`、後台週報提示「最多 24 字」、手機視口選單 7 個項目都在最上層、console 無錯。
