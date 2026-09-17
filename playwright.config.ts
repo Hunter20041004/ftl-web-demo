@@ -31,7 +31,7 @@ export default defineConfig({
     // Safari 引擎（WebKit）：本機 macOS 14 跑不起 Playwright 1.63 的 WebKit，所以只在 CI（Linux）或 WEBKIT=1 時啟用。
     ...(process.env.CI || process.env.WEBKIT ? [
       { name: "webkit-desktop", testDir: "./tests/visual", use: { ...devices["Desktop Safari"], viewport: { width: 1280, height: 800 } } },
-      { name: "webkit-mobile", testDir: "./tests/visual", use: { ...devices["iPhone 13"] } },
+      { name: "webkit-mobile", testDir: "./tests/visual", use: { ...devices["iPhone 13"], deviceScaleFactor: 1 } },   // 3x 時整頁截圖會超過 32767px 上限
     ] : []),
   ],
 });
