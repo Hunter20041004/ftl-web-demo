@@ -37,8 +37,8 @@ export function AdminOverview() {
       <h1 className="text-2xl font-bold">總覽</h1>
       <div className="mt-5 glass p-5" data-testid="last-rebuild">
         <p className="text-xs font-semibold tracking-wide text-muted-foreground">最近一次正式站重建</p>
-        <p className="mt-1 font-medium">{rebuildText}{rebuild && "url" in rebuild && rebuild.url ? <> <a className="text-sm text-primary underline" href={rebuild.url} target="_blank" rel="noreferrer">紀錄</a></> : null}</p>
-        <p className="mt-1 text-sm text-muted-foreground">正式站：<a className="text-primary underline" href="https://hunter20041004.github.io/ftl-web-demo/" target="_blank" rel="noreferrer">hunter20041004.github.io/ftl-web-demo</a></p>
+        <p className="mt-1 font-medium">{rebuildText}{rebuild && "url" in rebuild && rebuild.url ? <> <a className="inline-flex min-h-10 items-center text-sm text-primary underline" href={rebuild.url} target="_blank" rel="noreferrer">紀錄</a></> : null}</p>
+        <p className="mt-1 text-sm text-muted-foreground">正式站：<a className="inline-flex min-h-10 items-center text-primary underline" href="https://hunter20041004.github.io/ftl-web-demo/" target="_blank" rel="noreferrer">hunter20041004.github.io/ftl-web-demo</a></p>
       </div>
       <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3">
         {CATEGORIES.map((c) => {

@@ -38,7 +38,7 @@ export function RebuildStatus({ trigger, onDone }: { trigger?: number; onDone?: 
   return (
     <div className={`rounded-xl px-4 py-3 text-sm ${error || status?.conclusion === "failure" ? "bg-red-50 text-red-700" : "bg-secondary text-primary"}`} role="status">
       <p>{message}</p>
-      {label ? <p className="mt-1">{label}{status?.url ? <> <a className="underline" href={status.url} target="_blank" rel="noreferrer">查看紀錄</a></> : null}</p> : null}
+      {label ? <p className="mt-1">{label}{status?.url ? <> <a className="inline-flex min-h-10 items-center underline" href={status.url} target="_blank" rel="noreferrer">查看紀錄</a></> : null}</p> : null}
       {error ? <p className="mt-1">{error}</p> : null}
     </div>
   );

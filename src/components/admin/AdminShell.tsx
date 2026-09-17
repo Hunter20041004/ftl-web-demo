@@ -75,13 +75,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <p className="text-xs font-semibold tracking-wide text-primary">NCCU FINTECH LAB</p>
             <p className="text-lg font-bold grad-text inline-block">後台</p>
           </div>
-          <a href={withBasePath("/")} className="text-xs text-muted-foreground hover:text-primary md:hidden">回官網</a>
+          <a href={withBasePath("/")} className="inline-flex min-h-10 items-center px-2 text-xs text-muted-foreground hover:text-primary md:hidden">回官網</a>
         </div>
         <nav className="flex gap-1 overflow-x-auto px-3 pb-3 md:flex-col md:pb-0">
           {NAV.map((item) => {
             const active = pathname.endsWith(item.href.replace(/^\//, "/")) || pathname === withBasePath(item.href);
             return (
-              <a key={item.href} href={withBasePath(item.href)} className={`whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors md:rounded-lg ${active ? "bg-secondary text-primary" : "text-foreground hover:bg-muted"}`}>
+              <a key={item.href} href={withBasePath(item.href)} className={`inline-flex min-h-10 items-center whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors md:rounded-lg ${active ? "bg-secondary text-primary" : "text-foreground hover:bg-muted"}`}>
                 {item.label}
               </a>
             );
@@ -95,7 +95,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       </aside>
       <main className="min-w-0 flex-1 px-4 py-6 md:px-8 md:py-8">
         {children}
-        <p className="mt-8 text-xs text-muted-foreground md:hidden">{session.user.email} · <button type="button" className="font-medium text-primary" onClick={() => void signOut()}>登出</button></p>
+        <p className="mt-8 text-xs text-muted-foreground md:hidden">{session.user.email} · <button type="button" className="inline-flex min-h-10 items-center px-2 font-medium text-primary" onClick={() => void signOut()}>登出</button></p>
       </main>
     </div>
   );

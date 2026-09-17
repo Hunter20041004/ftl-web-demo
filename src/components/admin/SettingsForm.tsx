@@ -105,7 +105,7 @@ export function SettingsForm() {
             <TextField id={`membership.timeline.${i}.en`} label="英文" value={t.en} onChange={(v) => setTimeline(i, { en: v })} error={errors[`membership.timeline.${i}.en`]} />
             <div className="flex items-end gap-2 pb-2">
               <CheckField id={`membership.timeline.${i}.done`} label="已結束" checked={t.done} onChange={(v) => setTimeline(i, { done: v })} />
-              <button type="button" className="text-xs text-destructive" onClick={() => setM({ timeline: M.timeline.filter((_, j) => j !== i) })}>刪</button>
+              <button type="button" className="inline-flex min-h-10 items-center px-2 text-xs text-destructive" onClick={() => setM({ timeline: M.timeline.filter((_, j) => j !== i) })}>刪除</button>
             </div>
           </div>
         ))}

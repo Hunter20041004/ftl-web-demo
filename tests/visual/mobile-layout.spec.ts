@@ -36,3 +36,17 @@ test.describe("mobile layout", () => {
     expect(wb).toBe("keep-all");
   });
 });
+
+// 手指點擊目標：主要內容與導覽列裡每個可點元素高度 ≥ 40px（頁尾的文字連結除外）。
+test("every tappable element in main content is at least 40px tall on phones", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width > 560, "只驗手機寬度");
+  for (const route of ["/", "/about/", "/events/", "/projects/", "/insights/", "/resources/", "/contact/"]) {
+    await page.goto(route);
+    await page.waitForLoadState("networkidle");
+    await page.evaluate(async () => { for (let y = 0; y <= document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); } });
+    const small = await page.$$eval("main a[href], main button, main summary, header a, header button", (els) => els
+      .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.height < 40 && !el.closest(".story, .article-body, .card__body, p, li"); })
+      .map((el) => `${el.tagName.toLowerCase()} "${(el.textContent || el.getAttribute("aria-label") || "").trim().slice(0, 20)}" ${Math.round(el.getBoundingClientRect().height)}px`));
+    expect(small, `${route} 有太小的點擊目標`).toEqual([]);
+  }
+});

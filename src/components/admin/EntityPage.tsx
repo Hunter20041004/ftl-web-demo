@@ -114,8 +114,8 @@ export function EntityPage<T extends object>(props: {
               <>
                 <span className="hidden cursor-grab text-muted-foreground md:inline" aria-hidden="true">⋮⋮</span>
                 <span className="flex flex-col md:hidden">
-                  <button type="button" className="px-1 text-xs text-muted-foreground" aria-label="往上" onClick={() => void move(row.id, i - 1)}>▲</button>
-                  <button type="button" className="px-1 text-xs text-muted-foreground" aria-label="往下" onClick={() => void move(row.id, i + 1)}>▼</button>
+                  <button type="button" className="flex h-10 w-10 items-center justify-center text-sm text-muted-foreground" aria-label="往上" onClick={() => void move(row.id, i - 1)}>▲</button>
+                  <button type="button" className="flex h-10 w-10 items-center justify-center text-sm text-muted-foreground" aria-label="往下" onClick={() => void move(row.id, i + 1)}>▼</button>
                 </span>
               </>
             ) : null}

@@ -14,7 +14,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 px-3",
+        sm: "h-10 px-3 md:h-9",   // 手機 40px 才好按，桌機維持 36px
         lg: "h-12 px-5 text-[15px]",
       },
     },

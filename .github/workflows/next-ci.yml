@@ -16,7 +16,7 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm test
       - run: NEXT_PUBLIC_BASE_PATH=/ftl-web-demo npm run build
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - name: Visual + admin E2E (admin uses the Supabase test project)
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
