@@ -146,3 +146,13 @@
 **內容問題（不在程式，請幹部在後台改）**：週報 Vol.03 的「本期一句話」開頭殘留「測試更改功能 」字樣，正式站看得到。
 
 **未測項目**：後台畫面的手機版面（幹部用桌機）；真機 iOS Safari（只用 Chromium 模擬手機）；資安第二階段（未觸發）。
+
+### 健檢第二輪（補齊「未測項目」與低優先修正）— 2026-09-17
+
+使用者要求：沒測的要測、對使用者有益的都要改。結果（`a57b647`、`b350062`）：
+- **手機點擊目標 ≥ 40px 變成契約**（`mobile-layout.spec` 第 4 條，掃七頁所有可點元素）：修了「所有…→」連結、資訊列網站／電話／Email、週報「來源」列、chip、`link-arrow`。
+- **後台手機版面**（`tests/admin/mobile.spec.ts`：十頁不橫向捲、可點 ≥ 40px、新增對話框放得下且發布鈕按得到）：修了導覽列、回官網、登出、▲▼排序、對話框 ✕（原本只有 16px）、`Button size=sm` 手機 40px、學期設定「刪」→「刪除」、重建紀錄連結。對話框本身在 375px 放得下、欄位能輸入。
+- **Safari 引擎（WebKit）**：本機 macOS 14 上 Playwright 1.63 的 WebKit 開頁就報 `Unknown setting: PushAPIEnabled`（版本不支援），改在 CI 跑：`playwright.config.ts` 在 `CI` 或 `WEBKIT=1` 時加 `webkit-desktop`／`webkit-mobile`（iPhone 13、1x，3x 會超過整頁截圖 32767px 上限）。CI 結果：視覺 144 通過（含 WebKit）。**真機 iOS Safari 仍未測**——需要實體 iPhone 或開 Safari「允許遠端自動化」（系統設定，由使用者決定）。
+- **資安第二階段重新探測**（測試專案 `bpadohdiuvbimvkwpecv`，合成資料，腳本 `security-probe.mjs` 在本輪 scratchpad）：先校準（管理員讀 admins 成功）再測 21 案例——匿名讀六表 0 列、匿名／非管理員寫 partners／admins／settings／Storage／觸發重建全被擋（401/403 或 RLS 0 列，settings 資料未變）、偽造 JWT 401、特殊字元原樣儲存。全過；探測資料已清除。靜態：本機正式建置輸出無私密鑰匙（唯一命中是 supabase-js 檢查前綴的程式碼）、git 歷史無鑰匙、`npm audit --omit=dev` 0 漏洞。
+- **正式內容修正**（使用者授權）：週報 Vol.03 `lede` 去掉開頭「測試更改功能 」；原文：「測試更改功能 這週兩家美國公司都在買…」，改後從「這週兩家…」開始；`b350062` 部署後正式站已無殘字。
+- 改善提案（未做，屬設計決策）：活動頁在手機約 12,000px 長（16 屏），可考慮講座／工作坊／讀書會的詳情卡預設收合。
