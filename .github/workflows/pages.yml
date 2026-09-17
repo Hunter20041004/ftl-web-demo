@@ -56,7 +56,7 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "內容快照更新 [skip ci]"
           # 建置期間可能有人推了別的 commit（2026-09-17 就撞過一次），先接上再推
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main   # 建置會弄髒 next-env.d.ts 等自動檔，autostash 先收起來
           git push
   deploy:
     needs: build
