@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SlideDeck } from "@/components/projects/SlideDeck";
 import { withBasePath } from "@/lib/site-data";
 import { projectDecks, type ProjectDeck } from "@/lib/content";
+import { ProjectsEmpty } from "@/components/projects/ProjectsEmpty";
 
 function Icon({ name }: { name: string }) {
   return (
@@ -48,6 +49,7 @@ export function ProjectsWall() {
 
   return (
     <>
+      {projectDecks.length === 0 ? <ProjectsEmpty /> : null}
       <div className="grid grid-3" data-stagger>
         {projectDecks.map((deck) => (
           <button type="button" className="card project-teaser reveal reveal--rise" data-project={deck.id} id={deck.id} key={deck.id} onClick={() => { history.replaceState(null, "", `#${deck.id}`); setOpen(deck); }}>

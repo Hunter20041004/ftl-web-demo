@@ -2,6 +2,7 @@ import { SitePageShell } from "@/components/layout/SitePageShell";
 import { WeekCalendar } from "@/components/home/WeekCalendar";
 import { LogoDraw } from "@/components/visual/LogoDraw";
 import { partners, projectDecks, weekly } from "@/lib/content";
+import { ProjectsEmpty } from "@/components/projects/ProjectsEmpty";
 import { withBasePath } from "@/lib/site-data";
 
 function Icon({ name, className = "icon" }: { name: string; className?: string }) {
@@ -114,6 +115,7 @@ export function HomePage() {
               <h2 className="h1" data-en="Projects" suppressHydrationWarning>專案</h2>
               <a className="link-arrow" href={withBasePath("/projects/")}><span data-en="All projects" suppressHydrationWarning>所有專案</span><Icon name="arrow-right" /></a>
             </div>
+            {projectDecks.length === 0 ? <ProjectsEmpty /> : null}
             <div className="grid grid-3" data-stagger>
               {projectDecks.slice(0, 3).map((deck) => (
                 <a className="card project-teaser reveal reveal--rise" href={withBasePath(`/projects/#${deck.id}`)} key={deck.id}>

@@ -458,6 +458,17 @@ a{ color:inherit }
 .pagehead{ position:relative; padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s5),3vw,var(--s6)) }
 .pagehead .h1{ max-width:26ch }
 .pagehead .lead{ max-width:58ch; margin-top:var(--s5) }
+/* 手機（2026-09-17 健檢）：頁標題不在詞中間斷行、資訊列標籤在上值在下、活動列的標題拿到整列寬度 */
+@media (max-width:560px){
+  .pagehead .h1{ font-size:1.9rem; word-break:keep-all; overflow-wrap:anywhere; text-wrap:balance }
+  .lang__btn{ height:40px }   /* 手指點擊目標 ≥ 40px */
+  .info{ flex-direction:column; align-items:stretch; gap:6px }
+  .info dt{ width:auto }
+  #event-list .row{ grid-template-columns:1fr auto; row-gap:8px }
+  #event-list .row__date{ grid-column:1; grid-row:1; flex-direction:row; align-items:baseline; gap:10px; min-width:0 }
+  #event-list .row__side{ grid-column:2; grid-row:1 }
+  #event-list .row__main{ grid-column:1 / -1; grid-row:2 }
+}
 .member{ align-items:flex-start }
 .member__ava{ width:100%; aspect-ratio:4/5; border-radius:var(--r-sm); display:grid; place-items:center; overflow:hidden; background:linear-gradient(160deg,#EAF2FD,#D4E5FA); color:var(--b-ink); font-family:var(--f-en); font-size:2rem; font-weight:300 }
 .member__role{ display:block; margin-bottom:var(--s3); font-family:var(--f-en); font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--b-ink) }
